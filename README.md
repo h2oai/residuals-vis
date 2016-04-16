@@ -1,2 +1,2 @@
 # visualizations
-Visualizations created at H2O
+A repository for visualizations created at H2O
