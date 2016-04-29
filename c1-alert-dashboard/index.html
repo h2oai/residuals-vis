@@ -726,7 +726,8 @@
                     //   //return priorityopa(d.priority) * 10 
                     // })
                      .on("mouseover", function(d) {     
-                        //console.log("mouseovered")               
+                        //console.log("mouseovered")
+                        div.style('pointer-events', 'none');              
                         div.style('display', 'block');
 
                         div.select('#status').text(d.status)
@@ -912,7 +913,8 @@
                         //combineBiggerCircles( overlappedData )
                     })
                     .on("mouseover", function(d) {     
-                        //console.log("mouseovered")               
+                        //console.log("mouseovered")
+                        multi_tooltip.style('pointer-events', 'none');               
                         multi_tooltip.style('display', 'block');
 
                         //console.log(d)
