@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import d3 from 'd3'
+import _ from 'underscore'
 import moment from 'moment'
 
 import { computeSLATime } from '../SLAutils.js'
 import { fetchAlerts, setSLATimeWindow, setNow } from '../actions/alertsActions'
-import { TimelineByStatus } from '../components/TimelineByStatus'
+import TimelineByStatus from '../components/TimelineByStatus'
+import AlertFilters from '../containers/AlertFilters'
 
 const WIDTH = 900
 const HEIGHT = 160
@@ -98,17 +100,22 @@ class AlertsTimeline extends Component {
 
   componentWillMount() {
     this.props.fetchAlerts()
-    this.tick()
+    // this.tick()
   }
 
   componentWillReceiveProps(nextProps) {
+    let priorityHash = {}
+    nextProps.priorityFilter.forEach((p) => {
+      priorityHash[p.key] = p.isVisible
+    })
+
     let groups = nextProps.statusFilter
       .filter((f) => {
         return f.isVisible
       })
       .map((filter) => {
         let alerts = nextProps.alerts.filter((alert) => {
-            return alert.status === filter.key
+            return alert.status === filter.key && priorityHash[alert.priority]
           })
           .map((alert) => {
             alert.slaTime = computeSLATime(alert, this.props.now)
@@ -122,7 +129,7 @@ class AlertsTimeline extends Component {
             return a.slaTime - b.slaTime
           })
 
-        let threshold = (nextProps.endTime - nextProps.startTime) / 40
+        let threshold = (nextProps.endTime - nextProps.startTime) / 80
 
         let clusteredAlerts = this.clusterAlerts(alerts, threshold)
 
@@ -135,7 +142,12 @@ class AlertsTimeline extends Component {
         }
       })
 
+    let priorityCounts = _.countBy(nextProps.alerts, (a) => {
+      return a.priority
+    })
+
     this.setState({
+      priorityCounts: priorityCounts,
       groups: groups
     })
   }
@@ -184,8 +196,8 @@ class AlertsTimeline extends Component {
     let slaBoundaryX = timeScale(0)
     let slaBoundary = (
       <g transform={'translate(' + slaBoundaryX + ',0)'}>
-        <line y1="0" y2={HEIGHT} stroke={slaColor} strokeWidth="1" />
-        <text x="10" y={HEIGHT - 30} fill={slaColor}>SLA</text>
+        <line y1="0" y2={HEIGHT - 20} stroke={slaColor} strokeWidth="1" />
+        <text textAnchor="middle" className="slaLabel" y={HEIGHT - 4} fill={slaColor}>SLA</text>
       </g>
     )
 
@@ -212,6 +224,7 @@ class AlertsTimeline extends Component {
 
       return (
         <g transform={transform} key={t}>
+          <line y1="-16" y2="-12" stroke="#333" />
           <text textAnchor="middle">{label}</text>
         </g>
       )
@@ -278,7 +291,8 @@ class AlertsTimeline extends Component {
     }
 
     return (
-      <div>
+      <div id="alerts-timeline">
+        <AlertFilters counts={this.state.priorityCounts} />
         <svg
           className="alerts-svg"
           ref="alertsSVG" 
@@ -288,9 +302,10 @@ class AlertsTimeline extends Component {
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}>
-          {slaBoundary}
           {timelines}
+          {slaBoundary}
           <g className="timeTicks" transform={'translate(0,' + (HEIGHT - 4) + ')'}>
+            <line x1="0" x2={WIDTH} y1="-16" y2="-16" stroke="#333" />
             {ticks}
           </g>
         </svg>
@@ -303,7 +318,8 @@ AlertsTimeline.PropTypes = {
   startTime: PropTypes.number.isRequired,
   endTime: PropTypes.number.isRequired,
   alerts: PropTypes.array.isRequired,
-  statusFilter: PropTypes.array.isRequired
+  statusFilter: PropTypes.array.isRequired,
+  priorityFilter: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -315,6 +331,7 @@ const mapStateToProps = (state) => {
     now: state.now,
     alerts: state.alerts,
     statusFilter: state.statusFilter,
+    priorityFilter: state.priorityFilter,
     startTime: state.timeWindow.start,
     endTime: state.timeWindow.end
   }

@@ -1,16 +1,58 @@
 <html>
   <head>
     <style>
+      #alerts-timeline {
+        font-family: Helvetica;
+      }
+
       .alerts-svg text {
         font-family: Helvetica;
       }
       .alerts-timeline line {
-        stroke: #999;
+        stroke: #ddd;
         stroke-width: 1;
       }
-      .timeTicks {
+      .alerts-status-label {
+        font-size: 11px;
+        fill: #aaa;
+      }
+
+      .timeTicks, .slaLabel {
         font-size: 11px;
       }
+
+      /* Filter */
+      .alerts-filter ul {
+        margin: 0;
+        padding: 0.5em 0.3em;
+        list-style: none;
+        background: #333;
+        color: #fff;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .alerts-filter li {
+        display: inline-block;
+        line-height: 1;
+        margin-right: 1.5em;
+        cursor: pointer;
+      }
+
+      .alerts-filter label {
+        cursor: pointer;
+        margin-left: 0.3em;
+      }
+
+      .alerts-color-patch {
+        height: 1em;
+        margin-left: 0.2em;
+        padding: 0.1em 0.4em;
+        border-radius: 0.6em;
+        display: inline-block;
+        color: #333;
+      }
+
     </style>
   </head>
   <body>

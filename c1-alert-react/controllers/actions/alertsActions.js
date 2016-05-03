@@ -1,6 +1,7 @@
 export const FETCH_ALERTS = 'FETCH_ALERTS'
 export const REQUEST_ALERTS = 'REQUEST_ALERTS'
 export const SET_ALERTS = 'SET_ALERTS'
+export const SET_PRIORITY_FILTER = 'SET_PRIORITY_FILTER'
 export const SET_STATUS_FILTER = 'SET_STATUS_FILTER'
 export const SET_SLA_TIME_WINDOW = 'SET_SLA_TIME_WINDOW'
 export const SET_NOW = 'SET_NOW'
@@ -67,6 +68,14 @@ export function setAlerts(alerts) {
 }
 
 export function setPriorityFilter(key, isVisible) {
+  return {
+    type: SET_PRIORITY_FILTER,
+    key,
+    isVisible
+  }
+}
+
+export function setStatusFilter(key, isVisible) {
   return {
     type: SET_STATUS_FILTER,
     key,
