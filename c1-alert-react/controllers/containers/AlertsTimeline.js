@@ -8,10 +8,10 @@ import { fetchAlerts, setSLATimeWindow, setNow } from '../actions/alertsActions'
 import { TimelineByStatus } from '../components/TimelineByStatus'
 
 const WIDTH = 900
-const HEIGHT = 200
+const HEIGHT = 160
 
 const priorityColor = d3.scale.ordinal()
-  .domain(["0", "1", "2", "3", "4"])
+  .domain(["1", "2", "3", "4", "5"])
   .range(["#F44336", "#FFAB40", "#FFD740", "#FFF59D", "#ddd"])
 
 class AlertsTimeline extends Component {
@@ -22,6 +22,77 @@ class AlertsTimeline extends Component {
 
     this.state = {
       groups: []
+    }
+  }
+
+  clusterAlerts(alerts, threshold) {
+    let lastOpener = null
+    let categorizedAlerts = alerts.map((a, i) => {
+      let type = 'isolated'
+      let opener = i
+
+      let closeToPrevious = false
+      let closeToNext = false
+
+      if (i !== 0) {
+        closeToPrevious = (Math.abs(alerts[i].slaTime - alerts[i - 1].slaTime) < threshold)
+      }
+
+      if (i < alerts.length - 1) {
+        closeToNext = (Math.abs(alerts[i].slaTime - alerts[i + 1].slaTime) < threshold) 
+      }
+
+      if (closeToPrevious && closeToNext) {
+        type = 'contained'
+        opener = lastOpener
+      } else {
+        if (closeToNext) {
+          type = 'opener'
+          opener = i
+          lastOpener = i
+        }
+
+        if (closeToPrevious) {
+          type = 'closer'
+          opener = lastOpener
+          lastOpener = null
+        }
+      }
+
+      return {
+        key: i,
+        type: type,
+        opener: opener
+      }
+    })
+
+    let isolatedAlerts = categorizedAlerts
+      .filter((ca) => {
+        return ca.type === 'isolated'
+      })
+      .map((ca) => {
+        return alerts[ca.key]
+      })
+
+    let clusteredAlerts = categorizedAlerts
+      .filter((ca) => {
+        return ca.type === 'closer'
+      })
+      .map((ca) => {
+        let values = alerts.slice(ca.opener, ca.key + 1)
+        let priority = d3.min(values, (a) => { return a.priority })
+        console.log(values, priority)
+
+        return {
+          values: values,
+          priority: priority,
+          slaTime: (alerts[ca.opener].slaTime + alerts[ca.key].slaTime) / 2
+        }
+      })
+
+    return {
+      individuals: isolatedAlerts,
+      clusters: clusteredAlerts
     }
   }
 
@@ -47,11 +118,20 @@ class AlertsTimeline extends Component {
           .filter((alert) => {
             return alert.slaTime > nextProps.startTime && alert.slaTime < nextProps.endTime
           })
+          .sort((a, b) => {
+            return a.slaTime - b.slaTime
+          })
+
+        let threshold = (nextProps.endTime - nextProps.startTime) / 40
+
+        let clusteredAlerts = this.clusterAlerts(alerts, threshold)
 
         return {
           label: filter.label,
           key: filter.key,
-          alerts: alerts
+          alerts: alerts,
+          individuals: clusteredAlerts.individuals,
+          clusters: clusteredAlerts.clusters
         }
       })
 
@@ -79,7 +159,7 @@ class AlertsTimeline extends Component {
 
     // 7) Update other stuff
 
-    this.props.setNow()
+    // this.props.setNow()
 
     window.requestAnimationFrame(this.tick)
   }

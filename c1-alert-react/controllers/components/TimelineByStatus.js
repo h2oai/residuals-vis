@@ -5,12 +5,12 @@ const INDIVIDUAL = {
 }
 
 const CLUSTER = {
-  radius: 8
+  radius: 12
 }
 
 export class TimelineByStatus extends Component {
   render() {
-    let circles = this.props.group.alerts.map((a) => {
+    let individuals = this.props.group.individuals.map((a) => {
       let cx = this.props.timeScale(a.slaTime)
 
       return (
@@ -20,11 +20,23 @@ export class TimelineByStatus extends Component {
       )
     })
 
+    let clusters = this.props.group.clusters.map((c, i) => {
+      let cx = this.props.timeScale(c.slaTime)
+
+      return (
+        <g transform={'translate(' + cx + ',0)'} key={i}>
+          <circle r={CLUSTER.radius} fill={this.props.priorityColor(c.priority)} />
+          <text y="4" textAnchor="middle" fill="#fff">{c.values.length}</text>
+        </g>
+      )
+    })
+
     return (
       <g className="alerts-timeline">
         <line x1={0} x2={this.props.width} />
         <text x={this.props.width - 10} y="-3" textAnchor="end">{this.props.group.label}</text>
-        {circles}
+        {individuals}
+        {clusters}
       </g>
     )
   }
