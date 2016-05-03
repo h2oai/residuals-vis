@@ -1,25 +1,30 @@
-import { SET_ALERTS, SET_PRIORITY_FILTER } from '../actions/alertsActions'
+import { SET_ALERTS, SET_PRIORITY_FILTER, SET_SLA_TIME_WINDOW, SET_NOW } from '../actions/alertsActions'
 import { combineReducers } from 'redux'
 
 let initialFilters = [
   {
-    key: 'CRITICAL',
+    label: 'CRITICAL',
+    key: 0,
     isVisible: true
   },
   {
-    key: 'HIGH',
+    label: 'HIGH',
+    key: 1,
     isVisible: true
   },
   {
-    key: 'MEDIUM',
+    label: 'MEDIUM',
+    key: 2,
     isVisible: true
   },
   {
-    key: 'LOW',
+    label: 'LOW',
+    key: 3,
     isVisible: true
   },
   {
-    key: 'INFO',
+    label: 'INFO',
+    key: 4,
     isVisible: true
   },
 ]
@@ -49,6 +54,36 @@ export function alertsReducer(state = initialAlerts, action) {
   switch (action.type) {
     case SET_ALERTS:
       return action.alerts
+
+    default:
+      return state
+  }
+}
+
+let initialTimeWindow = {
+  start: - 60 * 60 * 10,
+  end: 60 * 60 * 10
+}
+
+export function timeWindowReducer(state = initialTimeWindow, action) {
+  switch (action.type) {
+    case SET_SLA_TIME_WINDOW:
+      return {
+        start: action.start,
+        end: action.end
+      }
+
+    default:
+      return state
+  }
+}
+
+let initialNow = new Date()
+
+export function timeNowReducer(state = initialNow, action) {
+  switch (action.type) {
+    case SET_NOW:
+      return action.now
 
     default:
       return state
