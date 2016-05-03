@@ -1,37 +1,32 @@
-import { SET_ALERTS, SET_PRIORITY_FILTER, SET_SLA_TIME_WINDOW, SET_NOW } from '../actions/alertsActions'
+import { SET_ALERTS, SET_STATUS_FILTER, SET_SLA_TIME_WINDOW, SET_NOW } from '../actions/alertsActions'
 import { combineReducers } from 'redux'
 
 let initialFilters = [
   {
-    label: 'CRITICAL',
-    key: 0,
-    isVisible: true
-  },
-  {
-    label: 'HIGH',
+    label: 'Unassigned',
     key: 1,
     isVisible: true
   },
   {
-    label: 'MEDIUM',
+    label: 'Assigned',
     key: 2,
     isVisible: true
   },
   {
-    label: 'LOW',
+    label: 'In-progress',
     key: 3,
     isVisible: true
   },
   {
-    label: 'INFO',
+    label: 'Closed',
     key: 4,
-    isVisible: true
+    isVisible: false
   },
 ]
 
-export function priorityFilterReducer(state = initialFilters, action) {
+export function statusFilterReducer(state = initialFilters, action) {
   switch (action.type) {
-    case SET_PRIORITY_FILTER:
+    case SET_STATUS_FILTER:
       return state.map((f) => {
         if (f.key === action.key) {
           return {

@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import { computeSLATime } from '../SLAutils.js'
 import { fetchAlerts, setSLATimeWindow, setNow } from '../actions/alertsActions'
-import { TimelineByPriority } from '../components/TimelineByPriority'
+import { TimelineByStatus } from '../components/TimelineByStatus'
 
 const WIDTH = 900
 const HEIGHT = 200
@@ -31,13 +31,13 @@ class AlertsTimeline extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let groups = nextProps.priorityFilter
+    let groups = nextProps.statusFilter
       .filter((f) => {
         return f.isVisible
       })
       .map((filter) => {
         let alerts = nextProps.alerts.filter((alert) => {
-            return alert.priority === filter.key
+            return alert.status === filter.key
           })
           .map((alert) => {
             alert.slaTime = computeSLATime(alert, this.props.now)
@@ -95,7 +95,7 @@ class AlertsTimeline extends Component {
 
       return (
         <g transform={'translate(0,' + y + ')'} key={g.label}>
-          <TimelineByPriority group={g} timeScale={timeScale} y={y} width={WIDTH} priorityColor={priorityColor} />
+          <TimelineByStatus group={g} timeScale={timeScale} y={y} width={WIDTH} priorityColor={priorityColor} />
         </g>
       )
     })
@@ -223,7 +223,7 @@ AlertsTimeline.PropTypes = {
   startTime: PropTypes.number.isRequired,
   endTime: PropTypes.number.isRequired,
   alerts: PropTypes.array.isRequired,
-  priorityFilter: PropTypes.array.isRequired
+  statusFilter: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -234,7 +234,7 @@ const mapStateToProps = (state) => {
 
     now: state.now,
     alerts: state.alerts,
-    priorityFilter: state.priorityFilter,
+    statusFilter: state.statusFilter,
     startTime: state.timeWindow.start,
     endTime: state.timeWindow.end
   }

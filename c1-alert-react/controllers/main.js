@@ -5,13 +5,13 @@ import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux'
 
 import AlertsTimeline from './containers/AlertsTimeline'
-import { alertsReducer, priorityFilterReducer, timeWindowReducer, timeNowReducer } from './reducers/alertsReducer'
-import { setAlerts, setPriorityFilter } from './actions/alertsActions'
+import { alertsReducer, statusFilterReducer, timeWindowReducer, timeNowReducer } from './reducers/alertsReducer'
+import { setAlerts, setStatusFilter } from './actions/alertsActions'
 
 const store = createStore(
   combineReducers({
     alerts: alertsReducer,
-    priorityFilter: priorityFilterReducer,
+    statusFilter: statusFilterReducer,
     timeWindow: timeWindowReducer,
     now: timeNowReducer
   }),

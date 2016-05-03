@@ -8,7 +8,7 @@ const CLUSTER = {
   radius: 8
 }
 
-export class TimelineByPriority extends Component {
+export class TimelineByStatus extends Component {
   render() {
     let circles = this.props.group.alerts.map((a) => {
       let cx = this.props.timeScale(a.slaTime)
