@@ -222,21 +222,26 @@ d3.csv(fileName, function(data) {
         .enter().append('circle')
           .classed('dot', true)
           .classed('detailDot', true)
-          .attr('r', function (d) { 
-            return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI); 
-          })
+          // .attr('r', function (d) { 
+          //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI); 
+          // })
+          .attr('r', 2)
           .attr('transform', translateToAggregate)
-          .style('fill', 'none')
+          .style('fill', 'darkgray')
+          .style('fill-opacity', 0)
           .style('stroke-opacity', 0)
-          .style('stroke', function (d) { return color(d[colorCat]); })
-          .style('stroke-width', function (d) { 
-            return 3 * Math.sqrt(d[rCat] / Math.PI); 
-          })
+          //.style('stroke', function (d) { return color(d[colorCat]); })
+          .style('stroke', 'orange')
+          // .style('stroke-width', function (d) { 
+          //   return 3 * Math.sqrt(d[rCat] / Math.PI); 
+          // })
+          .style('stroke-width', 1)
           
         detailDots.transition()
             .duration(2000)
             .attr('transform', transform)
-            .style('stroke-opacity', 1);
+            .style('fill-opacity', 0.2)
+            //.style('stroke-opacity', 0.8);
          
         d3.selectAll('.detailDot') 
           .on('mouseover', tip.show)
