@@ -86,7 +86,6 @@ class AlertsTimeline extends Component {
       .map((ca) => {
         let values = alerts.slice(ca.opener, ca.key + 1)
         let priority = d3.min(values, (a) => { return a.priority })
-        console.log(values, priority)
 
         return {
           values: values,

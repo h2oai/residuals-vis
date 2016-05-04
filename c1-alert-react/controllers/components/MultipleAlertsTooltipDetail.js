@@ -9,7 +9,7 @@ class MultipleAlertsTooltipDetail extends Component {
     })
     .map((a) => {
       return (
-        <tr>
+        <tr key={a.alertId}>
           <th>{PRIORITIES_MAP[a.priority].label}</th>
           <td>{a.alertName}</td>
         </tr>
