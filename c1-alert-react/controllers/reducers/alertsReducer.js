@@ -1,5 +1,8 @@
+import _ from 'underscore'
+
 import { SET_ALERTS, SET_STATUS_FILTER, SET_PRIORITY_FILTER, SET_SLA_TIME_WINDOW, SET_NOW } from '../actions/alertsActions'
 import { combineReducers } from 'redux'
+import { PRIORITIES_MAP } from '../constants'
 
 let initialFilters = [
   {
@@ -43,38 +46,12 @@ export function statusFilterReducer(state = initialFilters, action) {
   }
 }
 
-let initialPriorities = [
-  {
-    color: '#F44336',
-    label: 'Critical',
-    key: 1,
+let initialPriorities = _.keys(PRIORITIES_MAP).map((key, i) => {
+  return Object.assign({}, PRIORITIES_MAP[key], {
+    key: key,
     isVisible: true
-  },
-  {
-    color: '#FFAB40',
-    label: 'High',
-    key: 2,
-    isVisible: true
-  },
-  {
-    color: '#FFD740',
-    label: 'Medium',
-    key: 3,
-    isVisible: true
-  },
-  {
-    color: '#FFF59D',
-    label: 'Low',
-    key: 4,
-    isVisible: true
-  },
-  {
-    color: '#DDDDDD',
-    label: 'Info',
-    key: 5,
-    isVisible: true
-  }
-]
+  })
+})
 
 export function priorityFilterReducer(state = initialPriorities, action) {
   switch (action.type) {

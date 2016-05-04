@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import SingleAlertTooltipDetail from './SingleAlertTooltipDetail'
+import MultipleAlertsTooltipDetail from './MultipleAlertsTooltipDetail'
 
 const INDIVIDUAL = {
   radius: 5
@@ -13,7 +15,8 @@ class TimelineByStatus extends Component {
     let individuals = this.props.group.individuals.map((a) => {
       let cx = this.props.timeScale(a.slaTime)
       let onMouseOver = () => {
-        this.props.setTooltip(cx, this.props.y + INDIVIDUAL.radius + 1, 'individual')
+        let content = <SingleAlertTooltipDetail alert={a} />
+        this.props.setTooltip(cx, this.props.y + INDIVIDUAL.radius + 1, content)
       }
 
       let onMouseOut = () => {
@@ -34,7 +37,8 @@ class TimelineByStatus extends Component {
     let clusters = this.props.group.clusters.map((c, i) => {
       let cx = this.props.timeScale(c.slaTime)
       let onMouseOver = () => {
-        this.props.setTooltip(cx, this.props.y + CLUSTER.radius + 1, 'group')
+        let content = <MultipleAlertsTooltipDetail cluster={c} />
+        this.props.setTooltip(cx, this.props.y + CLUSTER.radius + 1, content)
       }
 
       let onMouseOut = () => {
