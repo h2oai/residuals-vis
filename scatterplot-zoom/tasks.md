@@ -13,3 +13,7 @@ DONE 05 + transition detail points from parent aggreate point position
   near their destination point
 + add third zoom level with different marks symbol
 + add fourth zoom level with different marks symbol
++ fix bug where exemplarMember points jump on pan (dragStart)
++ handle simulateneous pan and zoom. 
+  ensure that examplarMember points still emanate from 
+  the position of the exemplar point
