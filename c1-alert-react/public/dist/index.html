@@ -21,6 +21,35 @@
         font-size: 11px;
       }
 
+      /* Tooltip */
+      #alerts-tooltip-anchor {
+        position: relative;
+      }
+
+      .alerts-tooltip-wrapper {
+        position: absolute;
+      }
+
+      .alerts-tooltip-wrapper:before {
+        content: '';
+        position: absolute;
+        transform: translate(-50%, 0);
+        border-bottom: 8px solid rgba(0,0,0,0.8);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent; 
+      }
+
+      .alerts-tooltip {
+        transform: translate(-50%, 8px);
+        background: rgba(0,0,0,0.8);
+        color: #eee;
+        padding: 10px;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+
+
       /* Filter */
       .alerts-filter ul {
         margin: 0;

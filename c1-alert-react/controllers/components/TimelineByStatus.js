@@ -12,21 +12,46 @@ class TimelineByStatus extends Component {
   render() {
     let individuals = this.props.group.individuals.map((a) => {
       let cx = this.props.timeScale(a.slaTime)
+      let onMouseOver = () => {
+        this.props.setTooltip(cx, this.props.y + INDIVIDUAL.radius + 1, 'individual')
+      }
 
+      let onMouseOut = () => {
+        this.props.clearTooltip()
+      }
+ 
       return (
         <g transform={'translate(' + cx + ',0)'} key={a.alertId}>
-          <circle r={INDIVIDUAL.radius} fill={this.props.priorityColor(a.priority)} />
+          <circle 
+            r={INDIVIDUAL.radius} 
+            fill={this.props.priorityColor(a.priority)} 
+            onMouseOver={onMouseOver} 
+            onMouseOut={onMouseOut} />
         </g>
       )
     })
 
     let clusters = this.props.group.clusters.map((c, i) => {
       let cx = this.props.timeScale(c.slaTime)
+      let onMouseOver = () => {
+        this.props.setTooltip(cx, this.props.y + CLUSTER.radius + 1, 'group')
+      }
+
+      let onMouseOut = () => {
+        this.props.clearTooltip()
+      }
 
       return (
         <g transform={'translate(' + cx + ',0)'} key={i}>
-          <circle r={CLUSTER.radius} fill={this.props.priorityColor(c.priority)} />
+          <circle 
+            r={CLUSTER.radius} 
+            fill={this.props.priorityColor(c.priority)} />
           <text y="4" fontSize="13" textAnchor="middle" fill="#fff">{c.values.length}</text>
+          <circle 
+            r={CLUSTER.radius} 
+            fill="transparent"
+            onMouseOver={onMouseOver} 
+            onMouseOut={onMouseOut} />
         </g>
       )
     })

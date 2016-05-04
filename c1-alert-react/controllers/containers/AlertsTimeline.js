@@ -7,6 +7,7 @@ import moment from 'moment'
 import { computeSLATime } from '../SLAutils.js'
 import { fetchAlerts, setSLATimeWindow, setNow } from '../actions/alertsActions'
 import TimelineByStatus from '../components/TimelineByStatus'
+import AlertTooltipWrapper from '../components/AlertTooltipWrapper'
 import AlertFilters from '../containers/AlertFilters'
 
 const WIDTH = 900
@@ -21,6 +22,8 @@ class AlertsTimeline extends Component {
     super()
 
     this.tick = this.tick.bind(this)
+    this.setTooltip = this.setTooltip.bind(this)
+    this.clearTooltip = this.clearTooltip.bind(this)
 
     this.state = {
       groups: []
@@ -96,6 +99,22 @@ class AlertsTimeline extends Component {
       individuals: isolatedAlerts,
       clusters: clusteredAlerts
     }
+  }
+
+  setTooltip(x, y, component) {
+    this.setState({
+      tooltipX: x,
+      tooltipY: y,
+      tooltipContent: component
+    })
+  }
+
+  clearTooltip() {
+    this.setState({
+      tooltipX: null,
+      tooltipY: null,
+      tooltipContent: null
+    })
   }
 
   componentWillMount() {
@@ -187,7 +206,14 @@ class AlertsTimeline extends Component {
 
       return (
         <g transform={'translate(0,' + y + ')'} key={g.label}>
-          <TimelineByStatus group={g} timeScale={timeScale} y={y} width={WIDTH} priorityColor={priorityColor} />
+          <TimelineByStatus 
+            setTooltip={this.setTooltip}
+            clearTooltip={this.clearTooltip}
+            group={g} 
+            timeScale={timeScale} 
+            y={y} 
+            width={WIDTH} 
+            priorityColor={priorityColor} />
         </g>
       )
     })
@@ -290,25 +316,38 @@ class AlertsTimeline extends Component {
       })
     }
 
+    // Tooltip
+    let tooltip = null
+    if (this.state.tooltipContent) {
+      tooltip = (
+        <AlertTooltipWrapper x={this.state.tooltipX} y={this.state.tooltipY}>
+          {this.state.tooltipContent}
+        </AlertTooltipWrapper>
+      )
+    }
+
     return (
       <div id="alerts-timeline">
         <AlertFilters counts={this.state.priorityCounts} />
-        <svg
-          className="alerts-svg"
-          ref="alertsSVG" 
-          width={WIDTH} 
-          height={HEIGHT} 
-          onWheel={onWheel}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}>
-          {timelines}
-          {slaBoundary}
-          <g className="timeTicks" transform={'translate(0,' + (HEIGHT - 4) + ')'}>
-            <line x1="0" x2={WIDTH} y1="-16" y2="-16" stroke="#333" />
-            {ticks}
-          </g>
-        </svg>
+        <div id="alerts-tooltip-anchor">
+          <svg
+            className="alerts-svg"
+            ref="alertsSVG" 
+            width={WIDTH} 
+            height={HEIGHT} 
+            onWheel={onWheel}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}>
+            {timelines}
+            {slaBoundary}
+            <g className="timeTicks" transform={'translate(0,' + (HEIGHT - 4) + ')'}>
+              <line x1="0" x2={WIDTH} y1="-16" y2="-16" stroke="#333" />
+              {ticks}
+            </g>
+          </svg>
+          {tooltip}
+        </div>
       </div>
     )
   }
