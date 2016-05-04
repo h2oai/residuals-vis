@@ -76,7 +76,10 @@ let initialAlerts = []
 export function alertsReducer(state = initialAlerts, action) {
   switch (action.type) {
     case SET_ALERTS:
-      return action.alerts
+      return {
+        alerts: action.alerts,
+        timestamp: new Date()
+      }
 
     default:
       return state

@@ -13,8 +13,10 @@ import AlertTooltipWrapper from '../components/AlertTooltipWrapper'
 import AlertZoomControls from '../components/AlertZoomControls'
 import AlertFilters from '../containers/AlertFilters'
 
-const WIDTH = 900
+const WIDTH = 900 // Default Width
 const HEIGHT = 160
+
+const REFRESH_RATE = 15 * 1000 // Every 15 seconds
 
 class AlertsTimeline extends Component {
   constructor() {
@@ -232,6 +234,10 @@ class AlertsTimeline extends Component {
     if (this.state.zoomingIn) { this.zoomIn() }
     if (this.state.zoomingOut) { this.zoomOut() }
 
+    if (new Date() - this.props.timestamp > REFRESH_RATE) {
+      this.props.fetchAlerts()
+    }
+
     window.requestAnimationFrame(this.tick)
   }
 
@@ -445,7 +451,8 @@ const mapStateToProps = (state) => {
     setNow: setNow,
 
     now: state.now,
-    alerts: state.alerts,
+    alerts: state.alerts.alerts,
+    timestamp: state.alerts.timestamp,
     statusFilter: state.statusFilter,
     priorityFilter: state.priorityFilter,
     startTime: state.timeWindow.start,
