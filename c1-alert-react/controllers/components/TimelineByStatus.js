@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import SingleAlertTooltipDetail from './SingleAlertTooltipDetail'
 import MultipleAlertsTooltipDetail from './MultipleAlertsTooltipDetail'
+import { PRIORITIES_MAP } from '../constants'
 
 const INDIVIDUAL = {
   radius: 5
@@ -27,7 +28,7 @@ class TimelineByStatus extends Component {
         <g transform={'translate(' + cx + ',0)'} key={a.alertId}>
           <circle 
             r={INDIVIDUAL.radius} 
-            fill={this.props.priorityColor(a.priority)} 
+            fill={PRIORITIES_MAP[a.priority].color} 
             onMouseOver={onMouseOver} 
             onMouseOut={onMouseOut} />
         </g>
@@ -49,7 +50,7 @@ class TimelineByStatus extends Component {
         <g transform={'translate(' + cx + ',0)'} key={i}>
           <circle 
             r={CLUSTER.radius} 
-            fill={this.props.priorityColor(c.priority)} />
+            fill={PRIORITIES_MAP[c.priority].color} />
           <text y="4" fontSize="13" textAnchor="middle" fill="#fff">{c.values.length}</text>
           <circle 
             r={CLUSTER.radius} 

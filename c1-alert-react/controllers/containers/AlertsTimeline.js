@@ -4,18 +4,17 @@ import d3 from 'd3'
 import _ from 'underscore'
 import moment from 'moment'
 
-import { computeSLATime } from '../SLAutils.js'
+import { computeSLATime } from '../SLAutils'
 import { fetchAlerts, setSLATimeWindow, setNow } from '../actions/alertsActions'
+import { SLA_TIMEWINDOW } from '../constants'
+
 import TimelineByStatus from '../components/TimelineByStatus'
 import AlertTooltipWrapper from '../components/AlertTooltipWrapper'
+import AlertZoomControls from '../components/AlertZoomControls'
 import AlertFilters from '../containers/AlertFilters'
 
 const WIDTH = 900
 const HEIGHT = 160
-
-const priorityColor = d3.scale.ordinal()
-  .domain(["1", "2", "3", "4", "5"])
-  .range(["#F44336", "#FFAB40", "#FFD740", "#FFF59D", "#ddd"])
 
 class AlertsTimeline extends Component {
   constructor() {
@@ -25,8 +24,12 @@ class AlertsTimeline extends Component {
     this.setTooltip = this.setTooltip.bind(this)
     this.clearTooltip = this.clearTooltip.bind(this)
 
+    this.zoomIn = this.zoomIn.bind(this)
+    this.zoomOut = this.zoomOut.bind(this)
+
     this.state = {
-      groups: []
+      groups: [],
+      width: WIDTH
     }
   }
 
@@ -116,12 +119,66 @@ class AlertsTimeline extends Component {
     })
   }
 
+  zoomIn() {
+    let middle = (this.props.startTime + this.props.endTime) / 2
+    let length = (this.props.endTime - this.props.startTime) * 0.97
+
+    let newStart = middle - length / 2
+    let newEnd = middle + length / 2
+
+    this.props.setSLATimeWindow(newStart, newEnd)
+  }
+
+  zoomOut() {
+    let middle = (this.props.startTime + this.props.endTime) / 2
+    let length = (this.props.endTime - this.props.startTime) * 1.02
+
+    let newStart = middle - length / 2
+    let newEnd = middle + length / 2
+
+    this.props.setSLATimeWindow(newStart, newEnd)
+  }
+
+  setSVGWidth() {
+    let box = this.refs.alertsSVGContainer.getBoundingClientRect()
+
+    this.setState({
+      width: Math.floor(box.width)
+    })
+  }
+
   componentWillMount() {
     this.props.fetchAlerts()
-    // this.tick()
+    this.tick()
+  }
+
+  componentDidMount() {
+    this.setSVGWidth()
+
+    window.onresize = () => {
+      this.setSVGWidth()
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    // 1) Filter by visible priorities group and is open
+
+    // 2) Compute Time to/since SLA
+
+    // 3) Filter by visibility in zoom area bounds
+    // -  i.e. filter where x(d.SLAdiff) > 0 and < width
+
+    // 4) Group by status
+
+    // 5) Apply agglomerative clustering to each status group
+    //    based on x position, with threshold based on zoom
+
+    // 6) Enter/Update "groups"
+    // -  larger dots for real groups
+    // -  smaller dots for "groups of one"
+
+    // 7) Update other stuff
+
     let priorityHash = {}
     nextProps.priorityFilter.forEach((p) => {
       priorityHash[p.key] = p.isVisible
@@ -171,25 +228,9 @@ class AlertsTimeline extends Component {
   }
 
   tick() {
-    // 1) Filter by visible priorities group and is open
-
-    // 2) Compute Time to/since SLA
-
-    // 3) Filter by visibility in zoom area bounds
-    // -  i.e. filter where x(d.SLAdiff) > 0 and < width
-
-    // 4) Group by status
-
-    // 5) Apply agglomerative clustering to each status group
-    //    based on x position, with threshold based on zoom
-
-    // 6) Enter/Update "groups"
-    // -  larger dots for real groups
-    // -  smaller dots for "groups of one"
-
-    // 7) Update other stuff
-
-    // this.props.setNow()
+    this.props.setNow()
+    if (this.state.zoomingIn) { this.zoomIn() }
+    if (this.state.zoomingOut) { this.zoomOut() }
 
     window.requestAnimationFrame(this.tick)
   }
@@ -197,7 +238,7 @@ class AlertsTimeline extends Component {
   render() {
     let timeScale = d3.scale.linear()
       .domain([this.props.startTime, this.props.endTime])
-      .range([0, WIDTH])
+      .range([0, this.state.width])
 
     // Timelines
     let timelines = this.state.groups.map((g, i) => {
@@ -211,8 +252,7 @@ class AlertsTimeline extends Component {
             group={g} 
             timeScale={timeScale} 
             y={y} 
-            width={WIDTH} 
-            priorityColor={priorityColor} />
+            width={this.state.width} />
         </g>
       )
     })
@@ -227,7 +267,7 @@ class AlertsTimeline extends Component {
     )
 
     // Axis
-    let ticks = timeScale.ticks(Math.round(WIDTH / 80)).map((t) => {
+    let ticks = timeScale.ticks(Math.round(this.state.width / 80)).map((t) => {
       let transform = 'translate(' + timeScale(t) + ',0)'
       let label = function(seconds) {
         let string = ''
@@ -256,10 +296,45 @@ class AlertsTimeline extends Component {
     })
 
     // Interactions
+    let onZoomIn = {
+      mouseDown: (e) => {
+        this.setState({
+          zoomingIn: true
+        })
+      },
+      mouseUp: (e) => {
+        this.setState({
+          zoomingIn: false
+        })
+      }
+    }
+
+    let onZoomOut = {
+      mouseDown: (e) => {
+        this.setState({
+          zoomingOut: true
+        })
+      },
+      mouseUp: (e) => {
+        this.setState({
+          zoomingOut: false
+        })
+      }
+    }
+
+    let zoomMouseOut = (e) => {
+      this.setState({
+        zoomingIn: false,
+        zoomingOut: false
+      })
+    }
+
+    let onResetClick = (e) => {
+      this.props.setSLATimeWindow(SLA_TIMEWINDOW.startTime, SLA_TIMEWINDOW.endTime)
+    }
+
     let onWheel = (e) => {
       e.preventDefault()
-
-      //console.log(e.deltaY, e.clientX)
 
       // Mouse Position
       let box = this.refs.alertsSVG.getBoundingClientRect()
@@ -271,8 +346,8 @@ class AlertsTimeline extends Component {
 
       // New Time
       let newTimeFrame = Math.pow(timeFrame, 1 + e.deltaY / 1000)
-      let newBeforeMouse = (mouseX / WIDTH) * newTimeFrame
-      let newAfterMouse = (1 - mouseX / WIDTH) * newTimeFrame
+      let newBeforeMouse = (mouseX / this.state.width) * newTimeFrame
+      let newAfterMouse = (1 - mouseX / this.state.width) * newTimeFrame
 
       let newStart = timeUnderMouse - newBeforeMouse
       let newEnd = timeUnderMouse + newAfterMouse
@@ -297,7 +372,7 @@ class AlertsTimeline extends Component {
         let mouseX = e.clientX - box.left
         let mouseXDelta = mouseX - this.state.dragStartX
 
-        let secondsPerPixel = this.state.dragStartDuration / WIDTH
+        let secondsPerPixel = this.state.dragStartDuration / this.state.width
         let secondsDelta = secondsPerPixel * -mouseXDelta
 
         let newStart = this.state.dragStartTime + secondsDelta
@@ -327,12 +402,15 @@ class AlertsTimeline extends Component {
 
     return (
       <div id="alerts-timeline">
-        <AlertFilters counts={this.state.priorityCounts} />
-        <div id="alerts-tooltip-anchor">
+        <div id="alerts-controls">
+          <AlertFilters counts={this.state.priorityCounts} />
+          <AlertZoomControls onZoomIn={onZoomIn} onZoomOut={onZoomOut} onResetClick={onResetClick} />
+        </div>
+        <div id="alerts-tooltip-anchor" ref="alertsSVGContainer">
           <svg
             className="alerts-svg"
             ref="alertsSVG" 
-            width={WIDTH} 
+            width={this.state.width} 
             height={HEIGHT} 
             onWheel={onWheel}
             onMouseDown={onMouseDown}
@@ -341,7 +419,7 @@ class AlertsTimeline extends Component {
             {timelines}
             {slaBoundary}
             <g className="timeTicks" transform={'translate(0,' + (HEIGHT - 4) + ')'}>
-              <line x1="0" x2={WIDTH} y1="-16" y2="-16" stroke="#333" />
+              <line x1="0" x2={this.state.width} y1="-16" y2="-16" stroke="#333" />
               {ticks}
             </g>
           </svg>

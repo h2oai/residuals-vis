@@ -8,7 +8,17 @@ export const SET_NOW = 'SET_NOW'
 
 export function fetchAlerts() {
   return function (dispatch) {
-    // Async stuff should go here?
+    fetch('http://localhost:8080/api/alerts', {
+      mode: 'no-cors'
+    }).then(function(response) { 
+      // Convert to JSON
+      return response.json();
+    }).then(function(json) {
+      dispatch(setAlerts(json))
+    }).catch(function(err) { 
+      console.log(err); 
+    });
+
     dispatch(setAlerts([
       {"alertId":"70nv1nljg0b7q6foskhnc20v3r","alertName":"Email Alert from 228.26.225.146","owner":"aks993","priority":2,"status":4,"comments":"This Alert has comments","updatedUserId":"sld088","updatedTimestamp":"2016-05-01 17:18:59.429"},
       {"alertId":"mc695ifq5gg7ea8jegi7jrvc0c","alertName":"Bluecoat Alert from 42.159.157.99","owner":"ldj892","priority":3,"status":4,"comments":"This Alert has comments","updatedUserId":"abc123","updatedTimestamp":"2016-05-02 16:39:09.496"},

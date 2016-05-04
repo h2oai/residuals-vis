@@ -2,7 +2,7 @@ import _ from 'underscore'
 
 import { SET_ALERTS, SET_STATUS_FILTER, SET_PRIORITY_FILTER, SET_SLA_TIME_WINDOW, SET_NOW } from '../actions/alertsActions'
 import { combineReducers } from 'redux'
-import { PRIORITIES_MAP } from '../constants'
+import { PRIORITIES_MAP, SLA_TIMEWINDOW } from '../constants'
 
 let initialFilters = [
   {
@@ -84,8 +84,8 @@ export function alertsReducer(state = initialAlerts, action) {
 }
 
 let initialTimeWindow = {
-  start: - 60 * 60 * 10,
-  end: 60 * 60 * 10
+  start: SLA_TIMEWINDOW.startTime,
+  end: SLA_TIMEWINDOW.endTime
 }
 
 export function timeWindowReducer(state = initialTimeWindow, action) {

@@ -20,3 +20,8 @@ export const PRIORITIES_MAP = {
     color: "#DDDDDD"
   }
 }
+
+export const SLA_TIMEWINDOW = {
+  startTime: 60 * 60 * -2,
+  endTime: 60 * 60 * 18
+}
