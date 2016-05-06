@@ -1,9 +1,9 @@
 This iteration 
 
-+ uses data from the cover type data set aggregated with h2o's aggregator model
-+ adds a working single API call to retrieve member points for an exemplar 
-+ detail points now transition to the correct position.
-
++ coverts scatter.js to ES2015
++ changes the transition to fade in detail points in place instead of
+  shooting them out of the exemplar point
+  
 ---
 Original README.md
 ---
