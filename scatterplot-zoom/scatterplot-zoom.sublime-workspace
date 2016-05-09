@@ -1,0 +1,701 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"translateFrom",
+				"translateFromAggregateToDetail"
+			],
+			[
+				"langua",
+				"language2"
+			],
+			[
+				"current",
+				"currentVoice"
+			],
+			[
+				"sele",
+				"selectedValue"
+			],
+			[
+				"cir",
+				"circadianBinX"
+			],
+			[
+				"draw",
+				"drawCircadianG"
+			],
+			[
+				"bottom",
+				"bottomRowHour"
+			],
+			[
+				"stepper",
+				"stepperFunctions"
+			],
+			[
+				"va",
+				"variablesData"
+			],
+			[
+				"feat",
+				"featuresLayer"
+			],
+			[
+				"clusters",
+				"clustersData"
+			],
+			[
+				"sampleDom",
+				"sampleDomainSlide"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "09/zoom0.csv",
+			"settings":
+			{
+				"buffer_size": 1391080,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "ideas.md\n\ncompare with:\ntSNE\nPCA\nmulti-dimensional scaling\n\n\ndatasets --> [smallData folder](https://github.com/h2oai/h2o-2/tree/master/smalldata)\n[airlines](https://github.com/h2oai/h2o-2/tree/master/smalldata/airlines)\niris\ntitanic\nprostate_cancer\nhigh-categorials --> multiFamilyRentals\n[categoricals](https://github.com/h2oai/h2o-2/tree/master/smalldata/categoricals)\n\n",
+			"file": "ideas.md",
+			"file_size": 225,
+			"file_write_time": 131070292830000000,
+			"settings":
+			{
+				"buffer_size": 373,
+				"line_ending": "Unix",
+				"name": "ideas.md"
+			}
+		},
+		{
+			"contents": "ssh ops@mr-0xc8",
+			"settings":
+			{
+				"buffer_size": 15,
+				"line_ending": "Unix",
+				"name": "ssh ops@mr-0xc8"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 187.0,
+		"last_filter": "instal",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/m/workspace/visualizations/scatterplot-zoom",
+		"/Users/m/workspace/visualizations/scatterplot-zoom/09"
+	],
+	"file_history":
+	[
+		"/Users/m/workspace/visualizations/scatterplot-zoom/09/scatter.js",
+		"/Users/m/workspace/visualizations/scatterplot-zoom/09/index.html",
+		"/Users/m/workspace/visualizations/scatterplot-zoom/09/README.md",
+		"/Users/m/workspace/visualizations/scatterplot-zoom/08/README.md",
+		"/Users/m/workspace/chatty-maps/robinson/02/de.js",
+		"/Users/m/workspace/chatty-maps/robinson/02/ar.js",
+		"/Users/m/workspace/chatty-maps/robinson/02/es.js",
+		"/Users/m/workspace/chatty-maps/robinson/02/countries-iso-3155-1-alpha-2.js",
+		"/Users/m/workspace/chatty-maps/robinson/02/countries-hash.js",
+		"/Users/m/workspace/chatty-maps/robinson/02/countries-to-iso-3166-1-alpha-2.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/circadianHistogram/circadianBinX.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getCircadian/main.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/index.html",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getCircadian/circadian.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/drawSampleDomainsListing.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/main.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/circadian.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/main.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/setKey.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/draw.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/attribute-value-distribution.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/confusionMatrix/draw.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/presentation-data/getAggregatedData.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/presentation-data/capone-nested-aggregations.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/presentation-data/capone-nested-aggregations-v1.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/presentationStepper.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/drawCircadianG.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getMatrixData.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getDomainsData.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/columns.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getColumns.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getVariablesData.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/circadianDataPrep.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/circadianDataFromAggregatedCSV.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/circadianBinX.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/getCircadian/circadianYScaleFactory.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/getCircadian.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/circadian.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/attribute-value-distribution.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/heatmap.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/index.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/App.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/.eslintrc",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/stepper.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/confusionMatrix/main.js",
+		"/Users/m/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/presentation-data/all-clusters-50x50.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/modules/confusion-matrix.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/plugins.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/README.md",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/index.html",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/webpack.config.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/server.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/js/modules/columns.json",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/js/index.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/js/main.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/src/index.",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/dist/app.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/js/modules/columns.js",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/css/main.css",
+		"/Users/m/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/m/workspace/experiments/melbourne-property-on-transit/block/.block",
+		"/Users/m/workspace/experiments/melbourne-property-on-transit/block/README.md",
+		"/Users/m/workspace/steam-c1-log-analytics/security-deck/.gitignore",
+		"/Users/m/workspace/experiments/scatterplot-zoom/tasks.md"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"transform",
+			"translateFromAggregateToDetail",
+			"legend",
+			"color",
+			"exemplar",
+			"    ",
+			"function (d) { return",
+			"var ",
+			"um",
+			"countriesAlpha",
+			"Timor",
+			"Northern Cyprus",
+			"Guinea",
+			"vene",
+			"veni",
+			"    ",
+			"linY",
+			"y",
+			"getCircadian",
+			"circadian",
+			"cir",
+			"import { draw }",
+			"numberFormat",
+			"binWidth",
+			"shouldSplit",
+			"HEIGHT",
+			"MAX_HEIGHT",
+			"topRowHour",
+			"HOURS",
+			"title",
+			"split",
+			"27966",
+			"layerData",
+			"drawSample",
+			"presentationStepper",
+			"drawSample",
+			"main",
+			"mina",
+			"data",
+			"setKey",
+			"aggregationKey",
+			"circadianDataPrep",
+			"circadianScale",
+			"binWidth",
+			"circadianBinX",
+			"workRect",
+			"eightam",
+			"fivepm",
+			"circadianYScaleFactory",
+			"function(",
+			"\\t",
+			"binData",
+			"var ",
+			"\\t",
+			"circadian.",
+			"setKey",
+			"eslint",
+			"const step",
+			"let step",
+			"step ",
+			"step",
+			"setp",
+			"Router",
+			"`translate(0, ${(-HEIGHT)}`",
+			"ranslate(0,",
+			"console",
+			"console.log(d)",
+			"console",
+			"Mousetrap",
+			"\\t",
+			"var ",
+			"present",
+			"presentationStepper",
+			"currentStep",
+			"shapesLayer =",
+			"shapesLayer",
+			"scale",
+			"scale ",
+			"scale",
+			"MAX_BAR_HEIGHT",
+			"Math.pow",
+			"row[^s]",
+			"var ",
+			"function(",
+			"\\t",
+			"confusionMatrix",
+			"attributeValueDistribution",
+			"heatmap",
+			"clustersData",
+			"heatmap",
+			"circadian",
+			"aggregatedData",
+			"data",
+			"WIDTH",
+			"\"",
+			":",
+			"featuresSlide",
+			"stepper",
+			"'translate(0, ' + (HEIGHT) + ')'",
+			"'translate(0, ' + HEIGHT + ')'",
+			"heatmap.",
+			"heatmap",
+			"let heatmap",
+			"'translate(0, ' + HEIGHT + ')'",
+			"'translate(0, ' + (-HEIGHT) + ')'",
+			"function(",
+			"function()",
+			"\\t",
+			"var ",
+			"let",
+			"var ",
+			"Mousetrap"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"  ",
+			"d =>",
+			"let ",
+			"  ",
+			"function (",
+			"  ",
+			"let ",
+			"  ",
+			"getCircadian.",
+			"`translate(0, ${(-HEIGHT)})`",
+			"  ",
+			"let ",
+			"function (",
+			"  ",
+			"'",
+			"",
+			": ",
+			"`translate(0, ${(-HEIGHT)}`",
+			"// heatmap.",
+			"`translate(0, ${HEIGHT})`",
+			"`translate(0, ${(-HEIGHT)}`",
+			"function (",
+			"function ()",
+			"  ",
+			"let "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "09/zoom0.csv",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1391080,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ideas.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								373,
+								373
+							]
+						],
+						"settings":
+						{
+							"auto_name": "ideas.md",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"auto_name": "ssh ops@mr-0xc8",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "scatterplot-zoom.sublime-project",
+	"replace":
+	{
+		"height": 76.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"es",
+				"es.js"
+			],
+			[
+				"drawhist",
+				"src/js/circadianHistogram/drawHistogram.js"
+			],
+			[
+				"circa",
+				"src/js/circadianHistogram/circadianBinX.js"
+			],
+			[
+				"setkey",
+				"src/js/circadianHistogram/setKey.js"
+			],
+			[
+				"draw",
+				"src/js/circadianHistogram/drawCircadianG.js"
+			],
+			[
+				"circ",
+				"src/js/getCircadian/circadian.js"
+			],
+			[
+				"getcir",
+				"src/js/getCircadian/drawCircadianG.js"
+			],
+			[
+				"main",
+				"src/js/main.js"
+			],
+			[
+				"get",
+				"src/js/getCircadian/circadian.js"
+			],
+			[
+				"set",
+				"src/js/getCircadian/setKey.js"
+			],
+			[
+				"attri",
+				"src/js/attribute-value-distribution.js"
+			],
+			[
+				"setk",
+				"src/js/modules/getCircadian/setKey.js"
+			],
+			[
+				"getagg",
+				"src/presentation-data/getAggregatedData.js"
+			],
+			[
+				"capone",
+				"src/presentation-data/capone-nested-aggregations-v1.js"
+			],
+			[
+				"aggre",
+				"src/presentation-data/capone-nested-aggregations.js"
+			],
+			[
+				"drawsa",
+				"src/js/drawSampleDomainsListing.js"
+			],
+			[
+				"presentati",
+				"src/js/modules/presentationStepper.js"
+			],
+			[
+				"column",
+				"src/js/modules/getColumns.js"
+			],
+			[
+				"circadian",
+				"src/js/modules/getCircadian/circadian.js"
+			],
+			[
+				"setke",
+				"src/js/modules/getCircadian/setKey.js"
+			],
+			[
+				"drawcir",
+				"src/js/modules/getCircadian/drawCircadianG.js"
+			],
+			[
+				"getcircadian/main",
+				"src/js/modules/getCircadian/main.js"
+			],
+			[
+				"inde",
+				"src/index.js"
+			],
+			[
+				"columns",
+				"src/js/modules/columns.js"
+			],
+			[
+				"prese",
+				"src/js/modules/presentationStepper.js"
+			],
+			[
+				"app",
+				"src/App.js"
+			],
+			[
+				"nest",
+				"src/presentation-data/capone-nested-aggregations-v1.js"
+			],
+			[
+				"index.js",
+				"src/index.js"
+			],
+			[
+				"all",
+				"src/presentation-data/all-clusters-50x50.js"
+			],
+			[
+				"confus",
+				"src/js/modules/confusionMatrix/main.js"
+			],
+			[
+				"index",
+				"src/index.html"
+			],
+			[
+				"server",
+				"server.js"
+			],
+			[
+				"web",
+				"webpack.config.js"
+			],
+			[
+				"main.js",
+				"src/js/main.js"
+			],
+			[
+				"index.ht",
+				"index.html"
+			],
+			[
+				"app.js",
+				"src/App.js"
+			],
+			[
+				"read",
+				"README.md"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 245.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
