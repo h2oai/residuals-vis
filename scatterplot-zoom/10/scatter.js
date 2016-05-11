@@ -18,15 +18,16 @@ let xCat = 'C10',
   rCat = 'C2',
   colorCat = 'C3';
 
+  let responseData;
+  let detailData;
+
 let fileName = 'zoom0.csv'
 d3.csv(fileName, function(data) {
-
   let exemplar = data
     .filter(function (d) {
       return +d.C10 === 6279 && +d.C1 === 2596;
     })[0];
   console.log('exemplar', exemplar);
-
   data.forEach((d, i) => {
     d.id = i;
   })
@@ -176,25 +177,20 @@ d3.csv(fileName, function(data) {
     .attr('x', width + 26)
     .attr('dy', '.35em')
     .text(d => d);
- 
-  // declare some global variables
-  let responseData;
-  let detailData;
 
   function getMembers(d) {
     let row = d.id;
     // call API to get detail data
-    // let row = d3.scale.invert([mouseX, mouseY]);
     // let queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
     let queryUrl = `http://mr-0xc8:55555/3/Frames/members_exemplar${row}?column_offset=0&column_count=10`;
-
-    let xhr = d3.xhr(queryUrl, "application/json", (error, response) => {
+    console.log('queryUrl', queryUrl);
+    d3.xhr(queryUrl, "application/json", (error, response) => {
       responseData = JSON.parse(response.response);
       console.log('response', response);
       console.log('responseData', responseData);
       updateDetailData(responseData);
+      drawMembers();
     });
-    drawMembers();
   }
 
   function updateDetailData(newDetailData) {
@@ -216,6 +212,7 @@ d3.csv(fileName, function(data) {
   }
 
   function drawMembers() {
+    console.log('detailData from inside of drawMembers', detailData)
     let detailDots = objects.selectAll('.detailDot')
       .data(detailData)
     .enter().append('circle')
