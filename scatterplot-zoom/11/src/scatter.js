@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { translatePoints } from './translatePoints';
 import { updateDetailData } from './updateDetailData';
+import { zoom } from './zoom';
 import d3 from 'd3';
 import d3Tip from "d3-tip";
 d3.tip = d3Tip;
@@ -78,8 +79,12 @@ d3.csv(fileName, function(data) {
   let zoomBeh = d3.behavior.zoom()
     .x(x)
     .y(y)
-    .scaleExtent([0, 500])
-    .on('zoom', zoom)
+    .scaleExtent([0, 500]);
+
+  zoomBeh
+    .on('zoom', function () {
+      return zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh);
+    })
     .on('zoomend', zoomend);
 
   let svg = d3.select('#scatter')
@@ -195,68 +200,6 @@ d3.csv(fileName, function(data) {
     console.log('responseData', responseData);
     detailData = updateDetailData(responseData);
   });
-
-  function zoom() {
-    svg.select('.x.axis').call(xAxis);
-    svg.select('.y.axis').call(yAxis);
-
-    svg.selectAll('.dot')
-      .attr('transform', function (d) {
-        return translatePoints(d, x, xCat, y, yCat);
-      })
-
-    let zoomLevel = zoomBeh.scale();
-    let zoomThreshold = 31.8;
-
-    console.log('zoomLevel', zoomLevel);
-    if (zoomLevel > zoomThreshold) {
-      if (d3.selectAll('.detailDot')[0].length === 0) {
-      let detailDots = objects.selectAll('.detailDot')
-        .data(detailData)
-      .enter().append('circle')
-        .classed('dot', true)
-        .classed('detailDot', true)
-        // .attr('r', function (d) { 
-        //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI); 
-        // })
-        .attr('r', 2)
-        .attr('transform', function (d) {
-          return translatePoints(d, x, xCat, y, yCat);
-        }) // translateFromAggregateToDetail
-        .style('fill', 'darkorange')
-        .style('fill-opacity', 0)
-        .style('stroke-opacity', 0)
-        //.style('stroke', d => color(d[colorCat]); })
-        .style('stroke', 'darkorange')
-        // .style('stroke-width', function (d) { 
-        //   return 3 * Math.sqrt(d[rCat] / Math.PI); 
-        // })
-        .style('stroke-width', 1)
-        
-      detailDots.transition()
-        .duration(2000)
-        //.attr('transform', translatePoints)
-        .style('fill-opacity', 0.4)
-        //.style('stroke-opacity', 0.8);
-       
-      d3.selectAll('.detailDot') 
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
-      }
-    }
-
-    if (zoomLevel < zoomThreshold) {
-      if (d3.selectAll('.detailDot')[0].length > 0) {
-      d3.selectAll('.detailDot').transition()
-        .duration(2000)
-        //.attr('transform', translatePoints) // translateToAggregate
-        .style('stroke-opacity', 0)
-        .style('fill-opacity', 0)
-        .remove();
-      }
-      
-    }
-  }
 
   function zoomend() {
   
