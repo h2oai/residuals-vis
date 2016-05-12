@@ -1,7 +1,8 @@
 import { translatePoints } from './translatePoints';
 
-export function zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh) {
+export function zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh, detailData, tip) {
   const svg = d3.select('svg');
+  const objects = d3.selectAll('.objects');
   svg.select('.x.axis').call(xAxis);
   svg.select('.y.axis').call(yAxis);
 

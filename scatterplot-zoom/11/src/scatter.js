@@ -55,6 +55,9 @@ export function drawScatterplot() {
     console.log('x.domain()', x.domain());
     console.log('y.domain()', y.domain());
 
+    let detailData;
+    console.log('detailData', detailData);
+
     const xAxis = d3.svg.axis()
       .scale(x)
       .orient('bottom')
@@ -78,7 +81,7 @@ export function drawScatterplot() {
       .scaleExtent([0, 500]);
 
     zoomBeh
-      .on('zoom', () => zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh))
+      .on('zoom', () => zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh, detailData, tip))
       .on('zoomend', zoomend);
 
     const svg = d3.select('#scatter')
@@ -181,8 +184,6 @@ export function drawScatterplot() {
 
     // declare some global variables
     let responseData;
-    let detailData;
-    console.log('detailData', detailData);
 
     // call API to get detail data
     const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
