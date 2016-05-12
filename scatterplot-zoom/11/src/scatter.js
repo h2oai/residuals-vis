@@ -1,222 +1,197 @@
-/* eslint-disable */
 import { translatePoints } from './translatePoints';
 import { updateDetailData } from './updateDetailData';
 import { zoom } from './zoom';
+import { zoomend } from './zoomend';
 import d3 from 'd3';
-import d3Tip from "d3-tip";
+import d3Tip from 'd3-tip';
 d3.tip = d3Tip;
 
 export function drawScatterplot() {
+  const margin = { top: 50, right: 300, bottom: 50, left: 60 };
+  const outerWidth = 960; // 3648
+  const outerHeight = 500; // 1900
+  const width = outerWidth - margin.left - margin.right;
+  const height = outerHeight - margin.top - margin.bottom;
 
-const margin = { top: 50, right: 300, bottom: 50, left: 60 };
-const outerWidth = 960; // 3648
-const outerHeight = 500; // 1900
-const width = outerWidth - margin.left - margin.right;
-const height = outerHeight - margin.top - margin.bottom;
+  const x = d3.scale.linear()
+    .range([0, width]).nice();
 
-let x = d3.scale.linear()
-  .range([0, width]).nice();
+  const y = d3.scale.linear()
+    .range([height, 0]).nice();
 
-let y = d3.scale.linear()
-  .range([height, 0]).nice();
+  // const rScale = d3.scale.linear()
+  //   .range([0, 3]);
 
-let rScale = d3.scale.linear()
-  .range([0, 3])
+  const xCat = 'C10';
+  const yCat = 'C1';
+  // const rCat = 'C2';
+  // const colorCat = 'C3';
 
-let xCat = 'C10',
-  yCat = 'C1',
-  rCat = 'C2',
-  colorCat = 'C3';
+  const fileName = 'zoom0.csv';
+  d3.csv(fileName, data => {
+    const exemplar = data
+      .filter(d => +d.C10 === 6279 && +d.C1 === 2596)[0];
+    console.log('exemplar', exemplar);
 
-let fileName = 'zoom0.csv'
-d3.csv(fileName, function(data) {
+    // TODO define this in terms of the max point radius
+    const domainPaddingFactor = 0.1;
 
-  let exemplar = data
-    .filter(function (d) {
-      return +d.C10 === 6279 && +d.C1 === 2596;
-    })[0];
-  console.log('exemplar', exemplar);
+    const xMax = d3.max(data, d => +d[xCat]);
+    const xMin = d3.min(data, d => +d[xCat]);
+    const xExtent = xMax - xMin;
+    const xDMax = xMax + (xExtent * domainPaddingFactor);
+    const xDMin = xMin - (xExtent * domainPaddingFactor);
 
-  // TODO define this in terms of the max point radius
-  let domainPaddingFactor = 0.1;
+    const yMax = d3.max(data, d => +d[yCat]);
+    const yMin = d3.min(data, d => +d[yCat]);
+    const yExtent = yMax - yMin;
+    const yDMax = yMax + (yExtent * domainPaddingFactor);
+    const yDMin = yMin - (yExtent * domainPaddingFactor);
 
-  let xMax = d3.max(data, d => +d[xCat]);
-  let xMin = d3.min(data, d => +d[xCat]);
-  let xExtent = xMax - xMin;
-  let xDMax = xMax + (xExtent * domainPaddingFactor);
-  let xDMin = xMin - (xExtent * domainPaddingFactor);
+    x.domain([xDMin, xDMax]);
+    y.domain([yDMin, yDMax]);
 
-  let yMax = d3.max(data, d => +d[yCat]);
-  let yMin = d3.min(data, d => +d[yCat]);
-  let yExtent = yMax - yMin;
-  let yDMax = yMax + (yExtent * domainPaddingFactor);
-  let yDMin = yMin - (yExtent * domainPaddingFactor);
+    console.log('data', data);
+    console.log('x.domain()', x.domain());
+    console.log('y.domain()', y.domain());
 
-  x.domain([xDMin, xDMax]);
-  y.domain([yDMin, yDMax]);
+    const xAxis = d3.svg.axis()
+      .scale(x)
+      .orient('bottom')
+      .tickSize(-height);
 
-  console.log('data', data);
-  console.log('x.domain()', x.domain());
-  console.log('y.domain()', y.domain());
+    const yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left')
+      .tickSize(-width);
 
-  let xAxis = d3.svg.axis()
-    .scale(x)
-    .orient('bottom')
-    .tickSize(-height);
+    const color = d3.scale.category10();
 
-  let yAxis = d3.svg.axis()
-    .scale(y)
-    .orient('left')
-    .tickSize(-width);
+    const tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(d => `${xCat}: ${d[xCat]} <br> ${yCat}: ${d[yCat]}`);
 
-  let color = d3.scale.category10();
+    const zoomBeh = d3.behavior.zoom()
+      .x(x)
+      .y(y)
+      .scaleExtent([0, 500]);
 
-  let tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(d => `${xCat}: ${d[xCat]} <br> ${yCat}: ${d[yCat]}`);
+    zoomBeh
+      .on('zoom', () => zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh))
+      .on('zoomend', zoomend);
 
-  let zoomBeh = d3.behavior.zoom()
-    .x(x)
-    .y(y)
-    .scaleExtent([0, 500]);
+    const svg = d3.select('#scatter')
+    .append('svg')
+      .attr('width', outerWidth)
+      .attr('height', outerHeight)
+    .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .call(zoomBeh);
 
-  zoomBeh
-    .on('zoom', function () {
-      return zoom(xAxis, yAxis, x, y, xCat, yCat, zoomBeh);
-    })
-    .on('zoomend', zoomend);
+    svg.call(tip);
 
-  let svg = d3.select('#scatter')
-  .append('svg')
-    .attr('width', outerWidth)
-    .attr('height', outerHeight)
-  .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-    .call(zoomBeh);
+    svg.append('rect')
+      .attr('width', width)
+      .attr('height', height);
 
-  svg.call(tip);
+    svg.append('g')
+      .classed('x axis', true)
+      .attr('transform', `translate(0, ${height})`)
+      .call(xAxis)
+    .append('text')
+      .classed('label', true)
+      .attr('x', width)
+      .attr('y', margin.bottom - 10)
+      .style('text-anchor', 'end')
+      .text(xCat);
 
-  svg.append('rect')
-    .attr('width', width)
-    .attr('height', height);
+    svg.append('g')
+      .classed('y axis', true)
+      .call(yAxis)
+    .append('text')
+      .classed('label', true)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -margin.left)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text(yCat);
 
-  svg.append('g')
-    .classed('x axis', true)
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(xAxis)
-  .append('text')
-    .classed('label', true)
-    .attr('x', width)
-    .attr('y', margin.bottom - 10)
-    .style('text-anchor', 'end')
-    .text(xCat);
+    const objects = svg.append('svg')
+      .classed('objects', true)
+      .attr('width', width)
+      .attr('height', height);
 
-  svg.append('g')
-    .classed('y axis', true)
-    .call(yAxis)
-  .append('text')
-    .classed('label', true)
-    .attr('transform', 'rotate(-90)')
-    .attr('y', -margin.left)
-    .attr('dy', '.71em')
-    .style('text-anchor', 'end')
-    .text(yCat);
+    objects.append('svg:line')
+      .classed('axisLine hAxisLine', true)
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', width)
+      .attr('y2', 0)
+      .attr('transform', `translate(0, ${height})`);
 
-  let objects = svg.append('svg')
-    .classed('objects', true)
-    .attr('width', width)
-    .attr('height', height);
+    objects.append('svg:line')
+      .classed('axisLine vAxisLine', true)
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 0)
+      .attr('y2', height);
 
-  objects.append('svg:line')
-    .classed('axisLine hAxisLine', true)
-    .attr('x1', 0)
-    .attr('y1', 0)
-    .attr('x2', width)
-    .attr('y2', 0)
-    .attr('transform', 'translate(0,' + height + ')');
+    const dots = objects.selectAll('.dot')
+      .data(data)
+    .enter().append('circle')
+      .classed('dot', true)
+      // .attr('r', function (d) {
+      //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI);
+      // })
+      .attr('r', d => {
+        if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 4; }
+        return 2;
+      })
+      .attr('transform', d => translatePoints(d, x, xCat, y, yCat))
+      // .style('fill', d => color(d[colorCat]); })
+      .style('fill', d => {
+        if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 'steelblue'; }
+        return 'darkgray';
+      })
+      .style('fill-opacity', d => {
+        if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 1; }
+        return 0.2;
+      })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
-  objects.append('svg:line')
-    .classed('axisLine vAxisLine', true)
-    .attr('x1', 0)
-    .attr('y1', 0)
-    .attr('x2', 0)
-    .attr('y2', height);
+    dots.classed('aggregate', true);
 
-  let dots = objects.selectAll('.dot')
-    .data(data)
-  .enter().append('circle')
-    .classed('dot', true)
-    // .attr('r', function (d) { 
-    //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI); 
-    // })
-    .attr('r', d => {
-      if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 4 };
-      return 2;
-    })
-    .attr('transform', function (d) {
-      return translatePoints(d, x, xCat, y, yCat);
-    })
-    // .style('fill', d => color(d[colorCat]); })
-    .style('fill', function(d) {
-    if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 'steelblue' };
-    return 'darkgray';
-    })
-    .style('fill-opacity', function(d) {
-    if (d.C10 === exemplar[xCat] && d.C1 === exemplar[yCat]) { return 1 };
-    return 0.2;
-    })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide);
+    const legend = svg.selectAll('.legend')
+      .data(color.domain())
+    .enter().append('g')
+      .classed('legend', true)
+      .attr('transform', (d, i) => `translate(0, ${i * 20})`);
 
-  dots.classed('aggregate', true);
+    legend.append('circle')
+      .attr('r', 3.5)
+      .attr('cx', width + 20)
+      .attr('fill', color);
 
-  let legend = svg.selectAll('.legend')
-    .data(color.domain())
-  .enter().append('g')
-    .classed('legend', true)
-    .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+    legend.append('text')
+      .attr('x', width + 26)
+      .attr('dy', '.35em')
+      .text(d => d);
 
-  legend.append('circle')
-    .attr('r', 3.5)
-    .attr('cx', width + 20)
-    .attr('fill', color);
+    // declare some global variables
+    let responseData;
+    let detailData;
+    console.log('detailData', detailData);
 
-  legend.append('text')
-    .attr('x', width + 26)
-    .attr('dy', '.35em')
-    .text(d => d);
- 
-  // declare some global variables
-  let responseData;
-  let detailData;
+    // call API to get detail data
+    const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
 
-  // call API to get detail data
-  let queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
-
-  let xhr = d3.xhr(queryUrl, "application/json", (error, response) => {
-    responseData = JSON.parse(response.response);
-    console.log('response', response);
-    console.log('responseData', responseData);
-    detailData = updateDetailData(responseData);
+    d3.xhr(queryUrl, 'application/json', (error, response) => {
+      responseData = JSON.parse(response.response);
+      console.log('response', response);
+      console.log('responseData', responseData);
+      detailData = updateDetailData(responseData);
+    });
   });
-
-  function zoomend() {
-  
-  }
-
-  function translateToAggregate(d) {
-    let xTranslate = x(+exemplar[xCat]);
-    let yTranslate = y(+exemplar[yCat]);
-    console.log('xTranslate', xTranslate);
-    console.log('yTranslate', yTranslate);
-    return `translate(${xTranslate}, ${yTranslate})`;
-  }
-
-  function translateFromAggregateToDetail(d) {
-    let xTranslate = x(+d[xCat]) - x(+exemplar[xCat]);
-    let yTranslate = y(+d[yCat]) + y(+exemplar[yCat]);
-    return `translate(${xTranslate}, ${yTranslate})`;
-  }
-});
 }

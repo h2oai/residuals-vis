@@ -1,8 +1,6 @@
 This iteration 
 
-+ coverts scatter.js to ES2015
-+ changes the transition to fade in detail points in place instead of
-  shooting them out of the exemplar point
++ forks from 09 to break functions out into modules
   
 ---
 Original README.md
