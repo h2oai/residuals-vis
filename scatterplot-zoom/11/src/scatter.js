@@ -55,6 +55,8 @@ export function drawScatterplot() {
     console.log('x.domain()', x.domain());
     console.log('y.domain()', y.domain());
 
+    // declare some global variables
+    let responseData;
     let detailData;
     console.log('detailData', detailData);
 
@@ -181,9 +183,6 @@ export function drawScatterplot() {
       .attr('x', width + 26)
       .attr('dy', '.35em')
       .text(d => d);
-
-    // declare some global variables
-    let responseData;
 
     // call API to get detail data
     const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
