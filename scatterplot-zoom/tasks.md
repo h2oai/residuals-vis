@@ -10,7 +10,7 @@ DONE 04 + below zoom level threshold hide nested data
 DONE 05 + transition detail points from parent aggregate point position
   to actual position
 
-
++ load exemplar dataset with an API call
 
 
 

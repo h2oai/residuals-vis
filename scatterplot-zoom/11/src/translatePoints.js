@@ -1,4 +1,4 @@
-export function translatePoints(d, x, xCat, y, yCat) {
-  const translateString = `translate(${x(+d[xCat])}, ${y(+d[yCat])})`;
+export function translatePoints(vis, d) {
+  const translateString = `translate(${vis.x(+d[vis.xCat])}, ${vis.y(+d[vis.yCat])})`;
   return translateString;
 }
