@@ -1,30 +1,31 @@
-import { parseResponse } from './parseResponse';
 import { translatePoints } from './translatePoints';
 import { zoom } from './zoom';
+import { zoomstart } from './zoomstart';
 import { zoomend } from './zoomend';
+import { drawVoronoiPaths } from './drawVoronoiPaths';
 import d3 from 'd3';
 import d3Tip from 'd3-tip';
 d3.tip = d3Tip;
 
-export function plotExemplars(data, vis) {
+export function plotExemplars(vis) {
   console.log('vis', vis);
 
-  console.log('data', data);
-  const exemplar = data
+  console.log('vis.exemplarData', vis.exemplarData);
+  const exemplar = vis.exemplarData
     .filter(d => +d.C10 === 6279 && +d.C1 === 2596)[0];
   console.log('exemplar', exemplar);
 
   // TODO define this in terms of the max point radius
   const domainPaddingFactor = 0.1;
 
-  const xMax = d3.max(data, d => +d[vis.xCat]);
-  const xMin = d3.min(data, d => +d[vis.xCat]);
+  const xMax = d3.max(vis.exemplarData, d => +d[vis.xCat]);
+  const xMin = d3.min(vis.exemplarData, d => +d[vis.xCat]);
   const xExtent = xMax - xMin;
   const xDMax = xMax + (xExtent * domainPaddingFactor);
   const xDMin = xMin - (xExtent * domainPaddingFactor);
 
-  const yMax = d3.max(data, d => +d[vis.yCat]);
-  const yMin = d3.min(data, d => +d[vis.yCat]);
+  const yMax = d3.max(vis.exemplarData, d => +d[vis.yCat]);
+  const yMin = d3.min(vis.exemplarData, d => +d[vis.yCat]);
   const yExtent = yMax - yMin;
   const yDMax = yMax + (yExtent * domainPaddingFactor);
   const yDMin = yMin - (yExtent * domainPaddingFactor);
@@ -32,7 +33,7 @@ export function plotExemplars(data, vis) {
   vis.x.domain([xDMin, xDMax]);
   vis.y.domain([yDMin, yDMax]);
 
-  console.log('data', data);
+  console.log('vis.exemplarData', vis.exemplarData);
   console.log('vis.x.domain()', vis.x.domain());
   console.log('vis.y.domain()', vis.y.domain());
 
@@ -53,30 +54,21 @@ export function plotExemplars(data, vis) {
     .offset([-10, 0])
     .html(d => `${vis.xCat}: ${d[vis.xCat]} <br> ${vis.yCat}: ${d[vis.yCat]}`);
 
-  vis.zoomBeh = d3.behavior.zoom()
-    .x(vis.x)
-    .y(vis.y)
-    .scaleExtent([0, 500]);
-
-  vis.zoomBeh
-    .on('zoom', () => zoom(vis))
-    .on('zoomend', zoomend);
-
-  const svg = d3.select('#scatter')
+  vis.svg = d3.select('#scatter')
     .append('svg')
     .attr('width', vis.outerWidth)
     .attr('height', vis.outerHeight)
     .append('g')
-      .attr('transform', `translate(${vis.margin.left}, ${vis.margin.top})`)
-      .call(vis.zoomBeh);
+      .attr('transform', `translate(${vis.margin.left}, ${vis.margin.top})`);
+      // .call(vis.zoomBeh);
 
-  svg.call(vis.tip);
+  vis.svg.call(vis.tip);
 
-  svg.append('rect')
+  vis.svg.append('rect')
     .attr('width', vis.width)
     .attr('height', vis.height);
 
-  svg.append('g')
+  vis.svg.append('g')
     .classed('x axis', true)
     .attr('transform', `translate(0, ${vis.height})`)
     .call(vis.xAxis)
@@ -87,18 +79,18 @@ export function plotExemplars(data, vis) {
       .style('text-anchor', 'end')
       .text(vis.xCat);
 
-  svg.append('g')
+  vis.svg.append('g')
     .classed('y axis', true)
     .call(vis.yAxis)
-  .append('text')
-    .classed('label', true)
-    .attr('transform', 'rotate(-90)')
-    .attr('y', -vis.margin.left)
-    .attr('dy', '.71em')
-    .style('text-anchor', 'end')
-    .text(vis.yCat);
+    .append('text')
+      .classed('label', true)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -vis.margin.left)
+      .attr('dy', '.71em')
+      .style('text-anchor', 'end')
+      .text(vis.yCat);
 
-  const objects = svg.append('svg')
+  const objects = vis.svg.append('svg')
     .classed('objects', true)
     .attr('width', vis.width)
     .attr('height', vis.height);
@@ -119,7 +111,7 @@ export function plotExemplars(data, vis) {
     .attr('y2', vis.height);
 
   const dots = objects.selectAll('.dot')
-    .data(data)
+    .data(vis.exemplarData)
   .enter().append('circle')
     .classed('dot', true)
     // .attr('r', function (d) {
@@ -144,11 +136,11 @@ export function plotExemplars(data, vis) {
 
   dots.classed('aggregate', true);
 
-  const legend = svg.selectAll('.legend')
+  const legend = vis.svg.selectAll('.legend')
     .data(color.domain())
-  .enter().append('g')
-    .classed('legend', true)
-    .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+    .enter().append('g')
+      .classed('legend', true)
+      .attr('transform', (d, i) => `translate(0, ${i * 20})`);
 
   legend.append('circle')
     .attr('r', 3.5)
@@ -160,11 +152,17 @@ export function plotExemplars(data, vis) {
     .attr('dy', '.35em')
     .text(d => d);
 
-  // call API to get detail data
-  const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
+  vis.zoomBeh = d3.behavior.zoom()
+    .x(vis.x)
+    .y(vis.y)
+    .scaleExtent([0, 500]);
 
-  d3.xhr(queryUrl, 'application/json', (error, response) => {
-    console.log('response', response);
-    vis.detailData = parseResponse(response);
-  });
+  vis.zoomBeh
+    .on('zoom', () => zoom(vis)) // this is where the action continues
+    .on('zoomstart', zoomstart)
+    .on('zoomend', zoomend(vis));
+
+  drawVoronoiPaths(vis, vis.exemplarData);
+
+  vis.svg.call(vis.zoomBeh);
 }

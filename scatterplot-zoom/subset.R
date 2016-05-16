@@ -4,3 +4,6 @@ cols <- c(1, 10)
 # and subset is the desired "covtype_20_data_C1_C10.hex" h2o-3 frame
 subset <- df[,cols]
 head(subset)
+
+setwd('~/workspace/visualizations/scatterplot-zoom/')
+write.table(subset, file = "covtype_20_data_C1_C10.data",row.names=FALSE, na="",col.names=FALSE, sep=",")

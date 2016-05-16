@@ -29,7 +29,7 @@ export function drawScatterplot() {
 
   d3.xhr(queryUrl, 'application/json', (error, response) => {
     console.log('response', response);
-    const exemplarData = parseResponse(response);
-    plotExemplars(exemplarData, vis);
+    vis.exemplarData = parseResponse(response);
+    plotExemplars(vis);
   });
 }

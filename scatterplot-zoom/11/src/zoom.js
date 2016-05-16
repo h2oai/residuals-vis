@@ -1,4 +1,6 @@
+import { parseResponse } from './parseResponse';
 import { translatePoints } from './translatePoints';
+import { drawVoronoiPaths } from './drawVoronoiPaths';
 
 export function zoom(vis) {
   const svg = d3.select('svg');
@@ -9,11 +11,25 @@ export function zoom(vis) {
   svg.selectAll('.dot')
     .attr('transform', d => translatePoints(vis, d));
 
+  d3.selectAll('path.voronoi')
+    .remove();
+
+  drawVoronoiPaths(vis, vis.exemplarData);
+
+  /* semantic zoom for members of clusters */
   const zoomLevel = vis.zoomBeh.scale();
   const zoomThreshold = 31.8;
 
   console.log('zoomLevel', zoomLevel);
   if (zoomLevel > zoomThreshold) {
+    // call API to get detail data
+    const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
+
+    d3.xhr(queryUrl, 'application/json', (error, response) => {
+      console.log('response', response);
+      vis.detailData = parseResponse(response);
+    });
+
     if (d3.selectAll('.detailDot')[0].length === 0) {
       const detailDots = objects.selectAll('.detailDot')
         .data(vis.detailData)
