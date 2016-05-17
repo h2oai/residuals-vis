@@ -1,3 +1,5 @@
+// import { plotMembers } from './plotMembers';
+
 export function drawVoronoiPaths(vis, data) {
   // Initiate the voronoi function
   // Use the same variables of the data in the .x and .y as used in the cx and cy of the circle call
@@ -24,13 +26,14 @@ export function drawVoronoiPaths(vis, data) {
     .style('stroke-opacity', 0.3)
     .style('fill', 'none')
     .style('pointer-events', 'all');
-    // .on('mouseover', showTooltip)
-    // .on('mouseout', removeTooltip);
 
+  /*
   function mouseover() {
     d3.select(this)
       .style('fill', 'lightgray')
       .style('fill-opacity', 0.7);
+
+    plotMembers(vis);
   }
 
   function mouseout() {
@@ -41,4 +44,5 @@ export function drawVoronoiPaths(vis, data) {
   vis.voronoiPaths
     .on('mouseover', mouseover)
     .on('mouseout', mouseout);
+  */
 }
