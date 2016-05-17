@@ -2,7 +2,7 @@ import { translatePoints } from './translatePoints';
 import { zoom } from './zoom';
 import { zoomstart } from './zoomstart';
 import { zoomend } from './zoomend';
-import { drawVoronoiPaths } from './drawVoronoiPaths';
+// import { drawVoronoiPaths } from './drawVoronoiPaths';
 import d3 from 'd3';
 import d3Tip from 'd3-tip';
 d3.tip = d3Tip;
@@ -156,7 +156,7 @@ export function plotExemplars(vis) {
     .attr('dy', '.35em')
     .text(d => d);
 
-  drawVoronoiPaths(vis, vis.exemplarData);
+  // drawVoronoiPaths(vis, vis.exemplarData);
 
   vis.zoomBeh = d3.behavior.zoom()
     .x(vis.x)

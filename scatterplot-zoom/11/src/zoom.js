@@ -1,5 +1,5 @@
 import { translatePoints } from './translatePoints';
-import { drawVoronoiPaths } from './drawVoronoiPaths';
+// import { drawVoronoiPaths } from './drawVoronoiPaths';
 import { plotMembers } from './plotMembers';
 
 export function zoom(vis) {
@@ -13,7 +13,7 @@ export function zoom(vis) {
   d3.selectAll('path.voronoi')
     .remove();
 
-  drawVoronoiPaths(vis, vis.exemplarData);
+  // drawVoronoiPaths(vis, vis.exemplarData);
 
   plotMembers(vis);
 }
