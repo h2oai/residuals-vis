@@ -25,7 +25,8 @@ export function plotMembers(vis) {
   // get the data and show the member points
   if (exemplarPointsVisible.length === 1) {
     // call API to get detail data
-    const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
+    const exemplarId = exemplarPointsVisible[0].id;
+    const queryUrl = `http://mr-0xc8:55555/3/Frames/members_exemplar${exemplarId}?column_offset=0&column_count=10`;
 
     d3.xhr(queryUrl, 'application/json', (error, response) => {
       console.log('response', response);
