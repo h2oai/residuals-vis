@@ -54,6 +54,10 @@ export function plotExemplars(vis) {
     .offset([-10, 0])
     .html(d => `${vis.xCat}: ${d[vis.xCat]} <br> ${vis.yCat}: ${d[vis.yCat]}`);
 
+  // clear the page before we draw
+  // find a more robust way to do this
+  d3.selectAll('svg').remove();
+
   vis.svg = d3.select('#scatter')
     .append('svg')
     .attr('width', vis.outerWidth)
@@ -152,6 +156,8 @@ export function plotExemplars(vis) {
     .attr('dy', '.35em')
     .text(d => d);
 
+  drawVoronoiPaths(vis, vis.exemplarData);
+
   vis.zoomBeh = d3.behavior.zoom()
     .x(vis.x)
     .y(vis.y)
@@ -159,10 +165,8 @@ export function plotExemplars(vis) {
 
   vis.zoomBeh
     .on('zoom', () => zoom(vis)) // this is where the action continues
-    .on('zoomstart', zoomstart)
+    .on('zoomstart', zoomstart())
     .on('zoomend', zoomend(vis));
-
-  drawVoronoiPaths(vis, vis.exemplarData);
 
   vis.svg.call(vis.zoomBeh);
 }

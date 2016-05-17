@@ -13,7 +13,7 @@ export function drawVoronoiPaths(vis, data) {
     .attr('class', 'voronoiG');
 
   // Create the Voronoi diagram
-  voronoiGroup.selectAll('path')
+  vis.voronoiPaths = voronoiGroup.selectAll('path')
     .data(voronoi(data).filter(d => d.length > 0)) // Use voronoi() with your dataset inside
     .enter().append('path')
     .attr('d', d => `M${d.join('L')}Z`)
@@ -26,4 +26,19 @@ export function drawVoronoiPaths(vis, data) {
     .style('pointer-events', 'all');
     // .on('mouseover', showTooltip)
     // .on('mouseout', removeTooltip);
+
+  function mouseover() {
+    d3.select(this)
+      .style('fill', 'lightgray')
+      .style('fill-opacity', 0.7);
+  }
+
+  function mouseout() {
+    d3.select(this)
+      .style('fill', 'none');
+  }
+
+  vis.voronoiPaths
+    .on('mouseover', mouseover)
+    .on('mouseout', mouseout);
 }

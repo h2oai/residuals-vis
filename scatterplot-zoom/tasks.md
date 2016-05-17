@@ -24,4 +24,10 @@ Roadmap
 + handle simulateneous pan and zoom. 
   ensure that examplarMember points still emanate from 
   the position of the exemplar point
-
++ find out if it is faster to
+  - add a mouseover event to the voronoi path always that 
+  has a conditional statement that checks zoom level
+  before drawing detail points
+  - add a conditional statement to the zoom function that adds a
+  mouseover event to all voronoi paths beyond a certain zoom level
+  - approach C???
