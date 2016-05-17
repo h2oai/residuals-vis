@@ -11,9 +11,14 @@ export function parseResponse(response) {
     });
   });
   console.log('columnsData', columnsData);
+  console.log('points', points);
+
+  points.forEach((d, i) => {
+    d.id = i;
+  });
 
   const parsedData = points;
-  // console.log('exemplar', exemplar);
+
   console.log('parsedData', parsedData);
   return parsedData;
 }
