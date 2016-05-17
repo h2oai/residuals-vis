@@ -7,7 +7,7 @@ export function plotMembers(vis) {
   const zoomLevel = vis.zoomBeh.scale();
   const zoomXDomain = vis.zoomBeh.x().domain();
   const zoomYDomain = vis.zoomBeh.y().domain();
-  const zoomThreshold = 31.8;
+  // const zoomThreshold = 31.8;
 
   console.log('zoomLevel', zoomLevel);
   console.log('zoomXDomain', zoomXDomain);
@@ -21,8 +21,9 @@ export function plotMembers(vis) {
   });
 
   console.log('exemplarPointsVisible', exemplarPointsVisible);
+  console.log('exemplarPointsVisible.length', exemplarPointsVisible.length);
 
-  if (zoomLevel > zoomThreshold) {
+  if (exemplarPointsVisible.length === 1) {
     // call API to get detail data
     const queryUrl = 'http://mr-0xc8:55555/3/Frames/members_exemplar0?column_offset=0&column_count=10';
 
@@ -64,7 +65,7 @@ export function plotMembers(vis) {
     }
   }
 
-  if (zoomLevel < zoomThreshold) {
+  if (exemplarPointsVisible.length > 1) {
     if (d3.selectAll('.detailDot')[0].length > 0) {
       d3.selectAll('.detailDot').transition()
         .duration(2000)
