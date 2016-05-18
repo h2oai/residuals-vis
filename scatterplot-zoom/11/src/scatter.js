@@ -1,6 +1,8 @@
 import { parseResponse } from './parseResponse';
 import { plotExemplars } from './plotExemplars';
 import d3 from 'd3';
+import d3_request from 'd3-request';
+d3.request = d3_request.request;
 
 export function drawScatterplot() {
   const vis = {};
@@ -56,9 +58,12 @@ export function drawScatterplot() {
 
   const queryUrl = `http://${server}:${port}/3/Frames/${exemplarsFrame}?column_offset=${columnOffset}&column_count=${columnCount}`;
 
-  d3.xhr(queryUrl, 'application/json', (error, response) => {
+  function callback(error, response) {
     console.log('response', response);
     vis.exemplarData = parseResponse(response);
     plotExemplars(vis);
-  });
+  }
+
+  d3.request(queryUrl)
+    .get(callback);
 }

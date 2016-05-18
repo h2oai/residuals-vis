@@ -7,7 +7,7 @@ export function zoom(vis) {
   svg.select('.x.axis').call(vis.xAxis);
   svg.select('.y.axis').call(vis.yAxis);
 
-  svg.selectAll('.dot')
+  svg.selectAll('g.dot')
     .attr('transform', d => translatePoints(vis, d));
 
   d3.selectAll('path.voronoi')

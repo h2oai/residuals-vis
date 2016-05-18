@@ -116,7 +116,13 @@ export function plotExemplars(vis) {
 
   const dots = objects.selectAll('.dot')
     .data(vis.exemplarData)
-  .enter().append('circle')
+  .enter()
+    .append('g')
+    .attr('transform', d => translatePoints(vis, d))
+    .classed('dot', true);
+
+  dots
+    .append('circle')
     .classed('dot', true)
     // .attr('r', function (d) {
     //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI);
@@ -126,7 +132,6 @@ export function plotExemplars(vis) {
     //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 4; }
     //   return 2;
     // })
-    .attr('transform', d => translatePoints(vis, d))
     .style('fill', 'darkgray')
     // .style('fill', d => color(d[colorCat]); })
     // .style('fill', d => {
@@ -138,11 +143,14 @@ export function plotExemplars(vis) {
     //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 1; }
     //   return 0.2;
     // })
-    .append('text')
-    .style('stroke', 'black')
-    .text('0')
     .on('mouseover', vis.tip.show)
     .on('mouseout', vis.tip.hide);
+
+  dots
+    .append('text')
+    .style('fill', 'black')
+    .style('font-size', 8)
+    .text(d => d.id);
 
   dots.classed('aggregate', true);
 

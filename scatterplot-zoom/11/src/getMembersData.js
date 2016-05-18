@@ -4,8 +4,8 @@ import d3 from 'd3';
 import d3_request from 'd3-request';
 d3.request = d3_request.request;
 
-console.log('d3_request', d3_request);
-console.log('d3.request', d3.request);
+// console.log('d3_request', d3_request);
+// console.log('d3.request', d3.request);
 
 export function getMembersData(vis) {
   // call the h2o-3 API to get members data
