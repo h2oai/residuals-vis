@@ -28,8 +28,8 @@ export function plotMembers(vis) {
 
   // hide the member points
   if (vis.exemplarPointsVisible.length > 1) {
-    if (d3.selectAll('.detailDot')[0].length > 0) {
-      d3.selectAll('.detailDot').transition()
+    if (d3.selectAll('g.detailDot')[0].length > 0) {
+      d3.selectAll('g.detailDot').transition()
         .duration(500)
         .style('stroke-opacity', 0)
         .style('fill-opacity', 0)

@@ -10,8 +10,8 @@ export function zoom(vis) {
   svg.selectAll('g.dot')
     .attr('transform', d => translatePoints(vis, d));
 
-  d3.selectAll('path.voronoi')
-    .remove();
+  // d3.selectAll('path.voronoi')
+  //   .remove();
 
   // drawVoronoiPaths(vis, vis.exemplarData);
 

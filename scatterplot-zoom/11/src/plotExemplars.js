@@ -116,10 +116,10 @@ export function plotExemplars(vis) {
 
   const dots = objects.selectAll('.dot')
     .data(vis.exemplarData)
-  .enter()
+    .enter()
     .append('g')
-    .attr('transform', d => translatePoints(vis, d))
-    .classed('dot', true);
+      .attr('transform', d => translatePoints(vis, d))
+      .classed('dot', true);
 
   dots
     .append('circle')
