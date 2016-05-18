@@ -28,6 +28,7 @@
     "react/prefer-stateless-function": "off",
     "no-param-reassign": "off",
     "no-loop-func": "off",
+    "camelcase": "off",
     "jsx-quotes": ["error", "prefer-single"]
   },
 }

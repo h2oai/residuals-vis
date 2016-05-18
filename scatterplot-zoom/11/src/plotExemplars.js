@@ -138,6 +138,9 @@ export function plotExemplars(vis) {
     //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 1; }
     //   return 0.2;
     // })
+    .append('text')
+    .style('stroke', 'black')
+    .text('0')
     .on('mouseover', vis.tip.show)
     .on('mouseout', vis.tip.hide);
 
