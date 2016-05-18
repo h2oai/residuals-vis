@@ -121,20 +121,23 @@ export function plotExemplars(vis) {
     // .attr('r', function (d) {
     //   return 1 * Math.sqrt(rScale(d[rCat]) / Math.PI);
     // })
-    .attr('r', d => {
-      if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 4; }
-      return 2;
-    })
+    .attr('r', 2)
+    // .attr('r', d => {
+    //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 4; }
+    //   return 2;
+    // })
     .attr('transform', d => translatePoints(vis, d))
+    .style('fill', 'darkgray')
     // .style('fill', d => color(d[colorCat]); })
-    .style('fill', d => {
-      if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 'steelblue'; }
-      return 'darkgray';
-    })
-    .style('fill-opacity', d => {
-      if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 1; }
-      return 0.2;
-    })
+    // .style('fill', d => {
+    //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 'steelblue'; }
+    //   return 'darkgray';
+    // })
+    .style('fill-opacity', 1)
+    // .style('fill-opacity', d => {
+    //   if (d.C10 === exemplar[vis.xCat] && d.C1 === exemplar[vis.yCat]) { return 1; }
+    //   return 0.2;
+    // })
     .on('mouseover', vis.tip.show)
     .on('mouseout', vis.tip.hide);
 

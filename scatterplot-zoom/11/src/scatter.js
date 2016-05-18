@@ -19,13 +19,42 @@ export function drawScatterplot() {
   // const rScale = d3.scale.linear()
   //   .range([0, 3]);
 
-  vis.xCat = 'C10';
-  vis.yCat = 'C1';
+
+  /* call API to get exemplar data */
+  vis.coverTypeConfig = {
+    server: 'mr-0xc8',
+    port: '55555',
+    exemplarFrame: 'aggregated_covtype_20k_data.hex_by_aggregatormodel',
+    columnOffset: '0',
+    columnCount: '10',
+    defaultXVariable: 'C10',
+    defaultYVariable: 'C1'
+  };
+
+  vis.pcaConfig = {
+    server: 'mr-0xc8',
+    port: '54321',
+    exemplarFrame: 'aggregated_pca_processed_events_sql_to_hex_by_aggregatormodel',
+    columnOffset: '0',
+    columnCount: '10',
+    defaultXVariable: 'PC1',
+    defaultYVariable: 'PC2'
+  };
+
+  vis.apiConfig = vis.pcaConfig;
+
+  vis.xCat = vis.apiConfig.defaultXVariable;
+  vis.yCat = vis.apiConfig.defaultYVariable;
   // const rCat = 'C2';
   // const colorCat = 'C3';
 
-  // call API to get exemplar data
-  const queryUrl = 'http://mr-0xc8:55555/3/Frames/aggregated_covtype_20k_data.hex_by_aggregatormodel?column_offset=0&column_count=10';
+  const server = vis.apiConfig.server;
+  const port = vis.apiConfig.port;
+  const exemplarsFrame = vis.apiConfig.exemplarFrame;
+  const columnOffset = vis.apiConfig.columnOffset;
+  const columnCount = vis.apiConfig.columnCount;
+
+  const queryUrl = `http://${server}:${port}/3/Frames/${exemplarsFrame}?column_offset=${columnOffset}&column_count=${columnCount}`;
 
   d3.xhr(queryUrl, 'application/json', (error, response) => {
     console.log('response', response);
