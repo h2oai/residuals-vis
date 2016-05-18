@@ -31,3 +31,6 @@ Roadmap
   - add a conditional statement to the zoom function that adds a
   mouseover event to all voronoi paths beyond a certain zoom level
   - approach C???
++ update opacity with zoom level?
+  - zoomed out, low opacity so points are not occluded
+  - zoomed in, high opacity so points are clearly visible
