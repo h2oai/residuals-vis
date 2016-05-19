@@ -9,8 +9,12 @@ DONE 04 + above zoom level threshold show nested data
 DONE 04 + below zoom level threshold hide nested data
 DONE 05 + transition detail points from parent aggregate point position
   to actual position
+DONE + load exemplar dataset with an API call
 
-+ load exemplar dataset with an API call
+DONE + figure out how to customize the position of the dat.gui controls
++ scale text dx, dy with radius
++ update color of exemplar node when its members are shown
+  - orange fill with gray stroke?
 
 
 
@@ -34,4 +38,3 @@ Roadmap
 + update opacity with zoom level?
   - zoomed out, low opacity so points are not occluded
   - zoomed in, high opacity so points are clearly visible
-+ figure out how to customize the position of the dat.gui controls
