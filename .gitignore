@@ -34,3 +34,6 @@ node_modules
 
 # large csv file
 t1m.csv
+
+h2o.err
+h2o.out

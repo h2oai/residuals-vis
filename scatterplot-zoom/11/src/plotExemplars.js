@@ -47,12 +47,7 @@ export function plotExemplars(vis) {
     .orient('left')
     .tickSize(-vis.width);
 
-  const color = d3.scale.category10();
-
-  vis.tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(d => `${vis.xCat}: ${d[vis.xCat]} <br> ${vis.yCat}: ${d[vis.yCat]}`);
+  // const color = d3.scale.category10();
 
   // clear the page before we draw
   // find a more robust way to do this
@@ -64,7 +59,11 @@ export function plotExemplars(vis) {
     .attr('height', vis.outerHeight)
     .append('g')
       .attr('transform', `translate(${vis.margin.left}, ${vis.margin.top})`);
-      // .call(vis.zoomBeh);
+
+  vis.tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(d => `${vis.xCat}: ${d[vis.xCat]} <br> ${vis.yCat}: ${d[vis.yCat]}`);
 
   vis.svg.call(vis.tip);
 
@@ -114,14 +113,14 @@ export function plotExemplars(vis) {
     .attr('x2', 0)
     .attr('y2', vis.height);
 
-  const dots = objects.selectAll('.dot')
+  vis.dots = objects.selectAll('.dot')
     .data(vis.exemplarData)
     .enter()
     .append('g')
       .attr('transform', d => translatePoints(vis, d))
       .classed('dot', true);
 
-  dots
+  vis.dots
     .append('circle')
     .classed('dot', true)
     // .attr('r', function (d) {
@@ -146,16 +145,19 @@ export function plotExemplars(vis) {
     .on('mouseover', vis.tip.show)
     .on('mouseout', vis.tip.hide);
 
-  dots
+  vis.dots
     .append('text')
     .style('fill', 'black')
+    .style('fill-opacity', 0.7)
     .style('font-size', 8)
     .attr('dx', '.35em')
     .attr('dy', '.35em')
     .text(d => d.id);
 
-  dots.classed('aggregate', true);
+  vis.dots.classed('aggregate', true);
 
+  /* no legend for now */
+  /*
   const legend = vis.svg.selectAll('.legend')
     .data(color.domain())
     .enter().append('g')
@@ -171,6 +173,7 @@ export function plotExemplars(vis) {
     .attr('x', vis.width + 26)
     .attr('dy', '.35em')
     .text(d => d);
+  */
 
   // drawVoronoiPaths(vis, vis.exemplarData);
 

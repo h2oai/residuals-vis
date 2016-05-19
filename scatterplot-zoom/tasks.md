@@ -34,3 +34,4 @@ Roadmap
 + update opacity with zoom level?
   - zoomed out, low opacity so points are not occluded
   - zoomed in, high opacity so points are clearly visible
++ figure out how to customize the position of the dat.gui controls
