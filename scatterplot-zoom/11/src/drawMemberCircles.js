@@ -35,7 +35,7 @@ export function drawMemberCircles(vis) {
       .transition()
         .duration(500)
         // .attr('transform', translatePoints)
-        .style('fill-opacity', 0.4);
+        .style('fill-opacity', 0.7);
         // .style('stroke-opacity', 0.8);
 
     d3.selectAll('circle.detailDot')

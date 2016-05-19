@@ -150,6 +150,8 @@ export function plotExemplars(vis) {
     .append('text')
     .style('fill', 'black')
     .style('font-size', 8)
+    .attr('dx', '.35em')
+    .attr('dy', '.35em')
     .text(d => d.id);
 
   dots.classed('aggregate', true);
