@@ -38,3 +38,5 @@ Roadmap
 + update opacity with zoom level?
   - zoomed out, low opacity so points are not occluded
   - zoomed in, high opacity so points are clearly visible
++ add lensing for the exemplar (fisheye lensing, Furnival)
++ add lensing for the axes as well

@@ -35,15 +35,15 @@ export function drawScatterplot() {
 
   vis.pcaConfig = {
     server: 'mr-0xc8',
-    port: '54321',
+    port: '55555',
     exemplarFrame: 'aggregated_pca_processed_events_sql_to_hex_by_aggregatormodel',
     columnOffset: '0',
-    columnCount: '10',
+    columnCount: '8',
     defaultXVariable: 'PC1',
     defaultYVariable: 'PC2'
   };
 
-  vis.apiConfig = vis.coverTypeConfig;
+  vis.apiConfig = vis.pcaConfig;
 
   vis.xCat = vis.apiConfig.defaultXVariable;
   vis.yCat = vis.apiConfig.defaultYVariable;
