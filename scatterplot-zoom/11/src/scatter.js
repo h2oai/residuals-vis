@@ -43,7 +43,7 @@ export function drawScatterplot() {
     defaultYVariable: 'PC2'
   };
 
-  vis.apiConfig = vis.pcaConfig;
+  vis.apiConfig = vis.coverTypeConfig;
 
   vis.xCat = vis.apiConfig.defaultXVariable;
   vis.yCat = vis.apiConfig.defaultYVariable;
