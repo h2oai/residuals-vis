@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "cells": [
+    {
+      "type": "cs",
+      "input": "parseFiles\n  paths: [\"https://s3.amazonaws.com/h2o-public-test-data/smalldata/covtype/covtype.20k.data\"]\n  destination_frame: \"covtype_20k_data.hex\"\n  parse_type: \"CSV\"\n  separator: 44\n  number_columns: 55\n  single_quotes: false\n  column_names: null\n  column_types: [\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\",\"Numeric\"]\n  delete_on_done: true\n  check_header: -1\n  chunk_size: 4194304"
+    },
+    {
+      "type": "cs",
+      "input": "buildModel 'aggregator', {\"model_id\":\"aggregatormodel\",\"training_frame\":\"covtype_20k_data.hex\",\"ignored_columns\":[],\"ignore_const_cols\":true,\"radius_scale\":\"1\",\"transform\":\"NORMALIZE\"}"
+    },
+    {
+      "type": "cs",
+      "input": "getModel \"aggregatormodel\""
+    },
+    {
+      "type": "cs",
+      "input": "predict model: \"aggregatormodel\", frame: undefined, predictions_frame: \"members_exemplar0\", exemplar_index: 0"
+    },
+    {
+      "type": "cs",
+      "input": "predict model: \"aggregatormodel\", frame: undefined, predictions_frame: \"members_exemplar1\", exemplar_index: 1"
+    },
+    {
+      "type": "cs",
+      "input": "predict model: \"aggregatormodel\", frame: undefined, predictions_frame: \"members_exemplar2\", exemplar_index: 2"
+    }
+  ]
+}
