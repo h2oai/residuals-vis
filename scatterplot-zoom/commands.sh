@@ -23,3 +23,4 @@ java -Xmx10g -cp h2o.jar:/usr/share/java/mysql-connector-java.jar water.H2OApp -
 
 # open chrome with cross-origin protection disabled
 # open -a Google\ Chrome --args --disable-web-security --user-data-dir
+
