@@ -14,7 +14,7 @@ import AlertZoomControls from '../components/AlertZoomControls'
 import AlertFilters from '../containers/AlertFilters'
 
 const WIDTH = 900 // Default Width
-const HEIGHT = 160
+const HEIGHT = 700
 
 const REFRESH_RATE = 15 * 1000 // Every 15 seconds
 
@@ -31,7 +31,8 @@ class AlertsTimeline extends Component {
 
     this.state = {
       groups: [],
-      width: WIDTH
+      width: WIDTH,
+      height: HEIGHT
     }
   }
 
@@ -144,8 +145,11 @@ class AlertsTimeline extends Component {
   setSVGWidth() {
     let box = this.refs.alertsSVGContainer.getBoundingClientRect()
 
+
+
     this.setState({
-      width: Math.floor(box.width)
+      width: Math.floor(box.width),
+      height: Math.floor(box.height)
     })
   }
 
@@ -244,37 +248,37 @@ class AlertsTimeline extends Component {
   render() {
     let timeScale = d3.scale.linear()
       .domain([this.props.startTime, this.props.endTime])
-      .range([0, this.state.width])
+      .range([0, this.state.height])
 
     // Timelines
     let timelines = this.state.groups.map((g, i) => {
-      let y = ((i + 1) * 30)
+      let x = ((i + 1) * 30)
 
       return (
-        <g transform={'translate(0,' + y + ')'} key={g.label}>
+        <g transform={'translate(' + x + ', 0)'} key={g.label}>
           <TimelineByStatus 
             setTooltip={this.setTooltip}
             clearTooltip={this.clearTooltip}
             group={g} 
             timeScale={timeScale} 
-            y={y} 
-            width={this.state.width} />
+            x={x} 
+            height={this.state.height} />
         </g>
       )
     })
 
     let slaColor = '#de2d26'
-    let slaBoundaryX = timeScale(0)
+    let slaBoundaryY = timeScale(0)
     let slaBoundary = (
-      <g transform={'translate(' + slaBoundaryX + ',0)'}>
-        <line y1="0" y2={HEIGHT - 20} stroke={slaColor} strokeWidth="1" />
-        <text textAnchor="middle" className="slaLabel" y={HEIGHT - 4} fill={slaColor}>SLA</text>
+      <g transform={'translate(' + slaBoundaryY + ',0)'}>
+        <line x1="0" x2={WIDTH - 20} stroke={slaColor} strokeWidth="1" />
+        <text textAnchor="middle" className="slaLabel" x={WIDTH - 4} fill={slaColor}>SLA</text>
       </g>
     )
 
     // Axis
-    let ticks = timeScale.ticks(Math.round(this.state.width / 80)).map((t) => {
-      let transform = 'translate(' + timeScale(t) + ',0)'
+    let ticks = timeScale.ticks(Math.round(this.state.height / 80)).map((t) => {
+      let transform = 'translate(0, ' + timeScale(t) + ')'
       let label = function(seconds) {
         let string = ''
         if (seconds === 0) { return string }
@@ -295,8 +299,8 @@ class AlertsTimeline extends Component {
 
       return (
         <g transform={transform} key={t}>
-          <line y1="-16" y2="-12" stroke="#333" />
-          <text textAnchor="middle">{label}</text>
+          <line x1="0" x2="20" stroke="#333" />
+          <text textAnchor="start">{label}</text>
         </g>
       )
     })
@@ -344,16 +348,16 @@ class AlertsTimeline extends Component {
 
       // Mouse Position
       let box = this.refs.alertsSVG.getBoundingClientRect()
-      let mouseX = e.clientX - box.left
+      let mouseY = e.clientY - box.top
 
       // Current Time
       let timeFrame = this.props.endTime - this.props.startTime
-      let timeUnderMouse = timeScale.invert(mouseX)
+      let timeUnderMouse = timeScale.invert(mouseY)
 
       // New Time
       let newTimeFrame = Math.pow(timeFrame, 1 + e.deltaY / 1000)
-      let newBeforeMouse = (mouseX / this.state.width) * newTimeFrame
-      let newAfterMouse = (1 - mouseX / this.state.width) * newTimeFrame
+      let newBeforeMouse = (mouseY / this.state.height) * newTimeFrame
+      let newAfterMouse = (1 - mouseY / this.state.height) * newTimeFrame
 
       let newStart = timeUnderMouse - newBeforeMouse
       let newEnd = timeUnderMouse + newAfterMouse
@@ -361,25 +365,27 @@ class AlertsTimeline extends Component {
       this.props.setSLATimeWindow(newStart, newEnd)
     }
 
+    onWheel = () => {}
+
     let onMouseDown = (e) => {
       let box = this.refs.alertsSVG.getBoundingClientRect()
-      let mouseX = e.clientX - box.left
+      let mouseY = e.clientY - box.top
 
       this.setState({
-        dragStartX: mouseX,
+        dragStartY: mouseY,
         dragStartTime: this.props.startTime,
         dragStartDuration: this.props.endTime - this.props.startTime
       })
     }
 
     let onMouseMove = (e) => {
-      if (typeof this.state.dragStartX === 'number') {
+      if (typeof this.state.dragStartY === 'number') {
         let box = this.refs.alertsSVG.getBoundingClientRect()
-        let mouseX = e.clientX - box.left
-        let mouseXDelta = mouseX - this.state.dragStartX
+        let mouseY = e.clientY - box.top
+        let mouseYDelta = mouseY - this.state.dragStartY
 
-        let secondsPerPixel = this.state.dragStartDuration / this.state.width
-        let secondsDelta = secondsPerPixel * -mouseXDelta
+        let secondsPerPixel = this.state.dragStartDuration / this.state.height
+        let secondsDelta = secondsPerPixel * -mouseYDelta
 
         let newStart = this.state.dragStartTime + secondsDelta
         let newEnd = newStart + this.state.dragStartDuration
@@ -390,9 +396,42 @@ class AlertsTimeline extends Component {
 
     let onMouseUp = (e) => {
       this.setState({
-        dragStartX: null,
+        dragStartY: null,
         dragStartTime: null,
         dragStartDuration: null
+      })
+    }
+
+    // Let Touch Interactions
+    let onTouchStart = (e) => {
+      let touchCoordinates = d3.range(e.touches.length).map((key) => {
+        let t = e.touches[key]
+
+        return {
+          x: t.clientX,
+          y: t.clientY
+        }
+      })
+
+      this.setState({
+        touchStartCoordinates: touchCoordinates
+      })
+    }
+
+    let onTouchMove = (e) => {
+      let touchCoordinates = d3.range(e.touches.length).map((key) => {
+        let t = e.touches[key]
+
+        return {
+          x: t.clientX,
+          y: t.clientY
+        }
+      })
+
+      console.log(touchCoordinates)
+
+      this.setState({
+        touchMoveCoordinates: touchCoordinates
       })
     }
 
@@ -417,14 +456,16 @@ class AlertsTimeline extends Component {
             className="alerts-svg"
             ref="alertsSVG" 
             width={this.state.width} 
-            height={HEIGHT} 
+            height={this.state.height} 
             onWheel={onWheel}
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}>
+            onMouseUp={onMouseUp}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}>
             {timelines}
             {slaBoundary}
-            <g className="timeTicks" transform={'translate(0,' + (HEIGHT - 4) + ')'}>
+            <g className="timeTicks">
               <line x1="0" x2={this.state.width} y1="-16" y2="-16" stroke="#333" />
               {ticks}
             </g>
