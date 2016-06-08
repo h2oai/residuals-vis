@@ -124,7 +124,7 @@ class AlertsTimeline extends Component {
 
   zoomIn() {
     let middle = (this.props.startTime + this.props.endTime) / 2
-    let length = (this.props.endTime - this.props.startTime) * 0.97
+    let length = (this.props.endTime - this.props.startTime) * 0.95
 
     let newStart = middle - length / 2
     let newEnd = middle + length / 2
@@ -134,7 +134,7 @@ class AlertsTimeline extends Component {
 
   zoomOut() {
     let middle = (this.props.startTime + this.props.endTime) / 2
-    let length = (this.props.endTime - this.props.startTime) * 1.02
+    let length = (this.props.endTime - this.props.startTime) * 1.05
 
     let newStart = middle - length / 2
     let newEnd = middle + length / 2
@@ -248,11 +248,13 @@ class AlertsTimeline extends Component {
   render() {
     let timeScale = d3.scale.linear()
       .domain([this.props.startTime, this.props.endTime])
-      .range([0, this.state.height])
+      .range([this.state.height, 0])
 
     // Timelines
     let timelines = this.state.groups.map((g, i) => {
-      let x = ((i + 1) * 30)
+      let spacing = (this.state.width / (this.state.groups.length + 2))
+
+      let x = ((i + 2) * spacing)
 
       return (
         <g transform={'translate(' + x + ', 0)'} key={g.label}>
@@ -270,8 +272,8 @@ class AlertsTimeline extends Component {
     let slaColor = '#de2d26'
     let slaBoundaryY = timeScale(0)
     let slaBoundary = (
-      <g transform={'translate(' + slaBoundaryY + ',0)'}>
-        <line x1="0" x2={WIDTH - 20} stroke={slaColor} strokeWidth="1" />
+      <g transform={'translate(0, ' + slaBoundaryY + ')'}>
+        <line x1="0" x2={this.state.width} stroke={slaColor} strokeWidth="1" />
         <text textAnchor="middle" className="slaLabel" x={WIDTH - 4} fill={slaColor}>SLA</text>
       </g>
     )
@@ -308,11 +310,15 @@ class AlertsTimeline extends Component {
     // Interactions
     let onZoomIn = {
       mouseDown: (e) => {
+        e.preventDefault()
+
         this.setState({
           zoomingIn: true
         })
       },
       mouseUp: (e) => {
+        e.preventDefault()
+
         this.setState({
           zoomingIn: false
         })
@@ -321,11 +327,15 @@ class AlertsTimeline extends Component {
 
     let onZoomOut = {
       mouseDown: (e) => {
+        e.preventDefault()
+
         this.setState({
           zoomingOut: true
         })
       },
       mouseUp: (e) => {
+        e.preventDefault()
+
         this.setState({
           zoomingOut: false
         })
@@ -385,7 +395,7 @@ class AlertsTimeline extends Component {
         let mouseYDelta = mouseY - this.state.dragStartY
 
         let secondsPerPixel = this.state.dragStartDuration / this.state.height
-        let secondsDelta = secondsPerPixel * -mouseYDelta
+        let secondsDelta = secondsPerPixel * mouseYDelta
 
         let newStart = this.state.dragStartTime + secondsDelta
         let newEnd = newStart + this.state.dragStartDuration
@@ -409,30 +419,88 @@ class AlertsTimeline extends Component {
 
         return {
           x: t.clientX,
-          y: t.clientY
+          y: t.clientY,
+          time: timeScale.invert(t.clientY)
         }
       })
 
       this.setState({
-        touchStartCoordinates: touchCoordinates
+        dragStartTime: this.props.startTime,
+        dragStartDuration: this.props.endTime - this.props.startTime,
+        touchStartCoordinates: touchCoordinates,
+        touchMoveCoordinates: touchCoordinates
       })
     }
 
     let onTouchMove = (e) => {
+      e.preventDefault()
+
       let touchCoordinates = d3.range(e.touches.length).map((key) => {
         let t = e.touches[key]
 
         return {
           x: t.clientX,
-          y: t.clientY
+          y: t.clientY,
+          time: timeScale.invert(t.clientY)
         }
       })
 
-      console.log(touchCoordinates)
+      // If number of touches change
+      if (touchCoordinates.length !== this.state.touchStartCoordinates.length) {
+        this.setState({
+          dragStartTime: this.props.startTime,
+          dragStartDuration: this.props.endTime - this.props.startTime,
+          touchStartCoordinates: touchCoordinates,
+          touchMoveCoordinates: touchCoordinates
+        })
 
-      this.setState({
-        touchMoveCoordinates: touchCoordinates
-      })
+        return 
+      }
+
+      // Touch Drag
+      if (e.touches.length <= 1) {
+        let secondsPerPixel = this.state.dragStartDuration / this.state.height
+
+        let newStart = this.state.touchStartCoordinates[0].time - (this.state.height - touchCoordinates[0].y) * secondsPerPixel 
+        let newEnd = newStart + this.state.dragStartDuration
+
+        this.props.setSLATimeWindow(newStart, newEnd)  
+
+      } else {
+        /*
+        let timeFrame = this.props.endTime - this.props.startTime
+
+        let pointUnderPinch = (this.state.touchStartCoordinates[0].y + this.state.touchStartCoordinates[1].y) / 2
+        let timeUnderPinch = timeScale.invert(pointUnderPinch)
+
+        let pinchStartDistance = Math.abs(this.state.touchStartCoordinates[0].y - this.state.touchStartCoordinates[1].y)
+        let pinchDistance = Math.abs(touchCoordinates[0].y - touchCoordinates[1].y)
+
+        let newTimeFrame = timeFrame * pinchDistance / pinchStartDistance
+        let newBeforeMidPinch = (pointUnderPinch / this.state.height) * newTimeFrame
+        let newAfterMidPinch = (1 - pointUnderPinch / this.state.height) * newTimeFrame
+
+        let newStart = timeUnderPinch - newBeforeMidPinch
+        let newEnd = timeUnderPinch + newAfterMidPinch
+        */
+
+        let firstStartTouch = this.state.touchStartCoordinates[0]
+        let secondStartTouch = this.state.touchStartCoordinates[1] || touchCoordinates[1]
+
+        let secondsPerPixel = Math.abs(firstStartTouch.time - secondStartTouch.time) / Math.abs(touchCoordinates[0].y - touchCoordinates[1].y)
+        let newTimeFrame = secondsPerPixel * this.state.height
+
+        let newStart = Math.max(firstStartTouch.time, secondStartTouch.time) - (this.state.height - Math.min(touchCoordinates[0].y, touchCoordinates[1].y)) * secondsPerPixel
+        let newEnd = newStart + newTimeFrame
+
+        this.props.setSLATimeWindow(newStart, newEnd)
+
+        if (!this.state.touchStartCoordinates[1]) {
+          this.setState({
+            touchStartCoordinates: [firstStartTouch, secondStartTouch]
+          })
+        }
+      }
     }
 
     // Tooltip
@@ -447,10 +515,6 @@ class AlertsTimeline extends Component {
 
     return (
       <div id="alerts-timeline">
-        <div id="alerts-controls">
-          <AlertFilters counts={this.state.priorityCounts} />
-          <AlertZoomControls onZoomIn={onZoomIn} onZoomOut={onZoomOut} onResetClick={onResetClick} />
-        </div>
         <div id="alerts-tooltip-anchor" ref="alertsSVGContainer">
           <svg
             className="alerts-svg"
@@ -466,10 +530,14 @@ class AlertsTimeline extends Component {
             {timelines}
             {slaBoundary}
             <g className="timeTicks">
-              <line x1="0" x2={this.state.width} y1="-16" y2="-16" stroke="#333" />
+              <line x1="0" x2={this.state.width} stroke="#333" />
               {ticks}
             </g>
           </svg>
+          <div id="alerts-controls">
+            <AlertFilters counts={this.state.priorityCounts} />
+            <AlertZoomControls onZoomIn={onZoomIn} onZoomOut={onZoomOut} onResetClick={onResetClick} />
+          </div>
           {tooltip}
         </div>
       </div>

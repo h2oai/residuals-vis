@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import d3 from 'd3'
 
-const HEIGHT = 20
+const HEIGHT = 36
 const WIDTH = HEIGHT * 4
 
-const strokeWidth = 2.5
+const strokeWidth = 5
 const r = HEIGHT / 2
 const ir = r - strokeWidth
 
@@ -39,13 +39,31 @@ class AlertZoomControls extends Component {
           <path d={ringPath} fill="#ddd" />
           <rect fill="#ddd" x={offsetBar} y={offsetUnit} width={barWidth} height={unitWidth} />
           <rect fill="#ddd" x={offsetUnit} y={offsetBar} width={unitWidth} height={barWidth} />
-          <circle cx={HEIGHT / 2} cy={HEIGHT / 2} r={r} opacity="0" fill="#fff" onMouseDown={this.props.onZoomIn.mouseDown} onMouseUp={this.props.onZoomIn.mouseUp} />
+          <circle 
+            cx={HEIGHT / 2} 
+            cy={HEIGHT / 2} 
+            r={r} 
+            opacity="0" 
+            fill="#fff" 
+            onMouseDown={this.props.onZoomIn.mouseDown} 
+            onMouseUp={this.props.onZoomIn.mouseUp} 
+            onTouchStart={this.props.onZoomIn.mouseDown}
+            onTouchEnd={this.props.onZoomIn.mouseUp} />
         </g>
 
         <g transform={'translate(' + (HEIGHT * 1.5) + ',0)'}>
           <path d={ringPath} fill="#ddd" />
           <rect fill="#ddd" x={offsetBar} y={offsetUnit} width={barWidth} height={unitWidth} />
-          <circle cx={HEIGHT / 2} cy={HEIGHT / 2} r={r} opacity="0" fill="#fff" onMouseDown={this.props.onZoomOut.mouseDown} onMouseUp={this.props.onZoomOut.mouseUp} />
+          <circle 
+            cx={HEIGHT / 2} 
+            cy={HEIGHT / 2} 
+            r={r} 
+            opacity="0" 
+            fill="#fff" 
+            onMouseDown={this.props.onZoomOut.mouseDown} 
+            onMouseUp={this.props.onZoomOut.mouseUp}
+            onTouchStart={this.props.onZoomOut.mouseDown} 
+            onTouchEnd={this.props.onZoomOut.mouseUp} />
         </g>
 
         <g transform={'translate(' + (HEIGHT * 2.8) + ',0)'}>

@@ -22,6 +22,6 @@ export const PRIORITIES_MAP = {
 }
 
 export const SLA_TIMEWINDOW = {
-  startTime: 60 * 60 * -2,
-  endTime: 60 * 60 * 18
+  startTime: 60 * 60 * -10,
+  endTime: 60 * 60 * 10
 }
