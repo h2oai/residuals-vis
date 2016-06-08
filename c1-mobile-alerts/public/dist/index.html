@@ -14,7 +14,7 @@
         stroke-width: 1;
       }
       .alerts-status-label {
-        font-size: 11px;
+        font-size: 16px;
         fill: #aaa;
       }
 
@@ -38,14 +38,15 @@
       .alerts-tooltip-wrapper:before {
         content: '';
         position: absolute;
-        transform: translate(-50%, 0);
-        border-bottom: 8px solid rgba(0,0,0,0.8);
+        transform: translate(-50%, -8px);
+        border-top: 8px solid rgba(0,0,0,0.8);
         border-left: 8px solid transparent;
         border-right: 8px solid transparent; 
       }
 
       .alerts-tooltip {
-        transform: translate(-50%, 8px);
+        transform: translate(-50%, calc(-100% - 8px));
+        max-width: 45vw;
         background: rgba(0,0,0,0.8);
         color: #eee;
         padding: 10px;
@@ -61,6 +62,7 @@
         text-align: left;
         color: #aaa;
         padding-right: 1em;
+        vertical-align: top;
       }
 
       .alert-detail-table th,

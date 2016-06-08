@@ -4,23 +4,25 @@ import MultipleAlertsTooltipDetail from './MultipleAlertsTooltipDetail'
 import { PRIORITIES_MAP } from '../constants'
 
 const INDIVIDUAL = {
-  radius: 5
+  radius: 16
 }
 
 const CLUSTER = {
-  radius: 10
+  radius: 28
 }
 
 class TimelineByStatus extends Component {
   render() {
     let individuals = this.props.group.individuals.map((a) => {
       let cy = this.props.timeScale(a.slaTime)
-      let onMouseOver = () => {
+      let onTouchStart = (e) => {
+        e.preventDefault()
+
         let content = <SingleAlertTooltipDetail alert={a} />
-        this.props.setTooltip(cy, this.props.y + INDIVIDUAL.radius + 1, content)
+        this.props.setTooltip(this.props.x, cy - INDIVIDUAL.radius - 1, content)
       }
 
-      let onMouseOut = () => {
+      let onTouchEnd = () => {
         this.props.clearTooltip()
       }
  
@@ -29,20 +31,23 @@ class TimelineByStatus extends Component {
           <circle 
             r={INDIVIDUAL.radius} 
             fill={PRIORITIES_MAP[a.priority].color} 
-            onMouseOver={onMouseOver} 
-            onMouseOut={onMouseOut} />
+            onTouchStart={onTouchStart} 
+            onTouchEnd={onTouchEnd} />
         </g>
       )
     })
 
     let clusters = this.props.group.clusters.map((c, i) => {
       let cy = this.props.timeScale(c.slaTime)
-      let onMouseOver = () => {
+
+      let onTouchStart = (e) => {
+        e.preventDefault()
+
         let content = <MultipleAlertsTooltipDetail cluster={c} />
-        this.props.setTooltip(cy, this.props.x + CLUSTER.radius + 1, content)
+        this.props.setTooltip(this.props.x, cy - CLUSTER.radius - 1, content)
       }
 
-      let onMouseOut = () => {
+      let onTouchEnd = () => {
         this.props.clearTooltip()
       }
 
@@ -51,12 +56,12 @@ class TimelineByStatus extends Component {
           <circle 
             r={CLUSTER.radius} 
             fill={PRIORITIES_MAP[c.priority].color} />
-          <text y="4" fontSize="13" textAnchor="end" fill="#fff">{c.values.length}</text>
+          <text y="8" fontSize="24" fontWeight="bold" textAnchor="middle" fill="#fff">{c.values.length}</text>
           <circle 
             r={CLUSTER.radius} 
             fill="transparent"
-            onMouseOver={onMouseOver} 
-            onMouseOut={onMouseOut} />
+            onTouchStart={onTouchStart} 
+            onTouchEnd={onTouchEnd} />
         </g>
       )
     })
@@ -64,7 +69,9 @@ class TimelineByStatus extends Component {
     return (
       <g className="alerts-timeline">
         <line y1={0} y2={this.props.height} />
-        <text className="alerts-status-label" y={this.props.height - 2} y="-3" textAnchor="end">{this.props.group.label}</text>
+        <g transform="rotate(90)">
+          <text className="alerts-status-label" y="-6" x="6">{this.props.group.label}</text>
+        </g>
         {individuals}
         {clusters}
       </g>

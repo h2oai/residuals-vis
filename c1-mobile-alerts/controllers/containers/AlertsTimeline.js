@@ -18,6 +18,8 @@ const HEIGHT = 700
 
 const REFRESH_RATE = 15 * 1000 // Every 15 seconds
 
+const pad = d3.format("02d")
+
 class AlertsTimeline extends Component {
   constructor() {
     super()
@@ -210,7 +212,7 @@ class AlertsTimeline extends Component {
             return a.slaTime - b.slaTime
           })
 
-        let threshold = (nextProps.endTime - nextProps.startTime) / 80
+        let threshold = (nextProps.endTime - nextProps.startTime) / 20
 
         let clusteredAlerts = this.clusterAlerts(alerts, threshold)
 
@@ -242,7 +244,9 @@ class AlertsTimeline extends Component {
       this.props.fetchAlerts()
     }
 
-    window.requestAnimationFrame(this.tick)
+    if (this.state.zoomingIn || this.state.zoomingOut) {
+      window.requestAnimationFrame(this.tick)
+    }
   }
 
   render() {
@@ -252,7 +256,7 @@ class AlertsTimeline extends Component {
 
     // Timelines
     let timelines = this.state.groups.map((g, i) => {
-      let spacing = (this.state.width / (this.state.groups.length + 2))
+      let spacing = (this.state.width / (this.state.groups.length + 3))
 
       let x = ((i + 2) * spacing)
 
@@ -291,7 +295,7 @@ class AlertsTimeline extends Component {
         let hours = Math.floor(postiveSeconds / 60 / 60)
         string += hours + ':'
 
-        let minutes = (Math.floor(postiveSeconds / 60) % 60)
+        let minutes = pad(Math.floor(postiveSeconds / 60) % 60)
         string += minutes
 
         string = (sign < 0) ? ('-' + string) : string
@@ -299,10 +303,12 @@ class AlertsTimeline extends Component {
         return string
       }(t)
 
+      let color = (t < 0) ? slaColor : '#999'
+
       return (
         <g transform={transform} key={t}>
-          <line x1="0" x2="20" stroke="#333" />
-          <text textAnchor="start">{label}</text>
+          <line x1="0" x2="40" stroke={color} />
+          <text x="4" y="-2" textAnchor="start" fill={color}>{label}</text>
         </g>
       )
     })
@@ -314,6 +320,8 @@ class AlertsTimeline extends Component {
 
         this.setState({
           zoomingIn: true
+        }, () => {
+          window.requestAnimationFrame(this.tick)
         })
       },
       mouseUp: (e) => {
@@ -331,6 +339,8 @@ class AlertsTimeline extends Component {
 
         this.setState({
           zoomingOut: true
+        }, () => {
+          window.requestAnimationFrame(this.tick)
         })
       },
       mouseUp: (e) => {
@@ -352,30 +362,6 @@ class AlertsTimeline extends Component {
     let onResetClick = (e) => {
       this.props.setSLATimeWindow(SLA_TIMEWINDOW.startTime, SLA_TIMEWINDOW.endTime)
     }
-
-    let onWheel = (e) => {
-      e.preventDefault()
-
-      // Mouse Position
-      let box = this.refs.alertsSVG.getBoundingClientRect()
-      let mouseY = e.clientY - box.top
-
-      // Current Time
-      let timeFrame = this.props.endTime - this.props.startTime
-      let timeUnderMouse = timeScale.invert(mouseY)
-
-      // New Time
-      let newTimeFrame = Math.pow(timeFrame, 1 + e.deltaY / 1000)
-      let newBeforeMouse = (mouseY / this.state.height) * newTimeFrame
-      let newAfterMouse = (1 - mouseY / this.state.height) * newTimeFrame
-
-      let newStart = timeUnderMouse - newBeforeMouse
-      let newEnd = timeUnderMouse + newAfterMouse
-
-      this.props.setSLATimeWindow(newStart, newEnd)
-    }
-
-    onWheel = () => {}
 
     let onMouseDown = (e) => {
       let box = this.refs.alertsSVG.getBoundingClientRect()
@@ -467,23 +453,6 @@ class AlertsTimeline extends Component {
         this.props.setSLATimeWindow(newStart, newEnd)  
 
       } else {
-        /*
-        let timeFrame = this.props.endTime - this.props.startTime
-
-        let pointUnderPinch = (this.state.touchStartCoordinates[0].y + this.state.touchStartCoordinates[1].y) / 2
-        let timeUnderPinch = timeScale.invert(pointUnderPinch)
-
-        let pinchStartDistance = Math.abs(this.state.touchStartCoordinates[0].y - this.state.touchStartCoordinates[1].y)
-        let pinchDistance = Math.abs(touchCoordinates[0].y - touchCoordinates[1].y)
-
-        let newTimeFrame = timeFrame * pinchDistance / pinchStartDistance
-        let newBeforeMidPinch = (pointUnderPinch / this.state.height) * newTimeFrame
-        let newAfterMidPinch = (1 - pointUnderPinch / this.state.height) * newTimeFrame
-
-        let newStart = timeUnderPinch - newBeforeMidPinch
-        let newEnd = timeUnderPinch + newAfterMidPinch
-        */
-
         let firstStartTouch = this.state.touchStartCoordinates[0]
         let secondStartTouch = this.state.touchStartCoordinates[1] || touchCoordinates[1]
 
@@ -521,18 +490,20 @@ class AlertsTimeline extends Component {
             ref="alertsSVG" 
             width={this.state.width} 
             height={this.state.height} 
-            onWheel={onWheel}
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}>
-            {timelines}
-            {slaBoundary}
+
             <g className="timeTicks">
               <line x1="0" x2={this.state.width} stroke="#333" />
               {ticks}
             </g>
+
+            {slaBoundary}
+            {timelines}
+            
           </svg>
           <div id="alerts-controls">
             <AlertFilters counts={this.state.priorityCounts} />
