@@ -11,19 +11,42 @@ const CLUSTER = {
   radius: 28
 }
 
+const HOLD_TIME = 1500
+
 class TimelineByStatus extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      lastTap: new Date()
+    }
+  }
+
   render() {
     let individuals = this.props.group.individuals.map((a) => {
       let cy = this.props.timeScale(a.slaTime)
       let onTouchStart = (e) => {
         e.preventDefault()
+        let currentTime = new Date()
+        let delta = currentTime.getTime() - this.state.lastTap.getTime()
 
-        let content = <SingleAlertTooltipDetail alert={a} />
-        this.props.setTooltip(this.props.x, cy - INDIVIDUAL.radius - 1, content)
+        if (delta < 250) {
+          window.location.href = 'http://h2o.ai'
+        } else {
+          let content = <SingleAlertTooltipDetail alert={a} />
+          this.props.setTooltip(this.props.x, cy - INDIVIDUAL.radius - 1, content)
+        }
+
+        this.setState({
+          lastTap: currentTime
+        })
+
+        // window.location.href = 'http://h2o.ai'
       }
 
       let onTouchEnd = () => {
         this.props.clearTooltip()
+
       }
  
       return (
@@ -43,8 +66,19 @@ class TimelineByStatus extends Component {
       let onTouchStart = (e) => {
         e.preventDefault()
 
-        let content = <MultipleAlertsTooltipDetail cluster={c} />
-        this.props.setTooltip(this.props.x, cy - CLUSTER.radius - 1, content)
+        let currentTime = new Date()
+        let delta = currentTime.getTime() - this.state.lastTap.getTime()
+
+        if (delta < 250) {
+          window.location.href = 'http://h2o.ai'
+        } else {
+          let content = <MultipleAlertsTooltipDetail cluster={c} />
+          this.props.setTooltip(this.props.x, cy - CLUSTER.radius - 1, content)
+        }
+
+        this.setState({
+          lastTap: currentTime
+        })
       }
 
       let onTouchEnd = () => {
