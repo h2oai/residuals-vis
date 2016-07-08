@@ -1,4 +1,4 @@
-an attempt at a minimal example project that uses the [webpack](https://webpack.github.io/) module bundler to load the [rocChart](https://www.npmjs.com/package/dropline) module
+an attempt at a minimal example project that uses the [webpack](https://webpack.github.io/) module bundler to load the [rocChart](https://github.com/h2oai/roc-chart) module
 
 ### Usage
 
