@@ -1,0 +1,59 @@
+{
+  "name": "roc-chart-example-project",
+  "version": "0.1.0",
+  "description": "an example project that uses webpack to load the roc-chart module",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micahstubbs/dropline-example-project.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "webpack"
+  ],
+  "author": "@micahstubbs <micah.stubbs@gmail.com> (https://twitter.com/micahstubbs)",
+  "contributors": [
+    {
+      "name": "Dan Abramov",
+      "email": "dan.abramov@me.com",
+      "url": "http://github.com/gaearon"
+    },
+    {
+      "name": "@micahstubbs",
+      "email": "micah.stubbs@gmail.com",
+      "url": "https://twitter.com/micahstubbs"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/micahstubbs/dropline-example-project/issues"
+  },
+  "homepage": "https://github.com/micahstubbs/dropline-example-project",
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.3",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "eslint": "^1.10.3",
+    "eslint-plugin-react": "^3.6.2",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6"
+  }
+}
