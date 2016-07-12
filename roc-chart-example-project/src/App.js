@@ -10,3 +10,6 @@ export default class App extends Component {
 }
 
 drawROCChart();
+drawROCChart(150, 150);
+drawROCChart(200, 200);
+drawROCChart(720, 720);
