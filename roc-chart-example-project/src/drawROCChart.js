@@ -8,7 +8,7 @@ export function drawROCChart(width, height) {
   if (typeof height === 'undefined') height = 450; 
 
   // const margin = {top: 30, right: 61, bottom: 70, left: 61}; 
-  const margin = {top: 1, right: 1, bottom: 1, left: 1};
+  const margin = {top: 2, right: 2, bottom: 2, left: 2};
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
 
@@ -20,31 +20,42 @@ export function drawROCChart(width, height) {
     'width': chartWidth,
     'height': chartHeight,
     'interpolationMode': 'basis',
-    'fpr': 'X',
+    // 'fpr': 'X',
+    'fpr': 'fpr',
+    // 'tprVariables': [
+    //   {
+    //     'name': 'BPC',
+    //     'label': 'Break Points'
+    //   },
+    //   {
+    //     'name': 'WNR',
+    //     'label': 'Winners'
+    //   },
+    //   {
+    //     'name': 'FSP',
+    //     'label': 'First Serve %',
+    //   },
+    //   {
+    //     'name': 'NPW',
+    //     'label': 'Net Points Won'
+    //   }
+    // ],
     'tprVariables': [
       {
-        'name': 'BPC',
-        'label': 'Break Points'
-      },
-      {
-        'name': 'WNR',
-        'label': 'Winners'
-      },
-      {
-        'name': 'FSP',
-        'label': 'First Serve %',
-      },
-      {
-        'name': 'NPW',
-        'label': 'Net Points Won'
+        'name': 'gbm',
+        'label': 'Gradient Boosting Machine'
       }
-    ], 
+    ],
     'animate': false,
     'smooth': true,
-    'hideTicks': true
+    'hideTicks': true,
+    'hideAxes': true
   }
 
-  d3.json('src/data.json', function(error, data) {
+  // const dataFile = 'src/data.json';
+  const dataFile = 'src/gbm-train-roc-data.json';
+
+  d3.json(dataFile, function(error, data) {
     rocChart.plot('#root', data, rocChartOptions)
   })
 }
