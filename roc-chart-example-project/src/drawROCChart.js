@@ -16,12 +16,12 @@ export function drawROCChart(width, height) {
   // tpr for 'true positive rate'
 
   const rocChartOptions = {
-    'margin': margin,
-    'width': chartWidth,
-    'height': chartHeight,
-    'interpolationMode': 'basis',
+    margin: margin,
+    width: chartWidth,
+    height: chartHeight,
+    interpolationMode: 'basis',
     // 'fpr': 'X',
-    'fpr': 'fpr',
+    fpr: 'fpr',
     // 'tprVariables': [
     //   {
     //     'name': 'BPC',
@@ -40,16 +40,17 @@ export function drawROCChart(width, height) {
     //     'label': 'Net Points Won'
     //   }
     // ],
-    'tprVariables': [
+    tprVariables: [
       {
         'name': 'gbm',
         'label': 'Gradient Boosting Machine'
       }
     ],
-    'animate': false,
-    'smooth': true,
-    'hideTicks': true,
-    'hideAxes': true
+    animate: false,
+    smooth: true,
+    hideTicks: true,
+    hideAxes: true,
+    hideAUCText: true
   }
 
   // const dataFile = 'src/data.json';
