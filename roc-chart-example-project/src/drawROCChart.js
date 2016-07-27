@@ -1,5 +1,4 @@
-import rocChart from 'rocChart';
-import d3 from 'd3';
+import rocChart from 'roc-chart';
 
 export function drawROCChart() { 
   const sideLength = 6.25;
