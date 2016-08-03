@@ -1,0 +1,16 @@
+{
+  "name": "residuals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "00-calculate-residuals.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@micahstubbs <micah.stubbs@gmail.com> (https://twitter.com/micahstubbs)",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "csv-write-stream": "^2.0.0",
+    "d3": "^3.5.17",
+    "lodash": "^4.14.0"
+  }
+}
