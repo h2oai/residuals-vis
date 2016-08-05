@@ -1,4 +1,4 @@
-var countries = [
+[
   {
     "Country": "Afghanistan",
     "CountryCode": "AFG",
@@ -1610,4 +1610,4 @@ var countries = [
     "GDP_perCapita": 723.16,
     "lifeExpectancy": 53.59312195
   }
-];
+]

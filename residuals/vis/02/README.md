@@ -1,3 +1,15 @@
+DONE + convert to es2015
+DONE + lint, convert to airbnb style
+DONE + store data as json
+DONE + name data file data.json
+DONE + convert to #d3js v4
+DONE + remove pym.js dependency
+DONE + use d3-tip tooltips
+DONE + remove jQuery dependency
+DONE + abstract out dataset-specific variable names into configuration block
+
+---
+
 This [block](http://bl.ocks.org/Kcnarf/4de291d8b2d1e6501990540d87bc1baf) is based on [Step 3 - Voronoi Scatterplot - Tooltip attached to circle](http://bl.ocks.org/nbremer/c0ffc07b23b1c556a66b) from [@NadiehBremer ](https://twitter.com/NadiehBremer)
 
 The Voronoi technics (used to improve interactive experience) is something I like. But I'm quite confused when the mouse is far away from points/subjectsOfMatter. In the original example, this situation arises in the viz's top-left and bottom-right corners.

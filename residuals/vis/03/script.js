@@ -59,31 +59,48 @@ const color = d3.scaleOrdinal()
   ]);
 
 // map variables to our dataset
-const xVariable = 'GDP_perCapita';
-const yVariable = 'lifeExpectancy';
-const rVariable = 'GDP';
-const idVariable = 'CountryCode';
-const groupByVariable = 'Region';
-const tooltipVariable = 'Country';
+const xVariable = 'predict';
+const yVariable = 'residual';
+const rVariable = undefined;
+const idVariable = 'DayOfWeek';
+const groupByVariable = undefined;
+const tooltipVariable = 'start station name';
 
-d3.json('data.json', (error, data) => {
-		// Set the new x axis range
-	const xScale = d3.scaleLog()
+const numericVariables = [
+	'Days',
+	'Month',
+	'bikes',
+	'predict',
+	'residual'
+]
+
+d3.csv('gbm-residuals.csv', (error, inputData) => {
+	// parse strings to numbers
+	let data = _.cloneDeep(inputData);
+
+	data.forEach(d => {
+		numericVariables.forEach(e => {
+			d[e] = Number(d[e]);
+		})
+	})
+	
+	// Set the new x axis range
+	const xScale = d3.scaleLinear()
 	  .range([0, width])
-	  .domain([100, 2e5]);
+	  //.domain([100, 2e5]);
 	  // I prefer this exact scale over the true range and then using "nice"
-	  // .domain(d3.extent(data, function(d) { return d[xVariable]; }))
+	  .domain(d3.extent(data, function(d) { return d[xVariable]; }))
 	  // .nice();
 
 	// Set new x-axis
 	const xAxis = d3.axisBottom()
-	  .ticks(10)
-	  .tickFormat(d => // Difficult function to create better ticks
-	    xScale.tickFormat((mobileScreen ? 4 : 8), e => {
-	      const prefix = d3.format(",.0s");
-	      return `$${prefix(e)}`;
-	    })(d))
-	    .scale(xScale);
+	  // .ticks(10)
+	  // .tickFormat(d => // Difficult function to create better ticks
+	  //   xScale.tickFormat((mobileScreen ? 4 : 8), e => {
+	  //     const prefix = d3.format(',.0s');
+	  //     return `${prefix(e)}`;
+	  //   })(d))
+	  .scale(xScale);
 
 	// Append the x-axis
 	wrapper.append('g')
@@ -108,12 +125,14 @@ d3.json('data.json', (error, data) => {
 	    .call(yAxis);
 
 	// Scale for the bubble size
-	const rScale = d3.scaleSqrt()
-	      .range([
-	        mobileScreen ? 1 : 2,
-	        mobileScreen ? 10 : 16
-	      ])
-	      .domain(d3.extent(data, d => d[rVariable]));
+	if(typeof rVariable !== 'undefined') {
+		const rScale = d3.scaleSqrt()
+	    .range([
+	      mobileScreen ? 1 : 2,
+	      mobileScreen ? 10 : 16
+	    ])
+	    .domain(d3.extent(data, d => d[rVariable]));
+	}
 
 	//
 	// Scatterplot Circles
@@ -125,14 +144,31 @@ d3.json('data.json', (error, data) => {
 
 	// Place the country circles
 	circleGroup.selectAll('marks')
-	  .data(data.sort((a, b) => b[rVariable] > a[rVariable])) // Sort so the biggest circles are below
+	  .data(() => {
+	  		if (typeof rVariable !== 'undefined') {
+	  			// Sort so the biggest circles are below
+	  			return data.sort((a, b) => b[rVariable] > a[rVariable]);
+	  		}
+	  		return data;
+	  	}
+	  )
 	  .enter().append('circle')
 	    .attr('class', (d) => `marks ${d[idVariable]}`)
 	    .style('opacity', opacityCircles)
-	    .style('fill', d => color(d[groupByVariable]))
+	    .style('fill', d => {
+	    	if (typeof groupByVariable !== 'undefined') {
+	    		return color(d[groupByVariable]);
+	    	} 
+	    	return color.range()[0];
+	    })
 	    .attr('cx', d => xScale(d[xVariable]))
 	    .attr('cy', d => yScale(d[yVariable]))
-	    .attr('r', d => rScale(d[rVariable]));
+	    .attr('r', d => {
+	    	if (typeof rVariable !== 'undefined') {
+	    		return rScale(d[rVariable])
+	  		} 
+	  		return '2';	
+	    });
 
 	//
 	// Tooltips
@@ -216,6 +252,7 @@ d3.json('data.json', (error, data) => {
 
 	const limitedVoronoiCells = limitedVoronoi(data);
 
+
 	// Initiate a group element to place the voronoi diagram in
 	const limitedVoronoiGroup = wrapper.append('g')
 	  .attr('class', 'voronoiWrapper');
@@ -225,10 +262,23 @@ d3.json('data.json', (error, data) => {
 	  .data(limitedVoronoiCells) // Use vononoi() with your dataset inside
 	  .enter().append('path')
 	    // .attr("d", function(d, i) { return "M" + d.join("L") + "Z"; })
-	    .attr('d', (d, i) => d.path)
+	    .attr('d', d => {
+	    	// console.log('d from limitedVoronoiGroup', d);
+	    	if (typeof d !== 'undefined') {
+	    		return d.path;
+	    	}
+	    	return '';
+	    })
 	    // Give each cell a unique class where the unique part corresponds to the circle classes
-	    .attr('class', d => `voronoi ${d.datum[idVariable]}`)
-	    .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+	    // .attr('class', d => `voronoi ${d.datum[idVariable]}`)
+	    .attr('class', d => {
+	    	if (typeof d !== 'undefined') {
+	    		return `voronoi ${d.datum[idVariable]}`;
+	    	}
+	    	return 'voronoi';
+	    })
+	    // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+	    .style('stroke', 'none')
 	    .style('fill', 'none')
 	    .style('pointer-events', 'all')
 	    .on('mouseover', tip.show)
@@ -245,7 +295,7 @@ d3.json('data.json', (error, data) => {
 	  .attr('text-anchor', 'end')
 	  .style('font-size', `${mobileScreen ? 8 : 12}px`)
 	  .attr('transform', `translate(${width},${height - 10})`)
-	  .text('GDP per capita [US $] - Note the logarithmic scale');
+	  .text(`${xVariable}`);
 
 	// Set up y axis label
 	wrapper.append('g')
@@ -254,57 +304,5 @@ d3.json('data.json', (error, data) => {
 	  .attr('text-anchor', 'end')
 	  .style('font-size', `${mobileScreen ? 8 : 12}px`)
 	  .attr('transform', 'translate(18, 0) rotate(-90)')
-	  .text('Life expectancy');
-
-	//
-	// Create the Legend
-	//
-
-	if (!mobileScreen) {
-	  // Legend
-	  const legendMargin = { left: 5, top: 10, right: 5, bottom: 10 };
-	  const legendWidth = 160;
-	  const legendHeight = 270;
-
-	  const svgLegend = d3.select('#legend').append('svg')
-	    .attr('width', (legendWidth + legendMargin.left + legendMargin.right))
-	    .attr('height', (legendHeight + legendMargin.top + legendMargin.bottom));
-
-	  const legendWrapper = svgLegend.append('g').attr('class', 'legendWrapper')
-	    .attr('transform', `translate(${legendMargin.left},${legendMargin.top})`);
-
-	  // dimensions of the colored square
-	  const rectSize = 16;
-
-	  // height of a row in the legend
-	  const rowHeight = 22;
-
-	  // width of each row
-	  // const maxWidth = 125
-
-	  // Create container per rect/text pair
-	  const legend = legendWrapper.selectAll('.legendSquare')
-	    .data(color.range())
-	    .enter().append('g')
-	    .attr('class', 'legendSquare')
-	    .attr('transform', (d, i) => `translate(${0},${i * rowHeight})`);
-
-	  // Append small squares to Legend
-	  legend.append('rect')
-	    .attr('width', rectSize)
-	    .attr('height', rectSize)
-	    .style('fill', d => d);
-
-	  // Append text to Legend
-	  legend.append('text')
-	    .attr('transform', `translate(${25},${rectSize / 2})`)
-	    .attr('class', 'legendText')
-	    .style('font-size', '11px')
-	    .attr('dy', '.35em')
-	    .text((d, i) => color.domain()[i]);
-
-	// if !mobileScreen
-	} else {
-	  d3.select('#legend').style('display', 'none');
-	}
+	  .text(`${yVariable}`);
 })
