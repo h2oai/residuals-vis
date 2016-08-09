@@ -1,17 +1,28 @@
 // d3.tip
 // Copyright (c) 2013 Justin Palmer
 // ES6 / D3 v4 Adaption Copyright (c) 2016 Constantin Gavrilete
-// Removal of ES6 for D3 v4 Adaption Copyright (c) 2016 David Gotz
 //
 // Tooltips for d3.js SVG visualizations
 
-d3.functor = function functor(v) {
-  return typeof v === "function" ? v : function() {
-    return v;
-  };
-};
+import {
+  select as d3Select,
+  event as d3Event,
+  selection as d3Selection
+} from 'd3';
 
-d3.tip = function() {
+export default function() {
+
+  // Mappings to new version of d3
+  const d3 = {
+    select: d3Select,
+    event: () => d3Event,
+    selection: d3Selection,
+    functor: (v) => {
+      return typeof v === "function" ? v : function() {
+        return v;
+      };
+    }
+  };
 
   var direction = d3_tip_direction,
       offset    = d3_tip_offset,
@@ -46,8 +57,7 @@ d3.tip = function() {
     nodel.html(content)
       .style('position', 'absolute')
       .style('opacity', 1)
-      // comment this out to avoid flickering tooltips
-      // .style('pointer-events', 'all')
+      .style('pointer-events', 'all')
 
     while(i--) nodel.classed(directions[i], false)
     coords = direction_callbacks[dir].apply(this)
@@ -100,8 +110,8 @@ d3.tip = function() {
       var args = Array.prototype.slice.call(arguments);
       if (args.length === 1) {
         var styles = args[0];
-        Object.keys(styles).forEach(function(key) {
-          return d3.selection.prototype.style.apply(getNodeEl(), [key, styles[key]]);
+        Object.keys(styles).forEach((key) => {
+          d3.selection.prototype.style.apply(getNodeEl(), [key, styles[key]]);
         });
       }
     }
@@ -281,7 +291,7 @@ d3.tip = function() {
   //
   // Returns an Object {n, s, e, w, nw, sw, ne, se}
   function getScreenBBox() {
-    var targetel   = target || d3.event.target;
+    var targetel   = target || d3.event().target;
 
     while ('undefined' === typeof targetel.getScreenCTM && 'undefined' === targetel.parentNode) {
         targetel = targetel.parentNode;
