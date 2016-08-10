@@ -15,7 +15,8 @@ export default class App extends Component {
           justifyContent: 'space-between',
           paddingLeft: '120px',
           paddingRight: '80px',
-          height: '40px'
+          height: '40px',
+          zIndex: 2
         }}>
           <div className='title' style={{
             fontSize: '2em',
@@ -32,11 +33,6 @@ export default class App extends Component {
             }}>
               <option value='-1'>color by...</option>
             </select>
-            <svg id='categoricalVariableLegend' 
-              height={120}
-              width={120}
-              overflow='visible'>
-            </svg>
           </div>
         </div>
       </div>

@@ -63,8 +63,17 @@ export function dropdown(selector, inputData, options) {
 
     // clear the old legend
     d3.selectAll('#categoricalVariableLegend')
-      .selectAll('.legendG')
+      // .selectAll('.legendG')
       .remove();
+
+    // append a new legend svg
+    d3.select('.selectContainer')
+      .append('svg')
+      .attr('id', 'categoricalVariableLegend')
+      .attr('height', 120)
+      .attr('width', 120)
+      .attr('overflow', 'visible')
+      .style('pointer-events', 'all');
 
     if (typeof currentLabel !== 'undefined') {
       const svg = d3.select('#categoricalVariableLegend');
@@ -81,9 +90,10 @@ export function dropdown(selector, inputData, options) {
         .attr('y', 0)
         .attr('width', 12)
         .attr('height', 12)
-        .style('fill', (d, i) => {
-          console.log('d from legend rect', d);
-          return color(d)
+        .style('fill', (d, i) => color(d))
+        .style('pointer-events', 'all')
+        .on('click', (d) => {
+          legendRectClick(d);
         });
 
       legendG.append('text')
@@ -105,5 +115,23 @@ export function dropdown(selector, inputData, options) {
           return color.range()[0];
         })
       }
+  }
+
+  let marksFiltered = undefined;
+  function legendRectClick(d) {
+    console.log('legendRectClick was called');
+    if(typeof marksFiltered === 'undefined') {
+      d3.selectAll('.marks')
+        .filter(e => {
+          return e[currentLabel] !== d;
+        })
+        .style('fill-opacity', 0);
+      marksFiltered = true;
+    } else {
+      // reset the mark opacity 
+      d3.selectAll('.marks')
+        .style('fill-opacity', 0.3);
+      marksFiltered = undefined;
+    }
   }
 }

@@ -49,7 +49,8 @@ export function scatterplot(selector, inputData, options) {
 
   const div = d3.select(selector)
     .append('div')
-    .attr('id', 'chart');
+    .attr('id', 'chart')
+    .style('z-index', 1);
 
   // Scatterplot
   const margin = cfg.margin;
@@ -169,7 +170,7 @@ export function scatterplot(selector, inputData, options) {
     )
     .enter().append('circle')
       .attr('class', (d) => `marks ${d[idVariable]}`)
-      .style('opacity', opacityCircles)
+      .style('fill-opacity', opacityCircles)
       .style('fill', d => {
         if (typeof groupByVariable !== 'undefined') {
           return color(d[groupByVariable]);
@@ -354,7 +355,7 @@ export function scatterplot(selector, inputData, options) {
     }
   }
 
-  d3.selectAll('svg')
+  d3.selectAll('.chartWrapper')
     .on('click', () => {
       click();
     });

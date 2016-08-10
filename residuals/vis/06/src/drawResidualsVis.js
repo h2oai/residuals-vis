@@ -59,12 +59,6 @@ export function drawResidualsVis(width) {
   const dataFile = `${path}/${algo}-residuals-20k.csv`;
  
   d3.csv(dataFile, function(error, data) {
-    // create the dropdown menu
-    const dropdownOptions = {
-      categoricalVariables
-    }
-    dropdown('.nav', data, dropdownOptions);
-
     // residuals vs prediction
     let options = {
       width,
@@ -88,5 +82,10 @@ export function drawResidualsVis(width) {
       }
     scatterplot('.flex-container', data, options);
     })
+    // create the dropdown menu
+    const dropdownOptions = {
+      categoricalVariables
+    }
+    dropdown('.nav', data, dropdownOptions);
   })
 }
