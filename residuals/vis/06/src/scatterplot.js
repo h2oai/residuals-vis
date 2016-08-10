@@ -38,7 +38,7 @@ export function scatterplot(selector, inputData, options) {
   const rVariable = undefined;
   const idVariable = cfg.idVariable;
   const groupByVariable = undefined;
-  const tooltipVariable = cfg.tooltipVariable;
+  const tooltipVariables = cfg.tooltipVariables;
   const numericVariables = cfg.numericVariables;
 
   // labels
@@ -49,8 +49,7 @@ export function scatterplot(selector, inputData, options) {
 
   const div = d3.select(selector)
     .append('div')
-    .attr('id', 'chart')
-    .style('z-index', 1);
+    .attr('id', 'chart');
 
   // Scatterplot
   const margin = cfg.margin;
@@ -195,54 +194,18 @@ export function scatterplot(selector, inputData, options) {
   const tip = d3Tip()
     .attr('class', 'd3-tip')
     .html(d => {
+      let allRows = '';
+      tooltipVariables.forEach(e => {
+        const currentRow = `<span style='font-size: 11px; display: block; text-align: center;'>${e} ${d.datum[e]}</span>`;
+        allRows = allRows.concat(currentRow);
+      })
       return `<div style='background-color: white; padding: 5px; border-radius: 6px;
         border-style: solid; border-color: #D1D1D1; border-width: 1px;'>
-        <span style='font-size: 11px; text-align: center;'>${tooltipVariable} ${d.datum[tooltipVariable]}</span>
+        ${allRows}
         </div>`
     });
 
   svg.call(tip);
-
-  // // Show the tooltip on the hovered over circle
-  // function showTooltip(d) {
-  //   // Save the circle element (so not the voronoi which is triggering the hover event)
-  //   // in a variable by using the unique class of the voronoi (CountryCode)
-  //   const element = d3.selectAll(`.marks.${d.CountryCode}`);
-  //   // skip tooltip creation if already defined
-  //   const existingTooltip = $('.popover');
-  //   if (existingTooltip !== null
-  //       && existingTooltip.length > 0
-  //       && existingTooltip.text() === d.Country) {
-  //     return;
-  //   }
-  //   // Define and show the tooltip using bootstrap popover
-  //   // But you can use whatever you prefer
-  //   $(element).popover({
-  //     placement: 'auto top', // place the tooltip above the item
-  //     container: '#chart', // the name (class or id) of the container
-  //     trigger: 'manual',
-  //     html: true,
-  //     content() { // the html content to show inside the tooltip
-  //       return `<span style='font-size: 11px; text-align: center;'>${d.Country}</span>`;
-  //     }
-  //   });
-  //   $(element).popover('show');
-  //   // Make chosen circle more visible
-  //   element.style('opacity', 1);
-  // }// function showTooltip
-
-  // // Hide the tooltip when the mouse moves away
-  // function removeTooltip(d) {
-  //   // Save the circle element (so not the voronoi which is triggering the hover event)
-  //   // in a variable by using the unique class of the voronoi (CountryCode)
-  //   const element = d3.selectAll(`.marks.${d.CountryCode}`);
-  //   // Hide the tooltip
-  //   $('.popover').each(function () {
-  //     $(this).remove();
-  //   });
-  //   // Fade out the bright circle again
-  //   element.style('opacity', opacityCircles);
-  // }// function removeTooltip
 
   //
   // distance-limited Voronoi

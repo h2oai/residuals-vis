@@ -13,7 +13,7 @@ export function drawResidualsVis(width) {
     responseColumn: 'Sales',
     xColumns: ['Customers', 'CompetitionDistance'],
     idColumn: 'Store',
-    tooltipColumn: 'Store',
+    tooltipColumns: ['Store', 'Date'],
     numericColumns: [
       'predict',
       'residual',
@@ -49,7 +49,7 @@ export function drawResidualsVis(width) {
   const responseColumn = cfg.responseColumn;
   const xColumns = cfg.xColumns;
   const idColumn = cfg.idColumn;
-  const tooltipColumn = cfg.tooltipColumn;
+  const tooltipColumns = cfg.tooltipColumns;
   const numericVariables = cfg.numericColumns;
   const categoricalVariables = cfg.categoricalColumns;
 
@@ -65,7 +65,7 @@ export function drawResidualsVis(width) {
       xVariable: predictColumn,
       yVariable: 'residual',
       idVariable: idColumn,
-      tooltipVariable: tooltipColumn,
+      tooltipVariables: tooltipColumns,
       numericVariables
     }
     scatterplot('.flex-container', data, options);
@@ -77,7 +77,7 @@ export function drawResidualsVis(width) {
         xVariable: x,
         yVariable: 'residual',
         idVariable: idColumn,
-        tooltipVariable: tooltipColumn,
+        tooltipVariables: tooltipColumns,
         numericVariables
       }
     scatterplot('.flex-container', data, options);
