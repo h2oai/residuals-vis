@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
 
 export default class App extends Component {
@@ -30,6 +30,7 @@ export default class App extends Component {
             <select id='dropdown' style={{
               marginBottom: '12px'
             }}>
+              <option value='-1'>color by...</option>
             </select>
             <svg id='categoricalVariableLegend' 
               height={120}
