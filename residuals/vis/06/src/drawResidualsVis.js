@@ -1,4 +1,6 @@
 import { scatterplot } from './scatterplot';
+import { dropdown } from './dropdown';
+import { drawFlexContainer } from './drawFlexContainer';
 import * as d3 from 'd3';
 
 export function drawResidualsVis(width) {
@@ -13,12 +15,22 @@ export function drawResidualsVis(width) {
     xColumns: ['Customers', 'CompetitionDistance'],
     idColumn: 'Store',
     tooltipColumn: 'Store',
-    numericVariables: [
+    numericColumns: [
       'predict',
       'residual',
       'Sales',
       'Customers',
       'CompetitionDistance'
+    ],
+    categoricalColumns: [
+      'Open',
+      'Promo',
+      'StateHoliday',
+      'SchoolHoliday',
+      'StoreType',
+      'Assortment',
+      'Promo2',
+      'PromoInterval'
     ]
   }
 
@@ -39,7 +51,8 @@ export function drawResidualsVis(width) {
   const xColumns = cfg.xColumns;
   const idColumn = cfg.idColumn;
   const tooltipColumn = cfg.tooltipColumn;
-  const numericVariables = cfg.numericVariables;
+  const numericVariables = cfg.numericColumns;
+  const categoricalVariables = cfg.categoricalColumns;
 
   const algo = algos[0]; // gbm
 
@@ -47,6 +60,12 @@ export function drawResidualsVis(width) {
   const dataFile = `${path}/${algo}-residuals-20k.csv`;
  
   d3.csv(dataFile, function(error, data) {
+    // create the dropdown menu
+    const dropdownOptions = {
+      categoricalVariables
+    }
+    dropdown('.flex-container', data, dropdownOptions);
+
     // residuals vs prediction
     let options = {
       width,
@@ -56,7 +75,7 @@ export function drawResidualsVis(width) {
       tooltipVariable: tooltipColumn,
       numericVariables
     }
-    scatterplot('#root', data, options);
+    scatterplot('.flex-container', data, options);
 
     // residuals vs independent variables
     xColumns.forEach(x => {
@@ -68,7 +87,7 @@ export function drawResidualsVis(width) {
         tooltipVariable: tooltipColumn,
         numericVariables
       }
-      scatterplot('#root', data, options);
+    scatterplot('.flex-container', data, options);
     })
   })
 }

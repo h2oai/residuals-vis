@@ -4,7 +4,9 @@ import { drawResidualsVis } from './drawResidualsVis';
 export default class App extends Component {
   render() {
     return (
-      <h1>residuals</h1>
+      <div className="flex-container">
+        <h1>residuals</h1>
+      </div>
     );
   }
 }

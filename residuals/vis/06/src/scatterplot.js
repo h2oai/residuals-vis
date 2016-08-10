@@ -1,5 +1,5 @@
-import d3Tip from './d3-tip';
 import { d3DistanceLimitedVoronoi } from './distance-limited-voronoi';
+import d3Tip from './d3-tip';
 import * as d3 from 'd3';
 import _ from 'lodash';
 
@@ -75,15 +75,18 @@ export function scatterplot(selector, inputData, options) {
   // Set the color for each region
   const color = d3.scaleOrdinal()
     .range([
-      '#EFB605',
-      '#E58903',
-      '#E01A25',
-      '#C20049',
-      '#991C71',
-      '#66489F',
-      '#2074A0',
-      '#10A66E',
-      '#7EB852'
+      '#1f78b4',
+      '#ff7f00',
+      '#33a02c',
+      '#e31a1c',
+      '#6a3d9a',
+      '#b15928',
+      '#a6cee3',
+      '#fdbf6f',
+      '#b2df8a',
+      '#fb9a99',
+      '#cab2d6',
+      '#ffff99'
     ]);
 
   // parse strings to numbers
@@ -264,7 +267,7 @@ export function scatterplot(selector, inputData, options) {
     .limit(50)
     .extent([[0, 0], [width, height]]);
 
-  console.log('data[0]', data[0]);
+  // console.log('data[0]', data[0]);
   const limitedVoronoiCells = limitedVoronoi(data);
 
 
