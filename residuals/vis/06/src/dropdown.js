@@ -98,6 +98,12 @@ export function dropdown(selector, inputData, options) {
         .style('fill', d => {
           return color(d[currentLabel]);
         })
+      } else { // currentLabel is undefined
+        // reset the color
+        d3.selectAll('.marks')
+          .style('fill', d => {
+          return color.range()[0];
+        })
       }
   }
 }
