@@ -1,6 +1,5 @@
 import { scatterplot } from './scatterplot';
 import { dropdown } from './dropdown';
-import { drawFlexContainer } from './drawFlexContainer';
 import * as d3 from 'd3';
 
 export function drawResidualsVis(width) {
@@ -64,7 +63,7 @@ export function drawResidualsVis(width) {
     const dropdownOptions = {
       categoricalVariables
     }
-    dropdown('.flex-container', data, dropdownOptions);
+    dropdown('.nav', data, dropdownOptions);
 
     // residuals vs prediction
     let options = {

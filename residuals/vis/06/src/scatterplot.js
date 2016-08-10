@@ -54,7 +54,7 @@ export function scatterplot(selector, inputData, options) {
   // Scatterplot
   const margin = cfg.margin;
   const chartWidth = document.getElementById('chart').offsetWidth; 
-  const width = Math.min(chartWidth, 1300) - margin.left - margin.right;
+  const width = chartWidth - margin.left - margin.right;
   const height = cfg.width * 0.25;
   // const maxDistanceFromPoint = 50;
 
