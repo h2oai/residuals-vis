@@ -21,15 +21,8 @@ export function dropdown(selector, inputData, options) {
       '#ffff99'
     ]);
 
-  d3.select(selector)
-    .append('div')
-    .classed('selectContainer', true)
-    // .style('float', 'right');
-
   // create the drop down menu of categorical columns
-  d3.select('div.selectContainer')
-    .append('select')
-    .attr('id', 'dropdown')
+  d3.select('#dropdown')
     .selectAll('option')
     .data(data)
     .enter().append('option')
@@ -68,34 +61,39 @@ export function dropdown(selector, inputData, options) {
     console.log('currentValues', currentValues);
 
     // clear the old legend
-    d3.selectAll('#categoricalVariableLegend').remove();
+    d3.selectAll('#categoricalVariableLegend')
+      .selectAll('.legendG')
+      .remove();
 
     // draw the new legend
-    const svg = d3.select('.selectContainer')
-      .append('svg')
-      .attr('height', 40)
-      .attr('width', 120)
-      .attr('id', 'categoricalVariableLegend');
+    // const svg = d3.select('.selectContainer')
+    //   .append('svg')
+    //   .attr('height', 40)
+    //   .attr('width', 120)
+    //   .attr('id', 'categoricalVariableLegend');
+
+    const svg = d3.select('#categoricalVariableLegend');
 
     const legendG = svg.selectAll('g')
       .data(currentValues)
       .enter()
       .append('g')
-        .attr('transform', (d, i) => `translate(0, ${i * 15})`)
+        .attr('transform', (d, i) => `translate(0, ${i * 16})`)
         .classed('legendG', true);
         
     legendG.append('rect')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', 10)
-      .attr('height', 10)
+      .attr('width', 12)
+      .attr('height', 12)
       .style('fill', (d, i) => color(i));
 
     legendG.append('text')
-      .attr('x', 15)
-      .attr('y', 10)
+      .attr('x', 17)
+      .attr('y', 12)
       .attr('dy', '-0.35em')
-      .attr('font-size', '8px')
+      .attr('font-size', '10px')
+      .attr('font-family', 'Open Sans, sans-serif')
       .text(d => d);
 
     // d3.selectAll('p')

@@ -5,16 +5,38 @@ export default class App extends Component {
   render() {
     return (
       <div className='flex-container' style={{
-        flexDirection: 'column',
-        display: 'flex'
+        display: 'flex',
+        flexDirection: 'column'
       }}>
         <div className='nav' style={{
-          flexDirection: 'row',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          paddingLeft: '120px',
+          paddingRight: '80px',
+          height: '40px'
         }}>
-          <h1>residuals</h1>
+          <div className='title' style={{
+            fontSize: '2em',
+            fontWeight: 'bold'
+          }}>
+            residuals
+          </div>
+          <div className='selectContainer' style={{
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <select id='dropdown' style={{
+              marginBottom: '12px'
+            }}>
+            </select>
+            <svg id='categoricalVariableLegend' 
+              height={120}
+              width={120}
+              overflow='visible'>
+            </svg>
+          </div>
         </div>
       </div>
     );
