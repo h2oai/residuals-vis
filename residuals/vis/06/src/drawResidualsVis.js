@@ -25,6 +25,16 @@ export function drawResidualsVis(width) {
         name: 'Date',
         type: 'time',
         format: '%B %d, %Y'
+      },
+      {
+        name: 'Sales',
+        type: 'numeric',
+        format: ',.0f'
+      },
+      {
+        name: 'predict',
+        type: 'numeric',
+        format: ',.0f'
       }
     ],
     numericColumns: [
