@@ -4,10 +4,19 @@
 
 DONE + complete color interaction
 DONE + use categorical color scale with max hue distance
-+ deploy residuals vis on a server for sharing with the science team
+DONE + deploy residuals vis on a server for sharing with the science team
+
+## regression
++ add data for remaining algos for rossman
++ support multiple datasets
++ add data for all algos for Grupo Bimbo
++ add data for all algos for Prudential
 + draw box and whisker plots for categorical variables
+
+## classification
++ identify three good classification datasets
++ caculate Pearson residual for categorial variables
+
+## eventually
 + add arrows to axis labels
-
-
-? convert address to lat long to get two numeric columns from one categorical column
-? do something interesting with ordinal dates
+? exploding box plots
