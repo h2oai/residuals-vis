@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 export function dropdown(selector, inputData, options) {
 
-  const categoricalVariables = options.categoricalVariables;
+  const categoricalVariables = options.categoricalColumns;
   const data = categoricalVariables;
 
   // insert an empty state menu selection

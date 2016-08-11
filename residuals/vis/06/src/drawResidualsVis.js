@@ -13,8 +13,16 @@ export function drawResidualsVis(width) {
     responseColumn: 'Sales',
     xColumns: ['Customers', 'CompetitionDistance'],
     idColumn: 'Store',
-    tooltipColumns: ['Store', 'Date'],
-    tooltipFormats: [undefined, '']
+    tooltipColumns: [
+      {
+        name: 'Store'
+      },
+      {
+        name: 'Date',
+        type: 'time',
+        format: '%B %d, %Y'
+      }
+    ],
     numericColumns: [
       'predict',
       'residual',
@@ -51,8 +59,8 @@ export function drawResidualsVis(width) {
   const xColumns = cfg.xColumns;
   const idColumn = cfg.idColumn;
   const tooltipColumns = cfg.tooltipColumns;
-  const numericVariables = cfg.numericColumns;
-  const categoricalVariables = cfg.categoricalColumns;
+  const numericColumns = cfg.numericColumns;
+  const categoricalColumns = cfg.categoricalColumns;
 
   const algo = algos[0]; // gbm
 
@@ -66,8 +74,8 @@ export function drawResidualsVis(width) {
       xVariable: predictColumn,
       yVariable: 'residual',
       idVariable: idColumn,
-      tooltipVariables: tooltipColumns,
-      numericVariables
+      tooltipColumns,
+      numericColumns
     }
     scatterplot('.flex-container', data, options);
 
@@ -78,14 +86,14 @@ export function drawResidualsVis(width) {
         xVariable: x,
         yVariable: 'residual',
         idVariable: idColumn,
-        tooltipVariables: tooltipColumns,
-        numericVariables
+        tooltipColumns,
+        numericColumns
       }
     scatterplot('.flex-container', data, options);
     })
     // create the dropdown menu
     const dropdownOptions = {
-      categoricalVariables
+      categoricalColumns
     }
     dropdown('.nav', data, dropdownOptions);
   })

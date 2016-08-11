@@ -38,8 +38,8 @@ export function scatterplot(selector, inputData, options) {
   const rVariable = undefined;
   const idVariable = cfg.idVariable;
   const groupByVariable = undefined;
-  const tooltipVariables = cfg.tooltipVariables;
-  const numericVariables = cfg.numericVariables;
+  const tooltipVariables = cfg.tooltipColumns;
+  const numericVariables = cfg.numericColumns;
 
   // labels
   const xLabel = cfg.xLabel || xVariable;
@@ -195,8 +195,25 @@ export function scatterplot(selector, inputData, options) {
     .attr('class', 'd3-tip')
     .html(d => {
       let allRows = '';
-      tooltipVariables.forEach(e => {
-        const currentRow = `<span style='font-size: 11px; display: block; text-align: center;'>${e} ${d.datum[e]}</span>`;
+      tooltipVariables.forEach((e) => {
+        let currentValue;
+        if (typeof e.format !== 'undefined') {
+          if (e.type === 'time') {
+            // time formatting
+            const inputValue = new Date(Number(d.datum[e.name]));
+            const currentFormat = d3.timeFormat(e.format);
+            currentValue = currentFormat(inputValue);
+          } else {
+            // number formatting
+            const inputValue = Number(d.datum[e.name])
+            const currentFormat = d3.format(e.format);
+            currentValue = currentFormat(inputValue);
+          }
+        } else {
+          // no formatting
+          currentValue = d.datum[e.name];
+        }
+        const currentRow = `<span style='font-size: 11px; display: block; text-align: center;'>${e.name} ${currentValue}</span>`;
         allRows = allRows.concat(currentRow);
       })
       return `<div style='background-color: white; padding: 5px; border-radius: 6px;
