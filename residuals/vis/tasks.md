@@ -6,6 +6,7 @@ DONE + complete color interaction
 DONE + use categorical color scale with max hue distance
 + deploy residuals vis on a server for sharing with the science team
 + draw box and whisker plots for categorical variables
++ add arrows to axis labels
 
 
 ? convert address to lat long to get two numeric columns from one categorical column

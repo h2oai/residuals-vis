@@ -201,6 +201,7 @@ export function scatterplot(selector, inputData, options) {
           if (e.type === 'time') {
             // time formatting
             const inputValue = new Date(Number(d.datum[e.name]));
+            // TODO: handle case where date values are strings
             const currentFormat = d3.timeFormat(e.format);
             currentValue = currentFormat(inputValue);
           } else {
@@ -296,7 +297,8 @@ export function scatterplot(selector, inputData, options) {
     .attr('class', 'x title')
     .attr('text-anchor', 'start')
     .style('font-size', `${mobileScreen ? 8 : 12}px`)
-    .attr('transform', `translate(${0}, ${-10})`)
+    .style('font-weight', 600)
+    .attr('transform', `translate(${30}, ${-10})`)
     .text(`${xlabelText}`);
 
   // Set up y axis label
