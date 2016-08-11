@@ -7,6 +7,8 @@ DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with the science team
 
 ## regression
++ add RMSPE (percentage error) 
++ add RSMLE (log error)
 + add data for remaining algos for rossman
 + support multiple datasets
 + add data for all algos for Grupo Bimbo
