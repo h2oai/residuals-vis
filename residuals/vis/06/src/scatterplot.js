@@ -40,9 +40,13 @@ export function scatterplot(selector, inputData, options) {
   const groupByVariable = undefined;
   const tooltipVariables = cfg.tooltipColumns;
   const numericVariables = cfg.numericColumns;
+  const responseVariable = cfg.responseColumn;
 
   // labels
-  const xLabel = cfg.xLabel || xVariable;
+  let xLabel = cfg.xLabel || xVariable;
+  if (typeof responseVariable !== 'undefined') { 
+    xLabel = `${xLabel} (${responseVariable})` 
+  }
   const yLabel = 'residual';
   // const xLabel = 'y\u{0302}'; // y-hat for the prediction
   // const yLabel = 'r\u{0302}'; // r-hat for the residual

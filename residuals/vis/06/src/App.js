@@ -15,14 +15,30 @@ export default class App extends Component {
           justifyContent: 'space-between',
           paddingLeft: '120px',
           paddingRight: '80px',
-          height: '40px',
+          height: '80px',
           zIndex: 2
         }}>
           <div className='title' style={{
+            display: 'flex',
+            flexDirection: 'column',
             fontSize: '2em',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            paddingRight: '10px'
           }}>
             residuals
+            <div className='subTitle' style={{
+              paddingTop: '0px',
+              paddingBottom: '0px',
+            }}>
+              <p id='subTitle' style={{
+                fontWeight: 'normal',
+                marginTop: '0px',
+                marginBottom: '0px',
+                font: 'Open Sans, sans-serif',
+                fontSize: '12px'
+              }}>
+              </p>
+            </div>
           </div>
           <div className='selectContainer' style={{
             display: 'flex',

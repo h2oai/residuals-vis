@@ -1,5 +1,6 @@
 import { scatterplot } from './scatterplot';
 import { dropdown } from './dropdown';
+import { drawTitle } from './drawTitle';
 import * as d3 from 'd3';
 
 export function drawResidualsVis(width) {
@@ -7,6 +8,9 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 470;
 
   const rossmanConfig = {
+    projectTitle: 'Rossman Store Sales',
+    projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
+    dataText: 'a 20,000 row subset of the data',
     algos: ['gbm'], // ['drf', 'dl', 'gbm', 'glm'];
     project: 'rossman-store-sales',
     predictColumn: 'predict',
@@ -52,6 +56,8 @@ export function drawResidualsVis(width) {
 
   let options;
   const cfg = rossmanConfig;
+  const projectTitle = cfg.projectTitle;
+  const projectLink = cfg.projectLink;
   const algos = cfg.algos;
   const project = cfg.project;
   const predictColumn = cfg.predictColumn;
@@ -61,6 +67,7 @@ export function drawResidualsVis(width) {
   const tooltipColumns = cfg.tooltipColumns;
   const numericColumns = cfg.numericColumns;
   const categoricalColumns = cfg.categoricalColumns;
+  const dataText = cfg.dataText;
 
   const algo = algos[0]; // gbm
 
@@ -68,14 +75,25 @@ export function drawResidualsVis(width) {
   const dataFile = `${path}/${algo}-residuals-20k.csv`;
  
   d3.csv(dataFile, function(error, data) {
+    // draw the title text
+    let options;
+    options = {
+      projectTitle,
+      projectLink,
+      algos,
+      dataText
+    }
+    drawTitle('p#subTitle', options);
+
     // residuals vs prediction
-    let options = {
+    options = {
       width,
       xVariable: predictColumn,
       yVariable: 'residual',
       idVariable: idColumn,
       tooltipColumns,
-      numericColumns
+      numericColumns,
+      responseColumn
     }
     scatterplot('.flex-container', data, options);
 
