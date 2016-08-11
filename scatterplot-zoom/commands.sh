@@ -14,6 +14,9 @@ exit
 # find process running on port
 lsof -i :8989
 
+# start server with pm2
+pm2 start /usr/bin/http-server . --name residuals -- -p 8989 -d false
+
 # stop process, stop server running in the background
 kill #<pid>
 
