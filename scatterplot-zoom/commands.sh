@@ -2,7 +2,20 @@
 ssh ops@mr-0xc8
 ssh ops@172.16.2.148
 
+ssh ops@mr-0xc1
+ssh ops@172.16.2.141
+
 cd h2o-3.9.1.3469/
+
+# start server in background and keep alive
+nohup http-server -p 8989 &
+exit
+
+# find process running on port
+lsof -i :8989
+
+# stop process, stop server running in the background
+kill #<pid>
 
 # @micah
 java -Xmx10g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
