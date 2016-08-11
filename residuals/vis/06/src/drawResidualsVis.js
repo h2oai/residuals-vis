@@ -14,6 +14,7 @@ export function drawResidualsVis(width) {
     xColumns: ['Customers', 'CompetitionDistance'],
     idColumn: 'Store',
     tooltipColumns: ['Store', 'Date'],
+    tooltipFormats: [undefined, '']
     numericColumns: [
       'predict',
       'residual',

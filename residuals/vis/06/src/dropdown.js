@@ -63,17 +63,8 @@ export function dropdown(selector, inputData, options) {
 
     // clear the old legend
     d3.selectAll('#categoricalVariableLegend')
-      // .selectAll('.legendG')
+      .selectAll('.legendG')
       .remove();
-
-    // append a new legend svg
-    d3.select('.selectContainer')
-      .append('svg')
-      .attr('id', 'categoricalVariableLegend')
-      .attr('height', 120)
-      .attr('width', 120)
-      .attr('overflow', 'visible')
-      .style('pointer-events', 'all');
 
     if (typeof currentLabel !== 'undefined') {
       const svg = d3.select('#categoricalVariableLegend');

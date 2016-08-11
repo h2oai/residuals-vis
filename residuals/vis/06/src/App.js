@@ -33,6 +33,11 @@ export default class App extends Component {
             }}>
               <option value='-1'>color by...</option>
             </select>
+            <svg height='120px' 
+              width='120px' 
+              overflow='visible'
+              id='categoricalVariableLegend'>
+            </svg>
           </div>
         </div>
       </div>
