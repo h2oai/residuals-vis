@@ -7,13 +7,14 @@ DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with the science team
 
 ## regression
-+ add RMSPE (percentage error) 
-+ add RSMLE (log error)
-+ add data for remaining algos for rossman
++ add data for remaining algos for Rossman
 + support multiple datasets
++ add static exemplar dataset from h2o-3 Aggregator for Rossman
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
 + draw box and whisker plots for categorical variables
++ add RMSPE (percentage error) 
++ add RSMLE (log error)
 
 ## classification
 + identify three good classification datasets
