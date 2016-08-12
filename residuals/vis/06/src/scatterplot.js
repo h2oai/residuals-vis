@@ -67,7 +67,9 @@ export function scatterplot(selector, inputData, options) {
       .attr('width', (width + margin.left + margin.right))
       .attr('height', (height + margin.top + margin.bottom));
 
-  const wrapper = svg.append('g').attr('class', 'chartWrapper')
+  const wrapper = svg.append('g')
+    .classed('chartWrapper', true)
+    .classed(`${xVariable}`, true)
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   //

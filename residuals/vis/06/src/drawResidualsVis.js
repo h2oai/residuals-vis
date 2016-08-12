@@ -1,6 +1,7 @@
 import { scatterplot } from './scatterplot';
 import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
+import { setModelTransition } from './setModelTransition';
 import * as d3 from 'd3';
 
 export function drawResidualsVis(width) {
@@ -11,7 +12,7 @@ export function drawResidualsVis(width) {
     projectTitle: 'Rossman Store Sales',
     projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
     dataText: 'a 20,000 row subset of the data',
-    algos: ['gbm'], // ['drf', 'dl', 'gbm', 'glm'];
+    algos: [ 'dl', 'drf', 'gbm', 'glm'],
     project: 'rossman-store-sales',
     predictColumn: 'predict',
     responseColumn: 'Sales',
@@ -79,7 +80,7 @@ export function drawResidualsVis(width) {
   const categoricalColumns = cfg.categoricalColumns;
   const dataText = cfg.dataText;
 
-  const algo = algos[0]; // gbm
+  const algo = algos[3];
 
   const path = `src/data/${project}`;
   const dataFile = `${path}/${algo}-residuals-20k.csv`;
@@ -90,7 +91,7 @@ export function drawResidualsVis(width) {
     options = {
       projectTitle,
       projectLink,
-      algos,
+      algo,
       dataText
     }
     drawTitle('p#subTitle', options);
@@ -119,10 +120,18 @@ export function drawResidualsVis(width) {
       }
     scatterplot('.flex-container', data, options);
     })
+
     // create the dropdown menu
     const dropdownOptions = {
       categoricalColumns
     }
     dropdown('.nav', data, dropdownOptions);
+
+    // setup transition event
+    options = {
+      width,
+      yVariable: 'residual'
+    }
+    setModelTransition('#glmButton', data, options)
   })
 }

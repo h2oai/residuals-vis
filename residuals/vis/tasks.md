@@ -7,7 +7,8 @@ DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with the science team
 
 ## regression
-+ add data for remaining algos for Rossman
+DONE + add data for Rossman for dl, drf, gbm, glm
++ support multiple models for one dataset
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
 + add data for all algos for Grupo Bimbo

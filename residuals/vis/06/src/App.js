@@ -40,6 +40,22 @@ export default class App extends Component {
               </p>
             </div>
           </div>
+          <div className='modelControls'style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'space-around',
+              marginRight: '10px',
+              zIndex: 2,
+              font: 'Open Sans, sans-serif',
+              fontSize: '12px',
+              fontWeight: 'bold'
+            }}>
+              <div id='dlButton'>dl</div>
+              <div id='drfButton'>drf</div >
+              <div id='gbmButton'>gbm</div>
+              <div id='glmButton'>glm</div>
+            </div>
           <div className='selectContainer' style={{
             display: 'flex',
             flexDirection: 'column'
