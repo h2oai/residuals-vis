@@ -8,7 +8,12 @@ DONE + deploy residuals vis on a server for sharing with the science team
 
 ## regression
 DONE + add data for Rossman for dl, drf, gbm, glm
-+ support multiple models for one dataset
+DONE + support multiple models for one dataset
++ set scale domains to max of 4 models
+  (or, transition axes on model transition)
++ on model transition update x-axis label
++ on model transition update model name in subtitle
+
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
 + add data for all algos for Grupo Bimbo
