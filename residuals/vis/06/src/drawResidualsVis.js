@@ -14,9 +14,10 @@ export function drawResidualsVis(width) {
     dataText: 'a 20,000 row subset of the data',
     algos: [ 'dl', 'drf', 'gbm', 'glm'],
     project: 'rossman-store-sales',
-    predictColumn: 'predict',
+    predictColumn: 'glmPredict',
     responseColumn: 'Sales',
     xColumns: ['Customers', 'CompetitionDistance'],
+    yColumn: 'glmResidual',
     idColumn: 'Store',
     tooltipColumns: [
       {
@@ -33,14 +34,14 @@ export function drawResidualsVis(width) {
         format: ',.0f'
       },
       {
-        name: 'predict',
+        name: 'glmPredict',
         type: 'numeric',
         format: ',.0f'
       }
     ],
     numericColumns: [
-      'predict',
-      'residual',
+      'glmPredict',
+      'glmResidual',
       'Sales',
       'Customers',
       'CompetitionDistance'
@@ -74,16 +75,18 @@ export function drawResidualsVis(width) {
   const predictColumn = cfg.predictColumn;
   const responseColumn = cfg.responseColumn;
   const xColumns = cfg.xColumns;
+  const yColumn = cfg.yColumn;
   const idColumn = cfg.idColumn;
   const tooltipColumns = cfg.tooltipColumns;
   const numericColumns = cfg.numericColumns;
   const categoricalColumns = cfg.categoricalColumns;
   const dataText = cfg.dataText;
 
-  const algo = algos[3];
+  const algo = algos[0];
 
   const path = `src/data/${project}`;
-  const dataFile = `${path}/${algo}-residuals-20k.csv`;
+  // const dataFile = `${path}/${algo}-residuals-20k.csv`;
+  const dataFile = `${path}/residuals-20k.csv`;
  
   d3.csv(dataFile, function(error, data) {
     // draw the title text
@@ -100,11 +103,12 @@ export function drawResidualsVis(width) {
     options = {
       width,
       xVariable: predictColumn,
-      yVariable: 'residual',
+      yVariable: yColumn,
       idVariable: idColumn,
       tooltipColumns,
       numericColumns,
-      responseColumn
+      responseColumn,
+      independent: true
     }
     scatterplot('.flex-container', data, options);
 
@@ -113,7 +117,7 @@ export function drawResidualsVis(width) {
       options = {
         width,
         xVariable: x,
-        yVariable: 'residual',
+        yVariable: yColumn,
         idVariable: idColumn,
         tooltipColumns,
         numericColumns
@@ -130,8 +134,11 @@ export function drawResidualsVis(width) {
     // setup transition event
     options = {
       width,
-      yVariable: 'residual'
+      yVariable: yColumn
     }
-    setModelTransition('#glmButton', data, options)
+    setModelTransition('#dlButton', data, options);
+    setModelTransition('#drfButton', data, options);
+    setModelTransition('#gbmButton', data, options);
+    setModelTransition('#glmButton', data, options);
   })
 }

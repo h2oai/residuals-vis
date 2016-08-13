@@ -41,6 +41,7 @@ export function scatterplot(selector, inputData, options) {
   const tooltipVariables = cfg.tooltipColumns;
   const numericVariables = cfg.numericColumns;
   const responseVariable = cfg.responseColumn;
+  const independent = cfg.independent;
 
   // labels
   let xLabel = cfg.xLabel || xVariable;
@@ -71,6 +72,8 @@ export function scatterplot(selector, inputData, options) {
     .classed('chartWrapper', true)
     .classed(`${xVariable}`, true)
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+  if (independent) { wrapper.classed('independent', true); }
 
   //
   // Initialize Axes & Scales

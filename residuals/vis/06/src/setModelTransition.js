@@ -21,14 +21,14 @@ export function setModelTransition(selector, data, options) {
   function click() {
     if (typeof collapsed === 'undefined') {
       // then collapse the points to zero
-      d3.select('g.predict').selectAll('.marks')
+      d3.select('g.independent').selectAll('.marks')
         .transition()
         .duration(2000)
         .attr('cy', yScale(0));
       collapsed = true;
     } else {
       // then expand the points to the residual value
-      d3.select('g.predict').selectAll('.marks')
+      d3.select('g.independent').selectAll('.marks')
         .transition()
         .duration(2000)
         .attr('cy', d => yScale(Number(d[yVariable])));
