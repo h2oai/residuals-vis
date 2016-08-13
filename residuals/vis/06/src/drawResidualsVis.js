@@ -40,7 +40,13 @@ export function drawResidualsVis(width) {
       }
     ],
     numericColumns: [
+      'dlPredict',
+      'drfPredict',
+      'gbmPredict',
       'glmPredict',
+      'dlResidual',
+      'drfResidual',
+      'gbmResidual',
       'glmResidual',
       'Sales',
       'Customers',
@@ -131,14 +137,39 @@ export function drawResidualsVis(width) {
     }
     dropdown('.nav', data, dropdownOptions);
 
+      'dlPredict',
+      'drfPredict',
+      'gbmPredict',
+      'glmPredict',
+      'dlResidual',
+      'drfResidual',
+      'gbmResidual',
+      'glmResidual',
+
     // setup transition event
     options = {
       width,
-      yVariable: yColumn
+      xVariable: 'dlPredict',
+      yVariable: 'dlResidual',
     }
     setModelTransition('#dlButton', data, options);
+    options = {
+      width,
+      xVariable: 'drfPredict',
+      yVariable: 'drfResidual',
+    }
     setModelTransition('#drfButton', data, options);
+    options = {
+      width,
+      xVariable: 'gbmPredict',
+      yVariable: 'gbmResidual',
+    }
     setModelTransition('#gbmButton', data, options);
+    options = {
+      width,
+      xVariable: 'glmPredict',
+      yVariable: 'glmResidual',
+    }
     setModelTransition('#glmButton', data, options);
   })
 }
