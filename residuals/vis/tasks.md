@@ -30,6 +30,10 @@ DONE + show large model name text in transparent gray on chart area **@leland**
 + show transition at once **@pasha**
 + show constant scales - no axis transitions **@pasha**
 
++ on enter, animate points from the 0 baseline to give intuition about error **@ivy**
++ on switch between models animate points in place **@ivy**
++ on exit animte points back to 0 baseline **@ivy**
+
 
 
 #### possibly

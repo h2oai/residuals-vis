@@ -78,6 +78,7 @@ export function scatterplot(selector, inputData, options) {
   if (independent) {
     svg.classed('independent', true);
     wrapper.classed('independent', true);
+    wrapper.attr('id', currentAlgo);
 
     // draw model label
     wrapper.append('g')
