@@ -28,11 +28,12 @@ DONE + update tooltip text after transition
 #### @pasha
 + show transition at once
 + show constant scales - no axis transitions
-  so that we can track the points
+  so that we can visually track the points
 
 #### @leland
 
 + prefer not to show residuals vs actual response column value
+  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
 + show large model name text in transparent gray on chart area
 
 #### @arno

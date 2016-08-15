@@ -63,7 +63,7 @@ export function setModelTransition(selector, data, options) {
     // transition marks
     d3.select('g.independent').selectAll('.marks')
       .transition()
-      //.delay(marksDelay)
+      .delay(marksDelay)
       .duration(2000)
       .on('start', moveToNewPosition);
 
@@ -74,7 +74,7 @@ export function setModelTransition(selector, data, options) {
       .style('opacity', 0)
       .transition()
       .duration(0)
-      //.delay(5000 + marksDelay)
+      .delay(5000 + marksDelay)
       .text(`${xVariable} (${responseVariable})`)
       .transition()
       .duration(1000)
@@ -83,7 +83,7 @@ export function setModelTransition(selector, data, options) {
     // transition x-axis
     d3.select('g.independent').select('g.axis.x')
       .transition()
-      //.delay(2000 + marksDelay)
+      .delay(2000 + marksDelay)
       .duration(1000)
       .call(xAxis);
 
@@ -98,11 +98,11 @@ export function setModelTransition(selector, data, options) {
     function moveToNewPosition() {
       d3.active(this)
         .attr('cy', yScale(0))
-        //.transition()
-        //.delay(1000)
+        .transition()
+        .delay(1000)
         .attr('cx', d => xScale(d[xVariable]))
-        //.transition()
-        //.delay(1000)
+        .transition()
+        .delay(1000)
         .attr('cy', d => yScale(d[yVariable]));
     }   
   }

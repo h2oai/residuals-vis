@@ -1,8 +1,8 @@
 import { d3DistanceLimitedVoronoi } from './distance-limited-voronoi';
-
-export function drawVoronoiOverlay(selector, options) {
+import { tooltip } from './tooltip';
+export function drawVoronoiOverlay(selector, data, options) {
   /*
-    Initiate the voronoi function
+    Initiate the Voronoi function
     Use the same variables of the data in the .x and .y as used
     in the cx and cy of the circle call
     The clip extent will make the boundaries end nicely along
@@ -11,12 +11,15 @@ export function drawVoronoiOverlay(selector, options) {
     a tooltip when your mouse is still in the axis area, which
     is confusing)
   */
-  const xScale = options.xScale;
-  const yScale = options.yScale;
+
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
+  const idVariable = options.idVariable;
+  const xScale = options.xScale;
+  const yScale = options.yScale;
   const width = options.width;
   const height = options.height;
+  const tip = options.tip;
 
   const xAccessor = d => xScale(d[xVariable]);
   const yAccessor = d => yScale(d[yVariable]);
@@ -30,13 +33,13 @@ export function drawVoronoiOverlay(selector, options) {
   // console.log('data[0]', data[0]);
   const limitedVoronoiCells = limitedVoronoi(data);
 
-  // create a group element to place the voronoi diagram in
+  // create a group element to place the Voronoi diagram in
   const limitedVoronoiGroup = selector.append('g')
     .attr('class', 'voronoiWrapper');
 
   // Create the distance-limited Voronoi diagram
   limitedVoronoiGroup.selectAll('path')
-    .data(limitedVoronoiCells) // Use vononoi() with your dataset inside
+    .data(limitedVoronoiCells) // Use Voonoi() with your dataset inside
     .enter().append('path')
       // .attr("d", function(d, i) { return "M" + d.join("L") + "Z"; })
       .attr('d', d => {
