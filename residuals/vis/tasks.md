@@ -22,12 +22,13 @@ DONE + model transition should not occur if button's model is already active
 
 + on model transition update model name in subtitle
 
-  so that we can visually track the points
+
 + prefer not to show residuals vs actual response column value **@leland**
   [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
 
 + make stepped transition optional
 + show transition at once **@pasha**
+  so that we can visually track the points
 + show constant scales - no axis transitions **@pasha**
 
 + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
