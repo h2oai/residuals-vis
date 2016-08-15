@@ -144,8 +144,9 @@ export function drawResidualsVis(width) {
       width,
       responseColumn,
       tooltipColumns,
+      idVariable: idColumn,
       xVariable: 'dlPredict',
-      yVariable: 'dlResidual',
+      yVariable: 'dlResidual'
     }
     setModelTransition('#dlButton', data, options);
     options = {
@@ -153,8 +154,9 @@ export function drawResidualsVis(width) {
       width,
       responseColumn,
       tooltipColumns,
+      idVariable: idColumn,
       xVariable: 'drfPredict',
-      yVariable: 'drfResidual',
+      yVariable: 'drfResidual'
     }
     setModelTransition('#drfButton', data, options);
     options = {
@@ -162,8 +164,9 @@ export function drawResidualsVis(width) {
       width,
       responseColumn,
       tooltipColumns,
+      idVariable: idColumn,
       xVariable: 'gbmPredict',
-      yVariable: 'gbmResidual',
+      yVariable: 'gbmResidual'
     }
     setModelTransition('#gbmButton', data, options);
     options = {
@@ -171,6 +174,7 @@ export function drawResidualsVis(width) {
       width,
       responseColumn,
       tooltipColumns,
+      idVariable: idColumn,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',
     }

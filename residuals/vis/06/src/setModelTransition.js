@@ -1,9 +1,11 @@
-import { tooltip } from './tooltip'; 
+import { tooltip } from './tooltip';
+import { drawVoronoiOverlay } from './drawVoronoiOverlay';
 import * as d3 from 'd3';
 
 export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
+  const idVariable = options.idVariable;
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
   const margin = options.margin;
@@ -87,13 +89,30 @@ export function setModelTransition(selector, data, options) {
       .duration(1000)
       .call(xAxis);
 
-    // update voronoi overlay for tooltips
-
-
     // set the tooltip for with new tooltipVariables
     tooltipVariables[3].name = xVariable;
     const tip = tooltip(tooltipVariables);
     d3.select('svg.independent').call(tip);
+
+    // update Voronoi overlay for tooltips
+    const wrapper = d3.select('g.independent');
+
+    // remove the existing Voronoi overlay
+    wrapper.selectAll('g.voronoiWrapper').remove();
+
+    const voronoiOptions = {
+      xVariable,
+      yVariable,
+      idVariable,
+      xScale,
+      yScale,
+      width,
+      height,
+      tip
+    };
+
+    // draw a new Voronoi overlay
+    drawVoronoiOverlay(wrapper, data, voronoiOptions);
 
     function moveToNewPosition() {
       d3.active(this)
