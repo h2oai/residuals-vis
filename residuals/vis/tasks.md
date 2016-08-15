@@ -9,12 +9,14 @@ DONE + deploy residuals vis on a server for sharing with the science team
 DONE + add data for Rossman for dl, drf, gbm, glm
 DONE + support multiple models for one dataset
 CLOSED + set scale domains to max of 4 models
-+ transition axes on model transition
+DONE + transition axes on model transition
 DONE + on model transition update x-axis label
 + on model transition update model name in subtitle
 + custom easing function for axis tick label transition?
   (ticks labels appear to fly out now)
-
++ update tooltip text after transition
+DONE + transition y-axis label position
++ use a named transition for repeated transition patterns?
 
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
