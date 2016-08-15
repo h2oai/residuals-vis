@@ -17,6 +17,8 @@ DONE + on model transition update x-axis label
 + update tooltip text after transition
 DONE + transition y-axis label position
 + use a named transition for repeated transition patterns?
++ abstract out tooltip so that it is easier to update from 
+  setModelTransition.js
 
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
