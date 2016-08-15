@@ -4,8 +4,11 @@ export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
   const responseVariable = options.responseColumn;
-  const width = options.width;
-  const height = width * 0.25;
+  const margin = options.margin;
+  const chartWidth = document.getElementById('chart').offsetWidth;
+  const width = chartWidth - margin.left - margin.right;
+  // const width = options.width;
+  const height = options.width * 0.25;
 
   const xScale = d3.scaleLinear()
     .range([0, width])

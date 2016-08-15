@@ -87,6 +87,7 @@ export function drawResidualsVis(width) {
   const numericColumns = cfg.numericColumns;
   const categoricalColumns = cfg.categoricalColumns;
   const dataText = cfg.dataText;
+  const margin = { left: 120, top: 20, right: 80, bottom: 20 };
 
   const algo = algos[0];
 
@@ -142,12 +143,13 @@ export function drawResidualsVis(width) {
       'gbmPredict',
       'glmPredict',
       'dlResidual',
-      'drfResidual',
+      'drfResidu  l',
       'gbmResidual',
       'glmResidual',
 
     // setup transition event
     options = {
+      margin,
       width,
       responseColumn,
       xVariable: 'dlPredict',
@@ -155,6 +157,7 @@ export function drawResidualsVis(width) {
     }
     setModelTransition('#dlButton', data, options);
     options = {
+      margin,
       width,
       responseColumn,
       xVariable: 'drfPredict',
@@ -162,6 +165,7 @@ export function drawResidualsVis(width) {
     }
     setModelTransition('#drfButton', data, options);
     options = {
+      margin,
       width,
       responseColumn,
       xVariable: 'gbmPredict',
@@ -169,6 +173,7 @@ export function drawResidualsVis(width) {
     }
     setModelTransition('#gbmButton', data, options);
     options = {
+      margin,
       width,
       responseColumn,
       xVariable: 'glmPredict',
