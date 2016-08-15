@@ -57,8 +57,8 @@ export function drawVoronoiOverlay(selector, data, options) {
         }
         return 'voronoi';
       })
-      .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-      // .style('stroke', 'none')
+      // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+      .style('stroke', 'none')
       .style('fill', 'none')
       .style('pointer-events', 'all')
       .on('mouseover', tip.show)
