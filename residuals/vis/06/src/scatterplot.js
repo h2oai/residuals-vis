@@ -38,6 +38,8 @@ export function scatterplot(selector, inputData, options) {
   const rVariable = undefined;
   const idVariable = cfg.idVariable;
   const groupByVariable = undefined;
+  const currentAlgo = cfg.currentAlgo;
+  const currentAlgoLabel = cfg.currentAlgoLabel;
   const tooltipVariables = cfg.tooltipColumns;
   const numericVariables = cfg.numericColumns;
   const responseVariable = cfg.responseColumn;
@@ -76,6 +78,18 @@ export function scatterplot(selector, inputData, options) {
   if (independent) {
     svg.classed('independent', true);
     wrapper.classed('independent', true);
+
+    // draw model label
+    wrapper.append('g')
+      .attr('transform', `translate(${20}, ${45})`)
+      .append('text')
+      .classed('modelLabel', true)
+      .style('font-size', '40px')
+      .style('font-weight', 400)
+      .style('opacity', 0.15)
+      .style('fill', 'gray')
+      .style('font-family', 'Work Sans, sans-serif')
+      .text(`${currentAlgoLabel}`);
   }
 
   //

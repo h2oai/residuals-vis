@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 export function drawTitle(selector, options) {
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
-  const algo = options.algo;
+  const algo = options.currentAlgo;
   let dataText;
 
   if (typeof options.dataText !== 'undefined') {

@@ -17,8 +17,9 @@ DONE + abstract out tooltip so that it is easier to update from
 DONE + update tooltip text after transition
 DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
+DONE + show large model name text in transparent gray on chart area **@leland**
 
-+ show large model name text in transparent gray on chart area **@leland**
++ model transition should not occur if button's model is already active
 + on model transition update model name in subtitle
 
   so that we can visually track the points
@@ -43,8 +44,8 @@ DONE + update voronoi overlay for tooltips
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
 + draw box and whisker plots for categorical variables
-+ add RMSPE (percentage error) 
-+ add RSMLE (log error)
++ add RMSPE (percentage error) **@branden**
++ add RSMLE (log error) **@branden**
 
 ## classification
 + identify three good classification datasets

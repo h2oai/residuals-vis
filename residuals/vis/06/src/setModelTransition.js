@@ -8,6 +8,7 @@ export function setModelTransition(selector, data, options) {
   const idVariable = options.idVariable;
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
+  const currentAlgoLabel = options.currentAlgoLabel;
   const margin = options.margin;
   const chartWidth = document.getElementById('chart').offsetWidth;
   const width = chartWidth - margin.left - margin.right;
@@ -81,6 +82,19 @@ export function setModelTransition(selector, data, options) {
       .transition()
       .duration(1000)
       .style('opacity', 1);
+
+    // transition model label
+    d3.select('g.independent').select('text.modelLabel')
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .transition()
+      .duration(0)
+      .delay(5000 + marksDelay)
+      .text(`${currentAlgoLabel}`)
+      .transition()
+      .duration(1000)
+      .style('opacity', 0.15);
 
     // transition x-axis
     d3.select('g.independent').select('g.axis.x')

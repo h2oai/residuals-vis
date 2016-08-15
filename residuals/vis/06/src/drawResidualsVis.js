@@ -13,6 +13,8 @@ export function drawResidualsVis(width) {
     projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
     dataText: 'a 20,000 row subset of the data',
     algos: [ 'dl', 'drf', 'gbm', 'glm'],
+    currentAlgo: 'glm',
+    currentAlgoLabel: 'Generalized Linear Model',
     project: 'rossman-store-sales',
     predictColumn: 'glmPredict',
     responseColumn: 'Sales',
@@ -77,6 +79,8 @@ export function drawResidualsVis(width) {
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
   const algos = cfg.algos;
+  const currentAlgo = cfg.currentAlgo;
+  const currentAlgoLabel = cfg.currentAlgoLabel;
   const project = cfg.project;
   const predictColumn = cfg.predictColumn;
   const responseColumn = cfg.responseColumn;
@@ -101,7 +105,7 @@ export function drawResidualsVis(width) {
     options = {
       projectTitle,
       projectLink,
-      algo,
+      currentAlgo,
       dataText
     }
     drawTitle('p#subTitle', options);
@@ -115,6 +119,8 @@ export function drawResidualsVis(width) {
       tooltipColumns,
       numericColumns,
       responseColumn,
+      currentAlgo,
+      currentAlgoLabel,
       independent: true
     }
     scatterplot('.flex-container', data, options);
@@ -127,7 +133,9 @@ export function drawResidualsVis(width) {
         yVariable: yColumn,
         idVariable: idColumn,
         tooltipColumns,
-        numericColumns
+        numericColumns,
+        currentAlgo,
+        currentAlgoLabel
       }
     scatterplot('.flex-container', data, options);
     })
@@ -146,7 +154,9 @@ export function drawResidualsVis(width) {
       tooltipColumns,
       idVariable: idColumn,
       xVariable: 'dlPredict',
-      yVariable: 'dlResidual'
+      yVariable: 'dlResidual',
+      currentAlgo: 'dl',
+      currentAlgoLabel: 'Deep Learning'
     }
     setModelTransition('#dlButton', data, options);
     options = {
@@ -156,7 +166,9 @@ export function drawResidualsVis(width) {
       tooltipColumns,
       idVariable: idColumn,
       xVariable: 'drfPredict',
-      yVariable: 'drfResidual'
+      yVariable: 'drfResidual',
+      currentAlgo: 'drf',
+      currentAlgoLabel: 'Distributed Random Forest'
     }
     setModelTransition('#drfButton', data, options);
     options = {
@@ -166,7 +178,9 @@ export function drawResidualsVis(width) {
       tooltipColumns,
       idVariable: idColumn,
       xVariable: 'gbmPredict',
-      yVariable: 'gbmResidual'
+      yVariable: 'gbmResidual',
+      currentAlgo: 'gbm',
+      currentAlgoLabel: 'Gradient Boosting Method'
     }
     setModelTransition('#gbmButton', data, options);
     options = {
@@ -177,6 +191,8 @@ export function drawResidualsVis(width) {
       idVariable: idColumn,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',
+      currentAlgo: 'glm',
+      currentAlgoLabel: 'Generalized Linear Model',
     }
     setModelTransition('#glmButton', data, options);
   })
