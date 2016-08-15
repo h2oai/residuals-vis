@@ -18,8 +18,8 @@ DONE + update tooltip text after transition
 DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
 DONE + show large model name text in transparent gray on chart area **@leland**
+DONE + model transition should not occur if button's model is already active
 
-+ model transition should not occur if button's model is already active
 + on model transition update model name in subtitle
 
   so that we can visually track the points

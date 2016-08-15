@@ -8,6 +8,7 @@ export function setModelTransition(selector, data, options) {
   const idVariable = options.idVariable;
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
+  const currentAlgo = options.currentAlgo;
   const currentAlgoLabel = options.currentAlgoLabel;
   const margin = options.margin;
   const chartWidth = document.getElementById('chart').offsetWidth;
@@ -40,7 +41,14 @@ export function setModelTransition(selector, data, options) {
     .on('click', click);
 
   function click() {
+    const wrapperId = d3.select('g.independent').attr('id');
+    if (wrapperId === currentAlgo) { return; };
+
     const marksDelay = 1000;
+
+    // set new id
+    d3.select('g.independent')
+      .attr('id', currentAlgo);
 
     // transition y-axis
     d3.select('g.independent').select('g.axis.y')
