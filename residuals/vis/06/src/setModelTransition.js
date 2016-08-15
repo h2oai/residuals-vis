@@ -16,6 +16,11 @@ export function setModelTransition(selector, data, options) {
     .domain(d3.extent(data, d => Number(d[yVariable])))
     .nice();
 
+  const xAxis = d3.axisBottom()
+    .ticks(4)
+    .tickSizeOuter(0)
+    .scale(xScale);
+
   console.log('yScale range', yScale.range());
   console.log('yScale domain', yScale.domain());
 
@@ -23,6 +28,13 @@ export function setModelTransition(selector, data, options) {
     .on('click', click);
 
   function click() {
+    // transition marks
+    d3.select('g.independent').selectAll('.marks')
+      .transition()
+      .duration(2000)
+      .on('start', moveToNewPosition);
+
+    // transition x-axis label
     d3.select('g.independent').select('text.x.title')
       .transition()
       .duration(1000)
@@ -35,21 +47,22 @@ export function setModelTransition(selector, data, options) {
       .duration(1000)
       .style('opacity', 1);
 
-    d3.select('g.independent').selectAll('.marks')
+    // transition x-axis
+    d3.select('g.axis.x')
       .transition()
-      .duration(2000)
-      .on('start', moveToNewPosition);
+      .delay(2000)
+      .duration(1000)
+      .call(xAxis);
 
-  function moveToNewPosition() {
-    d3.active(this)
-      .attr('cy', yScale(0))
-      .transition()
-      .delay(1000)
-      .attr('cx', d => xScale(d[xVariable]))
-      .transition()
-      .delay(1000)
-      .attr('cy', d => yScale(d[yVariable]));
-}
-    
+    function moveToNewPosition() {
+      d3.active(this)
+        .attr('cy', yScale(0))
+        .transition()
+        .delay(1000)
+        .attr('cx', d => xScale(d[xVariable]))
+        .transition()
+        .delay(1000)
+        .attr('cy', d => yScale(d[yVariable]));
+    }   
   }
 }
