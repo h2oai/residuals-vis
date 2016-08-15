@@ -138,20 +138,12 @@ export function drawResidualsVis(width) {
     }
     dropdown('.nav', data, dropdownOptions);
 
-      'dlPredict',
-      'drfPredict',
-      'gbmPredict',
-      'glmPredict',
-      'dlResidual',
-      'drfResidu  l',
-      'gbmResidual',
-      'glmResidual',
-
-    // setup transition event
+    // setup transition event listeners
     options = {
       margin,
       width,
       responseColumn,
+      tooltipColumns,
       xVariable: 'dlPredict',
       yVariable: 'dlResidual',
     }
@@ -160,6 +152,7 @@ export function drawResidualsVis(width) {
       margin,
       width,
       responseColumn,
+      tooltipColumns,
       xVariable: 'drfPredict',
       yVariable: 'drfResidual',
     }
@@ -168,6 +161,7 @@ export function drawResidualsVis(width) {
       margin,
       width,
       responseColumn,
+      tooltipColumns,
       xVariable: 'gbmPredict',
       yVariable: 'gbmResidual',
     }
@@ -176,6 +170,7 @@ export function drawResidualsVis(width) {
       margin,
       width,
       responseColumn,
+      tooltipColumns,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',
     }

@@ -11,14 +11,35 @@ DONE + support multiple models for one dataset
 CLOSED + set scale domains to max of 4 models
 DONE + transition axes on model transition
 DONE + on model transition update x-axis label
+DONE + transition y-axis label position
+DONE + abstract out tooltip so that it is easier to update from 
+  setModelTransition.js
+DONE + update tooltip text after transition
+
 + on model transition update model name in subtitle
 + custom easing function for axis tick label transition?
   (ticks labels appear to fly out now)
-+ update tooltip text after transition
-DONE + transition y-axis label position
+
++ abstract out distance limited voronoi drawing
++ update voronoi overlay for tooltips
 + use a named transition for repeated transition patterns?
-+ abstract out tooltip so that it is easier to update from 
-  setModelTransition.js
++ make stepped transition optional
+
+#### @pasha
++ show transition at once
++ show constant scales - no axis transitions
+  so that we can track the points
+
+#### @leland
+
++ prefer not to show residuals vs actual response column value
++ show large model name text in transparent gray on chart area
+
+#### @arno
+
++ show residuals vs actual response column value
+
+
 
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman

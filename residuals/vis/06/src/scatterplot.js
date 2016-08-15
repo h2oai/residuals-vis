@@ -74,7 +74,10 @@ export function scatterplot(selector, inputData, options) {
     .classed(`${xVariable}`, true)
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  if (independent) { wrapper.classed('independent', true); }
+  if (independent) {
+    svg.classed('independent', true);
+    wrapper.classed('independent', true);
+  }
 
   //
   // Initialize Axes & Scales
@@ -208,6 +211,16 @@ export function scatterplot(selector, inputData, options) {
   // distance-limited Voronoi
   //
 
+  // const voronoiOptions = {
+  //   xScale,
+  //   yScale,
+  //   xVariable,
+  //   yVariable,
+  //   width,
+  //   height
+  // }
+  // drawVoronoiOverlay(wrapper);
+
   /*
     Initiate the voronoi function
     Use the same variables of the data in the .x and .y as used
@@ -221,21 +234,16 @@ export function scatterplot(selector, inputData, options) {
 
   const xAccessor = d => xScale(d[xVariable]);
   const yAccessor = d => yScale(d[yVariable]);
-
   const limitedVoronoi = d3DistanceLimitedVoronoi()
     .x(xAccessor)
     .y(yAccessor)
     .limit(50)
     .extent([[0, 0], [width, height]]);
-
   // console.log('data[0]', data[0]);
   const limitedVoronoiCells = limitedVoronoi(data);
-
-
-  // Initiate a group element to place the voronoi diagram in
+  // create a group element to place the voronoi diagram in
   const limitedVoronoiGroup = wrapper.append('g')
     .attr('class', 'voronoiWrapper');
-
   // Create the distance-limited Voronoi diagram
   limitedVoronoiGroup.selectAll('path')
     .data(limitedVoronoiCells) // Use vononoi() with your dataset inside

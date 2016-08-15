@@ -1,9 +1,11 @@
+import { tooltip } from './tooltip'; 
 import * as d3 from 'd3';
 
 export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
   const responseVariable = options.responseColumn;
+  const tooltipVariables = options.tooltipColumns;
   const margin = options.margin;
   const chartWidth = document.getElementById('chart').offsetWidth;
   const width = chartWidth - margin.left - margin.right;
@@ -28,8 +30,8 @@ export function setModelTransition(selector, data, options) {
     .ticks(6)
     .scale(yScale);
 
-  console.log('yScale range', yScale.range());
-  console.log('yScale domain', yScale.domain());
+  // console.log('yScale range', yScale.range());
+  // console.log('yScale domain', yScale.domain());
 
   d3.select(selector)
     .on('click', click);
@@ -61,7 +63,7 @@ export function setModelTransition(selector, data, options) {
     // transition marks
     d3.select('g.independent').selectAll('.marks')
       .transition()
-      .delay(marksDelay)
+      //.delay(marksDelay)
       .duration(2000)
       .on('start', moveToNewPosition);
 
@@ -72,7 +74,7 @@ export function setModelTransition(selector, data, options) {
       .style('opacity', 0)
       .transition()
       .duration(0)
-      .delay(5000 + marksDelay)
+      //.delay(5000 + marksDelay)
       .text(`${xVariable} (${responseVariable})`)
       .transition()
       .duration(1000)
@@ -81,18 +83,26 @@ export function setModelTransition(selector, data, options) {
     // transition x-axis
     d3.select('g.independent').select('g.axis.x')
       .transition()
-      .delay(2000 + marksDelay)
+      //.delay(2000 + marksDelay)
       .duration(1000)
       .call(xAxis);
+
+    // update voronoi overlay for tooltips
+
+
+    // set the tooltip for with new tooltipVariables
+    tooltipVariables[3].name = xVariable;
+    const tip = tooltip(tooltipVariables);
+    d3.select('svg.independent').call(tip);
 
     function moveToNewPosition() {
       d3.active(this)
         .attr('cy', yScale(0))
-        .transition()
-        .delay(1000)
+        //.transition()
+        //.delay(1000)
         .attr('cx', d => xScale(d[xVariable]))
-        .transition()
-        .delay(1000)
+        //.transition()
+        //.delay(1000)
         .attr('cy', d => yScale(d[yVariable]));
     }   
   }
