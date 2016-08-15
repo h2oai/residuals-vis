@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
+  const responseVariable = options.responseColumn;
   const width = options.width;
   const height = width * 0.25;
 
@@ -21,8 +22,19 @@ export function setModelTransition(selector, data, options) {
   d3.select(selector)
     .on('click', click);
 
-
   function click() {
+    d3.select('g.independent').select('text.x.title')
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .transition()
+      .duration(0)
+      .delay(6000)
+      .text(`${xVariable} (${responseVariable})`)
+      .transition()
+      .duration(1000)
+      .style('opacity', 1);
+
     d3.select('g.independent').selectAll('.marks')
       .transition()
       .duration(2000)

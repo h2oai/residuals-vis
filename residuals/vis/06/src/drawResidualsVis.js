@@ -149,24 +149,28 @@ export function drawResidualsVis(width) {
     // setup transition event
     options = {
       width,
+      responseColumn,
       xVariable: 'dlPredict',
       yVariable: 'dlResidual',
     }
     setModelTransition('#dlButton', data, options);
     options = {
       width,
+      responseColumn,
       xVariable: 'drfPredict',
       yVariable: 'drfResidual',
     }
     setModelTransition('#drfButton', data, options);
     options = {
       width,
+      responseColumn,
       xVariable: 'gbmPredict',
       yVariable: 'gbmResidual',
     }
     setModelTransition('#gbmButton', data, options);
     options = {
       width,
+      responseColumn,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',
     }
