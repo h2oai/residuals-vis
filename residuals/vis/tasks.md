@@ -15,31 +15,27 @@ DONE + transition y-axis label position
 DONE + abstract out tooltip so that it is easier to update from 
   setModelTransition.js
 DONE + update tooltip text after transition
+DONE + abstract out distance limited voronoi drawing
+DONE + update voronoi overlay for tooltips
 
++ show large model name text in transparent gray on chart area **@leland**
 + on model transition update model name in subtitle
+
+  so that we can visually track the points
++ prefer not to show residuals vs actual response column value **@leland**
+  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
+
++ make stepped transition optional
++ show transition at once **@pasha**
++ show constant scales - no axis transitions **@pasha**
+
+
+
+#### possibly
 + custom easing function for axis tick label transition?
   (ticks labels appear to fly out now)
-
-+ abstract out distance limited voronoi drawing
-+ update voronoi overlay for tooltips
 + use a named transition for repeated transition patterns?
-+ make stepped transition optional
-
-#### @pasha
-+ show transition at once
-+ show constant scales - no axis transitions
-  so that we can visually track the points
-
-#### @leland
-
-+ prefer not to show residuals vs actual response column value
-  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
-+ show large model name text in transparent gray on chart area
-
-#### @arno
-
-+ show residuals vs actual response column value
-
++ show residuals vs actual response column value **@arno**
 
 
 + support multiple datasets
