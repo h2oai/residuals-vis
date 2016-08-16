@@ -19,9 +19,7 @@ DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
 DONE + show large model name text in transparent gray on chart area **@leland**
 DONE + model transition should not occur if button's model is already active
-
-+ on model transition update model name in subtitle
-
+DONE + on model transition update model name in subtitle
 
 + prefer not to show residuals vs actual response column value **@leland**
   [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
