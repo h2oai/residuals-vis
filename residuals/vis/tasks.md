@@ -20,8 +20,7 @@ DONE + update voronoi overlay for tooltips
 DONE + show large model name text in transparent gray on chart area **@leland**
 DONE + model transition should not occur if button's model is already active
 DONE + on model transition update model name in subtitle
-
-+ show constant scales - no axis transitions **@pasha**
+DONE + show constant scales - no axis transitions **@pasha**
 
 + show transition at once **@pasha**
   so that we can visually track the points
