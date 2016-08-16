@@ -13,7 +13,7 @@ DONE + transition axes on model transition
 DONE + on model transition update x-axis label
 DONE + transition y-axis label position
 DONE + abstract out tooltip so that it is easier to update from 
-  setModelTransition.js
+       setModelTransition.js
 DONE + update tooltip text after transition
 DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
@@ -21,17 +21,20 @@ DONE + show large model name text in transparent gray on chart area **@leland**
 DONE + model transition should not occur if button's model is already active
 DONE + on model transition update model name in subtitle
 
-+ prefer not to show residuals vs actual response column value **@leland**
-  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
++ show constant scales - no axis transitions **@pasha**
 
-+ make stepped transition optional
 + show transition at once **@pasha**
   so that we can visually track the points
-+ show constant scales - no axis transitions **@pasha**
++ show stepped transition with an option
+
 
 + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 + on switch between models animate points in place **@ivy**
 + on exit animte points back to 0 baseline **@ivy**
+
++ prefer not to show residuals vs actual response column value **@leland**
+  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
+
 
 
 
