@@ -25,9 +25,9 @@ DONE + show transition for points position on model switch at once **@pasha**
   so that we can visually track the points
 
 
-+ on enter, animate points from the 0 baseline to give intuition about error **@ivy**
+DONE + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 DONE + on switch between models animate points in place **@ivy**
-+ on exit animate points back to 0 baseline **@ivy**
+
 
 
 + support multiple datasets
@@ -56,3 +56,4 @@ DONE + on switch between models animate points in place **@ivy**
   prefer not to show residuals vs actual response column value **@leland**
   [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
 + show stepped transition with an option
++ on exit animate points back to 0 baseline **@ivy**

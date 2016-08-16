@@ -22,7 +22,8 @@ export function scatterplot(selector, inputData, options) {
   // set default configuration
   const cfg = {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
-    width: 1000
+    width: 1000,
+    animateFromZero: undefined
   };
 
   // Put all of the options into a variable called cfg
@@ -45,6 +46,7 @@ export function scatterplot(selector, inputData, options) {
   const responseVariable = cfg.responseColumn;
   const independent = cfg.independent;
   const globalExtents = cfg.globalExtents;
+  const animateFromZero = cfg.animateFromZero;
 
   // labels
   let xLabel = cfg.xLabel || xVariable;
@@ -200,7 +202,7 @@ export function scatterplot(selector, inputData, options) {
     .attr('class', 'circleWrapper');
 
   // Place the country circles
-  circleGroup.selectAll('marks')
+  const circles = circleGroup.selectAll('marks')
     .data(() => {
         if (typeof rVariable !== 'undefined') {
           // Sort so the biggest circles are below
@@ -221,13 +223,28 @@ export function scatterplot(selector, inputData, options) {
       .attr('cx', d => {
         return xScale(d[xVariable]);
       })
-      .attr('cy', d => yScale(d[yVariable]))
+      .attr('cy', d => {
+        if (typeof animateFromZero !== 'undefined') {
+          return yScale(0);
+        } else {
+          return yScale(d[yVariable]);
+        }
+        
+      })
       .attr('r', d => {
         if (typeof rVariable !== 'undefined') {
           return rScale(d[rVariable])
         } 
         return '2'; 
       });
+
+  if (typeof animateFromZero !== 'undefined') {
+    circles
+      .transition()
+      .delay(2000)
+      .duration(2000)
+      .attr('cy', d => yScale(d[yVariable]));
+  }
 
   //
   // Tooltips

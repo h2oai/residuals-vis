@@ -4,6 +4,7 @@ import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
 import * as d3 from 'd3';
+import * as d3_queue from 'd3-queue';
 
 export function drawResidualsVis(width) {
   // set defaults
@@ -100,7 +101,12 @@ export function drawResidualsVis(width) {
   // const dataFile = `${path}/${algo}-residuals-20k.csv`;
   const dataFile = `${path}/residuals-20k.csv`;
  
-  d3.csv(dataFile, function(error, data) {
+ // wait for data to load before attempting to draw
+  d3_queue.queue()
+    .defer(d3.csv, dataFile)
+    .await(drawVisFromData);
+
+  function drawVisFromData(error, data) {
     // draw the title text
     let options;
     options = {
@@ -225,5 +231,5 @@ export function drawResidualsVis(width) {
       currentAlgoLabel: 'Generalized Linear Model',
     }
     setModelTransition('#glmButton', data, options);
-  })
+  }
 }
