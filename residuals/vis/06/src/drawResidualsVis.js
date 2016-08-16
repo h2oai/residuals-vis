@@ -112,6 +112,12 @@ export function drawResidualsVis(width) {
     }
     drawTitle('p#subTitle', options);
 
+    // get global extents
+    options = {
+      algos
+    }
+    const globalExtents = getGlobalExtents(data, options);
+
     // residuals vs prediction
     options = {
       width,
@@ -123,7 +129,8 @@ export function drawResidualsVis(width) {
       responseColumn,
       currentAlgo,
       currentAlgoLabel,
-      independent: true
+      independent: true,
+      globalExtents
     }
     scatterplot('.flex-container', data, options);
 
@@ -137,7 +144,8 @@ export function drawResidualsVis(width) {
         tooltipColumns,
         numericColumns,
         currentAlgo,
-        currentAlgoLabel
+        currentAlgoLabel,
+        globalExtents: undefined
       }
     scatterplot('.flex-container', data, options);
     })
@@ -147,12 +155,6 @@ export function drawResidualsVis(width) {
       categoricalColumns
     }
     dropdown('.nav', data, dropdownOptions);
-
-    // get global extents for transitions
-    options = {
-      algos
-    }
-    const globalExtents = getGlobalExtents(data, options);
 
     // setup transition event listeners
     options = {

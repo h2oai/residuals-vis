@@ -44,6 +44,7 @@ export function scatterplot(selector, inputData, options) {
   const numericVariables = cfg.numericColumns;
   const responseVariable = cfg.responseColumn;
   const independent = cfg.independent;
+  const globalExtents = cfg.globalExtents;
 
   // labels
   let xLabel = cfg.xLabel || xVariable;
@@ -124,20 +125,34 @@ export function scatterplot(selector, inputData, options) {
       d[e] = Number(d[e]);
     })
   })
-  
+
   // Set the new x axis range
   const xScale = d3.scaleLinear()
-    .range([0, width])
-    //.domain([100, 2e5]);
-    // I prefer this exact scale over the true range and then using "nice"
-    .domain(d3.extent(data, function(d) { return d[xVariable]; }))
-    // .nice();
+    .range([0, width]);
 
   // Set the new y axis range
   const yScale = d3.scaleLinear()
-    .range([height, 0])
-    .domain(d3.extent(data, d => d[yVariable]))
-    .nice();
+    .range([height, 0]);
+ 
+  if (typeof globalExtents !== 'undefined') {
+    // retrieve global extents
+    const xExtent = globalExtents[0];
+    const yExtent = globalExtents[1];
+
+    // set scale domains with global extents
+    xScale.domain(xExtent);
+    yScale
+      .domain(yExtent)
+      .nice();
+  } else {
+    // set scale domains from the local extent
+    xScale
+      .domain(d3.extent(data, d => d[xVariable]))
+      // .nice();
+    yScale
+      .domain(d3.extent(data, d => d[yVariable]))
+      .nice();
+  }
 
   // Set new x-axis
   const xAxis = d3.axisBottom()
