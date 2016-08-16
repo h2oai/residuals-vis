@@ -1,4 +1,5 @@
 import { tooltip } from './tooltip';
+import { drawTitle } from './drawTitle';
 import { drawVoronoiOverlay } from './drawVoronoiOverlay';
 import * as d3 from 'd3';
 
@@ -10,6 +11,9 @@ export function setModelTransition(selector, data, options) {
   const tooltipVariables = options.tooltipColumns;
   const currentAlgo = options.currentAlgo;
   const currentAlgoLabel = options.currentAlgoLabel;
+  const projectTitle = options.projectTitle;
+  const projectLink = options.projectLink;
+  const dataText = options.dataText;
   const margin = options.margin;
   const chartWidth = document.getElementById('chart').offsetWidth;
   const width = chartWidth - margin.left - margin.right;
@@ -135,6 +139,15 @@ export function setModelTransition(selector, data, options) {
 
     // draw a new Voronoi overlay
     drawVoronoiOverlay(wrapper, data, voronoiOptions);
+
+    // update the subtitle
+    const subtitleOptions = {
+      projectTitle,
+      projectLink,
+      currentAlgoLabel,
+      dataText
+    }
+    drawTitle('p#subTitle', subtitleOptions);
 
     function moveToNewPosition() {
       d3.active(this)
