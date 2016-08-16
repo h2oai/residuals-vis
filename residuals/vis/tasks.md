@@ -23,27 +23,27 @@ DONE + on model transition update model name in subtitle
 DONE + show constant scales - no axis transitions **@pasha**
 DONE + show transition for points position on model switch at once **@pasha**
   so that we can visually track the points
-
-
 DONE + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 DONE + on switch between models animate points in place **@ivy**
 
-
-
-+ support multiple datasets
-+ add static exemplar dataset from h2o-3 Aggregator for Rossman
-+ use aggregator to show many points
-+ add data for all algos for Grupo Bimbo
-+ add data for all algos for Prudential
 + draw box and whisker plots for categorical variables
 + add RMSPE (percentage error) **@branden**
 + add RSMLE (log error) **@branden**
+
+### Aggregator features
++ add static exemplar dataset from h2o-3 Aggregator for Rossman
++ use aggregator to show many points
+
+### multiple datsets features
++ support multiple datasets
++ add data for all algos for Grupo Bimbo
++ add data for all algos for Prudential
 
 ## classification
 + identify three good classification datasets
 + caculate Pearson residual for categorial variables
 
-## eventually
+#### eventually
 + add arrows to axis labels
 ? exploding box plots
 + resolve inconsistency between xVariable and drfPredict
