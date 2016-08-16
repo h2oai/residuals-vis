@@ -46,6 +46,7 @@ DONE + on model transition update model name in subtitle
 
 + support multiple datasets
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
++ use aggregator to show many points
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
 + draw box and whisker plots for categorical variables
@@ -59,4 +60,4 @@ DONE + on model transition update model name in subtitle
 ## eventually
 + add arrows to axis labels
 ? exploding box plots
-+ use aggregator to show many points
++ resolve inconsistency between xVariable and drfPredict

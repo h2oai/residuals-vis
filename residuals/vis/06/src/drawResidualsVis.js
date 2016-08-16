@@ -1,6 +1,7 @@
 import { scatterplot } from './scatterplot';
 import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
+import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
 import * as d3 from 'd3';
 
@@ -147,6 +148,12 @@ export function drawResidualsVis(width) {
     }
     dropdown('.nav', data, dropdownOptions);
 
+    // get global extents for transitions
+    options = {
+      algos
+    }
+    const globalExtents = getGlobalExtents(data, options);
+
     // setup transition event listeners
     options = {
       margin,
@@ -156,6 +163,8 @@ export function drawResidualsVis(width) {
       projectTitle,
       projectLink,
       dataText,
+      algos,
+      globalExtents,
       idVariable: idColumn,
       xVariable: 'dlPredict',
       yVariable: 'dlResidual',
@@ -171,6 +180,8 @@ export function drawResidualsVis(width) {
       projectTitle,
       projectLink,
       dataText,
+      algos,
+      globalExtents,
       idVariable: idColumn,
       xVariable: 'drfPredict',
       yVariable: 'drfResidual',
@@ -186,6 +197,8 @@ export function drawResidualsVis(width) {
       projectTitle,
       projectLink,
       dataText,
+      algos,
+      globalExtents,
       idVariable: idColumn,
       xVariable: 'gbmPredict',
       yVariable: 'gbmResidual',
@@ -201,6 +214,8 @@ export function drawResidualsVis(width) {
       projectTitle,
       projectLink,
       dataText,
+      algos,
+      globalExtents,
       idVariable: idColumn,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',
