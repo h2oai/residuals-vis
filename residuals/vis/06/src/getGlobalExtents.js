@@ -9,8 +9,6 @@ export function getGlobalExtents(data, options) {
     [0, 0]  // global yVariable Residual extent 
   ];
   ['Predict', 'Residual'].forEach((variable, i) => {
-    console.log('variable', variable);
-    console.log('i', i);
     algos.forEach(algo => {
       const currentExtent = d3.extent(data, d => Number(d[`${algo}${variable}`]));
       // update global min
@@ -21,11 +19,7 @@ export function getGlobalExtents(data, options) {
       if (currentExtent[1] > globalExtents[i][1]) {
         globalExtents[i][1] = currentExtent[1];
       }
-      console.log('algo', algo);
-      console.log('curentExtent', currentExtent);
-      console.log('globalExtents[i]', globalExtents[i]);
     })
   })
-  console.log(`globalExtents ${globalExtents}`);
   return globalExtents;
 }
