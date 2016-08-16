@@ -21,26 +21,13 @@ DONE + show large model name text in transparent gray on chart area **@leland**
 DONE + model transition should not occur if button's model is already active
 DONE + on model transition update model name in subtitle
 DONE + show constant scales - no axis transitions **@pasha**
-
-+ show transition at once **@pasha**
+DONE + show transition for points position on model switch at once **@pasha**
   so that we can visually track the points
-+ show stepped transition with an option
 
 
 + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
-+ on switch between models animate points in place **@ivy**
+DONE + on switch between models animate points in place **@ivy**
 + on exit animate points back to 0 baseline **@ivy**
-
-+ prefer not to show residuals vs actual response column value **@leland**
-  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
-
-
-
-#### possibly
-+ custom easing function for axis tick label transition?
-  (ticks labels appear to fly out now)
-+ use a named transition for repeated transition patterns?
-+ show residuals vs actual response column value **@arno**
 
 
 + support multiple datasets
@@ -60,3 +47,12 @@ DONE + show constant scales - no axis transitions **@pasha**
 + add arrows to axis labels
 ? exploding box plots
 + resolve inconsistency between xVariable and drfPredict
+
+#### possibly
++ custom easing function for axis tick label transition?
+  (ticks labels appear to fly out now)
++ use a named transition for repeated transition patterns?
++ show residuals vs actual response column value? **@arno**
+  prefer not to show residuals vs actual response column value **@leland**
+  [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
++ show stepped transition with an option
