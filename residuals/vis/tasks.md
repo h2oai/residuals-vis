@@ -30,11 +30,10 @@ DONE + on model transition update model name in subtitle
 
 + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 + on switch between models animate points in place **@ivy**
-+ on exit animte points back to 0 baseline **@ivy**
++ on exit animate points back to 0 baseline **@ivy**
 
 + prefer not to show residuals vs actual response column value **@leland**
   [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
-
 
 
 
@@ -60,3 +59,4 @@ DONE + on model transition update model name in subtitle
 ## eventually
 + add arrows to axis labels
 ? exploding box plots
++ use aggregator to show many points
