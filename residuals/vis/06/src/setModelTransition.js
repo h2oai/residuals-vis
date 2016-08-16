@@ -67,6 +67,32 @@ export function setModelTransition(selector, data, options) {
       .duration(2000)
       .on('start', moveToNewPosition);
 
+    // transition x-axis label
+    d3.select('g.independent').select('text.x.title')
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .transition()
+      .duration(0)
+      .delay(1000 + marksDelay)
+      .text(`${xVariable} (${responseVariable})`)
+      .transition()
+      .duration(1000)
+      .style('opacity', 1);
+
+    // transition model label
+    d3.select('g.independent').select('text.modelLabel')
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .transition()
+      .duration(0)
+      .delay(1000 + marksDelay)
+      .text(`${currentAlgoLabel}`)
+      .transition()
+      .duration(1000)
+      .style('opacity', 0.15);
+
     // set the tooltip for with new tooltipVariables
     tooltipVariables[3].name = xVariable;
     const tip = tooltip(tooltipVariables);
