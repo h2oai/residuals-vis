@@ -135,12 +135,12 @@ export function drawResidualsVis(width) {
       responseColumn,
       currentAlgo,
       currentAlgoLabel,
-      independent: true,
+      dependent: true,
       globalExtents
     }
     scatterplot('.flex-container', data, options);
 
-    // residuals vs independent variables
+    // residuals vs dependent variables
     xColumns.forEach(x => {
       options = {
         width,

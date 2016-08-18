@@ -26,9 +26,15 @@ DONE + show transition for points position on model switch at once **@pasha**
 DONE + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 DONE + on switch between models animate points in place **@ivy**
 
+DONE + find example boxplot to iterate on
+DONE + convert example boxplot to es2015
++ convert example boxplot to d3 v4
 + draw box and whisker plots for categorical variables
-+ add RMSPE (percentage error) **@branden**
-+ add RSMLE (log error) **@branden**
++ improve tooltips for independent variables
+
+## classification
++ identify three good classification datasets
++ caculate Pearson residual for categorial variables
 
 ### Aggregator features
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
@@ -39,14 +45,14 @@ DONE + on switch between models animate points in place **@ivy**
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
 
-## classification
-+ identify three good classification datasets
-+ caculate Pearson residual for categorial variables
+
 
 #### eventually
 + add arrows to axis labels
 ? exploding box plots
 + resolve inconsistency between xVariable and drfPredict
++ add RMSPE (percentage error) **@branden** defer to table in steam?
++ add RSMLE (log error) **@branden** defer to table in steam?
 
 #### possibly
 + custom easing function for axis tick label transition?

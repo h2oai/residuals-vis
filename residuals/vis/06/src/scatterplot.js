@@ -44,7 +44,7 @@ export function scatterplot(selector, inputData, options) {
   const tooltipVariables = cfg.tooltipColumns;
   const numericVariables = cfg.numericColumns;
   const responseVariable = cfg.responseColumn;
-  const independent = cfg.independent;
+  const dependent = cfg.dependent;
   const globalExtents = cfg.globalExtents;
   const animateFromZero = cfg.animateFromZero;
 
@@ -78,9 +78,9 @@ export function scatterplot(selector, inputData, options) {
     .classed(`${xVariable}`, true)
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  if (independent) {
-    svg.classed('independent', true);
-    wrapper.classed('independent', true);
+  if (dependent) {
+    svg.classed('dependent', true);
+    wrapper.classed('dependent', true);
     wrapper.attr('id', currentAlgo);
 
     // draw model label
