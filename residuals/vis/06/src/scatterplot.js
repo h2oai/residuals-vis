@@ -23,7 +23,8 @@ export function scatterplot(selector, inputData, options) {
   const cfg = {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
     width: 1000,
-    animateFromZero: undefined
+    animateFromZero: undefined,
+    yVariable: 'residual'
   };
 
   // Put all of the options into a variable called cfg
@@ -35,7 +36,7 @@ export function scatterplot(selector, inputData, options) {
 
   // map variables to our dataset
   const xVariable = cfg.xVariable;
-  const yVariable = cfg.yVariable || 'residual';
+  const yVariable = cfg.yVariable;
   const rVariable = undefined;
   const idVariable = cfg.idVariable;
   const groupByVariable = undefined;
