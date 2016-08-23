@@ -4,6 +4,8 @@ import * as d3 from 'd3';
 export function drawExplodingBoxplot(selector, inputData, options) {
   // set default configuration
   const cfg = {
+    margin: { left: 120, top: 20, right: 80, bottom: 20 },
+    width: 1000,
     yVariable: 'residual'
   };
 
@@ -22,9 +24,22 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     .append('div')
     .attr('id', 'chart');
 
+  const margin = cfg.margin;
+  const chartDivWidth = document.getElementById('chart').offsetWidth; 
+  const dynamicWidth = chartDivWidth - margin.left - margin.right;
+  const width = dynamicWidth; 
+  const specifiedWidth = cfg.width;
+  const height = specifiedWidth * 0.25;
+
+  console.log('calculated width for explodingBoxplot', width);
+  console.log('calculated height for explodingBoxplot', height);
+
   // tell explodingBoxplot how to group, color, and position
   // the boxplots that represent our randomNormal data
   const explodingBoxplotOptions = {
+    width: dynamicWidth,
+    height,
+    margin,
     y: yVariable,
     data: {
       group: xVariable,

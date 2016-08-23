@@ -416,7 +416,7 @@
       class: 'xBoxPlot',
       width: window.innerWidth,
       height: window.innerHeight,
-      margins: {
+      margin: {
         top: 10,
         right: 10,
         bottom: 30,
@@ -521,6 +521,7 @@
         constituents.elements.domParent = domParent;
 
         var chartRoot = domParent.append('svg').attr('class', 'svg-class');
+
         constituents.elements.chartRoot = chartRoot;
 
         // background click area added first
@@ -536,9 +537,9 @@
         // boolean resize used to disable transitions during resize operation
         update = function update(resize) {
           // console.log('update/resize function was called');
-          chartRoot.attr('width', options.width + options.margins.left + options.margins.right).attr('height', options.height + options.margins.top + options.margins.bottom);
+          chartRoot.attr('width', options.width + options.margin.left + options.margin.right).attr('height', options.height + options.margin.top + options.margin.bottom);
 
-          chartWrapper.attr('transform', 'translate(' + options.margins.left + ',' + options.margins.top + ')');
+          chartWrapper.attr('transform', 'translate(' + options.margin.left + ',' + options.margin.top + ')');
 
           // console.log('events.update.begin', events.update.begin);
           if (events.update.begin) {
@@ -560,7 +561,7 @@
 
           var xScale = d3.scaleBand().domain(groups.map(function (d) {
             return d.key;
-          })).padding(options.display.boxpadding).rangeRound([0, options.width - options.margins.left - options.margins.right]);
+          })).padding(options.display.boxpadding).rangeRound([0, options.width - options.margin.left - options.margin.right]);
 
           constituents.scales.X = xScale;
           // console.log('xScale.domain()', xScale.domain());
@@ -577,7 +578,7 @@
 
           var yScale = d3.scaleLinear().domain(d3.extent(dataSet.map(function (m) {
             return m[options.axes.y.label];
-          }))).range([options.height - options.margins.top - options.margins.bottom, 0]).nice();
+          }))).range([options.height - options.margin.top - options.margin.bottom, 0]).nice();
 
           constituents.scales.Y = yScale;
           // console.log('yScale.domain()', yScale.domain());
@@ -623,9 +624,9 @@
 
           updateXAxis.exit().remove();
 
-          updateXAxis.enter().append('g').merge(updateXAxis).attr('class', 'explodingBoxplot x axis').attr('id', 'xpb_xAxis').attr('transform', 'translate(0,' + (options.height - options.margins.top - options.margins.bottom) + ')').call(xAxis);
+          updateXAxis.enter().append('g').merge(updateXAxis).attr('class', 'explodingBoxplot x axis').attr('id', 'xpb_xAxis').attr('transform', 'translate(0,' + (options.height - options.margin.top - options.margin.bottom) + ')').call(xAxis);
 
-          chartWrapper.selectAll('g.x.axis').append('text').attr('class', 'axis text').attr('x', (options.width - options.margins.left - options.margins.right) / 2).attr('dy', '.71em').attr('y', options.margins.bottom - 10).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(options.axes.x.label);
+          chartWrapper.selectAll('g.x.axis').append('text').attr('class', 'axis text').attr('x', (options.width - options.margin.left - options.margin.right) / 2).attr('dy', '.71em').attr('y', options.margin.bottom - 10).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(options.axes.x.label);
 
           var updateYAxis = chartWrapper.selectAll('#xpb_yAxis').data([0]);
 
@@ -633,7 +634,7 @@
 
           updateYAxis.enter().append('g').merge(updateYAxis).attr('class', 'explodingBoxplot y axis').attr('id', 'xpb_yAxis').call(yAxis);
 
-          chartWrapper.selectAll('g.y.axis').append('text').attr('class', 'axis text').attr('transform', 'rotate(-90)').attr('x', -options.margins.top - d3.mean(yScale.range())).attr('dy', '.71em').attr('y', -options.margins.left + 5).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(options.axes.y.label);
+          chartWrapper.selectAll('g.y.axis').append('text').attr('class', 'axis text').attr('transform', 'rotate(-90)').attr('x', -options.margin.top - d3.mean(yScale.range())).attr('dy', '.71em').attr('y', -options.margin.left + 5).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(options.axes.y.label);
 
           // style the axis text
           chartWrapper.selectAll('.axis text').style('font', '10px sans-serif');

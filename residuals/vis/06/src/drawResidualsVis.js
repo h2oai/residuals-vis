@@ -9,7 +9,7 @@ import * as d3_queue from 'd3-queue';
 
 export function drawResidualsVis(width) {
   // set defaults
-  if (typeof width === 'undefined') width = 470;
+  if (typeof width === 'undefined') width = 1000;
 
   const rossmanConfig = {
     projectTitle: 'Rossman Store Sales',
@@ -167,7 +167,7 @@ export function drawResidualsVis(width) {
       scatterplot('.flex-container', data, options);
     })
 
-    // just one to start
+    // draw exploding boxplots for categorical independent variables
     const testArray = [];
     testArray.push(categoricalColumns[1]);
     testArray.forEach(x => {
