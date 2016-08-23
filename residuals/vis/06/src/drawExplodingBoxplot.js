@@ -6,7 +6,11 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const cfg = {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
     width: 1000,
-    yVariable: 'residual'
+    yVariable: 'residual',
+    marks: {
+      r: 2,
+      fillOpacity: 0.3
+    } 
   };
 
   // Put all of the options into a variable called cfg
@@ -30,6 +34,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const width = dynamicWidth; 
   const specifiedWidth = cfg.width;
   const height = specifiedWidth * 0.25;
+  const marksRadius = cfg.marks.r;
+  const marksFillOpacity = cfg.marks.fillOpacity;
 
   console.log('calculated width for explodingBoxplot', width);
   console.log('calculated height for explodingBoxplot', height);
@@ -44,6 +50,10 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     data: {
       group: xVariable,
       colorIndex: xVariable,
+    },
+    dataPoints: {
+      radius: marksRadius,
+      fillOpacity: marksFillOpacity
     },
     color: xVariable,
     label: '',

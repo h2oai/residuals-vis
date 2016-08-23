@@ -13,8 +13,10 @@
     var events = options.events;
     var constituents = options.constituents;
 
-    s.attr('class', 'explodingBoxplot point').attr('r', chartOptions.datapoints.radius).attr('fill', function (d) {
+    s.attr('class', 'explodingBoxplot point').attr('r', chartOptions.dataPoints.radius).attr('fill', function (d) {
       return colorScale(d[chartOptions.data.colorIndex]);
+    }).attr('fill-opacity', function (d) {
+      return chartOptions.dataPoints.fillOpacity;
     }).on('mouseover', function (d, i /* , self */) {
       if (events.point && typeof events.point.mouseover === 'function') {
         events.point.mouseover(d, i, d3.select(this), constituents, chartOptions);
@@ -38,7 +40,7 @@
     var xScale = options.xScale;
     var yScale = options.yScale;
 
-    selection.attr('r', chartOptions.datapoints.radius).attr('fill', function (d) {
+    selection.attr('r', chartOptions.dataPoints.radius).attr('fill', function (d) {
       return colorScale(d[chartOptions.data.colorIndex]);
     }).attr('cx', function () /* d */{
       var w = xScale.bandwidth();
@@ -449,8 +451,9 @@
         group: undefined,
         identifier: undefined
       },
-      datapoints: {
-        radius: 3
+      dataPoints: {
+        radius: 3,
+        fillOpacity: 1
       },
       display: {
         iqr: 1.5, // interquartile range

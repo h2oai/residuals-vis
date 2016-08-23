@@ -24,7 +24,11 @@ export function scatterplot(selector, inputData, options) {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
     width: 1000,
     animateFromZero: undefined,
-    yVariable: 'residual'
+    yVariable: 'residual',
+    marks: {
+      r: 2,
+      fillOpacity: 0.3
+    } 
   };
 
   // Put all of the options into a variable called cfg
@@ -33,6 +37,8 @@ export function scatterplot(selector, inputData, options) {
       if (typeof options[i] !== 'undefined') { cfg[i] = options[i]; }
     }// for i
   }// if
+  console.log('options passed in to scatterplot', options);
+  console.log('cfg from scatterplot', cfg);
 
   // map variables to our dataset
   const xVariable = cfg.xVariable;
@@ -48,6 +54,8 @@ export function scatterplot(selector, inputData, options) {
   const dependent = cfg.dependent;
   const globalExtents = cfg.globalExtents;
   const animateFromZero = cfg.animateFromZero;
+  const opacityCircles = cfg.marks.fillOpacity;
+  const marksRadius = cfg.marks.r;
 
   // labels
   let xLabel = cfg.xLabel || xVariable;
@@ -100,8 +108,6 @@ export function scatterplot(selector, inputData, options) {
   //
   // Initialize Axes & Scales
   //
-
-  const opacityCircles = 0.3; // 0.7;
 
   // Set the color for each region
   const color = d3.scaleOrdinal()
@@ -236,7 +242,7 @@ export function scatterplot(selector, inputData, options) {
         if (typeof rVariable !== 'undefined') {
           return rScale(d[rVariable])
         } 
-        return '2'; 
+        return marksRadius; 
       });
 
   if (typeof animateFromZero !== 'undefined') {

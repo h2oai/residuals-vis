@@ -66,7 +66,11 @@ export function drawResidualsVis(width) {
       'Assortment',
       'Promo2',
       'PromoInterval'
-    ]
+    ],
+    marks: {
+      r: 2,
+      fillOpacity: 0.3
+    }
   }
 
   const citibikes20kConfig = {
@@ -95,6 +99,7 @@ export function drawResidualsVis(width) {
   const categoricalColumns = cfg.categoricalColumns;
   const dataText = cfg.dataText;
   const margin = { left: 120, top: 20, right: 80, bottom: 20 };
+  const marks = cfg.marks;
 
   const algo = algos[0];
 
@@ -147,7 +152,8 @@ export function drawResidualsVis(width) {
       currentAlgo,
       currentAlgoLabel,
       dependent: true,
-      globalExtents
+      globalExtents,
+      marks
     }
     scatterplot('.flex-container', data, options);
 
@@ -162,7 +168,8 @@ export function drawResidualsVis(width) {
         numericColumns,
         currentAlgo,
         currentAlgoLabel,
-        globalExtents: undefined
+        globalExtents: undefined,
+        marks
       }
       scatterplot('.flex-container', data, options);
     })
@@ -173,7 +180,8 @@ export function drawResidualsVis(width) {
     testArray.forEach(x => {
       options = {
         xVariable: x,
-        yVariable: yColumn
+        yVariable: yColumn,
+        marks,
       }
       drawExplodingBoxplot('.flex-container', data, options);
     })

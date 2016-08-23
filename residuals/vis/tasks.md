@@ -26,14 +26,28 @@ DONE + show transition for points position on model switch at once **@pasha**
 DONE + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
 DONE + on switch between models animate points in place **@ivy**
 
+
+## boxplots
 DONE + find example boxplot to iterate on
 DONE + convert example boxplot to es2015
-+ convert example boxplot to d3 v4
-+ draw box and whisker plots for categorical variables
+DONE + convert example boxplot to d3 v4
+DONE ? exploding box plots
+DONE + draw boxplots for one categorical variable
+DONE + drive circle opacity for boxplot from configuration
+DONE + ensure that the circle opacity for all plots on the residuals vis page is the same - set from common configuration
+
++ draw boxplots  for all categorical variables
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js and d3ExplodingBoxplot.js
-+ drive circle opacity for boxplot from configuration
-+ ensure that the circle opacity for all plots on the residuals vis page is the same
++ drive boxplot y-axis ticks with configuration
+
+
+
+
+
+
+
+
 
 ## classification
 + identify three good classification datasets
@@ -52,7 +66,6 @@ DONE + convert example boxplot to es2015
 
 #### eventually
 + add arrows to axis labels
-? exploding box plots
 + resolve inconsistency between xVariable and drfPredict
 + add RMSPE (percentage error) **@branden** defer to table in steam?
 + add RSMLE (log error) **@branden** defer to table in steam?
