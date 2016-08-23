@@ -47,18 +47,20 @@ DONE + add variable property for axis variable config
        to replace label
 DONE + improve boxplot width when there are a small number of classes
        --> make narrower boxes and a narrower plot overall
+DONE + translate x-axis line vertically to be at 0 on y-axis
+DONE + style y-axis label like scatterplots on residuals vis
 
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js
   and d3ExplodingBoxplot.js
-+ style y-axis label like scatterplots on residuals vis
++ style x-axis label like scatterplots on residuals vis
 
 ? hide x-axis baseline?
 + support config for axis label placement
 + link category class dropdown to boxplots
 + support absolute px values for boxPadding
   in addition to boxPaddingProportion
-+ translate x-axis line vertically to be at 0 on y-axis
+
 
 
 

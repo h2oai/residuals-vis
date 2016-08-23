@@ -290,7 +290,7 @@ export function scatterplot(selector, inputData, options) {
     .attr('text-anchor', 'start')
     .style('font-size', `${mobileScreen ? 8 : 12}px`)
     .style('font-weight', 600)
-    .attr('transform', `translate(${30}, ${-10})`)
+    .attr('transform', `translate(${30},${-10})`)
     .text(`${xlabelText}`);
 
   // Set up y axis label
@@ -301,7 +301,7 @@ export function scatterplot(selector, inputData, options) {
     .attr('dy', '0.35em')
     .style('font-size', `${mobileScreen ? 8 : 12}px`)
     // .attr('transform', 'translate(18, 0) rotate(-90)')
-    .attr('transform', `translate(${-30}, ${yScale(0)})`)
+    .attr('transform', `translate(${-(margin.left / 4)},${yScale(0)})`)
     .text(`${yLabelText}`);
 
   //
