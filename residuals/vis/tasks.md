@@ -32,6 +32,8 @@ DONE + convert example boxplot to es2015
 + draw box and whisker plots for categorical variables
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js and d3ExplodingBoxplot.js
++ drive circle opacity for boxplot from configuration
++ ensure that the circle opacity for all plots on the residuals vis page is the same
 
 ## classification
 + identify three good classification datasets
