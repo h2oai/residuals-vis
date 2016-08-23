@@ -41,18 +41,26 @@ DONE ? exploding box plots
 DONE + draw boxplots for one categorical variable
 DONE + drive circle opacity for boxplot from configuration
 DONE + ensure that the circle opacity for all plots on the residuals
-  vis page is the same - set from common configuration
+       vis page is the same - set from common configuration
 DONE + drive boxplot y-axis ticks with configuration
-
+DONE + add variable property for axis variable config
+       to replace label
+DONE + improve boxplot width when there are a small number of classes
+       --> make narrower boxes and a narrower plot overall
 
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js
   and d3ExplodingBoxplot.js
 + style y-axis label like scatterplots on residuals vis
-+ improve boxplot width when there are a small number of classes
-  --> make narrower boxes and a narrower plot overall
+
 ? hide x-axis baseline?
-+ add name property for axis variable config to replace label
++ support config for axis label placement
++ link category class dropdown to boxplots
++ support absolute px values for boxPadding
+  in addition to boxPaddingProportion
++ translate x-axis line vertically to be at 0 on y-axis
+
+
 
 
 
