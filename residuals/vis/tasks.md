@@ -46,11 +46,13 @@ DONE + drive boxplot y-axis ticks with configuration
 
 
 + improve tooltips for independent variables
-+ abstract color palettes into config from scatterplot.js and d3ExplodingBoxplot.js
++ abstract color palettes into config from scatterplot.js
+  and d3ExplodingBoxplot.js
 + style y-axis label like scatterplots on residuals vis
 + improve boxplot width when there are a small number of classes
   --> make narrower boxes and a narrower plot overall
 ? hide x-axis baseline?
++ add name property for axis variable config to replace label
 
 
 

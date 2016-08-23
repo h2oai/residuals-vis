@@ -46,7 +46,7 @@
       var w = xScale.bandwidth();
       return Math.floor(Math.random() * w);
     }).attr('cy', function (d) {
-      return yScale(d[chartOptions.axes.y.label]);
+      return yScale(d[chartOptions.axes.y.variable]);
     });
   }
 
@@ -426,6 +426,7 @@
       },
       axes: {
         x: {
+          variable: '',
           label: '',
           ticks: 10,
           scale: 'linear',
@@ -434,6 +435,7 @@
           domain: undefined
         },
         y: {
+          variable: '',
           label: '',
           ticks: 10,
           scale: 'linear',
@@ -559,14 +561,14 @@
           // create boxplot data
           groups = groups.map(function (g) {
             console.log('options from inside of groups map', options);
-            var o = computeBoxplot(g.values, options.display.iqr, options.axes.y.label);
+            var o = computeBoxplot(g.values, options.display.iqr, options.axes.y.variable);
             o.group = g.key;
             return o;
           });
           // console.log('groups after map', groups);
 
           var yScale = d3.scaleLinear().domain(d3.extent(dataSet.map(function (m) {
-            return m[options.axes.y.label];
+            return m[options.axes.y.variable];
           }))).range([options.height - options.margin.top - options.margin.bottom, 0]).nice();
 
           constituents.scales.Y = yScale;

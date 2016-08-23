@@ -59,10 +59,12 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     label: '',
     axes: {
       x: {
+        variable: xVariable,
         label: xVariable
       },
       y: {
-        label: yVariable,
+        variable: yVariable,
+        label: 'residual',
         ticks: 6
       }
     },
