@@ -54,7 +54,21 @@ export function drawExplodingBoxplot(selector, inputData, options) {
       y: {
         label: yVariable
       }
-    }
+    },
+    boxColors: [
+      '#1f78b4',
+      '#ff7f00',
+      '#33a02c',
+      '#e31a1c',
+      '#6a3d9a',
+      '#b15928',
+      '#a6cee3',
+      '#fdbf6f',
+      '#b2df8a',
+      '#fb9a99',
+      '#cab2d6',
+      '#ffff99'
+    ]
   };
   console.log('options for explodingBoxplot', explodingBoxplotOptions);
 

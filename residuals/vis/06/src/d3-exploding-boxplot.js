@@ -457,7 +457,8 @@
         boxpadding: 0.2
       },
       resize: true,
-      mobileScreenMax: 500
+      mobileScreenMax: 500,
+      boxColors: ['#a6cee3', '#ff7f00', '#b2df8a', '#1f78b4', '#fdbf6f', '#33a02c', '#cab2d6', '#6a3d9a', '#fb9a99', '#e31a1c', '#ffff99', '#b15928']
     };
 
     var constituents = {
@@ -476,22 +477,7 @@
 
     var mobileScreen = windowWidth < options.mobileScreenMax;
 
-    var defaultColors = {
-      0: '#a6cee3',
-      1: '#ff7f00',
-      2: '#b2df8a',
-      3: '#1f78b4',
-      4: '#fdbf6f',
-      5: '#33a02c',
-      6: '#cab2d6',
-      7: '#6a3d9a',
-      8: '#fb9a99',
-      9: '#e31a1c',
-      10: '#ffff99',
-      11: '#b15928'
-    };
-    var colors = JSON.parse(JSON.stringify(defaultColors));
-
+    var colors = options.boxColors;
     var update = void 0;
 
     // programmatic

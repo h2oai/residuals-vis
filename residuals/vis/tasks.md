@@ -31,6 +31,7 @@ DONE + convert example boxplot to es2015
 + convert example boxplot to d3 v4
 + draw box and whisker plots for categorical variables
 + improve tooltips for independent variables
++ abstract color palettes into config from scatterplot.js and d3ExplodingBoxplot.js
 
 ## classification
 + identify three good classification datasets
