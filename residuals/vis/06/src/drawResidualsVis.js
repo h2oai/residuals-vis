@@ -1,4 +1,5 @@
 import { scatterplot } from './scatterplot';
+import { drawExplodingBoxplot } from './drawExplodingBoxplot';
 import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
@@ -106,7 +107,17 @@ export function drawResidualsVis(width) {
     .defer(d3.csv, dataFile)
     .await(drawVisFromData);
 
-  function drawVisFromData(error, data) {
+  function drawVisFromData(error, inputData) {
+    // parse strings to numbers for numeric columns
+    const data = [];
+    inputData.forEach((d, i) => {
+      data.push(d);
+      numericColumns.forEach(e => {
+        data[i][e] = Number(d[e]);
+      })
+    });
+    console.log('data after parsing strings to numbers', data);
+
     // draw the title text
     let options;
     options = {
@@ -124,7 +135,7 @@ export function drawResidualsVis(width) {
     }
     const globalExtents = getGlobalExtents(data, options);
 
-    // residuals vs prediction
+    // residuals vs prediction scatterplot
     options = {
       width,
       xVariable: predictColumn,
@@ -140,7 +151,7 @@ export function drawResidualsVis(width) {
     }
     scatterplot('.flex-container', data, options);
 
-    // residuals vs dependent variables
+    // residuals vs independent variables scatterplots
     xColumns.forEach(x => {
       options = {
         width,
@@ -153,8 +164,20 @@ export function drawResidualsVis(width) {
         currentAlgoLabel,
         globalExtents: undefined
       }
-    scatterplot('.flex-container', data, options);
+      scatterplot('.flex-container', data, options);
     })
+
+    // just one to start
+    const testArray = [];
+    testArray.push(categoricalColumns[1]);
+    testArray.forEach(x => {
+      options = {
+        xVariable: x,
+        yVariable: yColumn
+      }
+      drawExplodingBoxplot('.flex-container', data, options);
+    })
+
 
     // create the dropdown menu
     const dropdownOptions = {
