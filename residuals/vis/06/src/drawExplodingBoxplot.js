@@ -62,7 +62,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
         label: xVariable
       },
       y: {
-        label: yVariable
+        label: yVariable,
+        ticks: 6
       }
     },
     boxColors: [

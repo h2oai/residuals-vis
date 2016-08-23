@@ -591,7 +591,7 @@
           var xAxis = d3.axisBottom().scale(xScale);
           // console.log('xAxis', xAxis);
 
-          var yAxis = d3.axisLeft().scale(yScale).tickFormat(options.axes.y.tickFormat);
+          var yAxis = d3.axisLeft().scale(yScale).ticks(options.axes.y.ticks).tickFormat(options.axes.y.tickFormat);
           // console.log('yAxis', yAxis);
 
           var implodeBoxplotOptions = {

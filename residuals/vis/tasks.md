@@ -3,7 +3,8 @@ DONE + set points to constant radius
 DONE + port xLabel and yLabel back to example
 DONE + complete color interaction
 DONE + use categorical color scale with max hue distance
-DONE + deploy residuals vis on a server for sharing with the science team
+DONE + deploy residuals vis on a server for sharing with 
+       the science team
 
 ## regression
 DONE + add data for Rossman for dl, drf, gbm, glm
@@ -12,19 +13,24 @@ CLOSED + set scale domains to max of 4 models
 DONE + transition axes on model transition
 DONE + on model transition update x-axis label
 DONE + transition y-axis label position
-DONE + abstract out tooltip so that it is easier to update from 
-       setModelTransition.js
+DONE + abstract out tooltip so that it is easier 
+       to update from setModelTransition.js
 DONE + update tooltip text after transition
 DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
-DONE + show large model name text in transparent gray on chart area **@leland**
-DONE + model transition should not occur if button's model is already active
+DONE + show large model name text in transparent gray on 
+       chart area **@leland**
+DONE + model transition should not occur if button's model 
+       is already active
 DONE + on model transition update model name in subtitle
 DONE + show constant scales - no axis transitions **@pasha**
-DONE + show transition for points position on model switch at once **@pasha**
-  so that we can visually track the points
-DONE + on enter, animate points from the 0 baseline to give intuition about error **@ivy**
-DONE + on switch between models animate points in place **@ivy**
+DONE + show transition for points position on model 
+       switch at once **@pasha** so that we can
+       visually track the points
+DONE + on enter, animate points from the 0 baseline 
+       to give intuition about error **@ivy**
+DONE + on switch between models animate points
+       in place **@ivy**
 
 
 ## boxplots
@@ -34,20 +40,24 @@ DONE + convert example boxplot to d3 v4
 DONE ? exploding box plots
 DONE + draw boxplots for one categorical variable
 DONE + drive circle opacity for boxplot from configuration
-DONE + ensure that the circle opacity for all plots on the residuals vis page is the same - set from common configuration
+DONE + ensure that the circle opacity for all plots on the residuals
+  vis page is the same - set from common configuration
+DONE + drive boxplot y-axis ticks with configuration
 
-+ draw boxplots  for all categorical variables
+
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js and d3ExplodingBoxplot.js
-+ drive boxplot y-axis ticks with configuration
++ style y-axis label like scatterplots on residuals vis
++ improve boxplot width when there are a small number of classes
+  --> make narrower boxes and a narrower plot overall
+? hide x-axis baseline?
 
 
 
 
 
 
-
-
++ draw boxplots  for all categorical variables
 
 ## classification
 + identify three good classification datasets
