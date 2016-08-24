@@ -50,6 +50,9 @@ DONE + improve boxplot width when there are a small number of classes
 DONE + translate x-axis line vertically to be at 0 on y-axis
 DONE + style y-axis label like scatterplots on residuals vis
 
+
++ scope boxplot selections so that we can plot multiple boxplots
+  on one page
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js
   and d3ExplodingBoxplot.js
@@ -62,9 +65,17 @@ DONE + style y-axis label like scatterplots on residuals vis
   in addition to boxPaddingProportion
 
 
-
-
-
++ investigate extra `g class="explodingBoxplot box"`
+  that is rendered
++ ensure that width of reset area extends
+  for entire width of boxplot
++ use local variables for options in
+  d3ExplodingBoxplot.js
++ change `options` to `chartOptions` in
+  d3ExplodingBoxplot.js for consistency
++ ensure that outliers only animate 
+  on points-to-box implode if that box 
+  is already exploded
 
 
 

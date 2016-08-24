@@ -177,7 +177,9 @@ export function drawResidualsVis(width) {
     // draw exploding boxplots for categorical independent variables
     const testArray = [];
     testArray.push(categoricalColumns[1]);
+    testArray.push(categoricalColumns[2]);
     testArray.forEach(x => {
+    //categoricalColumns.forEach(x => {
       options = {
         xVariable: x,
         yVariable: yColumn,

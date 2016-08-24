@@ -68,6 +68,7 @@
     var events = options.events;
     var constituents = options.constituents;
     var transitionTime = options.transitionTime;
+    var chartWrapper = options.chartWrapper;
 
     var boxWidth = void 0;
     if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
@@ -76,7 +77,7 @@
       boxWidth = xScale.bandwidth();
     }
 
-    var elem = d3.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
+    var elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
 
     var displayOutliers = elem.selectAll('.point').data(groups[i].outlier);
 
@@ -144,6 +145,7 @@
     var constituents = options.constituents;
     var transitionTime = options.transitionTime;
     var groups = options.groups;
+    var chartWrapper = options.chartWrapper;
 
     var hideBoxplotOptions = {
       xScale: xScale,
@@ -151,9 +153,9 @@
       chartOptions: chartOptions
     };
 
-    d3.select('#explodingBoxplot' + chartOptions.id + i).select('g.box').transition().ease(d3.easeBackIn).duration(transitionTime * 1.5).call(hideBoxplot, hideBoxplotOptions);
+    chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('g.box').transition().ease(d3.easeBackIn).duration(transitionTime * 1.5).call(hideBoxplot, hideBoxplotOptions);
 
-    var explodeNormal = d3.select('#explodingBoxplot' + chartOptions.id + i).select('.normal-points').selectAll('.point').data(groups[i].normal);
+    var explodeNormal = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.normal-points').selectAll('.point').data(groups[i].normal);
 
     // explodeNormal.enter()
     //   .append('circle');
@@ -198,6 +200,7 @@
     var groups = options.groups;
     var events = options.events;
     var constituents = options.constituents;
+    var chartWrapper = options.chartWrapper;
 
     var explodeBoxplotOptions = {
       xScale: xScale,
@@ -207,15 +210,16 @@
       events: events,
       constituents: constituents,
       transitionTime: transitionTime,
-      groups: groups
+      groups: groups,
+      chartWrapper: chartWrapper
     };
 
     // console.log('chartOptions.id', chartOptions.id);
     // console.log('i', i);
     var currentBoxplotBoxSelector = '#explodingBoxplot_box' + chartOptions.id + i;
     // console.log('currentBoxplotBoxSelector', currentBoxplotBoxSelector);
-    var s = d3.select(currentBoxplotBoxSelector);
-    // const s = d3.select(this);
+    var s = chartWrapper.select(currentBoxplotBoxSelector);
+    // const s = chartWrapper.select(this);
     // console.log('s from drawBoxplot', s);
 
     s.on('click', function () /* d */{
@@ -224,13 +228,6 @@
       // console.log('state.explodedBoxplots', state.explodedBoxplots);
     });
 
-    if (state.explodedBoxplots.indexOf(i) >= 0) {
-      explodeBoxplot(i, explodeBoxplotOptions);
-      jitterPlot(i, chartOptions);
-      return;
-    }
-
-    // console.log('s from drawBoxplot', s);
     var jitterPlotOptions = {
       chartOptions: chartOptions,
       colorScale: colorScale,
@@ -239,9 +236,17 @@
       groups: groups,
       events: events,
       constituents: constituents,
-      transitionTime: transitionTime
+      transitionTime: transitionTime,
+      chartWrapper: chartWrapper
     };
 
+    if (state.explodedBoxplots.indexOf(i) >= 0) {
+      explodeBoxplot(i, explodeBoxplotOptions);
+      jitterPlot(i, jitterPlotOptions);
+      return;
+    }
+
+    // console.log('s from drawBoxplot', s);
     jitterPlot(i, jitterPlotOptions);
 
     var boxWidth = void 0;
@@ -312,6 +317,7 @@
     var groups = options.groups;
     var events = options.events;
     var constituents = options.constituents;
+    var chartWrapper = options.chartWrapper;
 
     var boxWidth = void 0;
     if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
@@ -337,7 +343,8 @@
         colorScale: colorScale,
         groups: groups,
         events: events,
-        constituents: constituents
+        constituents: constituents,
+        chartWrapper: chartWrapper
       };
       drawBoxplot(d, i, drawBoxplotOptions, state);
     });
@@ -357,15 +364,16 @@
   function createBoxplot(selector, data, options) {
     console.log('createBoxplot() was called');
 
-    console.log('selector from createBoxplot', selector);
-    console.log('d3.select(selector)', d3.select(selector));
     var i = options.i;
     var g = data;
     var chartOptions = options.chartOptions;
     var colorScale = options.colorScale;
+    var chartWrapper = options.chartWrapper;
+    console.log('selector from createBoxplot', selector);
+    console.log('chartWrapper.select(selector)', chartWrapper.select(selector));
 
     // console.log('this from createBoxplot', this);
-    var s = d3.select(selector).append('g').attr('class', 'explodingBoxplot box').attr('id', 'explodingBoxplot_box' + chartOptions.id + i);
+    var s = chartWrapper.select(selector).append('g').attr('class', 'explodingBoxplot box').attr('id', 'explodingBoxplot_box' + chartOptions.id + i);
     // .selectAll('.box')
     // .data([g])
     // .enter();
@@ -379,11 +387,20 @@
 
     var currentBoxplotBoxSelector = '#explodingBoxplot_box' + chartOptions.id + i;
 
-    d3.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot median line'); // median line
-    d3.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot min line hline'); // min line
-    d3.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot line min vline'); // min vline
-    d3.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot max line hline'); // max line
-    d3.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot line max vline'); // max vline
+    // median line
+    chartWrapper.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot median line');
+
+    // min line
+    chartWrapper.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot min line hline');
+
+    // min vline
+    chartWrapper.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot line min vline');
+
+    // max line
+    chartWrapper.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot max line hline');
+
+    // max vline
+    chartWrapper.select(currentBoxplotBoxSelector).append('line').attr('class', 'explodingBoxplot line max vline');
   }
 
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
@@ -594,14 +611,14 @@
         var boxPlotWidth = void 0;
         if (typeof boxWidth !== 'undefined') {
           boxPlotWidth = boxWidth * groupsCount + boxLineWidth * 2 * groupsCount // lines on both sides
-          + boxPadddingProportion * boxWidth * (groupsCount + 1) + 12; // outerPadding?
+          + boxPadddingProportion * boxWidth * (groupsCount + 1);
         } else {
           boxPlotWidth = options.width;
         }
         console.log('boxPlotWidth', boxPlotWidth);
 
         // background click area added first
-        var resetArea = chartRoot.append('g').append('rect').attr('id', 'resetArea').attr('width', boxPlotWidth).attr('height', options.height).style('color', 'white').style('opacity', 0);
+        var resetArea = chartRoot.append('g').append('rect').attr('id', 'resetArea').attr('width', boxPlotWidth + options.margin.left + options.margin.right).attr('height', options.height).style('color', 'white').style('opacity', 0);
 
         // main chart area
         var chartWrapper = chartRoot.append('g').attr('class', 'chartWrapper').attr('id', 'chartWrapper' + options.id);
@@ -690,7 +707,8 @@
             chartOptions: options,
             groups: groups,
             events: events,
-            constituents: constituents
+            constituents: constituents,
+            chartWrapper: chartWrapper
           };
 
           resetArea.on('dblclick', function () {
@@ -717,8 +735,17 @@
           chartWrapper.selectAll('.x.axis path').attr('transform', 'translate(0,' + xAxisYTranslate + ')');
 
           if (typeof options.axes.x.showTitle !== 'undefined') {
-            // Set up X axis title
+            // Set up the x-axis title
             chartWrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', '12px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + options.axes.x.label);
+
+            // hide the bottom x-axis label
+            chartWrapper.selectAll('.x.axis text.label').style('fill-opacity', 0);
+
+            // hide the x-axis tick lines
+            chartWrapper.selectAll('.x.axis .tick line').style('stroke-opacity', 0);
+
+            // move the x-axis tick labels up a bit
+            chartWrapper.selectAll('g.x.axis').selectAll('.tick text').attr('dy', '0.2em');
           }
 
           var updateYAxis = chartWrapper.selectAll('#xpb_yAxis').data([0]);
@@ -744,7 +771,6 @@
           boxContent.exit().remove();
           console.log('boxContent after exit', boxContent);
 
-          // d3.select('.chartWrapper').selectAll('g.explodingBoxplot.boxcontent')
           chartWrapper.selectAll('g.explodingBoxplot.boxcontent').attr('transform', function (d) {
             return 'translate(' + xScale(d.group) + ',0)';
           }).each(function (d, i) {
@@ -758,7 +784,8 @@
             var createBoxplotOptions = {
               chartOptions: options,
               i: i,
-              colorScale: colorScale
+              colorScale: colorScale,
+              chartWrapper: chartWrapper
             };
 
             createBoxplot(selector, d, createBoxplotOptions);
@@ -772,7 +799,8 @@
               colorScale: colorScale,
               groups: groups,
               events: events,
-              constituents: constituents
+              constituents: constituents,
+              chartWrapper: chartWrapper
             };
             drawBoxplot(d, i, drawBoxplotOptions, state);
           });
@@ -802,9 +830,15 @@
           // style the tooltip
           domParent.selectAll('explodingBoxplot.tip').style('font', 'normal 13px Lato, Open sans, sans-serif').style('line-height', 1).style('font-weight', 'bold').style('padding', '12px').style('background', '#333333').style('color', '#DDDDDD').style('border-radius', '2px');
 
+          // ensure that text is not highlighted
+          // when the users double clicks on the 
+          // reset area to implode the points 
+          // into a box
           chartWrapper.selectAll('g.tick text').style('font', '10px sans-serif').style('-webkit-user-select', 'none').style('-khtml-user-select', 'none').style('-moz-user-select', 'none').style('-o-user-select', 'none').style('user-select', 'none').style('cursor', 'default');
 
           chartWrapper.selectAll('g.axis text').style('-webkit-user-select', 'none').style('-khtml-user-select', 'none').style('-moz-user-select', 'none').style('-o-user-select', 'none').style('user-select', 'none').style('cursor', 'default');
+
+          chartWrapper.selectAll('text.title').style('-webkit-user-select', 'none').style('-khtml-user-select', 'none').style('-moz-user-select', 'none').style('-o-user-select', 'none').style('user-select', 'none').style('cursor', 'default');
         }; // end update()
       });
     }
