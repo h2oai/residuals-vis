@@ -63,7 +63,6 @@ export default class App extends Component {
             <select id='dropdown' style={{
               marginBottom: '12px'
             }}>
-              <option value='-1'>color by...</option>
             </select>
             <svg height='120px' 
               width='120px' 

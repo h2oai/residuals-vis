@@ -4,6 +4,7 @@ export function dropdown(selector, inputData, options) {
 
   const categoricalVariables = options.categoricalColumns;
   const data = categoricalVariables;
+  console.log('categoricalVariables from dropdown', categoricalVariables);
 
   // insert an empty state menu selection
   // data.splice(0, 0, 'filter...');
@@ -26,13 +27,20 @@ export function dropdown(selector, inputData, options) {
       '#ffff99'
     ]);
 
-  // create the drop down menu of categorical columns
+  // populate the drop down menu of categorical columns
   d3.select('#dropdown')
     .selectAll('option')
     .data(data)
     .enter().append('option')
     .text(d  => d)
     .attr('value', (d, i) => i);
+
+  // add `color by...` prompt
+  const dropdownSelection = document.getElementById("dropdown");
+  const optionElement = document.createElement("option");
+  optionElement.text = 'color by...';
+  optionElement.value = -1;
+  dropdownSelection.add(optionElement, 0);
 
   // set the selector to the categorical column
   // to the index value in the data array

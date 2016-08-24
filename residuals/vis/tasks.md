@@ -31,7 +31,12 @@ DONE + on enter, animate points from the 0 baseline
        to give intuition about error **@ivy**
 DONE + on switch between models animate points
        in place **@ivy**
+DONE + fix dropdown menu bug that omits first categorical
+  variable `open`
 
++ on switch between models, update residual value
+  and transition points y-position for independent
+  variables
 
 ## boxplots
 DONE + find example boxplot to iterate on
