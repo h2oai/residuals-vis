@@ -49,38 +49,38 @@ DONE + improve boxplot width when there are a small number of classes
        --> make narrower boxes and a narrower plot overall
 DONE + translate x-axis line vertically to be at 0 on y-axis
 DONE + style y-axis label like scatterplots on residuals vis
-
-
-+ scope boxplot selections so that we can plot multiple boxplots
+DONE + ensure that width of reset area extends
+  for entire width of boxplot
+CLOSED ? hide x-axis baseline?
+DONE + color boxplot points based on category dropdown
+DONE + support config for axis label placement
+DONE + link category class dropdown to boxplots
+DONE + style x-axis label like scatterplots on residuals vis
+DONE + scope boxplot selections so that we can plot multiple boxplots
   on one page
+
++ draw boxplots  for all categorical variables
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js
   and d3ExplodingBoxplot.js
-+ style x-axis label like scatterplots on residuals vis
 
-? hide x-axis baseline?
-+ support config for axis label placement
-+ link category class dropdown to boxplots
-+ support absolute px values for boxPadding
-  in addition to boxPaddingProportion
-
++ decide how to color boxplot rect fill
+  design: set color to color of plurality class.
+          set fill-opacity to % of total of plurality class
 
 + investigate extra `g class="explodingBoxplot box"`
   that is rendered
-+ ensure that width of reset area extends
-  for entire width of boxplot
+
 + use local variables for options in
   d3ExplodingBoxplot.js
 + change `options` to `chartOptions` in
   d3ExplodingBoxplot.js for consistency
+
 + ensure that outliers only animate 
   on points-to-box implode if that box 
   is already exploded
-
-
-
-
-+ draw boxplots  for all categorical variables
++ support absolute px values for boxPadding
+  in addition to boxPaddingProportion
 
 ## classification
 + identify three good classification datasets
