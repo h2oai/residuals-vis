@@ -112,17 +112,26 @@ export function dropdown(selector, inputData, options) {
       // style boxplot boxes
       d3.selectAll('rect.box')
         .style('fill', d => {
-          console.log('d from box style', d);
-          console.log('d.classProportions[currentLabel] from box style', d.classProportions[currentLabel]);
-          const classProportions = d.classProportions[currentLabel];
-          const dominantClass = Object.keys(classProportions).reduce((a, b) => {
-            return classProportions[a] > classProportions[b] ? a : b;
+          // console.log('d from box style', d);
+          // console.log('d.classProportions[currentLabel] from box style', d.classProportions[currentLabel]);
+          const currentClassProportions = d.classProportions[currentLabel];
+          const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
+            return currentClassProportions[a] > currentClassProportions[b] ? a : b;
           });
+          // boxFillOpacity = d.classProportions[currentLabel][dominantClass];
+          console.log('currentLabel', currentLabel);
           console.log('dominantClass', dominantClass);
-          boxFillOpacity = classProportions[dominantClass];
+          // console.log('boxFillOpacity', boxFillOpacity);
           return color(dominantClass);
         })
-        .style('fill-opacity', boxFillOpacity);
+        .style('fill-opacity', d => {
+          const currentClassProportions = d.classProportions[currentLabel];
+          const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
+            return currentClassProportions[a] > currentClassProportions[b] ? a : b;
+          });
+          const boxFillOpacity = d.classProportions[currentLabel][dominantClass];
+          return boxFillOpacity;
+        });
       } else { // currentLabel is undefined
         // reset the fill color
         d3.selectAll('.marks')

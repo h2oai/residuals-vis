@@ -452,6 +452,7 @@
 
     // get a array of unique classes (values) for 
     // the specified categoricalVariable
+    console.log('current categoricalVariable from calculateClassProportions', categoricalVariable);
     var uniqueClasses = d3.set(data, function (d) {
       return d[categoricalVariable];
     }).values();
@@ -474,6 +475,8 @@
     var proportions = {};
     uniqueClasses.forEach(function (d) {
       var currentProportion = counts[d] / data.length;
+      console.log('data.length', data.length);
+      console.log('currentProportion', currentProportion);
       proportions[d] = currentProportion;
     });
 
