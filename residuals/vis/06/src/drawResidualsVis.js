@@ -155,7 +155,7 @@ export function drawResidualsVis(width) {
       globalExtents,
       marks
     }
-    scatterplot('.flex-container', data, options);
+    scatterplot('.scatterplot-container', data, options);
 
     // residuals vs independent variables scatterplots
     xColumns.forEach(x => {
@@ -171,7 +171,7 @@ export function drawResidualsVis(width) {
         globalExtents: undefined,
         marks
       }
-      scatterplot('.flex-container', data, options);
+      scatterplot('.scatterplot-container', data, options);
     })
 
     // draw exploding boxplots for categorical independent variables
@@ -185,7 +185,7 @@ export function drawResidualsVis(width) {
         yVariable: yColumn,
         marks,
       }
-      drawExplodingBoxplot('.flex-container', data, options);
+      drawExplodingBoxplot('.boxplot-container', data, options);
     })
 
 

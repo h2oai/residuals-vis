@@ -63,8 +63,11 @@ DONE + link category class dropdown to boxplots
 DONE + style x-axis label like scatterplots on residuals vis
 DONE + scope boxplot selections so that we can plot multiple boxplots
   on one page
+DONE + draw boxplots  for all categorical variables
+DONE + use flexbox to bring together boxplots when 
+  there is  enough space to show more than one boxplot
+  on one row
 
-+ draw boxplots  for all categorical variables
 + improve tooltips for independent variables
 + abstract color palettes into config from scatterplot.js
   and d3ExplodingBoxplot.js
