@@ -474,7 +474,7 @@
     var state = {};
     state.explodedBoxplots = [];
 
-    var options = {
+    var chartOptions = {
       id: '',
       class: 'xBoxPlot',
       width: window.innerWidth,
@@ -533,6 +533,11 @@
       boxColors: ['#a6cee3', '#ff7f00', '#b2df8a', '#1f78b4', '#fdbf6f', '#33a02c', '#cab2d6', '#6a3d9a', '#fb9a99', '#e31a1c', '#ffff99', '#b15928']
     };
 
+    // create local variables from chartOptions
+    var margin = chartOptions.margin;
+    var mobileScreenMax = chartOptions.mobileScreenMax;
+    var boxColors = chartOptions.boxColors;
+
     var constituents = {
       elements: {
         domParent: undefined,
@@ -547,9 +552,9 @@
 
     var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-    var mobileScreen = windowWidth < options.mobileScreenMax;
+    var mobileScreen = windowWidth < mobileScreenMax;
 
-    var colors = options.boxColors;
+    var colors = boxColors;
     var update = void 0;
 
     // programmatic
@@ -583,10 +588,10 @@
         constituents.elements.chartRoot = chartRoot;
 
         // calculate boxPlotWidth based on number of classes or groups
-        // console.log('options.data.group', options.data.group);
-        if (options.data.group) {
+        // console.log('chartOptions.data.group', chartOptions.data.group);
+        if (chartOptions.data.group) {
           groups = d3.nest().key(function (k) {
-            return k[options.data.group];
+            return k[chartOptions.data.group];
           }).entries(dataSet);
         } else {
           groups = [{
@@ -595,11 +600,11 @@
           }];
         }
 
-        var boxLineWidth = options.display.boxLineWidth;
-        var boxPadddingProportion = options.display.boxPadddingProportion;
+        var boxLineWidth = chartOptions.display.boxLineWidth;
+        var boxPadddingProportion = chartOptions.display.boxPadddingProportion;
         var boxWidth = undefined;
-        if (typeof options.display.maxBoxWidth !== 'undefined') {
-          boxWidth = options.display.maxBoxWidth;
+        if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
+          boxWidth = chartOptions.display.maxBoxWidth;
         }
         console.log('boxWidth', boxWidth);
 
@@ -614,36 +619,36 @@
           boxPlotWidth = boxWidth * groupsCount + boxLineWidth * 2 * groupsCount // lines on both sides
           + boxPadddingProportion * boxWidth * (groupsCount + 1);
         } else {
-          boxPlotWidth = options.width;
+          boxPlotWidth = chartOptions.width;
         }
         console.log('boxPlotWidth', boxPlotWidth);
 
         // background click area added first
-        var resetArea = chartRoot.append('g').append('rect').attr('id', 'resetArea').attr('width', boxPlotWidth + options.margin.left + options.margin.right).attr('height', options.height).style('color', 'white').style('opacity', 0);
+        var resetArea = chartRoot.append('g').append('rect').attr('id', 'resetArea').attr('width', boxPlotWidth + margin.left + margin.right).attr('height', chartOptions.height).style('color', 'white').style('opacity', 0);
 
         // main chart area
-        var chartWrapper = chartRoot.append('g').attr('class', 'chartWrapper').attr('id', 'chartWrapper' + options.id);
+        var chartWrapper = chartRoot.append('g').attr('class', 'chartWrapper').attr('id', 'chartWrapper' + chartOptions.id);
 
         windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-        mobileScreen = windowWidth < options.mobileScreenMax;
+        mobileScreen = windowWidth < mobileScreenMax;
 
         // boolean resize used to disable transitions during resize operation
         update = function update(resize) {
           // console.log('update/resize function was called');
-          chartRoot.attr('width', boxPlotWidth + options.margin.left + options.margin.right).attr('height', options.height + options.margin.top + options.margin.bottom);
+          chartRoot.attr('width', boxPlotWidth + margin.left + margin.right).attr('height', chartOptions.height + margin.top + margin.bottom);
 
-          chartWrapper.attr('transform', 'translate(' + options.margin.left + ',' + options.margin.top + ')');
+          chartWrapper.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
           // console.log('events.update.begin', events.update.begin);
           if (events.update.begin) {
-            events.update.begin(constituents, options, events);
+            events.update.begin(constituents, chartOptions, events);
           }
 
-          // console.log('options.data.group', options.data.group);
-          if (options.data.group) {
+          // console.log('chartOptions.data.group', chartOptions.data.group);
+          if (chartOptions.data.group) {
             groups = d3.nest().key(function (k) {
-              return k[options.data.group];
+              return k[chartOptions.data.group];
             }).entries(dataSet);
           } else {
             groups = [{
@@ -656,7 +661,7 @@
             return d.key;
           });
 
-          var xScale = d3.scaleBand().domain(groupsKeys).padding(options.display.boxPadddingProportion).rangeRound([0, boxPlotWidth /* - options.margin.left - options.margin.right*/]);
+          var xScale = d3.scaleBand().domain(groupsKeys).padding(chartOptions.display.boxPadddingProportion).rangeRound([0, boxPlotWidth /* - margin.left - margin.right*/]);
 
           constituents.scales.X = xScale;
           // console.log('xScale.domain()', xScale.domain());
@@ -664,23 +669,23 @@
 
           // create boxplot data
           groups = groups.map(function (g) {
-            console.log('options from inside of groups map', options);
-            var o = computeBoxplot(g.values, options.display.iqr, options.axes.y.variable);
+            console.log('chartOptions from inside of groups map', chartOptions);
+            var o = computeBoxplot(g.values, chartOptions.display.iqr, chartOptions.axes.y.variable);
             o.group = g.key;
             return o;
           });
           // console.log('groups after map', groups);
 
           var yScale = d3.scaleLinear().domain(d3.extent(dataSet.map(function (m) {
-            return m[options.axes.y.variable];
-          }))).range([options.height - options.margin.top - options.margin.bottom, 0]).nice();
+            return m[chartOptions.axes.y.variable];
+          }))).range([chartOptions.height - margin.top - margin.bottom, 0]).nice();
 
           constituents.scales.Y = yScale;
           // console.log('yScale.domain()', yScale.domain());
           // console.log('yScale.range()', yScale.range());
 
           var colorScale = d3.scaleOrdinal().domain(d3.set(dataSet.map(function (m) {
-            return m[options.data.colorIndex];
+            return m[chartOptions.data.colorIndex];
           })).values()).range(Object.keys(colors).map(function (m) {
             return colors[m];
           }));
@@ -691,13 +696,13 @@
 
           console.log('events.update.ready', events.update.ready);
           if (events.update.ready) {
-            events.update.ready(constituents, options, events);
+            events.update.ready(constituents, chartOptions, events);
           }
 
           var xAxis = d3.axisBottom().scale(xScale).tickSizeOuter(0);
           // console.log('xAxis', xAxis);
 
-          var yAxis = d3.axisLeft().scale(yScale).ticks(options.axes.y.ticks).tickFormat(options.axes.y.tickFormat);
+          var yAxis = d3.axisLeft().scale(yScale).ticks(chartOptions.axes.y.ticks).tickFormat(chartOptions.axes.y.tickFormat);
           // console.log('yAxis', yAxis);
 
           var implodeBoxplotOptions = {
@@ -705,7 +710,7 @@
             yScale: yScale,
             transitionTime: transitionTime,
             colorScale: colorScale,
-            chartOptions: options,
+            chartOptions: chartOptions,
             groups: groups,
             events: events,
             constituents: constituents,
@@ -720,24 +725,24 @@
 
           updateXAxis.exit().remove();
 
-          var chartBottomTranslate = options.height - options.margin.top - options.margin.bottom;
+          var chartBottomTranslate = chartOptions.height - margin.top - margin.bottom;
           var xAxisYTranslate = void 0;
-          if (typeof options.axes.x.yTranslate !== 'undefined') {
-            xAxisYTranslate = yScale(options.axes.x.yTranslate) - chartBottomTranslate;
+          if (typeof chartOptions.axes.x.yTranslate !== 'undefined') {
+            xAxisYTranslate = yScale(chartOptions.axes.x.yTranslate) - chartBottomTranslate;
           } else {
-            xAxisYTranslate = options.height - options.margin.top - options.margin.bottom;
+            xAxisYTranslate = chartOptions.height - margin.top - margin.bottom;
           }
 
           updateXAxis.enter().append('g').merge(updateXAxis).attr('class', 'explodingBoxplot x axis').attr('id', 'xpb_xAxis').attr('transform', 'translate(0,' + chartBottomTranslate + ')').call(xAxis);
 
-          chartWrapper.selectAll('g.x.axis').append('text').attr('class', 'axis text label').attr('x', boxPlotWidth / 2).attr('dy', '.71em').attr('y', options.margin.bottom - 10).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(options.axes.x.label);
+          chartWrapper.selectAll('g.x.axis').append('text').attr('class', 'axis text label').attr('x', boxPlotWidth / 2).attr('dy', '.71em').attr('y', margin.bottom - 10).style('font', '10px sans-serif').style('text-anchor', 'middle').style('fill', 'black').text(chartOptions.axes.x.label);
 
           // set y-position of x-axis line
           chartWrapper.selectAll('.x.axis path').attr('transform', 'translate(0,' + xAxisYTranslate + ')');
 
-          if (typeof options.axes.x.showTitle !== 'undefined') {
+          if (typeof chartOptions.axes.x.showTitle !== 'undefined') {
             // Set up the x-axis title
-            chartWrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', '12px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + options.axes.x.label);
+            chartWrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', '12px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + chartOptions.axes.x.label);
 
             // hide the bottom x-axis label
             chartWrapper.selectAll('.x.axis text.label').style('fill-opacity', 0);
@@ -755,17 +760,17 @@
 
           updateYAxis.enter().append('g').merge(updateYAxis).attr('class', 'explodingBoxplot y axis').attr('id', 'xpb_yAxis').call(yAxis);
 
-          chartWrapper.selectAll('g.y.axis').append('text').attr('class', 'axis text label').attr('transform', 'rotate(-90)').attr('x', -options.margin.top - d3.mean(yScale.range())).attr('dy', '.71em').attr('y', -options.margin.left + 5).style('text-anchor', 'middle').style('font-family', 'Times').style('fill', 'black').text(options.axes.y.label);
+          chartWrapper.selectAll('g.y.axis').append('text').attr('class', 'axis text label').attr('transform', 'rotate(-90)').attr('x', -margin.top - d3.mean(yScale.range())).attr('dy', '.71em').attr('y', -margin.left + 5).style('text-anchor', 'middle').style('font-family', 'Times').style('fill', 'black').text(chartOptions.axes.y.label);
 
-          if (options.axes.y.labelPosition === 'origin') {
-            chartWrapper.selectAll('g.y.axis').selectAll('text.label').attr('x', 0).attr('y', 0).attr('dy', '0.35em').style('text-anchor', 'end').style('font-size', '12px').attr('transform', 'rotate(0) translate(' + -(options.margin.left / 4) + ',' + yScale(0) + ')');
+          if (chartOptions.axes.y.labelPosition === 'origin') {
+            chartWrapper.selectAll('g.y.axis').selectAll('text.label').attr('x', 0).attr('y', 0).attr('dy', '0.35em').style('text-anchor', 'end').style('font-size', '12px').attr('transform', 'rotate(0) translate(' + -(margin.left / 4) + ',' + yScale(0) + ')');
           }
 
           var boxContent = chartWrapper.selectAll('.boxcontent').data(groups);
           console.log('boxContent after variable declaration', boxContent);
 
           boxContent.enter().append('g').merge(boxContent).attr('class', 'explodingBoxplot boxcontent').attr('id', function (d, i) {
-            return 'explodingBoxplot' + options.id + i;
+            return 'explodingBoxplot' + chartOptions.id + i;
           });
           console.log('boxContent after enter', boxContent);
 
@@ -783,7 +788,7 @@
             var selector = '#explodingBoxplot' + i;
             console.log('selector from createBoxplot call', selector);
             var createBoxplotOptions = {
-              chartOptions: options,
+              chartOptions: chartOptions,
               i: i,
               colorScale: colorScale,
               chartWrapper: chartWrapper
@@ -793,7 +798,7 @@
           }).each(function (d, i) {
             console.log('inside of each containing drawBoxplot call');
             var drawBoxplotOptions = {
-              chartOptions: options,
+              chartOptions: chartOptions,
               transitionTime: transitionTime,
               xScale: xScale,
               yScale: yScale,
@@ -808,7 +813,7 @@
 
           if (events.update.end) {
             setTimeout(function () {
-              events.update.end(constituents, options, events);
+              events.update.end(constituents, chartOptions, events);
             }, transitionTime);
           }
 
@@ -854,8 +859,8 @@
       }
 
       // console.log('chart.options() was called');
-      if (!args) return options;
-      keyWalk(values, options);
+      if (!args) return chartOptions;
+      keyWalk(values, chartOptions);
       return chart;
     };
 
@@ -909,8 +914,8 @@
       }
 
       // console.log('chart.width() was called');
-      if (!args) return options.width;
-      options.width = value;
+      if (!args) return chartOptions.width;
+      chartOptions.width = value;
       return chart;
     };
 
@@ -920,8 +925,8 @@
       }
 
       // console.log('chart.height() was called');
-      if (!args) return options.height;
-      options.height = value;
+      if (!args) return chartOptions.height;
+      chartOptions.height = value;
       return chart;
     };
 

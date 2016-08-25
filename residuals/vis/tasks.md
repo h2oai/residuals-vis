@@ -68,13 +68,13 @@ DONE + use flexbox to bring together boxplots when
   there is  enough space to show more than one boxplot
   on one row
 
-+ improve tooltips for independent variables
-+ abstract color palettes into config from scatterplot.js
-  and d3ExplodingBoxplot.js
-
 + decide how to color boxplot rect fill
   design: set color to color of plurality class.
           set fill-opacity to % of total of plurality class
+
++ improve tooltips for independent variables
++ abstract color palettes into config from scatterplot.js
+  and d3ExplodingBoxplot.js
 
 + investigate extra `g class="explodingBoxplot box"`
   that is rendered
