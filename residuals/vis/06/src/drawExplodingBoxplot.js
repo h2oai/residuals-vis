@@ -36,6 +36,9 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const height = specifiedWidth * 0.25;
   const marksRadius = cfg.marks.r;
   const marksFillOpacity = cfg.marks.fillOpacity;
+  const categoricalVariables = cfg.categoricalColumns;
+
+  console.log('cfg from drawExplodingBoxplot', cfg);
 
   console.log('calculated width for explodingBoxplot', width);
   console.log('calculated height for explodingBoxplot', height);
@@ -74,7 +77,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     display: {
       maxBoxWidth: 70
     },
-     boxColors: [ // constant color
+    boxColors: [ // constant color
        '#1f78b4',
        '#1f78b4',
        '#1f78b4',
@@ -87,7 +90,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
        '#1f78b4',
        '#1f78b4',
        '#1f78b4',
-     ]
+    ],
+    categoricalVariables
     // boxColors: [ // varied colors
     //   '#1f78b4',
     //   '#ff7f00',

@@ -184,6 +184,7 @@ export function drawResidualsVis(width) {
         xVariable: x,
         yVariable: yColumn,
         marks,
+        categoricalColumns
       }
       drawExplodingBoxplot('.boxplot-container', data, options);
     })

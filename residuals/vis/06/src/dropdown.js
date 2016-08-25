@@ -107,12 +107,30 @@ export function dropdown(selector, inputData, options) {
         .style('fill', d => {
           return color(d[currentLabel]);
         })
-      } else { // currentLabel is undefined
-        // reset the color
-        d3.selectAll('.marks')
-          .style('fill', d => {
-          return color.range()[0];
+
+      let boxFillOpacity;
+      // style boxplot boxes
+      d3.selectAll('rect.box')
+        .style('fill', d => {
+          console.log('d from box style', d);
+          console.log('d.classProportions[currentLabel] from box style', d.classProportions[currentLabel]);
+          const classProportions = d.classProportions[currentLabel];
+          const dominantClass = Object.keys(classProportions).reduce((a, b) => {
+            return classProportions[a] > classProportions[b] ? a : b;
+          });
+          console.log('dominantClass', dominantClass);
+          boxFillOpacity = classProportions[dominantClass];
+          return color(dominantClass);
         })
+        .style('fill-opacity', boxFillOpacity);
+      } else { // currentLabel is undefined
+        // reset the fill color
+        d3.selectAll('.marks')
+          .style('fill', d => color.range()[0])
+
+        d3.selectAll('rect.box')
+          .style('fill', d => color.range()[0])
+          .style('fill-opacity', 1)
       }
   }
 
