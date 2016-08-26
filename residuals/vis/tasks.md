@@ -33,10 +33,9 @@ DONE + on switch between models animate points
 DONE   in place **@ivy**
 DONE + fix dropdown menu bug that omits first categorical
 DONE   variable `open`
-
-+ on switch between models, update residual value
-  and transition points y-position for independent
-  variables
+DONE + on switch between models, update residual value
+DONE   and transition points y-position for continuous
+DONE   independent variable scatterplots
 
 + improve tooltips for independent variables
 
@@ -78,6 +77,11 @@ DONE + use local variables for options in
 DONE   d3ExplodingBoxplot.js
 DONE + change `options` to `chartOptions` in
 DONE   d3ExplodingBoxplot.js for consistency
+
++ on switch between models, update residual value,
+  recalculate boxplots, transition boxplots, and 
+  transition points y-position for categorical 
+  independent variables
 
 + add tooltips for independent categorical variables
   shown in boxplots
