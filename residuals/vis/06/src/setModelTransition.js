@@ -60,12 +60,23 @@ export function setModelTransition(selector, data, options) {
     d3.select('g.dependent')
       .attr('id', currentAlgo);
 
-    // transition marks
+    // set new id
+    d3.selectAll('g.independent')
+      .attr('id', currentAlgo);
+
+    // transition marks from the dependent variable plot
     d3.select('g.dependent').selectAll('.marks')
       .transition()
       .delay(marksDelay)
       .duration(2000)
-      .on('start', moveToNewPosition);
+      .on('start', moveToNewXYPosition);
+
+    // transition marks from the indenpendent variable plots
+    d3.selectAll('g.independent').selectAll('.marks')
+      .transition()
+      .delay(marksDelay)
+      .duration(2000)
+      .on('start', moveToNewYPosition);
 
     // transition x-axis label
     d3.select('g.dependent').select('text.x.title')
@@ -127,10 +138,15 @@ export function setModelTransition(selector, data, options) {
     }
     drawTitle('p#subTitle', subtitleOptions);
 
-    function moveToNewPosition() {
+    function moveToNewXYPosition() {
       d3.active(this)
         .attr('cx', d => xScale(d[xVariable]))
         .attr('cy', d => yScale(d[yVariable]));
-    }   
+    }
+
+    function moveToNewYPosition() {
+      d3.active(this)
+        .attr('cy', d => yScale(d[yVariable]));
+    } 
   }
 }

@@ -87,7 +87,7 @@ export function scatterplot(selector, inputData, options) {
     .classed(`${xVariable}`, true)
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  if (dependent) {
+  if (typeof dependent !== 'undefined') {
     svg.classed('dependent', true);
     wrapper.classed('dependent', true);
     wrapper.attr('id', currentAlgo);
@@ -103,6 +103,10 @@ export function scatterplot(selector, inputData, options) {
       .style('fill', 'gray')
       .style('font-family', 'Work Sans, sans-serif')
       .text(`${currentAlgoLabel}`);
+  } else {
+    svg.classed('independent', true);
+    wrapper.classed('independent', true);
+    wrapper.attr('id', currentAlgo);
   }
 
   //
