@@ -4,7 +4,7 @@ DONE + port xLabel and yLabel back to example
 DONE + complete color interaction
 DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with 
-       the science team
+DONE   the science team
 
 ## regression
 DONE + add data for Rossman for dl, drf, gbm, glm
@@ -14,25 +14,25 @@ DONE + transition axes on model transition
 DONE + on model transition update x-axis label
 DONE + transition y-axis label position
 DONE + abstract out tooltip so that it is easier 
-       to update from setModelTransition.js
+DONE   to update from setModelTransition.js
 DONE + update tooltip text after transition
 DONE + abstract out distance limited voronoi drawing
 DONE + update voronoi overlay for tooltips
 DONE + show large model name text in transparent gray on 
-       chart area **@leland**
+DONE   chart area **@leland**
 DONE + model transition should not occur if button's model 
-       is already active
+DONE   is already active
 DONE + on model transition update model name in subtitle
 DONE + show constant scales - no axis transitions **@pasha**
 DONE + show transition for points position on model 
-       switch at once **@pasha** so that we can
-       visually track the points
+DONE   switch at once **@pasha** so that we can
+DONE   visually track the points
 DONE + on enter, animate points from the 0 baseline 
-       to give intuition about error **@ivy**
+DONE   to give intuition about error **@ivy**
 DONE + on switch between models animate points
-       in place **@ivy**
+DONE   in place **@ivy**
 DONE + fix dropdown menu bug that omits first categorical
-  variable `open`
+DONE   variable `open`
 
 + on switch between models, update residual value
   and transition points y-position for independent
