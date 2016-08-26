@@ -133,10 +133,11 @@ export function dropdown(selector, inputData, options) {
           return boxFillOpacity;
         });
       } else { // currentLabel is undefined
-        // reset the fill color
+        // reset the fill color of the points
         d3.selectAll('.marks')
           .style('fill', d => color.range()[0])
 
+        // reset the fill color of the boxplot boxes
         d3.selectAll('rect.box')
           .style('fill', d => color.range()[0])
           .style('fill-opacity', 1)
