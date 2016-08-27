@@ -1,7 +1,7 @@
 import { d3ExplodingBoxplot } from './d3-exploding-boxplot';
 import * as d3 from 'd3';
 
-export function drawExplodingBoxplot(selector, inputData, options) {
+export function transitionExplodingBoxplot(selector, inputData, options) {
   // set default configuration
   const cfg = {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
@@ -24,9 +24,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const xVariable = cfg.xVariable;
   const yVariable = cfg.yVariable;
 
-  const div = d3.select(selector)
-    .append('div')
-    .attr('id', `${xVariable}Boxplot`);
+  const div = d3.select(selector).select(`div#${xVariable}Boxplot`);
 
   const margin = cfg.margin;
   const chartDivWidth = document.getElementById('chart').offsetWidth; 
@@ -40,7 +38,6 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const globalExtents = cfg.globalExtents;
 
   console.log('cfg from drawExplodingBoxplot', cfg);
-
   console.log('calculated width for explodingBoxplot', width);
   console.log('calculated height for explodingBoxplot', height);
 
@@ -125,8 +122,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   chart.options(explodingBoxplotOptions);
 
   // call the explodingBoxplot `chart` function itself on a selection
-  chart(div);
+  // chart(div);
 
   // call the update function to render the exploding boxplots
-  chart.update();
+  chart.transitionY(div);
 }

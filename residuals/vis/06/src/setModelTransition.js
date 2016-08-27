@@ -1,6 +1,7 @@
 import { tooltip } from './tooltip';
 import { drawTitle } from './drawTitle';
 import { drawVoronoiOverlay } from './drawVoronoiOverlay';
+import { transitionExplodingBoxplot } from './transitionExplodingBoxplot';
 import * as d3 from 'd3';
 
 export function setModelTransition(selector, data, options) {
@@ -9,6 +10,7 @@ export function setModelTransition(selector, data, options) {
   const idVariable = options.idVariable;
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
+  const categoricalColumns = options.categoricalColumns;
   const algos = options.algos;
   const currentAlgo = options.currentAlgo;
   const currentAlgoLabel = options.currentAlgoLabel;
@@ -16,6 +18,7 @@ export function setModelTransition(selector, data, options) {
   const projectLink = options.projectLink;
   const dataText = options.dataText;
   const globalExtents = options.globalExtents;
+  const marks = options.marks;
   const margin = options.margin;
   const chartWidth = document.getElementById('chart').offsetWidth;
   const width = chartWidth - margin.left - margin.right;
@@ -137,6 +140,22 @@ export function setModelTransition(selector, data, options) {
       dataText
     }
     drawTitle('p#subTitle', subtitleOptions);
+
+    // transition exploding boxplots for categorical independent variables
+    // const testArray = [];
+    // testArray.push(categoricalColumns[1]);
+    // testArray.push(categoricalColumns[2]);
+    // testArray.forEach(x => {
+    categoricalColumns.forEach(x => {
+      options = {
+        xVariable: x,
+        yVariable: yVariable,
+        marks,
+        categoricalColumns,
+        globalExtents
+      }
+      transitionExplodingBoxplot('.boxplot-container', data, options);
+    })
 
     function moveToNewXYPosition() {
       d3.active(this)
