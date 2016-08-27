@@ -77,11 +77,11 @@ DONE + use local variables for options in
 DONE   d3ExplodingBoxplot.js
 DONE + change `options` to `chartOptions` in
 DONE   d3ExplodingBoxplot.js for consistency
+DONE + on switch between models, update residual value,
+DONE   recalculate boxplots, transition boxplots
 
-+ on switch between models, update residual value,
-  recalculate boxplots, transition boxplots, and 
-  transition points y-position for categorical 
-  independent variables
++ on switch between models,transition points
+  y-position for categorical independent variables
 
 + add tooltips for independent categorical variables
   shown in boxplots
@@ -90,6 +90,9 @@ DONE   d3ExplodingBoxplot.js for consistency
   on points-to-box implode if that box 
   is already exploded
 
++ preserve state so that when boxplots implode,
+  they implode to y-positions from the y-variable
+  associated with the currently selected model
 
 ## classification
 + identify three good classification datasets
