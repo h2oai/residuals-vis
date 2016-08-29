@@ -2,10 +2,10 @@
 
 ## continuous response variable
 
-rossman-store-sales
-santander-customer-satisfaction
+rossman-store-sales [kaggle](https://www.kaggle.com/c/rossmann-store-sales)
+santander-customer-satisfaction [kaggle](https://www.kaggle.com/c/santander-customer-satisfaction)
 
-prudential [kaggle](https://www.kaggle.com/c/prudential-life-insurance-assessment)
+prudential life insurance [kaggle](https://www.kaggle.com/c/prudential-life-insurance-assessment)
 grupo bimbo inventory [kaggle](https://www.kaggle.com/c/grupo-bimbo-inventory-demand)
 
 also,
