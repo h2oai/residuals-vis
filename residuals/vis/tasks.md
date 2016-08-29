@@ -1,3 +1,9 @@
+# high level
++ classification problems
++ show @branden et al
++ connect to h2o
++ aggregator
+
 DONE + remove legend
 DONE + set points to constant radius
 DONE + port xLabel and yLabel back to example
@@ -95,7 +101,7 @@ DONE   recalculate boxplots, transition boxplots
   associated with the currently selected model
 
 ## classification
-+ identify three good classification datasets
+DONE + identify three good classification datasets
 + caculate Pearson residual for categorial variables
 
 ### Aggregator features
