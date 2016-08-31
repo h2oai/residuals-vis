@@ -125,5 +125,6 @@ export function transitionExplodingBoxplot(selector, inputData, options) {
   // chart(div);
 
   // call the update function to render the exploding boxplots
+  console.log('div from transitionExplodingBoxplot', div);
   chart.transitionY(div);
 }

@@ -85,13 +85,12 @@ DONE + change `options` to `chartOptions` in
 DONE   d3ExplodingBoxplot.js for consistency
 DONE + on switch between models, update residual value,
 DONE   recalculate boxplots, transition boxplots
-
-+ on switch between models, transition outlier points
-  y-position for categorical independent variables
-
-+ on switch between models, transition normal points
-  y-position for categorical independent variables
-
+DONE + on switch between models, transition outlier points
+DONE   y-position for categorical independent variables
+DONE + add a class `exploded` to g.boxcontent when the 
+DONE   box is exploded
+DONE + on switch between models, transition normal points
+DONE   y-position for categorical independent variables
 
 + add tooltips for independent categorical variables
   shown in boxplots
