@@ -69,7 +69,7 @@
     var constituents = options.constituents;
     var transitionTime = options.transitionTime;
     var chartWrapper = options.chartWrapper;
-    var boxExploded = undefined;
+    var boxExploded = options.boxExploded;
 
     var boxWidth = void 0;
     if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
@@ -79,27 +79,23 @@
     }
 
     // check for an `exploded` class on our boxcontent g element
-    console.log('chartWrapper from jitterPlot', chartWrapper);
-    console.log('i from jitterPlot', i);
-    var boxcontentG = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i);
-    console.log('boxcontentG from jitterPlot', boxcontentG);
+    // console.log('chartWrapper from jitterPlot', chartWrapper);
+    // console.log('i from jitterPlot', i);
+    // const boxcontentG = chartWrapper.select(`#explodingBoxplot${chartOptions.id}${i}`);
+    // console.log('boxcontentG from jitterPlot', boxcontentG);
 
-    console.log("boxcontentG['_groups'][0][0]", boxcontentG['_groups'][0][0]);
-    if (typeof boxcontentG['_groups'][0][0] !== 'undefined') {
-      (function () {
-        var boxcontentGClasses = boxcontentG.property('classList');
-        console.log('boxcontentGClasses from jitterPlot', boxcontentGClasses);
-        var keys = Object.keys(boxcontentGClasses);
-        console.log('classList object keys from jitterPlot', keys);
-        var values = keys.map(function (d) {
-          return boxcontentGClasses[d];
-        });
-        console.log('classList object values from jitterPlot', values);
-        if (values.indexOf('exploded') !== -1) {
-          boxExploded = true;
-        }
-      })();
-    }
+    // console.log("boxcontentG['_groups'][0][0]", boxcontentG['_groups'][0][0]);
+    // if (typeof boxcontentG['_groups'][0][0] !== 'undefined') {
+    //   const boxcontentGClasses = boxcontentG.property('classList');
+    //   // console.log('boxcontentGClasses from jitterPlot', boxcontentGClasses);
+    //   const keys = Object.keys(boxcontentGClasses);
+    //   // console.log('classList object keys from jitterPlot', keys);
+    //   const values = keys.map(d => boxcontentGClasses[d]);
+    //   // console.log('classList object values from jitterPlot', values);
+    //   if(values.indexOf('exploded') !== -1) {
+    //     boxExploded = true;
+    //   }
+    // }
 
     var elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
 
@@ -644,6 +640,27 @@
     // if the box is not exploded
     // transition box rect and lines y-position
     groups.forEach(function (group, i) {
+      var boxExploded = undefined;
+      var boxcontentG = selection.select('#explodingBoxplot' + chartOptions.id + i);
+      // console.log('boxcontentG from jitterPlot', boxcontentG);
+
+      console.log("boxcontentG['_groups'][0][0]", boxcontentG['_groups'][0][0]);
+      if (typeof boxcontentG['_groups'][0][0] !== 'undefined') {
+        (function () {
+          var boxcontentGClasses = boxcontentG.property('classList');
+          // console.log('boxcontentGClasses from jitterPlot', boxcontentGClasses);
+          var keys = Object.keys(boxcontentGClasses);
+          // console.log('classList object keys from jitterPlot', keys);
+          var values = keys.map(function (d) {
+            return boxcontentGClasses[d];
+          });
+          // console.log('classList object values from jitterPlot', values);
+          if (values.indexOf('exploded') !== -1) {
+            boxExploded = true;
+          }
+        })();
+      }
+
       var currentBoxplotBoxSelector = '#explodingBoxplot_box' + chartOptions.id + i;
       var s = selection.select(currentBoxplotBoxSelector);
 
@@ -673,6 +690,12 @@
         return yScale(Math.min(group.min, group.quartiles[0]));
       }).attr('y2', function () {
         return yScale(group.quartiles[0]);
+      }).style('stroke-opacity', function () {
+        if (typeof boxExploded !== 'undefined') {
+          return 0;
+        } else {
+          return 1;
+        }
       });
 
       // max line
@@ -687,6 +710,12 @@
         return yScale(group.quartiles[2]);
       }).attr('y2', function () {
         return yScale(Math.max(group.max, group.quartiles[2]));
+      }).style('stroke-opacity', function () {
+        if (typeof boxExploded !== 'undefined') {
+          return 0;
+        } else {
+          return 1;
+        }
       });
 
       // // remove all points
@@ -705,7 +734,8 @@
         events: events,
         constituents: constituents,
         transitionTime: transitionTime,
-        chartWrapper: selection
+        chartWrapper: selection,
+        boxExploded: boxExploded
       };
 
       jitterPlot(i, jitterPlotOptions);
