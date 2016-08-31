@@ -2,6 +2,7 @@ import { tooltip } from './tooltip';
 import { drawTitle } from './drawTitle';
 import { drawVoronoiOverlay } from './drawVoronoiOverlay';
 import { transitionExplodingBoxplot } from './transitionExplodingBoxplot';
+import { updateMarksStyles } from './updateMarksStyles';
 import * as d3 from 'd3';
 
 export function setModelTransition(selector, data, options) {
@@ -24,6 +25,7 @@ export function setModelTransition(selector, data, options) {
   const width = chartWidth - margin.left - margin.right;
   // const width = options.width;
   const height = options.width * 0.25;
+  const chartOptions = options.chartOptions;
 
   // retrieve global extents
   const xExtent = globalExtents[0];
@@ -156,6 +158,15 @@ export function setModelTransition(selector, data, options) {
       }
       transitionExplodingBoxplot('.boxplot-container', data, options);
     })
+
+    const index = Number(d3.select('#dropdown').property('value'));
+    const currentLabel = categoricalColumns[index];
+    const updateMarksStylesOptions = {
+      index,
+      currentLabel,
+      chartOptions
+    };
+    updateMarksStyles(data, updateMarksStylesOptions);
 
     function moveToNewXYPosition() {
       d3.active(this)

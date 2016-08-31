@@ -69,7 +69,21 @@ export function drawResidualsVis(width) {
     ],
     marks: {
       r: 2,
-      fillOpacity: 0.3
+      fillOpacity: 0.3,
+      colors: [
+        '#1f78b4',
+        '#ff7f00',
+        '#33a02c',
+        '#e31a1c',
+        '#6a3d9a',
+        '#b15928',
+        '#a6cee3',
+        '#fdbf6f',
+        '#b2df8a',
+        '#fb9a99',
+        '#cab2d6',
+        '#ffff99'
+      ]
     }
   }
 
@@ -82,7 +96,7 @@ export function drawResidualsVis(width) {
   }
 
   let options;
-  const cfg = rossmanConfig;
+  const cfg = rossmanConfig
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
   const algos = cfg.algos;
@@ -100,6 +114,7 @@ export function drawResidualsVis(width) {
   const dataText = cfg.dataText;
   const margin = { left: 120, top: 20, right: 80, bottom: 20 };
   const marks = cfg.marks;
+  const chartOptions = cfg;
 
   const algo = algos[0];
 
@@ -171,15 +186,16 @@ export function drawResidualsVis(width) {
         globalExtents: undefined,
         marks
       }
-      scatterplot('.scatterplot-container', data, options);
+      // comment out for now
+      // scatterplot('.scatterplot-container', data, options);
     })
 
     // draw exploding boxplots for categorical independent variables
-    // const testArray = [];
-    // testArray.push(categoricalColumns[1]);
+    const testArray = [];
+    testArray.push(categoricalColumns[1]);
     // testArray.push(categoricalColumns[2]);
-    // testArray.forEach(x => {
-    categoricalColumns.forEach(x => {
+    testArray.forEach(x => {
+    // categoricalColumns.forEach(x => {
       options = {
         xVariable: x,
         yVariable: yColumn,
@@ -193,7 +209,7 @@ export function drawResidualsVis(width) {
 
     // create the dropdown menu
     const dropdownOptions = {
-      categoricalColumns
+      chartOptions
     }
     dropdown('.nav', data, dropdownOptions);
 
@@ -210,6 +226,7 @@ export function drawResidualsVis(width) {
       algos,
       globalExtents,
       marks,
+      chartOptions,
       idVariable: idColumn,
       xVariable: 'dlPredict',
       yVariable: 'dlResidual',
@@ -229,6 +246,7 @@ export function drawResidualsVis(width) {
       algos,
       globalExtents,
       marks,
+      chartOptions,
       idVariable: idColumn,
       xVariable: 'drfPredict',
       yVariable: 'drfResidual',
@@ -248,6 +266,7 @@ export function drawResidualsVis(width) {
       algos,
       globalExtents,
       marks,
+      chartOptions,
       idVariable: idColumn,
       xVariable: 'gbmPredict',
       yVariable: 'gbmResidual',
@@ -267,6 +286,7 @@ export function drawResidualsVis(width) {
       algos,
       globalExtents,
       marks,
+      chartOptions,
       idVariable: idColumn,
       xVariable: 'glmPredict',
       yVariable: 'glmResidual',

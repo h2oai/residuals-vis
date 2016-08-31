@@ -77,6 +77,7 @@
       boxWidth = xScale.bandwidth();
     }
 
+    console.log('chartWrapper from jitterPlot', chartWrapper);
     var elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
 
     var displayOutliers = elem.selectAll('.point').data(groups[i].outlier);
@@ -532,6 +533,10 @@
     var chartOptions = options.chartOptions;
     var transitionTime = options.transitionTime;
     var selection = options.selection;
+    var boxPlotWidth = options.boxPlotWidth;
+    var events = options.events;
+    var constituents = options.constituents;
+
     var margin = chartOptions.margin;
     var yDomain = chartOptions.axes.y.domain;
 
@@ -554,6 +559,11 @@
         values: data
       }];
     }
+    var groupsKeys = groups.map(function (d) {
+      return d.key;
+    });
+
+    var xScale = d3.scaleBand().domain(groupsKeys).padding(chartOptions.display.boxPadddingProportion).rangeRound([0, boxPlotWidth /* - margin.left - margin.right*/]);
 
     // compute new boxplot data with the new yVariable
     // for each group or class
@@ -585,19 +595,32 @@
         return d[chartOptions.axes.y.variable];
       }))).nice();
 
+      // if yDomain is undefined,
       // transition y-axis as well
       // TODO: transition y-axis
     };
 
     // color scale remains the same
+    // calculate color scale here inside of transitionY
+    var colors = chartOptions.boxColors;
+
+    var colorScale = d3.scaleOrdinal().domain(d3.set(data.map(function (d) {
+      return d[chartOptions.data.colorIndex];
+    })).values()).range(Object.keys(colors).map(function (d) {
+      return colors[d];
+    }));
 
     // ???
     // reset the implodeBoxplot() event handler
     // with new options?
 
+    // if the box is not exploded
+    // transition box rect and lines y-position
     groups.forEach(function (group, i) {
       var currentBoxplotBoxSelector = '#explodingBoxplot_box' + chartOptions.id + i;
       var s = selection.select(currentBoxplotBoxSelector);
+
+      // transition box
       s.select('rect.box').transition().duration(transitionTime).attr('y', function () {
         return yScale(group.quartiles[2]);
       }).attr('height', function () {
@@ -638,17 +661,25 @@
       }).attr('y2', function () {
         return yScale(Math.max(group.max, group.quartiles[2]));
       });
+
+      // remove all points
+      s.selectAll('circle').transition().style('fill-opacity', 0).remove();
+
+      // re-draw all points from new groups data
+      var jitterPlotOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        xScale: xScale,
+        yScale: yScale,
+        groups: groups,
+        events: events,
+        constituents: constituents,
+        transitionTime: transitionTime,
+        chartWrapper: selection
+      };
+
+      jitterPlot(i, jitterPlotOptions);
     });
-    // if the box is not exploded
-    // transition box rect and lines y-position
-
-
-    // hide all points that are now normal points
-    // show all points that are now outlier points
-    // transition all points to new y-position
-
-    // if the box is exploded
-    // transition all points to new y-position
   }
 
   function d3ExplodingBoxplot () {
@@ -733,6 +764,8 @@
     var colors = boxColors;
     var update = void 0;
     var chartWrapper = void 0;
+    var colorScale = void 0;
+    var boxPlotWidth = void 0;
 
     // programmatic
     var transitionTime = 200;
@@ -807,7 +840,6 @@
         var groupsCount = groupsKeys.length;
         console.log('groupsKeys', groupsKeys);
         console.log('groupsCount', groupsCount);
-        var boxPlotWidth = void 0;
         if (typeof boxWidth !== 'undefined') {
           boxPlotWidth = boxWidth * groupsCount + boxLineWidth * 2 * groupsCount // lines on both sides
           + boxPadddingProportion * boxWidth * (groupsCount + 1);
@@ -880,7 +912,7 @@
           // console.log('yScale.domain()', yScale.domain());
           // console.log('yScale.range()', yScale.range());
 
-          var colorScale = d3.scaleOrdinal().domain(d3.set(dataSet.map(function (m) {
+          colorScale = d3.scaleOrdinal().domain(d3.set(dataSet.map(function (m) {
             return m[chartOptions.data.colorIndex];
           })).values()).range(Object.keys(colors).map(function (m) {
             return colors[m];
@@ -1183,7 +1215,10 @@
       var transitionYOptions = {
         chartOptions: chartOptions,
         transitionTime: transitionTime,
-        selection: selection
+        boxPlotWidth: boxPlotWidth,
+        selection: selection,
+        events: events,
+        constituents: constituents
       };
       if (typeof transitionY === 'function') {
         transitionY(dataSet, transitionYOptions);

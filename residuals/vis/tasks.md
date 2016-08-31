@@ -86,8 +86,12 @@ DONE   d3ExplodingBoxplot.js for consistency
 DONE + on switch between models, update residual value,
 DONE   recalculate boxplots, transition boxplots
 
-+ on switch between models,transition points
++ on switch between models, transition outlier points
   y-position for categorical independent variables
+
++ on switch between models, transition normal points
+  y-position for categorical independent variables
+
 
 + add tooltips for independent categorical variables
   shown in boxplots
