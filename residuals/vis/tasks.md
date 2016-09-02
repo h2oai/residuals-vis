@@ -16,8 +16,8 @@ DONE   the science team
 DONE + identify three good classification datasets
 DONE + calculate Pearson residual for categorial variables
 CLOSED plot boxplots for all permutations of categories 
-  sort order - idea from @ivy - to see if order
-  influence the appears of the residuals plots
+CLOSED sort order - idea from @ivy - to see if order
+CLOSED influence the appears of the residuals plots
 
 ## regression
 DONE + add data for Rossman for dl, drf, gbm, glm
@@ -49,10 +49,6 @@ DONE   variable `open`
 DONE + on switch between models, update residual value
 DONE   and transition points y-position for continuous
 DONE   independent variable scatterplots
-
-+ improve tooltips for independent variables
-
-+ orient tooltip to point with arrow
 
 ## boxplots
 DONE + find example boxplot to iterate on
@@ -99,7 +95,17 @@ DONE   box is exploded
 DONE + on switch between models, transition normal points
 DONE   y-position for categorical independent variables
 
+---
 
++ abstract out config
+
+### classfication
+
+### regression
++ improve tooltips for independent variables
++ orient tooltip to point with arrow
+
+### boxplots
 + add tooltips for independent categorical variables
   shown in boxplots
 
@@ -112,11 +118,9 @@ DONE   y-position for categorical independent variables
   is already exploded
 
 
-
 ### Aggregator features
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
 + use aggregator to show many points
-
 
 
 ### multiple datsets features
