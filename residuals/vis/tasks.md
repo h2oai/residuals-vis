@@ -97,18 +97,20 @@ DONE + on switch between models, transition normal points
 DONE   y-position for categorical independent variables
 DONE + sort by the sum of the residuals for each category
 DONE   (for each class)
+DONE + draw points on top of boxes
+DONE + draw points residual vs index value
+DONE   after sorting by residual value, descending
 
 ---
 
-+ show boxplot with no fill, only skeleton
++ show boxplot with no fill, only skeleton if configured
 + show one series of points, sorted
 
 + set consistent ID for first chart 
   'chart'
   'predictBoxplot'
 
-+ draw residual vs index value
-  after sorting by residual value, descending
+
 
 ### classfication
 
@@ -128,6 +130,8 @@ DONE   (for each class)
 + ensure that boxplot outliers only animate 
   on points-to-box implode if that box 
   is already exploded
+
+
 
 
 ### Aggregator features

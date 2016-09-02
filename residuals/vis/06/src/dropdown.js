@@ -5,6 +5,7 @@ export function dropdown(selector, inputData, options) {
   const categoricalVariables = options.chartOptions.categoricalColumns;
   const data = categoricalVariables;
   const marksColors = options.chartOptions.marks.colors;
+  const chartOptions = options.chartOptions;
   console.log('categoricalVariables from dropdown', categoricalVariables);
 
   // insert an empty state menu selection
@@ -50,7 +51,7 @@ export function dropdown(selector, inputData, options) {
       categoricalVariables,
       index,
       currentLabel,
-      chartOptions: options.chartOptions
+      chartOptions
     };
     updateMarksStyles(inputData, updateMarksStylesOptions);
   })

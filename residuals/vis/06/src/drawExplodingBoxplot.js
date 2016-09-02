@@ -39,6 +39,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const categoricalVariables = cfg.categoricalColumns;
   const globalExtents = cfg.globalExtents;
   const sortBoxplots = cfg.sortBoxplots;
+  const skeletonBox = cfg.chartOptions.skeletonBox;
 
   console.log('cfg from drawExplodingBoxplot', cfg);
 
@@ -95,7 +96,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
        '#1f78b4',
     ],
     categoricalVariables,
-    sortBoxplots
+    sortBoxplots,
+    skeletonBox
     // boxColors: [ // varied colors
     //   '#1f78b4',
     //   '#ff7f00',

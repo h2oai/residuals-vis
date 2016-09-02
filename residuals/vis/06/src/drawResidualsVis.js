@@ -94,7 +94,8 @@ export function drawResidualsVis(width) {
       globalExtents,
       marks,
       categoricalColumns,
-      sortBoxplots
+      sortBoxplots,
+      chartOptions
     }
     if (problemType === 'classification') {
       drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
@@ -133,7 +134,8 @@ export function drawResidualsVis(width) {
         marks,
         categoricalColumns,
         globalExtents,
-        sortBoxplots
+        sortBoxplots,
+        chartOptions
       }
       drawExplodingBoxplot('.boxplot-container', data, options);
     })

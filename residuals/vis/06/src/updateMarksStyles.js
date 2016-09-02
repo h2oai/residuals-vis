@@ -5,6 +5,7 @@ export function updateMarksStyles(inputData, options) {
   const categoricalVariables = options.chartOptions.categoricalColumns;
   const index = options.index;
   const currentLabel = options.currentLabel;
+  const chartOptions = options.chartOptions;
 
   // update the paragraph text to match the selection made by the user
   const currentCategoricalVariable = categoricalVariables[index];
@@ -55,38 +56,46 @@ export function updateMarksStyles(inputData, options) {
         return color(d[currentLabel]);
       })
 
-    let boxFillOpacity;
-    // style boxplot boxes
-    d3.selectAll('rect.box')
-      .style('fill', d => {
-        // console.log('d from box style', d);
-        // console.log('d.classProportions[currentLabel] from box style', d.classProportions[currentLabel]);
-        const currentClassProportions = d.classProportions[currentLabel];
-        const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
-          return currentClassProportions[a] > currentClassProportions[b] ? a : b;
-        });
-        // boxFillOpacity = d.classProportions[currentLabel][dominantClass];
-        console.log('currentLabel', currentLabel);
-        console.log('dominantClass', dominantClass);
-        // console.log('boxFillOpacity', boxFillOpacity);
-        return color(dominantClass);
-      })
-      .style('fill-opacity', d => {
-        const currentClassProportions = d.classProportions[currentLabel];
-        const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
-          return currentClassProportions[a] > currentClassProportions[b] ? a : b;
-        });
-        const boxFillOpacity = d.classProportions[currentLabel][dominantClass];
-        return boxFillOpacity;
-      });
-    } else { // currentLabel is undefined
-      // reset the fill color of the points
-      d3.selectAll('.marks')
-        .style('fill', d => color.range()[0])
-
-      // reset the fill color of the boxplot boxes
+    if (typeof chartOptions.skeletonBox === 'undefined') {
+      let boxFillOpacity;
+      // style boxplot boxes
       d3.selectAll('rect.box')
-        .style('fill', d => color.range()[0])
-        .style('fill-opacity', 1)
+        .style('fill', d => {
+          // console.log('d from box style', d);
+          // console.log('d.classProportions[currentLabel] from box style', d.classProportions[currentLabel]);
+          const currentClassProportions = d.classProportions[currentLabel];
+          const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
+            return currentClassProportions[a] > currentClassProportions[b] ? a : b;
+          });
+          // boxFillOpacity = d.classProportions[currentLabel][dominantClass];
+          console.log('currentLabel', currentLabel);
+          console.log('dominantClass', dominantClass);
+          // console.log('boxFillOpacity', boxFillOpacity);
+          return color(dominantClass);
+        })
+        .style('fill-opacity', d => {
+          const currentClassProportions = d.classProportions[currentLabel];
+          const dominantClass = Object.keys(currentClassProportions).reduce((a, b) => {
+            return currentClassProportions[a] > currentClassProportions[b] ? a : b;
+          });
+          const boxFillOpacity = d.classProportions[currentLabel][dominantClass];
+          return boxFillOpacity;
+        });
     }
+  } else { // currentLabel is undefined
+    // reset the fill color of the points
+    d3.selectAll('.marks')
+      .style('fill', d => color.range()[0])
+
+    // reset the fill color of the boxplot boxes
+    d3.selectAll('rect.box')
+      .style('fill', d => color.range()[0])
+      .style('fill-opacity', () => {
+        if (typeof chartOptions.skeletonBox !== 'undefined') {
+          return 0;
+        } else {
+          return 1;
+        }
+      })
+  }
 }

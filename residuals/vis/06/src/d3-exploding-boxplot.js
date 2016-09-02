@@ -372,10 +372,13 @@
     }).attr('height', function (e) {
       return yScale(e.quartiles[0]) - yScale(e.quartiles[2]);
     }).attr('fill', function (e) {
-      if (typeof chartOptions.skeletonBox !== 'undefined') {
-        return 'none';
-      }
       return colorScale(e.normal[0][chartOptions.data.colorIndex]);
+    }).style('fill-opacity', function (e) {
+      if (typeof chartOptions.skeletonBox !== 'undefined') {
+        return 0;
+      } else {
+        return 1;
+      }
     });
 
     var drawBoxplotMedianLineSelection = s.select('line.median');
@@ -917,7 +920,7 @@
       boxColors: ['#a6cee3', '#ff7f00', '#b2df8a', '#1f78b4', '#fdbf6f', '#33a02c', '#cab2d6', '#6a3d9a', '#fb9a99', '#e31a1c', '#ffff99', '#b15928'],
       categoricalVariables: undefined,
       sortBoxplots: undefined,
-      skeletonBox: true,
+      skeletonBox: undefined,
       oneSeries: true
     };
 
@@ -1202,7 +1205,7 @@
           }).each(function (d, i) {
             // console.log('d, testing selection.each', d);
             // console.log('i, testing selection.each', i);
-          }).each(createJitter).each(function (d, i) {
+          }).each(function (d, i) {
             console.log('d from boxContent each', d);
             // console.log('this from boxContent each', this);
             var selector = '#explodingBoxplot' + i;
@@ -1216,7 +1219,7 @@
             };
 
             createBoxplot(selector, d, createBoxplotOptions);
-          }).each(function (d, i) {
+          }).each(createJitter).each(function (d, i) {
             console.log('inside of each containing drawBoxplot call');
             var drawBoxplotOptions = {
               chartOptions: chartOptions,

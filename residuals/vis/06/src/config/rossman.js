@@ -72,5 +72,6 @@ export const rossmanConfig = {
       '#ffff99'
     ]
   },
-  sortBoxplots: 'rootMeanSquaredValue'
+  sortBoxplots: 'rootMeanSquaredValue',
+  skeletonBox: true
 }
