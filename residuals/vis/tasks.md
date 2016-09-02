@@ -101,16 +101,13 @@ DONE + draw points on top of boxes
 DONE + draw points residual vs index value
 DONE   after sorting by residual value, descending
 DONE + show boxplot with no fill if skeleton: true configured
+DONE + show one series of points, sorted
 
 ---
-
-
-+ show one series of points, sorted
 
 + set consistent ID for first chart 
   'chart'
   'predictBoxplot'
-
 
 
 ### classfication
