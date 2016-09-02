@@ -11,6 +11,7 @@ DONE + complete color interaction
 DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with 
 DONE   the science team
+DONE + abstract out config
 
 ## classification
 DONE + identify three good classification datasets
@@ -96,8 +97,6 @@ DONE + on switch between models, transition normal points
 DONE   y-position for categorical independent variables
 
 ---
-
-+ abstract out config
 
 ### classfication
 
