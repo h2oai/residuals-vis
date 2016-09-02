@@ -62,17 +62,33 @@ export function drawVoronoiOverlay(selector, data, options) {
       .style('stroke', 'none')
       .style('fill', 'none')
       .style('pointer-events', 'all')
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
-      // .on('mouseover', showTooltip)
-      // .on('mouseout', removeTooltip);
+      // .on('mouseover', tip.show)
+      // .on('mouseout', tip.hide);
+      .on('mouseover', function (d, i, nodes) {
+        // console.log('d from mouseover', d);
+        // console.log('i from mouseover', i);
+        // console.log('nodes from mouseover', nodes);
+        // console.log('this from mouseover', this);
+        showTooltip(d, i, nodes);
+      })
+      .on('mouseout', function (d, i, nodes) {
+        // console.log('this from mouseout', this);
+        removeTooltip(d, i, nodes);
+      });
 
   // Show the tooltip on the hovered over circle
-  function showTooltip(d) {
+  function showTooltip(d, i, nodes) {
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
     const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
     console.log('element from showTooltip', element);
+    console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
+    const currentDOMNode = element.nodes()[0];
+
+    tip.offset([100,100]);
+    tip.show(d, i, nodes);
+
+    // tip.show;
     
     // // skip tooltip creation if already defined
     // let existingTooltip = $(".popover");
@@ -83,10 +99,11 @@ export function drawVoronoiOverlay(selector, data, options) {
     // }
 
     // Define and show the tooltip
-    element.each(function (d) {
-      console.log('d from showTooltip', d);
-      tip.show();
-    })
+    // element.each(function (d) {
+    //   console.log('d from showTooltip', d);
+    //   tip.parent(currentDOMNode)
+    //   tip.show();
+    // })
 
     // use bootstrap popover
     // But you can use whatever you prefer
@@ -107,17 +124,22 @@ export function drawVoronoiOverlay(selector, data, options) {
   }// function showTooltip
 
   // Hide the tooltip when the mouse moves away
-  function removeTooltip(d) {
+  function removeTooltip(d, i, nodes) {
 
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
     const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
     console.log('element from removeTooltip', element);
+    console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
+    const currentDOMNode = element.nodes()[0];
+
+    // tip.hide;
     
     // Hide the tooltip
-    element.on('', function (d) {
-      tip.hide();
-    })
+    // element.each(function (d) {
+    //   tip.parent(currentDOMNode);
+    //   tip.hide();
+    // })
 
     // $('.popover').each(function() {
     //   $(this).remove();
