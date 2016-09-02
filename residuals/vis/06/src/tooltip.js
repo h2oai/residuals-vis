@@ -1,8 +1,9 @@
-import d3Tip from './d3-tip';
+import d3Tip from './d3-tip-custom';
 import * as d3 from 'd3';
 
 export function tooltip(tooltipVariables) {
   const tip = d3Tip()
+    .parent(document.getElementById('chart'))
     .attr('class', 'd3-tip')
     .html(d => {
       console.log('d from tooltip html function', d);
