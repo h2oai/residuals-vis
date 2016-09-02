@@ -81,45 +81,40 @@ export function drawVoronoiOverlay(selector, data, options) {
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
     const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
-    console.log('element from showTooltip', element);
+    // console.log('element from showTooltip', element);
+    console.log('d from showTooltip', d);
+    const pathStartX = Number(d.path.split('M')[1].split(',')[0]);
+    const pathStartY = Number(d.path.split(',')[1].split('L')[0]);
+    console.log('pathStartX', pathStartX);
+    console.log('pathStartY', pathStartY);
     console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
     const currentDOMNode = element.nodes()[0];
+    const cx = currentDOMNode.cx.baseVal.value;
+    const cy = currentDOMNode.cy.baseVal.value;
 
-    tip.offset([100,100]);
     tip.show(d, i, nodes);
+    // const tipTop = tip.style('top');
+    // const tipLeft = tip.style('left');
+    // const tipTopValue = Number(tipTop.slice(0, -2));
+    // const tipLeftValue = Number(tipLeft.slice(0, -2));
 
-    // tip.show;
-    
-    // // skip tooltip creation if already defined
-    // let existingTooltip = $(".popover");
-    // if (existingTooltip !== null 
-    //     && existingTooltip.length >0
-    //     /* && existingTooltip.text()===d.Country */) {
-    //   return;
-    // }
-
-    // Define and show the tooltip
-    // element.each(function (d) {
-    //   console.log('d from showTooltip', d);
-    //   tip.parent(currentDOMNode)
-    //   tip.show();
-    // })
-
-    // use bootstrap popover
-    // But you can use whatever you prefer
-    // console.log('$(element)', $(element));
-    // $(element).popover({
-    //   placement: 'auto top', // place the tooltip above the item
-    //   container: '#chart', // the name (class or id) of the container
-    //   trigger: 'manual',
-    //   html : true,
-    //   content: function() { // the html content to show inside the tooltip
-    //     return "<span style='font-size: 11px; text-align: center;'>" + 'dCountry' + "</span>"; }
-    // });
-    // $(element).popover('show');
+    // const offsetX = tipLeftValue - cx;
+    // const offsetY = tipTopValue - cy;
+    const offsetX = 0; // pathStartX + (pathStartX - cx);
+    const offsetY = pathStartY + (pathStartY - cy);
+    // console.log('cx', cx);
+    // console.log('tipLeft', tipLeft);
+    // console.log('tipLeftValue', tipLeftValue);
+    // console.log('calculated offsetX', offsetX);
+    // console.log('cy', cy);
+    // console.log('tipTop', tipTop);
+    // console.log('tipTopValue', tipTopValue);
+    // console.log('calculated offsetY', offsetY);
+    // tip.offset([offsetX,offsetY]);
+    // tip.offset([150, 150]);
 
     // Make chosen circle more visible
-    element.style("opacity", 1);
+    element.style('fill-opacity', 1);
             
   }// function showTooltip
 
@@ -133,20 +128,10 @@ export function drawVoronoiOverlay(selector, data, options) {
     console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
     const currentDOMNode = element.nodes()[0];
 
-    // tip.hide;
-    
-    // Hide the tooltip
-    // element.each(function (d) {
-    //   tip.parent(currentDOMNode);
-    //   tip.hide();
-    // })
-
-    // $('.popover').each(function() {
-    //   $(this).remove();
-    // }); 
+    tip.hide(d, i, nodes);
     
     // Fade out the bright circle again
-    element.style("opacity", 0.3);
+    element.style('fill-opacity', 0.3);
     
   }// function removeTooltip
 }

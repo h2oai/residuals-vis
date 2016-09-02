@@ -63,8 +63,10 @@ export default function() {
     while(i--) nodel.classed(directions[i], false)
     coords = direction_callbacks[dir].apply(this)
     nodel.classed(dir, true)
-      .style('top', (coords.top +  poffset[0]) - parentCoords.top + 'px')
-      .style('left', (coords.left + poffset[1]) - parentCoords.left + 'px')
+      .style('top', (coords.top +  poffset[0] - parentCoords.top) + 'px')
+      .style('left', (coords.left + poffset[1] - parentCoords.left) + 'px')
+      // .style('top', (coords.top - parentCoords.top + 'px')
+      // .style('left', (coords.left - parentCoords.left) + 'px')
 
     return tip
   }
@@ -133,10 +135,10 @@ export default function() {
 
     // Make sure offsetParent has a position so the tip can be
     // based from it. Mainly a concern with <body>.
-    // var offsetParent = d3.select(node.offsetParent)
-    // if (offsetParent.style('position') === 'static') {
-    //   offsetParent.style('position', 'relative')
-    // }
+    var offsetParent = d3.select(node.offsetParent)
+    if (offsetParent.style('position') === 'static') {
+      offsetParent.style('position', 'relative')
+    }
 
     return tip
   }
