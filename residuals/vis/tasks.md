@@ -100,10 +100,11 @@ DONE   (for each class)
 DONE + draw points on top of boxes
 DONE + draw points residual vs index value
 DONE   after sorting by residual value, descending
+DONE + show boxplot with no fill if skeleton: true configured
 
 ---
 
-+ show boxplot with no fill, only skeleton if configured
+
 + show one series of points, sorted
 
 + set consistent ID for first chart 
