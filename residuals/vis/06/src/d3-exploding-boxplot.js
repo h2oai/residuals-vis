@@ -39,6 +39,9 @@
     var colorScale = options.colorScale;
     var xScale = options.xScale;
     var yScale = options.yScale;
+    var group = options.group;
+    var pointsType = options.pointsType;
+    console.log('group from drawJitter', group);
 
     var boxWidth = void 0;
     if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
@@ -46,12 +49,20 @@
     } else {
       boxWidth = xScale.bandwidth();
     }
+    console.log('boxWidth from drawJitter', boxWidth);
+    // console.log('group[`${pointsType}`].length', group[`${pointsType}`].length - 1);
+
+    var boxWidthScale = d3.scaleLinear().domain([0, group['' + pointsType].length - 1]).range([0, boxWidth]);
 
     selection.attr('r', chartOptions.dataPoints.radius).attr('fill', function (d) {
       return colorScale(d[chartOptions.data.colorIndex]);
-    }).attr('cx', function () /* d */{
+    }).attr('cx', function (d, i) {
+      console.log('i from drawJitter', i);
       var w = boxWidth;
-      return Math.floor(Math.random() * w);
+      if (true) {
+        console.log('boxWidthScale(i)', boxWidthScale(i));
+        return boxWidthScale(i);
+      } else {}
     }).attr('cy', function (d) {
       return yScale(d[chartOptions.axes.y.variable]);
     });
@@ -70,6 +81,8 @@
     var transitionTime = options.transitionTime;
     var chartWrapper = options.chartWrapper;
     var boxExploded = options.boxExploded;
+    var yVariable = chartOptions.axes.y.variable;
+    console.log('yVariable from jitterPlot', yVariable);
 
     var boxWidth = void 0;
     if (typeof chartOptions.display.maxBoxWidth !== 'undefined') {
@@ -97,49 +110,111 @@
     //   }
     // }
 
-    var elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
+    console.log('chartOptions.oneSeries', chartOptions.oneSeries);
+    if (typeof chartOptions.oneSeries !== 'undefined') {
+      var elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.all-points');
 
-    var displayOutliers = elem.selectAll('.point').data(groups[i].outlier);
+      // sort by the yVariable
+      var allSorted = groups[i].all.sort(function (a, b) {
+        return Number(b[yVariable]) - Number(a[yVariable]);
+      });
 
-    displayOutliers.exit().remove();
+      console.log('allSorted', allSorted);
+      console.log('groups from jitterPlot', groups);
 
-    var drawJitterOptions = {
-      chartOptions: chartOptions,
-      colorScale: colorScale,
-      xScale: xScale,
-      yScale: yScale
-    };
+      var displayAllPoints = elem.selectAll('.point').data(groups[i].all);
 
-    var initJitterOptions = {
-      chartOptions: chartOptions,
-      colorScale: colorScale,
-      events: events,
-      constituents: constituents
-    };
+      displayAllPoints.exit().remove();
 
-    displayOutliers.enter().append('circle').merge(displayOutliers).attr('cx', boxWidth * 0.5).attr('cy', yScale(groups[i].quartiles[1])).call(initJitter, initJitterOptions).transition().ease(d3.easeBackOut).delay(function () {
-      return transitionTime * 1.5 + 100 * Math.random();
-    }).duration(function () {
-      return transitionTime * 1.5 + transitionTime * 1.5 * Math.random();
-    }).call(drawJitter, drawJitterOptions);
+      var drawJitterOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        xScale: xScale,
+        yScale: yScale,
+        group: groups[i],
+        pointsType: 'all'
+      };
 
-    // append normal points here as well so that they can be
-    // styled before being shown
-    var displayNormalPoints = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.normal-points').selectAll('.point').data(groups[i].normal);
-    // console.log('groups[i].normal from jitterPlot', groups[i].normal);
+      var initJitterOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        events: events,
+        constituents: constituents
+      };
 
-    displayNormalPoints.exit().remove();
+      displayAllPoints.enter().append('circle').merge(displayAllPoints).attr('cx', boxWidth * 0.5).attr('cy', yScale(groups[i].quartiles[1])).call(initJitter, initJitterOptions).transition().ease(d3.easeBackOut).delay(function () {
+        return transitionTime * 1.5 + 100 * Math.random();
+      }).duration(function () {
+        return transitionTime * 1.5 + transitionTime * 1.5 * Math.random();
+      }).call(drawJitter, drawJitterOptions);
+    } else {
+      var _elem = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.outliers-points');
 
-    displayNormalPoints.enter().append('circle').merge(displayNormalPoints).attr('visibility', function () {
-      if (typeof boxExploded !== 'undefined') {
-        return 'visible';
-      } else {
-        return 'hidden';
-      }
-    }).attr('cx', boxWidth * 0.5).attr('cy', function () {
-      // console.log('groups[i] from jitterPlot', groups[i]);
-      return yScale(groups[i].quartiles[1]);
-    }).call(initJitter, initJitterOptions).call(drawJitter, drawJitterOptions);
+      // sort by the yVariable
+      var outlierSorted = groups[i].outlier.sort(function (a, b) {
+        return Number(b[yVariable]) - Number(a[yVariable]);
+      });
+      var normalSorted = groups[i].normal.sort(function (a, b) {
+        return Number(b[yVariable]) - Number(a[yVariable]);
+      });
+
+      console.log('outlierSorted', outlierSorted);
+      console.log('normalSorted', normalSorted);
+      console.log('groups from jitterPlot', groups);
+
+      var displayOutliers = _elem.selectAll('.point').data(groups[i].outlier);
+
+      displayOutliers.exit().remove();
+
+      var _drawJitterOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        xScale: xScale,
+        yScale: yScale,
+        group: groups[i],
+        pointsType: 'outlier'
+      };
+
+      var _initJitterOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        events: events,
+        constituents: constituents
+      };
+
+      displayOutliers.enter().append('circle').merge(displayOutliers).attr('cx', boxWidth * 0.5).attr('cy', yScale(groups[i].quartiles[1])).call(initJitter, _initJitterOptions).transition().ease(d3.easeBackOut).delay(function () {
+        return transitionTime * 1.5 + 100 * Math.random();
+      }).duration(function () {
+        return transitionTime * 1.5 + transitionTime * 1.5 * Math.random();
+      }).call(drawJitter, _drawJitterOptions);
+
+      // append normal points here as well so that they can be
+      // styled before being shown
+      var displayNormalPoints = chartWrapper.select('#explodingBoxplot' + chartOptions.id + i).select('.normal-points').selectAll('.point').data(groups[i].normal);
+      // console.log('groups[i].normal from jitterPlot', groups[i].normal);
+
+      displayNormalPoints.exit().remove();
+
+      _drawJitterOptions = {
+        chartOptions: chartOptions,
+        colorScale: colorScale,
+        xScale: xScale,
+        yScale: yScale,
+        group: groups[i],
+        pointsType: 'normal'
+      };
+
+      displayNormalPoints.enter().append('circle').merge(displayNormalPoints).attr('visibility', function () {
+        if (typeof boxExploded !== 'undefined') {
+          return 'visible';
+        } else {
+          return 'hidden';
+        }
+      }).attr('cx', boxWidth * 0.5).attr('cy', function () {
+        // console.log('groups[i] from jitterPlot', groups[i]);
+        return yScale(groups[i].quartiles[1]);
+      }).call(initJitter, _initJitterOptions).call(drawJitter, _drawJitterOptions);
+    }
   }
 
   function hideBoxplot(d, options) {
@@ -196,7 +271,9 @@
       chartOptions: chartOptions,
       colorScale: colorScale,
       xScale: xScale,
-      yScale: yScale
+      yScale: yScale,
+      group: groups[i],
+      pointsType: 'normal'
     };
 
     var initJitterOptions = {
@@ -295,6 +372,9 @@
     }).attr('height', function (e) {
       return yScale(e.quartiles[0]) - yScale(e.quartiles[2]);
     }).attr('fill', function (e) {
+      if (typeof chartOptions.skeletonBox !== 'undefined') {
+        return 'none';
+      }
       return colorScale(e.normal[0][chartOptions.data.colorIndex]);
     });
 
@@ -391,6 +471,8 @@
     d3.select(selector).append('g').attr('class', 'explodingBoxplot outliers-points');
 
     d3.select(selector).append('g').attr('class', 'explodingBoxplot normal-points');
+
+    d3.select(selector).append('g').attr('class', 'explodingBoxplot all-points');
   }
 
   function createBoxplot(selector, data, options) {
@@ -541,6 +623,7 @@
     console.log('quartiles', quartiles);
     var iqr = (quartiles[2] - quartiles[0]) * iqrScalingFactor;
     console.log('iqr', iqr);
+
     // separate outliers
     var max = Number.MIN_VALUE;
     var min = Number.MAX_VALUE;
@@ -554,6 +637,7 @@
       return type;
     }).object(data);
     if (!boxData.outlier) boxData.outlier = [];
+
     // calculate class proportions
     var currentClassProportions = void 0;
     if (categoricalVariables.length > 0) {
@@ -569,6 +653,7 @@
     boxData.absoluteSum = absoluteSum;
     boxData.rootMeanSquaredValue = rmsv;
     boxData.classProportions = currentClassProportions;
+    boxData.all = data;
     console.log('boxData', boxData);
     return boxData;
   }
@@ -831,7 +916,9 @@
       mobileScreenMax: 500,
       boxColors: ['#a6cee3', '#ff7f00', '#b2df8a', '#1f78b4', '#fdbf6f', '#33a02c', '#cab2d6', '#6a3d9a', '#fb9a99', '#e31a1c', '#ffff99', '#b15928'],
       categoricalVariables: undefined,
-      sortBoxplots: undefined
+      sortBoxplots: undefined,
+      skeletonBox: true,
+      oneSeries: true
     };
 
     // create local variables from chartOptions

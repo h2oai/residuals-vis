@@ -100,6 +100,9 @@ DONE   (for each class)
 
 ---
 
++ show boxplot with no fill, only skeleton
++ show one series of points, sorted
+
 + set consistent ID for first chart 
   'chart'
   'predictBoxplot'
@@ -117,7 +120,6 @@ DONE   (for each class)
 ### boxplots
 + add tooltips for independent categorical variables
   shown in boxplots
-
 
 + preserve state so that when boxplots implode,
   they implode to y-positions from the y-variable
