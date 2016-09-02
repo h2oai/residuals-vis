@@ -71,6 +71,12 @@ export default class App extends Component {
             </svg>
           </div>
         </div>
+        <div className='dependent-variable-plot-container' style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap:'nowrap'
+        }}>
+        </div>
         <div className='scatterplot-container' style={{
           display: 'flex',
           flexDirection: 'column',

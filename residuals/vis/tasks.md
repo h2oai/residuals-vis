@@ -95,10 +95,20 @@ DONE + add a class `exploded` to g.boxcontent when the
 DONE   box is exploded
 DONE + on switch between models, transition normal points
 DONE   y-position for categorical independent variables
+DONE + sort by the sum of the residuals for each category
+DONE   (for each class)
 
 ---
 
++ set consistent ID for first chart 
+  'chart'
+  'predictBoxplot'
+
++ draw residual vs index value
+  after sorting by residual value, descending
+
 ### classfication
+
 
 ### regression
 + improve tooltips for independent variables
@@ -107,6 +117,7 @@ DONE   y-position for categorical independent variables
 ### boxplots
 + add tooltips for independent categorical variables
   shown in boxplots
+
 
 + preserve state so that when boxplots implode,
   they implode to y-positions from the y-variable

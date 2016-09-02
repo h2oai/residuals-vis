@@ -71,5 +71,6 @@ export const rossmanConfig = {
       '#cab2d6',
       '#ffff99'
     ]
-  }
+  },
+  sortBoxplots: 'rootMeanSquaredValue'
 }

@@ -49,10 +49,11 @@ function calculateResiduals(config) {
   const fileSuffix = config.fileSuffix;
   const fileStem = config.fileStem;
   const residualType = config.residualType;
+  const algo = algos[0];
 
   const inputPath = `${project}/input`;
   const outputPath = `${project}/output`;
-  const csvfile1 = `${inputPath}/${fileStem}${fileSuffix}.csv`;
+  const csvfile1 = `${inputPath}/${algo}${fileStem}${fileSuffix}.csv`;
   const data = d3.csv.parse(fs.readFileSync(csvfile1, 'utf8'));
 
   const categories = d3.set(data.map(d => d[responseColumn]))
@@ -106,4 +107,4 @@ function calculateResiduals(config) {
 
 }
 
-calculateResiduals(adultConfig);
+calculateResiduals(walmart20kConfig);

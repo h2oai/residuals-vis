@@ -1,33 +1,29 @@
 export const walmartTripTypeConfig = {
   projectTitle: 'WalMart Trip Type',
   projectLink: 'https://www.kaggle.com/c/walmart-recruiting-trip-type-classification',
+  problemType: 'classification',
   dataText: 'data',
-  algos: [ 'dl', 'drf', 'gbm', 'glm'],
-  currentAlgo: 'glm',
-  currentAlgoLabel: 'Generalized Linear Model',
+  algos: ['dl'], // , 'drf', 'gbm', 'glm'],
+  currentAlgo: 'dl',
+  currentAlgoLabel: 'Deep Learning',
+
   project: 'walmart-trip-type',
-  predictColumn: 'glmPredict',
+  predictColumn: 'predict',
   responseColumn: 'TripType',
   xColumns: ['ScanCount'],
-  yColumn: 'glmResidual',
+  yColumn: 'residual',
   idColumn: undefined,
   tooltipColumns: [
     {
       name: 'TripType',
     },
     {
-      name: 'glmPredict',
+      name: 'predict',
     }
   ],
   numericColumns: [
-    'dlPredict',
-    'drfPredict',
-    'gbmPredict',
-    'glmPredict',
-    'dlResidual',
-    'drfResidual',
-    'gbmResidual',
-    'glmResidual',
+    'predict',
+    'residual',
     'ScanCount'
   ],
   categoricalColumns: [

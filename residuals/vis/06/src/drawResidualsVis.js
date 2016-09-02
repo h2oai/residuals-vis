@@ -5,6 +5,7 @@ import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
 import { rossmanConfig } from './config/rossman';
+import { walmartTripTypeConfig } from './config/walmartTripType';
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
 
@@ -13,7 +14,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanConfig
+  const cfg = rossmanConfig;
+  // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
   const algos = cfg.algos;
@@ -32,6 +34,8 @@ export function drawResidualsVis(width) {
   const margin = { left: 120, top: 20, right: 80, bottom: 20 };
   const marks = cfg.marks;
   const chartOptions = cfg;
+  const problemType = cfg.problemType;
+  const sortBoxplots = cfg.sortBoxplots;
 
   const algo = algos[0];
 
@@ -88,9 +92,16 @@ export function drawResidualsVis(width) {
       currentAlgoLabel,
       dependent: true,
       globalExtents,
-      marks
+      marks,
+      categoricalColumns,
+      sortBoxplots
     }
-    scatterplot('.scatterplot-container', data, options);
+    if (problemType === 'classification') {
+      drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
+    } else {
+      scatterplot('.dependent-variable-plot-container', data, options);
+    }
+    
 
     // residuals vs independent variables scatterplots
     xColumns.forEach(x => {
@@ -111,17 +122,18 @@ export function drawResidualsVis(width) {
     })
 
     // draw exploding boxplots for categorical independent variables
-    const testArray = [];
-    testArray.push(categoricalColumns[1]);
+    // const testArray = [];
+    // testArray.push(categoricalColumns[1]);
     // testArray.push(categoricalColumns[2]);
-    testArray.forEach(x => {
-    // categoricalColumns.forEach(x => {
+    // testArray.forEach(x => {
+    categoricalColumns.forEach(x => {
       options = {
         xVariable: x,
         yVariable: yColumn,
         marks,
         categoricalColumns,
-        globalExtents
+        globalExtents,
+        sortBoxplots
       }
       drawExplodingBoxplot('.boxplot-container', data, options);
     })

@@ -29,7 +29,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     .attr('id', `${xVariable}Boxplot`);
 
   const margin = cfg.margin;
-  const chartDivWidth = document.getElementById('chart').offsetWidth; 
+  const chartDivWidth = document.getElementById(`${xVariable}Boxplot`).offsetWidth; 
   const dynamicWidth = chartDivWidth - margin.left - margin.right;
   const width = dynamicWidth; 
   const specifiedWidth = cfg.width;
@@ -38,6 +38,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const marksFillOpacity = cfg.marks.fillOpacity;
   const categoricalVariables = cfg.categoricalColumns;
   const globalExtents = cfg.globalExtents;
+  const sortBoxplots = cfg.sortBoxplots;
 
   console.log('cfg from drawExplodingBoxplot', cfg);
 
@@ -93,7 +94,8 @@ export function drawExplodingBoxplot(selector, inputData, options) {
        '#1f78b4',
        '#1f78b4',
     ],
-    categoricalVariables
+    categoricalVariables,
+    sortBoxplots
     // boxColors: [ // varied colors
     //   '#1f78b4',
     //   '#ff7f00',
