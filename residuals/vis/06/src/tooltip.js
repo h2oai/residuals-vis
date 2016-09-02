@@ -5,6 +5,7 @@ export function tooltip(tooltipVariables) {
   const tip = d3Tip()
     .attr('class', 'd3-tip')
     .html(d => {
+      console.log('d from tooltip html function', d);
       let allRows = '';
       tooltipVariables.forEach((e) => {
         let currentValue;

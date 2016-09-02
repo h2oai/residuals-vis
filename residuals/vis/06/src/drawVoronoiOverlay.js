@@ -1,5 +1,5 @@
 import { d3DistanceLimitedVoronoi } from './distance-limited-voronoi';
-import { tooltip } from './tooltip';
+// import { tooltip } from './tooltip';
 import * as d3 from 'd3';
 export function drawVoronoiOverlay(selector, data, options) {
   /*
@@ -58,42 +58,46 @@ export function drawVoronoiOverlay(selector, data, options) {
         }
         return 'voronoi';
       })
-      .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-      // .style('stroke', 'none')
+      // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+      .style('stroke', 'none')
       .style('fill', 'none')
       .style('pointer-events', 'all')
-      .on('mouseover', showTooltip)
-      .on('mouseout', removeTooltip);
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+      // .on('mouseover', showTooltip)
+      // .on('mouseout', removeTooltip);
 
   // Show the tooltip on the hovered over circle
   function showTooltip(d) {
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
-    var element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
+    const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
     console.log('element from showTooltip', element);
     
-    // skip tooltip creation if already defined
-    // existingTooltip = $(".popover");
+    // // skip tooltip creation if already defined
+    // let existingTooltip = $(".popover");
     // if (existingTooltip !== null 
     //     && existingTooltip.length >0
-    //     && existingTooltip.text()===d.Country) {
+    //     /* && existingTooltip.text()===d.Country */) {
     //   return;
     // }
-    
-    // Define and show the tooltip 
-    element.each(function () {
-      tip.show;
+
+    // Define and show the tooltip
+    element.each(function (d) {
+      console.log('d from showTooltip', d);
+      tip.show();
     })
 
     // use bootstrap popover
     // But you can use whatever you prefer
+    // console.log('$(element)', $(element));
     // $(element).popover({
     //   placement: 'auto top', // place the tooltip above the item
     //   container: '#chart', // the name (class or id) of the container
     //   trigger: 'manual',
     //   html : true,
     //   content: function() { // the html content to show inside the tooltip
-    //     return "<span style='font-size: 11px; text-align: center;'>" + d.Country + "</span>"; }
+    //     return "<span style='font-size: 11px; text-align: center;'>" + 'dCountry' + "</span>"; }
     // });
     // $(element).popover('show');
 
@@ -107,12 +111,12 @@ export function drawVoronoiOverlay(selector, data, options) {
 
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
-    var element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
+    const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
     console.log('element from removeTooltip', element);
     
     // Hide the tooltip
-    element.each(function () {
-      tip.hide;
+    element.on('', function (d) {
+      tip.hide();
     })
 
     // $('.popover').each(function() {
