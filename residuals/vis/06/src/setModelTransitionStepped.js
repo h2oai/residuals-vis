@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
-  const idVariable = options.idVariable;
+  const idVariable = options.idVariable || 'id';
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
   const currentAlgo = options.currentAlgo;

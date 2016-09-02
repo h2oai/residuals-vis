@@ -559,9 +559,9 @@
     var boxPlotWidth = options.boxPlotWidth;
     var events = options.events;
     var constituents = options.constituents;
-
     var margin = chartOptions.margin;
     var yDomain = chartOptions.axes.y.domain;
+    var extraDelay = options.extraDelay || 0;
 
     if (typeof yDomain === 'undefined') {
       console.error('options.axes.y.domain must be defined in order to transition the Y series');
@@ -718,12 +718,6 @@
         }
       });
 
-      // // remove all points
-      // s.selectAll('circle')
-      //   .transition()
-      //   .style('fill-opacity', 0)
-      //   .remove();
-
       // re-draw all points from new groups data
       var jitterPlotOptions = {
         chartOptions: chartOptions,
@@ -735,10 +729,15 @@
         constituents: constituents,
         transitionTime: transitionTime,
         chartWrapper: selection,
-        boxExploded: boxExploded
+        boxExploded: boxExploded,
+        extraDelay: extraDelay
       };
 
       jitterPlot(i, jitterPlotOptions);
+      // window.setTimeout(function() {
+      //     // this will execute extraDelay milliseconds later
+      //     jitterPlot(i, jitterPlotOptions);
+      // }, extraDelay);
     });
   }
 
@@ -1267,7 +1266,7 @@
       if (typeof update === 'function') update(resize);
     };
 
-    chart.transitionY = function (selection) {
+    chart.transitionY = function (selection, extraDelay) {
       // console.log('chart.transitionY was called')
       console.log('transitionTime from chart.transitionY', transitionTime);
       console.log('chartOptions from chart.transitionY', chartOptions);
@@ -1278,7 +1277,8 @@
         boxPlotWidth: boxPlotWidth,
         selection: selection,
         events: events,
-        constituents: constituents
+        constituents: constituents,
+        extraDelay: extraDelay
       };
       if (typeof transitionY === 'function') {
         transitionY(dataSet, transitionYOptions);

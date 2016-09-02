@@ -24,6 +24,7 @@ export function transitionExplodingBoxplot(selector, inputData, options) {
   const xVariable = cfg.xVariable;
   const yVariable = cfg.yVariable;
 
+
   const div = d3.select(selector).select(`div#${xVariable}Boxplot`);
 
   const margin = cfg.margin;
@@ -126,5 +127,5 @@ export function transitionExplodingBoxplot(selector, inputData, options) {
 
   // call the update function to render the exploding boxplots
   console.log('div from transitionExplodingBoxplot', div);
-  chart.transitionY(div);
+  chart.transitionY(div, 0);
 }

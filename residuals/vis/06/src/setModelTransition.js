@@ -8,7 +8,7 @@ import * as d3 from 'd3';
 export function setModelTransition(selector, data, options) {
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
-  const idVariable = options.idVariable;
+  const idVariable = options.idVariable || 'id';
   const responseVariable = options.responseColumn;
   const tooltipVariables = options.tooltipColumns;
   const categoricalColumns = options.categoricalColumns;
@@ -69,7 +69,7 @@ export function setModelTransition(selector, data, options) {
     d3.selectAll('g.independent')
       .attr('id', currentAlgo);
 
-    // transition marks from the dependent variable plot
+    // transition marks from the dependent variable plotg
     d3.select('g.dependent').selectAll('.marks')
       .transition()
       .delay(marksDelay)
@@ -148,7 +148,7 @@ export function setModelTransition(selector, data, options) {
     // testArray.push(categoricalColumns[1]);
     // testArray.push(categoricalColumns[2]);
     // testArray.forEach(x => {
-    categoricalColumns.forEach(x => {
+    ecategoricalColumns.forEach(x => {
       options = {
         xVariable: x,
         yVariable: yVariable,

@@ -12,6 +12,13 @@ DONE + use categorical color scale with max hue distance
 DONE + deploy residuals vis on a server for sharing with 
 DONE   the science team
 
+## classification
+DONE + identify three good classification datasets
+DONE + calculate Pearson residual for categorial variables
+CLOSED plot boxplots for all permutations of categories 
+  sort order - idea from @ivy - to see if order
+  influence the appears of the residuals plots
+
 ## regression
 DONE + add data for Rossman for dl, drf, gbm, glm
 DONE + support multiple models for one dataset
@@ -92,30 +99,30 @@ DONE   box is exploded
 DONE + on switch between models, transition normal points
 DONE   y-position for categorical independent variables
 
+
 + add tooltips for independent categorical variables
   shown in boxplots
-
-+ ensure that boxplot outliers only animate 
-  on points-to-box implode if that box 
-  is already exploded
 
 + preserve state so that when boxplots implode,
   they implode to y-positions from the y-variable
   associated with the currently selected model
 
-## classification
-DONE + identify three good classification datasets
-+ caculate Pearson residual for categorial variables
++ ensure that boxplot outliers only animate 
+  on points-to-box implode if that box 
+  is already exploded
+
+
 
 ### Aggregator features
 + add static exemplar dataset from h2o-3 Aggregator for Rossman
 + use aggregator to show many points
 
+
+
 ### multiple datsets features
 + support multiple datasets
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
-
 
 
 #### eventually
@@ -129,7 +136,8 @@ DONE + identify three good classification datasets
   that is rendered
 + support absolute px values for boxPadding
   in addition to boxPaddingProportion
-
++ add optional extra delay to boxplot transition Y so that
+  boxplot transitions can happen after scatterplot transitions
 
 
 #### possibly

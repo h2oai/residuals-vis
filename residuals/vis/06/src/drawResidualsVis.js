@@ -23,7 +23,7 @@ export function drawResidualsVis(width) {
     responseColumn: 'Sales',
     xColumns: ['Customers', 'CompetitionDistance'],
     yColumn: 'glmResidual',
-    idColumn: 'Store',
+    idColumn: undefined,
     tooltipColumns: [
       {
         name: 'Store'
@@ -135,6 +135,9 @@ export function drawResidualsVis(width) {
       numericColumns.forEach(e => {
         data[i][e] = Number(d[e]);
       })
+      if (typeof idColumn === 'undefined') {
+        data[i].id = i;
+      }
     });
     console.log('data after parsing strings to numbers', data);
 

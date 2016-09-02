@@ -25,10 +25,11 @@ export function scatterplot(selector, inputData, options) {
     width: 1000,
     animateFromZero: undefined,
     yVariable: 'residual',
+    idVariable: 'id',
     marks: {
       r: 2,
       fillOpacity: 0.3
-    } 
+    }
   };
 
   // Put all of the options into a variable called cfg
@@ -223,7 +224,7 @@ export function scatterplot(selector, inputData, options) {
       }
     )
     .enter().append('circle')
-      .attr('class', (d) => `marks ${d[idVariable]}`)
+      .attr('class', (d) => `marks id${d[idVariable]}`)
       .style('fill-opacity', opacityCircles)
       .style('fill', d => {
         if (typeof groupByVariable !== 'undefined') {

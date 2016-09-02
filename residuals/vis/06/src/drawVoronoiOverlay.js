@@ -1,5 +1,6 @@
 import { d3DistanceLimitedVoronoi } from './distance-limited-voronoi';
 import { tooltip } from './tooltip';
+import * as d3 from 'd3';
 export function drawVoronoiOverlay(selector, data, options) {
   /*
     Initiate the Voronoi function
@@ -14,7 +15,7 @@ export function drawVoronoiOverlay(selector, data, options) {
 
   const xVariable = options.xVariable;
   const yVariable = options.yVariable;
-  const idVariable = options.idVariable;
+  const idVariable = options.idVariable || 'id';
   const xScale = options.xScale;
   const yScale = options.yScale;
   const width = options.width;
@@ -39,7 +40,7 @@ export function drawVoronoiOverlay(selector, data, options) {
 
   // Create the distance-limited Voronoi diagram
   limitedVoronoiGroup.selectAll('path')
-    .data(limitedVoronoiCells) // Use Voonoi() with your dataset inside
+    .data(limitedVoronoiCells) // Use Voronoi() with your dataset inside
     .enter().append('path')
       // .attr("d", function(d, i) { return "M" + d.join("L") + "Z"; })
       .attr('d', d => {
@@ -57,10 +58,69 @@ export function drawVoronoiOverlay(selector, data, options) {
         }
         return 'voronoi';
       })
-      // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-      .style('stroke', 'none')
+      .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+      // .style('stroke', 'none')
       .style('fill', 'none')
       .style('pointer-events', 'all')
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+      .on('mouseover', showTooltip)
+      .on('mouseout', removeTooltip);
+
+  // Show the tooltip on the hovered over circle
+  function showTooltip(d) {
+    // Save the circle element (so not the voronoi which is triggering the hover event)
+    // in a variable by using the unique class of the voronoi (idVariable)
+    var element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
+    console.log('element from showTooltip', element);
+    
+    // skip tooltip creation if already defined
+    // existingTooltip = $(".popover");
+    // if (existingTooltip !== null 
+    //     && existingTooltip.length >0
+    //     && existingTooltip.text()===d.Country) {
+    //   return;
+    // }
+    
+    // Define and show the tooltip 
+    element.each(function () {
+      tip.show;
+    })
+
+    // use bootstrap popover
+    // But you can use whatever you prefer
+    // $(element).popover({
+    //   placement: 'auto top', // place the tooltip above the item
+    //   container: '#chart', // the name (class or id) of the container
+    //   trigger: 'manual',
+    //   html : true,
+    //   content: function() { // the html content to show inside the tooltip
+    //     return "<span style='font-size: 11px; text-align: center;'>" + d.Country + "</span>"; }
+    // });
+    // $(element).popover('show');
+
+    // Make chosen circle more visible
+    element.style("opacity", 1);
+            
+  }// function showTooltip
+
+  // Hide the tooltip when the mouse moves away
+  function removeTooltip(d) {
+
+    // Save the circle element (so not the voronoi which is triggering the hover event)
+    // in a variable by using the unique class of the voronoi (idVariable)
+    var element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
+    console.log('element from removeTooltip', element);
+    
+    // Hide the tooltip
+    element.each(function () {
+      tip.hide;
+    })
+
+    // $('.popover').each(function() {
+    //   $(this).remove();
+    // }); 
+    
+    // Fade out the bright circle again
+    element.style("opacity", 0.3);
+    
+  }// function removeTooltip
 }
