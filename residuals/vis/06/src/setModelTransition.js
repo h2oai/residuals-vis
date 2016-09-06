@@ -27,9 +27,16 @@ export function setModelTransition(selector, data, options) {
   const height = options.width * 0.25;
   const chartOptions = options.chartOptions;
 
-  // retrieve global extents
-  const xExtent = globalExtents[0];
-  const yExtent = globalExtents[1];
+  let xExtent;
+  let yExtent;
+  if(typeof globalExtents !== 'undefined') {
+    // retrieve global extents
+    xExtent = globalExtents[0];
+    yExtent = globalExtents[1];
+  } else {
+    xExtent = d3.extent(data, d => d[xVariable]);
+    yExtent = d3.extent(data, d => d[yVariable]);
+  }
 
   const xScale = d3.scaleLinear()
     .range([0, width])
