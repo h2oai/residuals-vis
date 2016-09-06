@@ -5,6 +5,7 @@ import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
 import { rossmanConfig } from './config/rossman';
+import { rossmanAggregatedConfig } from './config/rossmanAggregated';
 import { walmartTripTypeConfig } from './config/walmartTripType';
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
@@ -14,14 +15,13 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanConfig;
+  const cfg = rossmanAggregatedConfig;
   // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
   const algos = cfg.algos;
   const currentAlgo = cfg.currentAlgo;
   const currentAlgoLabel = cfg.currentAlgoLabel;
-  const project = cfg.project;
   const predictColumn = cfg.predictColumn;
   const responseColumn = cfg.responseColumn;
   const xColumns = cfg.xColumns;
@@ -37,11 +37,21 @@ export function drawResidualsVis(width) {
   const problemType = cfg.problemType;
   const sortBoxplots = cfg.sortBoxplots;
 
+  const project = cfg.project;
+  const fileSuffix = cfg.fileSuffix;
+  const aggregated = cfg.aggregated;
+
   const algo = algos[0];
 
   const path = `src/data/${project}`;
-  // const dataFile = `${path}/${algo}-residuals-20k.csv`;
-  const dataFile = `${path}/residuals-20k.csv`;
+
+  let dataFile;
+  if (typeof aggregated !== 'undefined') {
+    dataFile = `${path}/${algo}-residuals${fileSuffix}.csv`;
+  } else {
+    dataFile = `${path}/residuals${fileSuffix}.csv`;
+  }
+  
  
  // wait for data to load before attempting to draw
   d3_queue.queue()
@@ -74,10 +84,16 @@ export function drawResidualsVis(width) {
     drawTitle('p#subTitle', options);
 
     // get global extents
-    options = {
-      algos
+    let globalExtents;
+    if (typeof aggregated !== 'undefined') {
+      globalExtents = undefined;
+    } else {
+      options = {
+        algos
+      }
+      const globalExtents = getGlobalExtents(data, options);
     }
-    const globalExtents = getGlobalExtents(data, options);
+    console.log('globalExtents', globalExtents);
 
     // residuals vs prediction scatterplot
     options = {

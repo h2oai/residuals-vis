@@ -1,16 +1,17 @@
-export const rossmanConfig = {
+export const rossmanAggregatedConfig = {
   projectTitle: 'Rossman Store Sales',
   projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
   dataText: 'a 20,000 row subset of the data',
-  algos: [ 'dl', 'drf', 'gbm', 'glm'],
-  currentAlgo: 'glm',
-  currentAlgoLabel: 'Generalized Linear Model',
+  algos: ['dl'],
+  currentAlgo: 'dl',
+  currentAlgoLabel: 'Deep Learning',
   project: 'rossman-store-sales',
-  fileSuffix: '-20k',
-  predictColumn: 'glmPredict',
+  fileSuffix: '-aggregated-0-075',
+  aggregated: true,
+  predictColumn: 'predict',
   responseColumn: 'Sales',
   xColumns: ['Customers', 'CompetitionDistance'],
-  yColumn: 'glmResidual',
+  yColumn: 'residual',
   idColumn: undefined,
   tooltipColumns: [
     {
@@ -27,20 +28,14 @@ export const rossmanConfig = {
       format: ',.0f'
     },
     {
-      name: 'glmPredict',
+      name: 'predict',
       type: 'numeric',
       format: ',.0f'
     }
   ],
   numericColumns: [
-    'dlPredict',
-    'drfPredict',
-    'gbmPredict',
-    'glmPredict',
-    'dlResidual',
-    'drfResidual',
-    'gbmResidual',
-    'glmResidual',
+    'predict',
+    'residual',
     'Sales',
     'Customers',
     'CompetitionDistance'

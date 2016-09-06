@@ -46,6 +46,13 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   console.log('calculated width for explodingBoxplot', width);
   console.log('calculated height for explodingBoxplot', height);
 
+  let yDomain;
+  if (typeof globalExtents === 'undefined') {
+    yDomain = undefined;
+  } else {
+    yDomain = globalExtents[1];
+  }
+
   // tell explodingBoxplot how to group, color, and position
   // the boxplots that represent our randomNormal data
   const explodingBoxplotOptions = {
@@ -75,7 +82,7 @@ export function drawExplodingBoxplot(selector, inputData, options) {
         label: 'residual',
         labelPosition: 'origin',
         ticks: 6,
-        domain: globalExtents[1]
+        domain: yDomain
       }
     },
     display: {

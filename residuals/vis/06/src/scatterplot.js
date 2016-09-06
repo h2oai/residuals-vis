@@ -133,6 +133,7 @@ export function scatterplot(selector, inputData, options) {
 
   // parse strings to numbers
   let data = _.cloneDeep(inputData);
+  console.log('data from scatterplot', data);
 
   data.forEach(d => {
     numericVariables.forEach(e => {

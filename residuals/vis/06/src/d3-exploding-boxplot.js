@@ -49,7 +49,7 @@
     } else {
       boxWidth = xScale.bandwidth();
     }
-    console.log('boxWidth from drawJitter', boxWidth);
+    // console.log('boxWidth from drawJitter', boxWidth);
     // console.log('group[`${pointsType}`].length', group[`${pointsType}`].length - 1);
 
     var boxWidthScale = d3.scaleLinear().domain([0, group['' + pointsType].length - 1]).range([0, boxWidth]);
@@ -57,10 +57,10 @@
     selection.attr('r', chartOptions.dataPoints.radius).attr('fill', function (d) {
       return colorScale(d[chartOptions.data.colorIndex]);
     }).attr('cx', function (d, i) {
-      console.log('i from drawJitter', i);
+      // console.log('i from drawJitter', i);
       var w = boxWidth;
       if (true) {
-        console.log('boxWidthScale(i)', boxWidthScale(i));
+        // console.log('boxWidthScale(i)', boxWidthScale(i));
         return boxWidthScale(i);
       } else {}
     }).attr('cy', function (d) {
