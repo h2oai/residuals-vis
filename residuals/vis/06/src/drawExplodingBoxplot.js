@@ -2,6 +2,7 @@ import { d3ExplodingBoxplot } from './d3-exploding-boxplot';
 import * as d3 from 'd3';
 
 export function drawExplodingBoxplot(selector, inputData, options) {
+  // console.log('drawExplodingBoxplot was called');
   // set default configuration
   const cfg = {
     margin: { left: 120, top: 20, right: 80, bottom: 20 },
@@ -41,10 +42,9 @@ export function drawExplodingBoxplot(selector, inputData, options) {
   const sortBoxplots = cfg.sortBoxplots;
   const skeletonBox = cfg.chartOptions.skeletonBox;
 
-  console.log('cfg from drawExplodingBoxplot', cfg);
-
-  console.log('calculated width for explodingBoxplot', width);
-  console.log('calculated height for explodingBoxplot', height);
+  // console.log('cfg from drawExplodingBoxplot', cfg);
+  // console.log('calculated width for explodingBoxplot', width);
+  // console.log('calculated height for explodingBoxplot', height);
 
   let yDomain;
   if (typeof globalExtents === 'undefined') {
@@ -120,16 +120,16 @@ export function drawExplodingBoxplot(selector, inputData, options) {
     //   '#ffff99'
     // ]
   };
-  console.log('options for explodingBoxplot', explodingBoxplotOptions);
+  // console.log('options for explodingBoxplot', explodingBoxplotOptions);
 
   // see what we are working with
-  console.log('d3ExplodingBoxplot', d3ExplodingBoxplot);
+  // console.log('d3ExplodingBoxplot', d3ExplodingBoxplot);
 
   // assign a explodingBoxplot chart object to a variable called chart
   const chart = d3ExplodingBoxplot();
   
   // call the chart's data accessor function on our data
-  console.log('inputData from drawExplodingBoxplot', inputData);
+  // console.log('inputData from drawExplodingBoxplot', inputData);
   chart.data(inputData);
 
   // call the chart's options accessor function on our options object
