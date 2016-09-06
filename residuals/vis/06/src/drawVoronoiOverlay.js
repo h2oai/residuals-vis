@@ -82,12 +82,12 @@ export function drawVoronoiOverlay(selector, data, options) {
     // in a variable by using the unique class of the voronoi (idVariable)
     const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
     // console.log('element from showTooltip', element);
-    console.log('d from showTooltip', d);
+    // console.log('d from showTooltip', d);
     const pathStartX = Number(d.path.split('M')[1].split(',')[0]);
     const pathStartY = Number(d.path.split(',')[1].split('L')[0]);
-    console.log('pathStartX', pathStartX);
-    console.log('pathStartY', pathStartY);
-    console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
+    // console.log('pathStartX', pathStartX);
+    // console.log('pathStartY', pathStartY);
+    // console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
     const currentDOMNode = element.nodes()[0];
     const cx = currentDOMNode.cx.baseVal.value;
     const cy = currentDOMNode.cy.baseVal.value;
@@ -124,8 +124,8 @@ export function drawVoronoiOverlay(selector, data, options) {
     // Save the circle element (so not the voronoi which is triggering the hover event)
     // in a variable by using the unique class of the voronoi (idVariable)
     const element = d3.selectAll(`.marks.id${d.datum[idVariable]}`);
-    console.log('element from removeTooltip', element);
-    console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
+    // console.log('element from removeTooltip', element);
+    // console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
     const currentDOMNode = element.nodes()[0];
 
     tip.hide(d, i, nodes);

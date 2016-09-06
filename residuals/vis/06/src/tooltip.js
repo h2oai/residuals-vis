@@ -6,7 +6,7 @@ export function tooltip(tooltipVariables) {
     .parent(document.getElementById('chart'))
     .attr('class', 'd3-tip')
     .html(d => {
-      console.log('d from tooltip html function', d);
+      // console.log('d from tooltip html function', d);
       let allRows = '';
       tooltipVariables.forEach((e) => {
         let currentValue;

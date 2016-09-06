@@ -155,7 +155,7 @@ export function setModelTransition(selector, data, options) {
     // testArray.push(categoricalColumns[1]);
     // testArray.push(categoricalColumns[2]);
     // testArray.forEach(x => {
-    ecategoricalColumns.forEach(x => {
+    categoricalColumns.forEach(x => {
       options = {
         xVariable: x,
         yVariable: yVariable,

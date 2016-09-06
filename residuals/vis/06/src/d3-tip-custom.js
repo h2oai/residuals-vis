@@ -44,7 +44,7 @@ export default function() {
   tip.show = function() {
     if(!parent) tip.parent(document.body);
     var args = Array.prototype.slice.call(arguments)
-    console.log('args from tip.show', args);
+    // console.log('args from tip.show', args);
     if(args[args.length - 1] instanceof SVGElement) target = args.pop()
 
     var content = html.apply(this, args),
@@ -130,7 +130,7 @@ export default function() {
   tip.parent = function(v) {
     if (!arguments.length) return parent
     parent = v || document.body
-    console.log('parent from tip.parent', parent);
+    // console.log('parent from tip.parent', parent);
     parent.appendChild(node)
 
     // Make sure offsetParent has a position so the tip can be
