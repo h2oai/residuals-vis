@@ -1,4 +1,4 @@
-import { scatterplot } from './scatterplot';
+import { drawVoronoiScatterplot } from './d3-voronoi-scatterplot';
 import { drawExplodingBoxplot } from './drawExplodingBoxplot';
 import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
@@ -51,7 +51,6 @@ export function drawResidualsVis(width) {
   } else {
     dataFile = `${path}/residuals${fileSuffix}.csv`;
   }
-  
  
  // wait for data to load before attempting to draw
   d3_queue.queue()
@@ -116,7 +115,7 @@ export function drawResidualsVis(width) {
     if (problemType === 'classification') {
       drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
     } else {
-      scatterplot('.dependent-variable-plot-container', data, options);
+      drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
     }
     
 
@@ -135,7 +134,7 @@ export function drawResidualsVis(width) {
         marks
       }
       // comment out for now
-      // scatterplot('.scatterplot-container', data, options);
+      // drawVoronoiScatterplot('.scatterplot-container', data, options);
     })
 
     // draw exploding boxplots for categorical independent variables

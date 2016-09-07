@@ -76,7 +76,7 @@ export function setModelTransition(selector, data, options) {
     d3.selectAll('g.independent')
       .attr('id', currentAlgo);
 
-    // transition marks from the dependent variable plotg
+    // transition marks from the dependent variable plot g
     d3.select('g.dependent').selectAll('.marks')
       .transition()
       .delay(marksDelay)

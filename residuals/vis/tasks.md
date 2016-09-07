@@ -133,8 +133,10 @@ DONE + show one series of points, sorted
 
 
 ### Aggregator features
-+ add static exemplar dataset from h2o-3 Aggregator for Rossman
+DONE + add static exemplar dataset from h2o-3 Aggregator for Rossman
 + use aggregator to show many points
++ add update function to scatterplot
++ abstract out scatterplot component
 
 
 ### multiple datsets features
