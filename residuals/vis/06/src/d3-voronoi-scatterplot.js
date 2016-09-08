@@ -703,6 +703,9 @@
     // console.log('data[0]', data[0]);
     var limitedVoronoiCells = limitedVoronoi(data);
 
+    // remove any existing Voronoi overlay
+    selector.selectAll('.voronoiWrapper').remove();
+
     // create a group element to place the Voronoi diagram in
     var limitedVoronoiGroup = selector.append('g').attr('class', 'voronoiWrapper');
 
@@ -724,9 +727,9 @@
         return 'voronoi ' + d.datum[idVariable];
       }
       return 'voronoi';
-    })
-    // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-    .style('stroke', 'none').style('fill', 'none').style('pointer-events', 'all')
+    }).style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+    // .style('stroke', 'none')
+    .style('fill', 'none').style('pointer-events', 'all')
     // .on('mouseover', tip.show)
     // .on('mouseout', tip.hide);
     .on('mouseover', function (d, i, nodes) {
@@ -744,6 +747,8 @@
     function showTooltip(d, i, nodes) {
       // Save the circle element (so not the voronoi which is triggering the hover event)
       // in a variable by using the unique class of the voronoi (idVariable)
+      var elementSelector = '.marks.id' + d.datum[idVariable];
+      // console.log('elementSelector', elementSelector);
       var element = d3.selectAll('.marks.id' + d.datum[idVariable]);
       // console.log('element from showTooltip', element);
       // console.log('d from showTooltip', d);
@@ -751,7 +756,7 @@
       var pathStartY = Number(d.path.split(',')[1].split('L')[0]);
       // console.log('pathStartX', pathStartX);
       // console.log('pathStartY', pathStartY);
-      // console.log('element.nodes()[0] from removeTooltip', element.nodes()[0]);
+      // console.log('element.nodes()[0] from showTooltip', element.nodes()[0]);
       var currentDOMNode = element.nodes()[0];
       var cx = currentDOMNode.cx.baseVal.value;
       var cy = currentDOMNode.cy.baseVal.value;
@@ -907,6 +912,10 @@
       });
     });
 
+    //
+    // Scales
+    //
+
     // Set the new x axis range
     var xScale = d3.scaleLinear().range([0, width]);
 
@@ -931,6 +940,10 @@
         return d[yVariable];
       })).nice();
     }
+
+    //
+    // Axes
+    //
 
     // Set new x-axis
     var xAxis = d3.axisBottom().ticks(4).tickSizeOuter(0)
@@ -961,16 +974,25 @@
     }
 
     //
+    // Tooltips
+    //
+
+    var tip = tooltip(tooltipVariables);
+    svg.call(tip);
+
+    //
     // Scatterplot Circles
     //
 
+    // Initiate a group element for the circles
+    var circleGroup = wrapper.append('g').attr('class', 'circleWrapper');
+
     function update(data) {
       console.log('update function was called');
-      // Initiate a group element for the circles
-      var circleGroup = wrapper.append('g').attr('class', 'circleWrapper');
-
+      // console.log('data from update function', data);
       // Place the circles
-      var updateSelection = circleGroup.selectAll('marks').data(function () {
+      var updateSelection = circleGroup.selectAll('circle') // circleGroup.selectAll('.marks')
+      .data(function () {
         if (typeof rVariable !== 'undefined') {
           // Sort so the biggest circles are below
           return data.sort(function (a, b) {
@@ -978,11 +1000,18 @@
           });
         }
         return data;
+      }, function (d) {
+        return d[idVariable];
       });
-      console.log('updateSelection', updateSelection);
+      // console.log('updateSelection', updateSelection);
 
       var enterSelection = updateSelection.enter().append('circle');
-      console.log('enterSelection', enterSelection);
+      // console.log('enterSelection', enterSelection);
+
+      var exitSelection = updateSelection.exit();
+      // console.log('exitSelection', exitSelection);
+
+      updateSelection.style('fill', 'black');
 
       enterSelection.attr('class', function (d) {
         return 'marks id' + d[idVariable];
@@ -990,7 +1019,7 @@
         if (typeof groupByVariable !== 'undefined') {
           return color(d[groupByVariable]);
         }
-        return color.range()[0];
+        return 'green'; // color.range()[0];
       }).attr('cx', function (d) {
         return xScale(d[xVariable]);
       }).attr('cy', function (d) {
@@ -1005,47 +1034,59 @@
         }
         return marksRadius;
       });
+      // .append('title')
+      //   .text(d => `${d[idVariable]} ${d[xLabelDetail]}`);
 
-      var exitSelection = updateSelection.exit();
-      console.log('exitSelection', exitSelection);
-
-      exitSelection.style('fill', 'red').transition().delay('2000').remove();
+      exitSelection.style('fill', 'red').transition().delay(4000).remove();
 
       var mergedSelection = updateSelection.merge(enterSelection);
-      console.log('mergedSelection', mergedSelection);
+      // console.log('mergedSelection', mergedSelection);
+      // console.log('mergedSelection.nodes()', mergedSelection.nodes());
+      var mergedSelectionData = mergedSelection.nodes().map(function (d) {
+        return d.__data__;
+      });
+      // console.log('mergedSelectionData', mergedSelectionData);
 
       if (typeof animateFromXAxis !== 'undefined') {
         updateSelection.transition().delay(2000).duration(2000).attr('cy', function (d) {
           return yScale(d[yVariable]);
         });
       }
+
+      //
+      // distance-limited Voronoi overlay
+      //
+
+      var voronoiOptions = {
+        xVariable: xVariable,
+        yVariable: yVariable,
+        idVariable: idVariable,
+        xScale: xScale,
+        yScale: yScale,
+        width: width,
+        height: height,
+        tip: tip
+      };
+      drawVoronoiOverlay(wrapper, mergedSelectionData, voronoiOptions);
     }
 
     // call the update function once to kick things off
     update(data);
 
-    //
-    // Tooltips
-    //
-
-    var tip = tooltip(tooltipVariables);
-    svg.call(tip);
-
-    //
-    // distance-limited Voronoi overlay
-    //
-
-    var voronoiOptions = {
-      xVariable: xVariable,
-      yVariable: yVariable,
-      idVariable: idVariable,
-      xScale: xScale,
-      yScale: yScale,
-      width: width,
-      height: height,
-      tip: tip
-    };
-    drawVoronoiOverlay(wrapper, data, voronoiOptions);
+    // //
+    // // distance-limited Voronoi overlay
+    // //
+    // const voronoiOptions = {
+    //   xVariable,
+    //   yVariable,
+    //   idVariable,
+    //   xScale,
+    //   yScale,
+    //   width,
+    //   height,
+    //   tip
+    // }
+    // drawVoronoiOverlay(wrapper, data, voronoiOptions);
 
     //
     // Initialize Labels

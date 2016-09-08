@@ -88,7 +88,8 @@ export function drawResidualsVis(width) {
       globalExtents = undefined;
     } else {
       options = {
-        algos
+        algos,
+        combined: true
       }
       const globalExtents = getGlobalExtents(data, options);
     }
