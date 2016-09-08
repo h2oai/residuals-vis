@@ -82,7 +82,7 @@ export function drawResidualsVis(width) {
     }
     drawTitle('p#subTitle', options);
 
-    // get global extents, if not specified
+    // calcuate global extents, if not specified
     let globalExtents = chartOptions.globalExtents; 
     if (typeof globalExtents === 'undefined') {
       if (typeof aggregated !== 'undefined') {
