@@ -102,9 +102,9 @@ export function drawResidualsVis(width) {
       idVariable: idColumn,
       tooltipColumns,
       numericColumns,
-      responseColumn,
-      currentAlgo,
-      currentAlgoLabel,
+      xLabelDetail: responseColumn,
+      wrapperId: currentAlgo,
+      wrapperLabel: currentAlgoLabel,
       dependent: true,
       globalExtents,
       marks,
@@ -128,8 +128,8 @@ export function drawResidualsVis(width) {
         idVariable: idColumn,
         tooltipColumns,
         numericColumns,
-        currentAlgo,
-        currentAlgoLabel,
+        wrapperId: currentAlgo,
+        wrapperLabel: currentAlgoLabel,
         globalExtents: undefined,
         marks
       }

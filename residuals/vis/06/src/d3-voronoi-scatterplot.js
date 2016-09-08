@@ -818,8 +818,8 @@
     var cfg = {
       margin: { left: 120, top: 20, right: 80, bottom: 20 },
       width: 1000,
-      animateFromZero: undefined,
-      yVariable: 'residual',
+      animateFromXAxis: undefined,
+      yVariable: 'y',
       idVariable: 'id',
       marks: {
         r: 2,
@@ -844,23 +844,23 @@
     var rVariable = undefined;
     var idVariable = cfg.idVariable;
     var groupByVariable = undefined;
-    var currentAlgo = cfg.currentAlgo;
-    var currentAlgoLabel = cfg.currentAlgoLabel;
+    var wrapperId = cfg.wrapperId;
+    var wrapperLabel = cfg.wrapperLabel;
     var tooltipVariables = cfg.tooltipColumns;
     var numericVariables = cfg.numericColumns;
-    var responseVariable = cfg.responseColumn;
+    var xLabelDetail = cfg.xLabelDetail;
     var dependent = cfg.dependent;
     var globalExtents = cfg.globalExtents;
-    var animateFromZero = cfg.animateFromZero;
+    var animateFromXAxis = cfg.animateFromXAxis;
     var opacityCircles = cfg.marks.fillOpacity;
     var marksRadius = cfg.marks.r;
 
     // labels
     var xLabel = cfg.xLabel || xVariable;
-    if (typeof responseVariable !== 'undefined') {
-      xLabel = xLabel + ' (' + responseVariable + ')';
+    if (typeof xLabelDetail !== 'undefined') {
+      xLabel = xLabel + ' (' + xLabelDetail + ')';
     }
-    var yLabel = 'residual';
+    var yLabel = cfg.yLabel || yVariable;;
     // const xLabel = 'y\u{0302}'; // y-hat for the prediction
     // const yLabel = 'r\u{0302}'; // r-hat for the residual
 
@@ -880,14 +880,14 @@
     if (typeof dependent !== 'undefined') {
       svg.classed('dependent', true);
       wrapper.classed('dependent', true);
-      wrapper.attr('id', currentAlgo);
+      wrapper.attr('id', wrapperId);
 
       // draw model label
-      wrapper.append('g').attr('transform', 'translate(' + 20 + ', ' + 45 + ')').append('text').classed('modelLabel', true).style('font-size', '40px').style('font-weight', 400).style('opacity', 0.15).style('fill', 'gray').style('font-family', 'Work Sans, sans-serif').text('' + currentAlgoLabel);
+      wrapper.append('g').attr('transform', 'translate(' + 20 + ', ' + 45 + ')').append('text').classed('modelLabel', true).style('font-size', '40px').style('font-weight', 400).style('opacity', 0.15).style('fill', 'gray').style('font-family', 'Work Sans, sans-serif').text('' + wrapperLabel);
     } else {
       svg.classed('independent', true);
       wrapper.classed('independent', true);
-      wrapper.attr('id', currentAlgo);
+      wrapper.attr('id', wrapperId);
     }
 
     //
@@ -941,8 +941,11 @@
     //   })(d))
     .scale(xScale);
 
+    // calculate y-position we'd like for the x-axis
+    var xAxisYTranslate = d3.max([0, yScale.domain()[0]]);
+
     // Append the x-axis
-    wrapper.append('g').attr('class', 'x axis').attr('transform', 'translate(' + 0 + ', ' + yScale(0) + ')').call(xAxis);
+    wrapper.append('g').attr('class', 'x axis').attr('transform', 'translate(' + 0 + ', ' + yScale(xAxisYTranslate) + ')').call(xAxis);
 
     var yAxis = d3.axisLeft().ticks(6) // Set rough # of ticks
     .scale(yScale);
@@ -961,45 +964,65 @@
     // Scatterplot Circles
     //
 
-    // Initiate a group element for the circles
-    var circleGroup = wrapper.append('g').attr('class', 'circleWrapper');
+    function update(data) {
+      console.log('update function was called');
+      // Initiate a group element for the circles
+      var circleGroup = wrapper.append('g').attr('class', 'circleWrapper');
 
-    // Place the country circles
-    var circles = circleGroup.selectAll('marks').data(function () {
-      if (typeof rVariable !== 'undefined') {
-        // Sort so the biggest circles are below
-        return data.sort(function (a, b) {
-          return b[rVariable] > a[rVariable];
+      // Place the circles
+      var updateSelection = circleGroup.selectAll('marks').data(function () {
+        if (typeof rVariable !== 'undefined') {
+          // Sort so the biggest circles are below
+          return data.sort(function (a, b) {
+            return b[rVariable] > a[rVariable];
+          });
+        }
+        return data;
+      });
+      console.log('updateSelection', updateSelection);
+
+      var enterSelection = updateSelection.enter().append('circle');
+      console.log('enterSelection', enterSelection);
+
+      enterSelection.attr('class', function (d) {
+        return 'marks id' + d[idVariable];
+      }).style('fill-opacity', opacityCircles).style('fill', function (d) {
+        if (typeof groupByVariable !== 'undefined') {
+          return color(d[groupByVariable]);
+        }
+        return color.range()[0];
+      }).attr('cx', function (d) {
+        return xScale(d[xVariable]);
+      }).attr('cy', function (d) {
+        if (typeof animateFromXAxis !== 'undefined') {
+          return yScale(xAxisYTranslate);
+        } else {
+          return yScale(d[yVariable]);
+        }
+      }).attr('r', function (d) {
+        if (typeof rVariable !== 'undefined') {
+          return rScale(d[rVariable]);
+        }
+        return marksRadius;
+      });
+
+      var exitSelection = updateSelection.exit();
+      console.log('exitSelection', exitSelection);
+
+      exitSelection.style('fill', 'red').transition().delay('2000').remove();
+
+      var mergedSelection = updateSelection.merge(enterSelection);
+      console.log('mergedSelection', mergedSelection);
+
+      if (typeof animateFromXAxis !== 'undefined') {
+        updateSelection.transition().delay(2000).duration(2000).attr('cy', function (d) {
+          return yScale(d[yVariable]);
         });
       }
-      return data;
-    }).enter().append('circle').attr('class', function (d) {
-      return 'marks id' + d[idVariable];
-    }).style('fill-opacity', opacityCircles).style('fill', function (d) {
-      if (typeof groupByVariable !== 'undefined') {
-        return color(d[groupByVariable]);
-      }
-      return color.range()[0];
-    }).attr('cx', function (d) {
-      return xScale(d[xVariable]);
-    }).attr('cy', function (d) {
-      if (typeof animateFromZero !== 'undefined') {
-        return yScale(0);
-      } else {
-        return yScale(d[yVariable]);
-      }
-    }).attr('r', function (d) {
-      if (typeof rVariable !== 'undefined') {
-        return rScale(d[rVariable]);
-      }
-      return marksRadius;
-    });
-
-    if (typeof animateFromZero !== 'undefined') {
-      circles.transition().delay(2000).duration(2000).attr('cy', function (d) {
-        return yScale(d[yVariable]);
-      });
     }
+
+    // call the update function once to kick things off
+    update(data);
 
     //
     // Tooltips
@@ -1037,7 +1060,7 @@
     // Set up y axis label
     wrapper.append('g').append('text').attr('class', 'y title').attr('text-anchor', 'end').attr('dy', '0.35em').style('font-size', (mobileScreen ? 8 : 12) + 'px')
     // .attr('transform', 'translate(18, 0) rotate(-90)')
-    .attr('transform', 'translate(' + -(margin.left / 4) + ',' + yScale(0) + ')').text('' + yLabelText);
+    .attr('transform', 'translate(' + -(margin.left / 4) + ',' + yScale(xAxisYTranslate) + ')').text('' + yLabelText);
 
     //
     // Hide axes on click
@@ -1061,6 +1084,15 @@
     d3.selectAll('.chartWrapper').on('click', function () {
       click();
     });
+
+    // console.log('update from drawVoronoiScatterplot', update);
+    return update;
+
+    // drawVoronoiScatterplot.update = (data) => {
+    //   // console.log('drawVoronoiScatterplot.update() was called');
+    //   if (typeof update === 'function') update(data);
+    // };
+
   }
 
   exports.drawVoronoiScatterplot = drawVoronoiScatterplot;
