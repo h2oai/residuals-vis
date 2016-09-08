@@ -82,26 +82,27 @@ export function drawResidualsVis(width) {
     }
     drawTitle('p#subTitle', options);
 
-    // get global extents
-    let globalExtents;
-    if (typeof aggregated !== 'undefined') {
-      const datasets = {
-        0: data
+    // get global extents, if not specified
+    let globalExtents = chartOptions.globalExtents; 
+    if (typeof globalExtents === 'undefined') {
+      if (typeof aggregated !== 'undefined') {
+        const datasets = {
+          0: data
+        }
+        options = {
+          xVariable: predictColumn,
+          yVariable: yColumn,
+          combined: undefined
+        }
+        globalExtents = getGlobalExtents(datasets, options);
+      } else {
+        options = {
+          algos,
+          combined: true
+        }
+        globalExtents = getGlobalExtents(data, options);
       }
-      options = {
-        xVariable: predictColumn,
-        yVariable: yColumn,
-        combined: undefined
-      }
-      globalExtents = getGlobalExtents(datasets, options);
-    } else {
-      options = {
-        algos,
-        combined: true
-      }
-      globalExtents = getGlobalExtents(data, options);
     }
-    
     console.log('globalExtents', globalExtents);
 
     // residuals vs prediction scatterplot
