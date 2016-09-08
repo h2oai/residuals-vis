@@ -1,6 +1,7 @@
 export function parseData(inputData, options) {
   const numericColumns = options.numericColumns;
   const idColumn = options.idColumn;
+  const idPrefix = options.idPrefix || '';
 
   // parse strings to numbers for numeric columns
   const data = [];
@@ -11,7 +12,7 @@ export function parseData(inputData, options) {
     })
     // if there is no idColumn, assign the index as an id
     if (typeof idColumn === 'undefined') {
-      data[i].id = i;
+      data[i].id = `${idPrefix}${i}`;
     }
   });
   console.log('data after parsing strings to numbers', data)

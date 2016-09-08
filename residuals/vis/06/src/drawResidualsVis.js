@@ -16,8 +16,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanConfig;
-  // const cfg = rossmanAggregatedConfig;
+  // const cfg = rossmanConfig;
+  const cfg = rossmanAggregatedConfig;
   // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
@@ -51,10 +51,10 @@ export function drawResidualsVis(width) {
   if (typeof aggregated !== 'undefined') {
     // dataFile = `${path}/${algo}-residuals${fileSuffix}.csv`;
     // hard code the algo names for now
-    dlDataFile = `${path}/dl-residuals${fileSuffix}.csv`;
-    drfDataFile = `${path}/drf-residuals${fileSuffix}.csv`;
-    gbmDataFile = `${path}/gbm-residuals${fileSuffix}.csv`;
-    glmDataFile = `${path}/glm-residuals${fileSuffix}.csv`;
+    const dlDataFile = `${path}/dl-residuals${fileSuffix}.csv`;
+    const drfDataFile = `${path}/drf-residuals${fileSuffix}.csv`;
+    const gbmDataFile = `${path}/gbm-residuals${fileSuffix}.csv`;
+    const glmDataFile = `${path}/glm-residuals${fileSuffix}.csv`;
 
     // TODO figure out how to have a dynamic number of defers
     d3_queue.queue()
@@ -77,24 +77,24 @@ export function drawResidualsVis(width) {
     let data;
     let datasets;
     if (typeof aggregated === 'undefined') {
-      // // parse strings to numbers for numeric columns
-      // data = [];
-      // inputData.forEach((d, i) => {
-      //   data.push(d);
-      //   numericColumns.forEach(e => {
-      //     data[i][e] = Number(d[e]);
-      //   })
-      //   if (typeof idColumn === 'undefined') {
-      //     data[i].id = i;
-      //   }
-      // });
-      // console.log('data after parsing strings to numbers', data);
       options = {
         numericColumns,
         idColumn
       }
       data = parseData(inputData, options); 
     } else {
+      options = {
+        numericColumns,
+        idColumn
+      }
+      options.idPrefix = 'dl';
+      const dlData = parseData(inputData, options);
+      options.idPrefix = 'drf';
+      const drfData = parseData(inputData2, options);
+      options.idPrefix = 'gbm';
+      const gbmData = parseData(inputData3, options);
+      options.idPrefix = 'glm';
+      const glmData = parseData(inputData4, options);
 
       datasets = {
         'dl': dlData,
@@ -102,6 +102,9 @@ export function drawResidualsVis(width) {
         'gbm': gbmData,
         'glm': glmData
       }
+      console.log('datasets object', datasets);
+
+      data = datasets['dl'];
     }
 
 
