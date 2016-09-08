@@ -85,14 +85,23 @@ export function drawResidualsVis(width) {
     // get global extents
     let globalExtents;
     if (typeof aggregated !== 'undefined') {
-      globalExtents = undefined;
+      const datasets = {
+        0: data
+      }
+      options = {
+        xVariable: predictColumn,
+        yVariable: yColumn,
+        combined: undefined
+      }
+      globalExtents = getGlobalExtents(datasets, options);
     } else {
       options = {
         algos,
         combined: true
       }
-      const globalExtents = getGlobalExtents(data, options);
+      globalExtents = getGlobalExtents(data, options);
     }
+    
     console.log('globalExtents', globalExtents);
 
     // residuals vs prediction scatterplot

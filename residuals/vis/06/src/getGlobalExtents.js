@@ -33,8 +33,8 @@ export function getGlobalExtents(data, options) {
 
     const xVariable = options.xVariable;
     const yVariable = options.yVariable;
-    Object.keys(datasets).forEach((key) => {
-      const currentDataset = datasets[key];
+    Object.keys(data).forEach((key) => {
+      const currentDataset = data[key];
       [xVariable, yVariable].forEach((variable, i) => {
         const currentExtent = d3.extent(currentDataset, d => Number(d[variable]));
         // update global min
