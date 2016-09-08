@@ -16,8 +16,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  // const cfg = rossmanConfig;
-  const cfg = rossmanAggregatedConfig;
+  const cfg = rossmanConfig;
+  // const cfg = rossmanAggregatedConfig;
   // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
@@ -210,7 +210,11 @@ export function drawResidualsVis(width) {
     }
     dropdown('.nav', data, dropdownOptions);
 
+    //
     // setup transition event listeners
+    //
+
+    // options common to all algos
     options = {
       margin,
       width,
@@ -225,71 +229,34 @@ export function drawResidualsVis(width) {
       marks,
       chartOptions,
       idVariable: idColumn,
-      xVariable: 'dlPredict',
-      yVariable: 'dlResidual',
-      currentAlgo: 'dl',
-      currentAlgoLabel: 'Deep Learning'
     }
+
+    // deep learning button
+    options.xVariable = 'dlPredict';
+    options.yVariable = 'dlResidual';
+    options.currentAlgo = 'dl';
+    options.currentAlgoLabel = 'Deep Learning';
     setModelTransition('#dlButton', data, options);
-    options = {
-      margin,
-      width,
-      responseColumn,
-      tooltipColumns,
-      categoricalColumns,
-      projectTitle,
-      projectLink,
-      dataText,
-      algos,
-      globalExtents,
-      marks,
-      chartOptions,
-      idVariable: idColumn,
-      xVariable: 'drfPredict',
-      yVariable: 'drfResidual',
-      currentAlgo: 'drf',
-      currentAlgoLabel: 'Distributed Random Forest'
-    }
+
+    // distributed random forest button
+    options.xVariable = 'drfPredict';
+    options.yVariable = 'drfResidual';
+    options.currentAlgo = 'drf';
+    options.currentAlgoLabel = 'Distributed Random Forest';
     setModelTransition('#drfButton', data, options);
-    options = {
-      margin,
-      width,
-      responseColumn,
-      tooltipColumns,
-      categoricalColumns,
-      projectTitle,
-      projectLink,
-      dataText,
-      algos,
-      globalExtents,
-      marks,
-      chartOptions,
-      idVariable: idColumn,
-      xVariable: 'gbmPredict',
-      yVariable: 'gbmResidual',
-      currentAlgo: 'gbm',
-      currentAlgoLabel: 'Gradient Boosting Method'
-    }
+
+    // gradient boosting method button
+    options.xVariable = 'gbmPredict';
+    options.yVariable = 'gbmResidual';
+    options.currentAlgo = 'gbm';
+    options.currentAlgoLabel = 'Gradient Boosting Method';
     setModelTransition('#gbmButton', data, options);
-    options = {
-      margin,
-      width,
-      responseColumn,
-      tooltipColumns,
-      categoricalColumns,
-      projectTitle,
-      projectLink,
-      dataText,
-      algos,
-      globalExtents,
-      marks,
-      chartOptions,
-      idVariable: idColumn,
-      xVariable: 'glmPredict',
-      yVariable: 'glmResidual',
-      currentAlgo: 'glm',
-      currentAlgoLabel: 'Generalized Linear Model',
-    }
+
+    // generalized linear model button
+    options.xVariable = 'glmPredict';
+    options.yVariable = 'glmResidual';
+    options.currentAlgo = 'glm';
+    options.currentAlgoLabel = 'Generalized Linear Model';
     setModelTransition('#glmButton', data, options);
   }
 }
