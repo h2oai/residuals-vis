@@ -4,6 +4,7 @@ import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
+import { parseData } from './parseData';
 import { rossmanConfig } from './config/rossman';
 import { rossmanAggregatedConfig } from './config/rossmanAggregated';
 import { walmartTripTypeConfig } from './config/walmartTripType';
@@ -15,7 +16,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanAggregatedConfig;
+  const cfg = rossmanConfig;
+  // const cfg = rossmanAggregatedConfig;
   // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
@@ -47,29 +49,61 @@ export function drawResidualsVis(width) {
 
   let dataFile;
   if (typeof aggregated !== 'undefined') {
-    dataFile = `${path}/${algo}-residuals${fileSuffix}.csv`;
+    // dataFile = `${path}/${algo}-residuals${fileSuffix}.csv`;
+    // hard code the algo names for now
+    dlDataFile = `${path}/dl-residuals${fileSuffix}.csv`;
+    drfDataFile = `${path}/drf-residuals${fileSuffix}.csv`;
+    gbmDataFile = `${path}/gbm-residuals${fileSuffix}.csv`;
+    glmDataFile = `${path}/glm-residuals${fileSuffix}.csv`;
+
+    // TODO figure out how to have a dynamic number of defers
+    d3_queue.queue()
+      .defer(d3.csv, dlDataFile)
+      .defer(d3.csv, drfDataFile)
+      .defer(d3.csv, gbmDataFile)
+      .defer(d3.csv, glmDataFile)
+      .await(drawVisFromData);
   } else {
     dataFile = `${path}/residuals${fileSuffix}.csv`;
-  }
- 
- // wait for data to load before attempting to draw
-  d3_queue.queue()
-    .defer(d3.csv, dataFile)
-    .await(drawVisFromData);
 
-  function drawVisFromData(error, inputData) {
-    // parse strings to numbers for numeric columns
-    const data = [];
-    inputData.forEach((d, i) => {
-      data.push(d);
-      numericColumns.forEach(e => {
-        data[i][e] = Number(d[e]);
-      })
-      if (typeof idColumn === 'undefined') {
-        data[i].id = i;
+    // wait for data to load before attempting to draw
+    d3_queue.queue()
+      .defer(d3.csv, dataFile)
+      .await(drawVisFromData);
+  }
+
+  // TODO figure out how to accept a dynamic number of input parameters
+  function drawVisFromData(error, inputData, inputData2, inputData3, inputData4) {
+    let data;
+    let datasets;
+    if (typeof aggregated === 'undefined') {
+      // // parse strings to numbers for numeric columns
+      // data = [];
+      // inputData.forEach((d, i) => {
+      //   data.push(d);
+      //   numericColumns.forEach(e => {
+      //     data[i][e] = Number(d[e]);
+      //   })
+      //   if (typeof idColumn === 'undefined') {
+      //     data[i].id = i;
+      //   }
+      // });
+      // console.log('data after parsing strings to numbers', data);
+      options = {
+        numericColumns,
+        idColumn
       }
-    });
-    console.log('data after parsing strings to numbers', data);
+      data = parseData(inputData, options); 
+    } else {
+
+      datasets = {
+        'dl': dlData,
+        'drf': drfData,
+        'gbm': gbmData,
+        'glm': glmData
+      }
+    }
+
 
     // draw the title text
     let options;

@@ -2,7 +2,7 @@ export const rossmanAggregatedConfig = {
   projectTitle: 'Rossman Store Sales',
   projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
   dataText: 'a 20,000 row subset of the data',
-  algos: ['dl'],
+  algos: [ 'dl', 'drf', 'gbm', 'glm'],
   currentAlgo: 'dl',
   currentAlgoLabel: 'Deep Learning',
   project: 'rossman-store-sales',
