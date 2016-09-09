@@ -140,11 +140,14 @@ DONE + abstract out scatterplot component
 DONE + create exemplar datasets with higher radius_scale, fewer rows
 DONE + use original colors for points
 DONE + use gray for color of exit selection
+DONE + setModelTransitionAggregated for independent variable scatterplots
+DONE   so that they transition on model change as well
 + test update pattern transitions with multiple scatterplots 
-+ setModelTransitionAggregated for independent variable scatterplots
-  so that they transition on model change as well
+
 + test update pattern transitions with boxplots
++ handle interrupted scatterplot transitions nicely
 + improve scatterplot transitions
+
 
 
 ### multiple datsets features

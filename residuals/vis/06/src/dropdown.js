@@ -55,22 +55,4 @@ export function dropdown(selector, inputData, options) {
     };
     updateMarksStyles(inputData, updateMarksStylesOptions);
   })
-
-  let marksFiltered = undefined;
-  function legendRectClick(d) {
-    console.log('legendRectClick was called');
-    if(typeof marksFiltered === 'undefined') {
-      d3.selectAll('.marks')
-        .filter(e => {
-          return e[currentLabel] !== d;
-        })
-        .style('fill-opacity', 0);
-      marksFiltered = true;
-    } else {
-      // reset the mark opacity 
-      d3.selectAll('.marks')
-        .style('fill-opacity', 0.3);
-      marksFiltered = undefined;
-    }
-  }
 }
