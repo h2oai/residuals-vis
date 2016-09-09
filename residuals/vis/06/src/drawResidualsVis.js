@@ -4,6 +4,7 @@ import { dropdown } from './dropdown';
 import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents'; 
 import { setModelTransition } from './setModelTransition';
+import { setModelTransitionAggregated } from './setModelTransitionAggregated';
 import { parseData } from './parseData';
 import { rossmanConfig } from './config/rossman';
 import { rossmanAggregatedConfig } from './config/rossmanAggregated';
@@ -16,8 +17,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanConfig;
-  // const cfg = rossmanAggregatedConfig;
+  // const cfg = rossmanConfig;
+  const cfg = rossmanAggregatedConfig;
   // const cfg = walmartTripTypeConfig;
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
@@ -142,7 +143,7 @@ export function drawResidualsVis(width) {
     }
     console.log('globalExtents', globalExtents);
 
-    // residuals vs prediction scatterplot
+    // residuals vs prediction plot
     options = {
       width,
       xVariable: predictColumn,
@@ -160,10 +161,11 @@ export function drawResidualsVis(width) {
       sortBoxplots,
       chartOptions
     }
+    let scatterplotUpdate;
     if (problemType === 'classification') {
       drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
     } else {
-      drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
+      scatterplotUpdate = drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
     }
     
 
@@ -200,7 +202,8 @@ export function drawResidualsVis(width) {
         sortBoxplots,
         chartOptions
       }
-      drawExplodingBoxplot('.boxplot-container', data, options);
+      // comment out for now
+      // drawExplodingBoxplot('.boxplot-container', data, options);
     })
 
 
@@ -231,32 +234,65 @@ export function drawResidualsVis(width) {
       idVariable: idColumn,
     }
 
-    // deep learning button
-    options.xVariable = 'dlPredict';
-    options.yVariable = 'dlResidual';
-    options.currentAlgo = 'dl';
-    options.currentAlgoLabel = 'Deep Learning';
-    setModelTransition('#dlButton', data, options);
+    if (typeof aggregated === 'undefined') {
+      // deep learning button
+      options.xVariable = 'dlPredict';
+      options.yVariable = 'dlResidual';
+      options.currentAlgo = 'dl';
+      options.currentAlgoLabel = 'Deep Learning';
+      setModelTransition('#dlButton', data, options);
 
-    // distributed random forest button
-    options.xVariable = 'drfPredict';
-    options.yVariable = 'drfResidual';
-    options.currentAlgo = 'drf';
-    options.currentAlgoLabel = 'Distributed Random Forest';
-    setModelTransition('#drfButton', data, options);
+      // distributed random forest button
+      options.xVariable = 'drfPredict';
+      options.yVariable = 'drfResidual';
+      options.currentAlgo = 'drf';
+      options.currentAlgoLabel = 'Distributed Random Forest';
+      setModelTransition('#drfButton', data, options);
 
-    // gradient boosting method button
-    options.xVariable = 'gbmPredict';
-    options.yVariable = 'gbmResidual';
-    options.currentAlgo = 'gbm';
-    options.currentAlgoLabel = 'Gradient Boosting Method';
-    setModelTransition('#gbmButton', data, options);
+      // gradient boosting method button
+      options.xVariable = 'gbmPredict';
+      options.yVariable = 'gbmResidual';
+      options.currentAlgo = 'gbm';
+      options.currentAlgoLabel = 'Gradient Boosting Method';
+      setModelTransition('#gbmButton', data, options);
 
-    // generalized linear model button
-    options.xVariable = 'glmPredict';
-    options.yVariable = 'glmResidual';
-    options.currentAlgo = 'glm';
-    options.currentAlgoLabel = 'Generalized Linear Model';
-    setModelTransition('#glmButton', data, options);
+      // generalized linear model button
+      options.xVariable = 'glmPredict';
+      options.yVariable = 'glmResidual';
+      options.currentAlgo = 'glm';
+      options.currentAlgoLabel = 'Generalized Linear Model';
+      setModelTransition('#glmButton', data, options);
+    } else {
+      options.scatterplotUpdate = scatterplotUpdate;
+
+      // deep learning button
+      options.xVariable = 'dlPredict';
+      options.yVariable = 'dlResidual';
+      options.currentAlgo = 'dl';
+      options.currentAlgoLabel = 'Deep Learning';
+      setModelTransitionAggregated('#dlButton', datasets['dl'], options);
+
+      // distributed random forest button
+      options.xVariable = 'drfPredict';
+      options.yVariable = 'drfResidual';
+      options.currentAlgo = 'drf';
+      options.currentAlgoLabel = 'Distributed Random Forest';
+      setModelTransitionAggregated('#drfButton', datasets['drf'], options);
+
+      // gradient boosting method button
+      options.xVariable = 'gbmPredict';
+      options.yVariable = 'gbmResidual';
+      options.currentAlgo = 'gbm';
+      options.currentAlgoLabel = 'Gradient Boosting Method';
+      setModelTransitionAggregated('#gbmButton', datasets['gbm'], options);
+
+      // generalized linear model button
+      options.xVariable = 'glmPredict';
+      options.yVariable = 'glmResidual';
+      options.currentAlgo = 'glm';
+      options.currentAlgoLabel = 'Generalized Linear Model';
+      setModelTransitionAggregated('#glmButton', datasets['glm'], options);
+    }
+
   }
 }

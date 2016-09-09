@@ -727,9 +727,9 @@
         return 'voronoi ' + d.datum[idVariable];
       }
       return 'voronoi';
-    }).style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-    // .style('stroke', 'none')
-    .style('fill', 'none').style('pointer-events', 'all')
+    })
+    // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+    .style('stroke', 'none').style('fill', 'none').style('pointer-events', 'all')
     // .on('mouseover', tip.show)
     // .on('mouseout', tip.hide);
     .on('mouseover', function (d, i, nodes) {
@@ -1037,7 +1037,7 @@
       // .append('title')
       //   .text(d => `${d[idVariable]} ${d[xLabelDetail]}`);
 
-      exitSelection.style('fill', 'red').transition().delay(4000).remove();
+      exitSelection.style('fill', 'red').transition().delay(2000).duration(2000).style('fill-opacity', 0).remove();
 
       var mergedSelection = updateSelection.merge(enterSelection);
       // console.log('mergedSelection', mergedSelection);

@@ -63,6 +63,8 @@ export function setModelTransition(selector, data, options) {
     .on('click', click);
 
   function click() {
+    // if the button clicked is already selected
+    // don't show a transition
     const wrapperId = d3.select('g.dependent').attr('id');
     if (wrapperId === currentAlgo) { return; };
 
