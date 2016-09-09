@@ -59,7 +59,9 @@ export function drawResidualsVis(width) {
     const glmDataFile = `${path}/glm-residuals${fileSuffix}.csv`;
 
     // TODO figure out how to have a dynamic number of defers
-    d3_queue.queue()
+    const q = d3_queue.queue();
+
+    q
       .defer(d3.csv, dlDataFile)
       .defer(d3.csv, drfDataFile)
       .defer(d3.csv, gbmDataFile)
@@ -74,8 +76,6 @@ export function drawResidualsVis(width) {
       .await(drawVisFromData);
   }
 
-  // TODO figure out how to accept a dynamic number of input parameters
-  // function drawVisFromData(error, inputData, inputData2, inputData3, inputData4) {
   function drawVisFromData(error, ...args) {
     console.log('args', args);
     let data;
