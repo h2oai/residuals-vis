@@ -4,13 +4,15 @@ import * as d3 from 'd3';
 export function setModelTransitionAggregated(selector, data, options) {
   const currentAlgo = options.currentAlgo;
   const xVariable = options.xVariable;
+  const predictVariable = options.predictVariable;
   const responseVariable = options.responseColumn;
+  const xVariables = options.xVariables;
   const tooltipVariables = options.tooltipColumns;
   const currentAlgoLabel = options.currentAlgoLabel;
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
   const dataText = options.dataText;
-  const scatterplotUpdate = options.scatterplotUpdate;
+  const scatterplotUpdateFunctions = options.scatterplotUpdateFunctions;
   const categoricalColumns = options.categoricalColumns;
 
   d3.select(selector)
@@ -40,7 +42,13 @@ export function setModelTransitionAggregated(selector, data, options) {
       marksDelay,
       groupByVariable: currentLabel
     }
-    scatterplotUpdate(data, scatterplotUpdateOptions);
+    scatterplotUpdateFunctions[predictVariable](data, scatterplotUpdateOptions);
+
+    // transition marks for independent variable scatterplots
+    xVariables.forEach(x => {
+      // console.log('x from setModelTransitionAggregated', x);
+      scatterplotUpdateFunctions[x](data, scatterplotUpdateOptions);
+    })
 
     // transition x-axis label
     d3.select('g.dependent').select('text.x.title')

@@ -121,26 +121,33 @@ export function drawResidualsVis(width) {
     drawTitle('p#subTitle', options);
 
     // calcuate global extents, if not specified
-    let globalExtents = chartOptions.globalExtents; 
-    if (typeof globalExtents === 'undefined') {
-      if (typeof aggregated !== 'undefined') {
-        const datasets = {
-          0: data
+    let globalExtents = {};
+
+    // if a global extent is specified
+    // use it for the predictColumn
+    globalExtents[predictColumn] = chartOptions.globalExtents;
+
+    const scatterplotXVariables = xColumns.concat([predictColumn]);
+    console.log('scatterplotXVariables', scatterplotXVariables);
+
+    scatterplotXVariables.forEach(d => {
+      if (typeof globalExtents[d] === 'undefined') {
+        if (typeof aggregated !== 'undefined') {
+          options = {
+            xVariable: d,
+            yVariable: yColumn,
+            combined: undefined
+          }
+          globalExtents[d] = getGlobalExtents(datasets, options);
+        } else {
+          options = {
+            algos,
+            combined: true
+          }
+          globalExtents[d] = getGlobalExtents(data, options);
         }
-        options = {
-          xVariable: predictColumn,
-          yVariable: yColumn,
-          combined: undefined
-        }
-        globalExtents = getGlobalExtents(datasets, options);
-      } else {
-        options = {
-          algos,
-          combined: true
-        }
-        globalExtents = getGlobalExtents(data, options);
       }
-    }
+    })
     console.log('globalExtents', globalExtents);
 
     // residuals vs prediction plot
@@ -155,17 +162,17 @@ export function drawResidualsVis(width) {
       wrapperId: currentAlgo,
       wrapperLabel: currentAlgoLabel,
       dependent: true,
-      globalExtents,
+      globalExtents: globalExtents[predictColumn],
       marks,
       categoricalColumns,
       sortBoxplots,
       chartOptions
     }
-    let scatterplotUpdate;
+    const scatterplotUpdateFunctions = {};
     if (problemType === 'classification') {
       drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
     } else {
-      scatterplotUpdate = drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
+      scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
     }
     
 
@@ -180,11 +187,11 @@ export function drawResidualsVis(width) {
         numericColumns,
         wrapperId: currentAlgo,
         wrapperLabel: currentAlgoLabel,
-        globalExtents: undefined,
+        globalExtents: globalExtents[x],
         marks
       }
       // comment out for now
-      // drawVoronoiScatterplot('.scatterplot-container', data, options);
+      scatterplotUpdateFunctions[x] = drawVoronoiScatterplot('.scatterplot-container', data, options);
     })
 
     // draw exploding boxplots for categorical independent variables
@@ -263,32 +270,28 @@ export function drawResidualsVis(width) {
       options.currentAlgoLabel = 'Generalized Linear Model';
       setModelTransition('#glmButton', data, options);
     } else {
-      options.scatterplotUpdate = scatterplotUpdate;
+      options.scatterplotUpdateFunctions = scatterplotUpdateFunctions;
+      options.predictVariable = predictColumn;
+      options.xVariables = xColumns;
+      options.xVariable = predictColumn;
+      options.yVariable = yColumn;
 
       // deep learning button
-      options.xVariable = 'dlPredict';
-      options.yVariable = 'dlResidual';
       options.currentAlgo = 'dl';
       options.currentAlgoLabel = 'Deep Learning';
       setModelTransitionAggregated('#dlButton', datasets['dl'], options);
 
       // distributed random forest button
-      options.xVariable = 'drfPredict';
-      options.yVariable = 'drfResidual';
       options.currentAlgo = 'drf';
       options.currentAlgoLabel = 'Distributed Random Forest';
       setModelTransitionAggregated('#drfButton', datasets['drf'], options);
 
       // gradient boosting method button
-      options.xVariable = 'gbmPredict';
-      options.yVariable = 'gbmResidual';
       options.currentAlgo = 'gbm';
       options.currentAlgoLabel = 'Gradient Boosting Method';
       setModelTransitionAggregated('#gbmButton', datasets['gbm'], options);
 
       // generalized linear model button
-      options.xVariable = 'glmPredict';
-      options.yVariable = 'glmResidual';
       options.currentAlgo = 'glm';
       options.currentAlgoLabel = 'Generalized Linear Model';
       setModelTransitionAggregated('#glmButton', datasets['glm'], options);
