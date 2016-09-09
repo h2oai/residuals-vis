@@ -51,22 +51,21 @@ export function drawResidualsVis(width) {
 
   let dataFile;
   if (typeof aggregated !== 'undefined') {
-    // dataFile = `${path}/${algo}-residuals${fileSuffix}.csv`;
-    // hard code the algo names for now
-    const dlDataFile = `${path}/dl-residuals${fileSuffix}.csv`;
-    const drfDataFile = `${path}/drf-residuals${fileSuffix}.csv`;
-    const gbmDataFile = `${path}/gbm-residuals${fileSuffix}.csv`;
-    const glmDataFile = `${path}/glm-residuals${fileSuffix}.csv`;
+    const dataFiles = {};
+    // construct file names for each model
+    models.forEach(model => {
+      dataFiles[model] = `${path}/${model}-residuals${fileSuffix}.csv`;
+    })
 
-    // TODO figure out how to have a dynamic number of defers
     const q = d3_queue.queue();
 
-    q
-      .defer(d3.csv, dlDataFile)
-      .defer(d3.csv, drfDataFile)
-      .defer(d3.csv, gbmDataFile)
-      .defer(d3.csv, glmDataFile)
-      .await(drawVisFromData);
+    // add data for each model to the queue
+    models.forEach(model => {
+      q.defer(d3.csv, dataFiles[model]);
+    })
+
+    // when all data has loaded, call `drawVisFromData()`
+    q.await(drawVisFromData);
   } else {
     dataFile = `${path}/residuals${fileSuffix}.csv`;
 
