@@ -5,6 +5,9 @@ ssh ops@172.16.2.148
 ssh ops@mr-0xc1
 ssh ops@172.16.2.141
 
+# copy a directory from local machine to server
+scp -r aggregator-h2o ops@mr-0xc1:/home/ops/
+
 cd h2o-3.9.1.3469/
 
 # start server in background and keep alive

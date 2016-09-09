@@ -23,6 +23,7 @@ export function drawResidualsVis(width) {
   const projectTitle = cfg.projectTitle;
   const projectLink = cfg.projectLink;
   const algos = cfg.algos;
+  const models = cfg.models;
   const currentAlgo = cfg.currentAlgo;
   const currentAlgoLabel = cfg.currentAlgoLabel;
   const predictColumn = cfg.predictColumn;
@@ -74,9 +75,11 @@ export function drawResidualsVis(width) {
   }
 
   // TODO figure out how to accept a dynamic number of input parameters
-  function drawVisFromData(error, inputData, inputData2, inputData3, inputData4) {
+  // function drawVisFromData(error, inputData, inputData2, inputData3, inputData4) {
+  function drawVisFromData(error, ...args) {
+    console.log('args', args);
     let data;
-    let datasets;
+    let datasets = {};
     if (typeof aggregated === 'undefined') {
       options = {
         numericColumns,
@@ -88,24 +91,18 @@ export function drawResidualsVis(width) {
         numericColumns,
         idColumn
       }
-      options.idPrefix = 'dl';
-      const dlData = parseData(inputData, options);
-      options.idPrefix = 'drf';
-      const drfData = parseData(inputData2, options);
-      options.idPrefix = 'gbm';
-      const gbmData = parseData(inputData3, options);
-      options.idPrefix = 'glm';
-      const glmData = parseData(inputData4, options);
 
-      datasets = {
-        'dl': dlData,
-        'drf': drfData,
-        'gbm': gbmData,
-        'glm': glmData
-      }
+      models.forEach((model, i) => {
+        options.idPrefix = model;
+        const currentData = args[i];
+        const parsedData = parseData(currentData, options)
+        datasets[model] = parsedData;
+      })
+
       console.log('datasets object', datasets);
 
-      data = datasets['dl'];
+      // set a default value for `data`
+      data = datasets[models[0]];
     }
 
 
