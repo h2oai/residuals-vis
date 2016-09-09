@@ -1015,7 +1015,7 @@
 
       enterSelection.attr('class', function (d) {
         return 'marks id' + d[idVariable];
-      }).style('fill-opacity', opacityCircles).style('fill', function (d) {
+      }).style('fill-opacity', 0).style('fill', function (d) {
         if (typeof groupByVariable !== 'undefined') {
           return color(d[groupByVariable]);
         }
@@ -1033,11 +1033,11 @@
           return rScale(d[rVariable]);
         }
         return marksRadius;
-      });
+      }).transition().delay(1000).duration(2000).style('fill-opacity', opacityCircles);
       // .append('title')
       //   .text(d => `${d[idVariable]} ${d[xLabelDetail]}`);
 
-      exitSelection.style('fill', 'red').transition().delay(2000).duration(2000).style('fill-opacity', 0).remove();
+      exitSelection.transition().delay(1000).duration(0).style('fill', 'red').transition().delay(2000).duration(2000).style('fill-opacity', 0).remove();
 
       var mergedSelection = updateSelection.merge(enterSelection);
       // console.log('mergedSelection', mergedSelection);
