@@ -11,6 +11,7 @@ export function setModelTransitionAggregated(selector, data, options) {
   const projectLink = options.projectLink;
   const dataText = options.dataText;
   const scatterplotUpdate = options.scatterplotUpdate;
+  const categoricalColumns = options.categoricalColumns;
 
   d3.select(selector)
     .on('click', click);
@@ -33,7 +34,13 @@ export function setModelTransitionAggregated(selector, data, options) {
 
     // transition marks from the dependent variable plot g
     // TODO handle case where this plot is a boxplot
-    scatterplotUpdate(data);
+    const index = Number(d3.select('#dropdown').property('value'));
+    const currentLabel = categoricalColumns[index];
+    const scatterplotUpdateOptions = {
+      marksDelay,
+      groupByVariable: currentLabel
+    }
+    scatterplotUpdate(data, scatterplotUpdateOptions);
 
     // transition x-axis label
     d3.select('g.dependent').select('text.x.title')

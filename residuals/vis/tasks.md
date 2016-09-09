@@ -134,9 +134,15 @@ DONE + show one series of points, sorted
 
 ### Aggregator features
 DONE + add static exemplar dataset from h2o-3 Aggregator for Rossman
-+ use aggregator to show many points
-+ add update function to scatterplot
-+ abstract out scatterplot component
+DONE + use aggregator to show many points
+DONE + add update function to scatterplot
+DONE + abstract out scatterplot component
+DONE + create exemplar datasets with higher radius_scale, fewer rows
+DONE + use original colors for points
+DONE + use gray for color of exit selection
++ test update pattern transitions with multiple scatterplots
++ test update pattern transitions with boxplots
++ improve scatterplot transitions
 
 
 ### multiple datsets features

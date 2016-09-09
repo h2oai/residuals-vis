@@ -6,7 +6,7 @@ export const rossmanAggregatedConfig = {
   currentAlgo: 'dl',
   currentAlgoLabel: 'Deep Learning',
   project: 'rossman-store-sales',
-  fileSuffix: '-aggregated-0-075',
+  fileSuffix: '-aggregated-0-125',
   aggregated: true,
   predictColumn: 'predict',
   responseColumn: 'Sales',
