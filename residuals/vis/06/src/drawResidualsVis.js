@@ -52,6 +52,7 @@ export function drawResidualsVis(width) {
   let dataFile;
   if (typeof aggregated !== 'undefined') {
     const dataFiles = {};
+    
     // construct file names for each model
     models.forEach(model => {
       dataFiles[model] = `${path}/${model}-residuals${fileSuffix}.csv`;
