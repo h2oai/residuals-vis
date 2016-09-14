@@ -143,7 +143,8 @@ DONE + use gray for color of exit selection
 DONE + setModelTransitionAggregated for independent variable scatterplots
 DONE   so that they transition on model change as well
 DONE + figure out how to accept a dynamic number of input parameters
-+ test update pattern transitions with multiple scatterplots 
+DONE + test update pattern transitions with multiple scatterplots
+
 + persist filtered state after scatterplot update
 + test update pattern transitions with boxplots
 + handle interrupted scatterplot transitions nicely

@@ -6,6 +6,9 @@ import { getGlobalExtents } from './getGlobalExtents';
 import { setModelTransition } from './setModelTransition';
 import { setModelTransitionAggregated } from './setModelTransitionAggregated';
 import { parseData } from './parseData';
+import { parseResponse } from './parseResponse';
+import { getResidualsDataFromh2o3 } from './getResidualsDataFromh2o3';
+
 import { rossmanConfig } from './config/rossman';
 import { rossmanAggregatedConfig } from './config/rossmanAggregated';
 import { walmartTripTypeConfig } from './config/walmartTripType';
@@ -48,25 +51,65 @@ export function drawResidualsVis(width) {
   const algo = algos[0];
 
   const path = `src/data/${project}`;
+  const q = d3_queue.queue();
 
   let dataFile;
   if (typeof aggregated !== 'undefined') {
     const dataFiles = {};
-    
+
+    //
+    // make API calls to h2o-3 backend
+    //
+
+    // /3/Frames/
+    const server = 'http://172.16.2.141/:';
+    const port = '55555';
+    const frameIDs = {
+      'dl': 'aggregated_Key_Frame__dl_residuals.hex_by_aggregator-fcc6084e-0fab-46b5-b55d-1ac4b8ff5390',
+      'drf': 'aggregated_Key_Frame__drf_residuals.hex_by_aggregator-d1eb4a7c-af23-4227-a4c7-47bb4ac251c3',
+      'gbm': 'aggregated_Key_Frame__gbm_residuals.hex_by_aggregator-a3b7770a-e5ff-4010-a73a-05137effafdd',
+      'glm': 'aggregated_Key_Frame__glm_residuals.hex_by_aggregator-06a69797-ccf8-4d71-bc48-5dab239be01e',
+    }
+
+    const getResidualsDataFromh2o3Options = {
+      server,
+      port,
+      frameIDs
+    };
+
+    console.log('getResidualsDataFromh2o3', getResidualsDataFromh2o3);
+    console.log('getResidualsDataFromh2o3(getResidualsDataFromh2o3Options)', getResidualsDataFromh2o3(getResidualsDataFromh2o3Options));
+
+    // const inputDatasets = []; 
+    // const q0 = d3_queue.queue();
+    // models.forEach(model => {
+    //   q0.defer(getResidualsDataFromh2o3.call(this, getResidualsDataFromh2o3Options));
+    // })
+    // q0.await(drawVisFromData);
+
+    //
+    //
+    //
+
+    //
+    // get data from csv files on disk
+    //
+/*
     // construct file names for each model
     models.forEach(model => {
       dataFiles[model] = `${path}/${model}-residuals${fileSuffix}.csv`;
     })
 
     const q = d3_queue.queue();
-
     // add data for each model to the queue
     models.forEach(model => {
+      // q.defer(d3.request, requestURL);
       q.defer(d3.csv, dataFiles[model]);
     })
 
     // when all data has loaded, call `drawVisFromData()`
     q.await(drawVisFromData);
+*/
   } else {
     dataFile = `${path}/residuals${fileSuffix}.csv`;
 
@@ -75,7 +118,6 @@ export function drawResidualsVis(width) {
       .defer(d3.csv, dataFile)
       .await(drawVisFromData);
   }
-
   function drawVisFromData(error, ...args) {
     console.log('args', args);
     let data;
