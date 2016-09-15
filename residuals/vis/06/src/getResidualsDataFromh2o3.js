@@ -8,21 +8,19 @@ export function getResidualsDataFromh2o3(options) {
   const server = options.server;
   const port = options.port;
   const frameIDs = options.frameIDs;
-  const chartOptions = options.chartOptions;
 
   // get the number of rows in the aggregated residuals frame
-
   // ignore fields that are not the row count
   const getRowsFrameOptions = '?_exclude_fields=frames/__meta,frames/chunk_summary,frames/default_percentiles,frames/columns,frames/distribution_summary,__meta';
 
   // get the row counts for each aggregated residuals frame frameID
   const q0 = d3_queue.queue();
 
-  console.log('chartOptions from getResidualsDataFromh2o3', chartOptions);
+  // console.log('options from getResidualsDataFromh2o3', options);
 
   Object.keys(frameIDs).forEach(key => {
     const frameID = frameIDs[key];
-    const getRowsRequestURL = `${server}${port}/3/Frames/${frameID}/summary${getRowsFrameOptions}`;
+    const getRowsRequestURL = `${server}:${port}/3/Frames/${frameID}/summary${getRowsFrameOptions}`;
     console.log('getRowsRequestURL', getRowsRequestURL);
     q0.defer(d3.request, getRowsRequestURL);
   })
@@ -50,12 +48,10 @@ export function getResidualsDataFromh2o3(options) {
       const frameID = frame.frameID;
       // TODO: generalize the `column_count` parameter
       const frameOptions = `?column_offset=0&column_count=21&row_count=${rowCount}`;
-      const getDataRequestURL = `${server}${port}/3/Frames/${frameID}${frameOptions}`;
+      const getDataRequestURL = `${server}:${port}/3/Frames/${frameID}${frameOptions}`;
       console.log('getDataRequestURL', getDataRequestURL);
       q1.defer(d3.request, getDataRequestURL)
     })
-
-    console.log('chartOptions from getResidualsFrames', chartOptions);
 
     q1
       .awaitAll(logResponse);
@@ -72,7 +68,7 @@ export function getResidualsDataFromh2o3(options) {
         parsedResponses.push(parsedResponse);
         console.log('parsedResponse', parsedResponse);
       })
-      drawVisFromData(null, chartOptions, ...parsedResponses);
+      drawVisFromData(null, options, ...parsedResponses);
     }
   }
 }
