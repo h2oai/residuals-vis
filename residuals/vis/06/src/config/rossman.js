@@ -2,7 +2,7 @@ export const rossmanConfig = {
   projectTitle: 'Rossman Store Sales',
   projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
   dataText: 'a 20,000 row subset of the data',
-  algos: [ 'dl', 'drf', 'gbm', 'glm'],
+  models: [ 'dl', 'drf', 'gbm', 'glm'],
   currentAlgo: 'glm',
   currentAlgoLabel: 'Generalized Linear Model',
   project: 'rossman-store-sales',

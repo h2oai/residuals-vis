@@ -21,11 +21,10 @@ export function drawResidualsVis(width) {
   const chartOptions = cfg;
 
   const aggregated = cfg.aggregated;
-  const algos = cfg.algos;
   const models = cfg.models;
   const project = cfg.project;
   const fileSuffix = cfg.fileSuffix;
-  const algo = algos[0];
+
 
   const path = `src/data/${project}`;
   const q = d3_queue.queue();

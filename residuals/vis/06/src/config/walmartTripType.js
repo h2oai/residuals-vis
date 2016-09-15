@@ -3,7 +3,7 @@ export const walmartTripTypeConfig = {
   projectLink: 'https://www.kaggle.com/c/walmart-recruiting-trip-type-classification',
   problemType: 'classification',
   dataText: 'data',
-  algos: ['dl'], // , 'drf', 'gbm', 'glm'],
+  models: ['dl'], // , 'drf', 'gbm', 'glm'],
   currentAlgo: 'dl',
   currentAlgoLabel: 'Deep Learning',
 

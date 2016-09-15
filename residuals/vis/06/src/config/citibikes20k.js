@@ -1,5 +1,5 @@
 export const citibikes20kConfig = {
-  algos: ['gbm'],
+  models: ['gbm'],
   project: 'citibikes-20k',
   predictColumn: 'predict',
   responseColumn: 'Bikes',

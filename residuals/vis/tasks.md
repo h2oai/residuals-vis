@@ -104,10 +104,12 @@ DONE + show boxplot with no fill if skeleton: true configured
 DONE + show one series of points, sorted
 
 ---
+DONE + remove `algos` config in favor of `models`
 
 + set consistent ID for first chart 
   'chart'
   'predictBoxplot'
+
 
 
 ### classfication
