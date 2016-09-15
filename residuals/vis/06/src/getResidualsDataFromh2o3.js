@@ -1,4 +1,5 @@
 import { parseResponse } from './parseResponse';
+import { drawVisFromData } from './drawVisFromData';
 
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
@@ -7,6 +8,7 @@ export function getResidualsDataFromh2o3(options) {
   const server = options.server;
   const port = options.port;
   const frameIDs = options.frameIDs;
+  const chartOptions = options.chartOptions;
 
   // get the number of rows in the aggregated residuals frame
 
@@ -15,6 +17,9 @@ export function getResidualsDataFromh2o3(options) {
 
   // get the row counts for each aggregated residuals frame frameID
   const q0 = d3_queue.queue();
+
+  console.log('chartOptions from getResidualsDataFromh2o3', chartOptions);
+
   Object.keys(frameIDs).forEach(key => {
     const frameID = frameIDs[key];
     const getRowsRequestURL = `${server}${port}/3/Frames/${frameID}/summary${getRowsFrameOptions}`;
@@ -27,6 +32,7 @@ export function getResidualsDataFromh2o3(options) {
   // get the aggregated residuals data from h2o-3
   function getResidualsFrames(error, responses) {
     if (error) console.error(error);
+    console.log('arguments from getResidualsFrames', arguments);
 
     const parsedRowResponses = responses.map(d => JSON.parse(d.response));
     const frames = parsedRowResponses.map(d => ({
@@ -42,11 +48,14 @@ export function getResidualsDataFromh2o3(options) {
     frames.forEach(frame => {
       const rowCount = frame.rows;
       const frameID = frame.frameID;
+      // TODO: generalize the `column_count` parameter
       const frameOptions = `?column_offset=0&column_count=21&row_count=${rowCount}`;
       const getDataRequestURL = `${server}${port}/3/Frames/${frameID}${frameOptions}`;
       console.log('getDataRequestURL', getDataRequestURL);
       q1.defer(d3.request, getDataRequestURL)
     })
+
+    console.log('chartOptions from getResidualsFrames', chartOptions);
 
     q1
       .awaitAll(logResponse);
@@ -54,12 +63,16 @@ export function getResidualsDataFromh2o3(options) {
     function logResponse(error, responses) {
       if (error) console.error(error);
       console.log('logResponse was called');
+      console.log('arguments from logResponse', arguments);
+
+      const parsedResponses = [];
       responses.forEach(response => {
         console.log('response', response);
         const parsedResponse = parseResponse(response);
+        parsedResponses.push(parsedResponse);
         console.log('parsedResponse', parsedResponse);
       })
-      return responses;
+      drawVisFromData(null, chartOptions, ...parsedResponses);
     }
   }
 }

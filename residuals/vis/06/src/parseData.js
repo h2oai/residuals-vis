@@ -2,6 +2,7 @@ export function parseData(inputData, options) {
   const numericColumns = options.numericColumns;
   const idColumn = options.idColumn;
   const idPrefix = options.idPrefix || '';
+  console.log('idPrefix from parseData', idPrefix);
 
   // parse strings to numbers for numeric columns
   const data = [];
