@@ -62,8 +62,10 @@ export function drawResidualsVis(width) {
     //
 
     // /3/Frames/
-    const server = 'http://172.16.2.141/:';
+    const server = 'http://172.16.2.141:';
     const port = '55555';
+
+    // local frameIDs
     const frameIDs = {
       'dl': 'aggregated_Key_Frame__dl_residuals.hex_by_aggregator-fcc6084e-0fab-46b5-b55d-1ac4b8ff5390',
       'drf': 'aggregated_Key_Frame__drf_residuals.hex_by_aggregator-d1eb4a7c-af23-4227-a4c7-47bb4ac251c3',
@@ -71,14 +73,28 @@ export function drawResidualsVis(width) {
       'glm': 'aggregated_Key_Frame__glm_residuals.hex_by_aggregator-06a69797-ccf8-4d71-bc48-5dab239be01e',
     }
 
+    // server frameIDs
+    // const frameIDs = {
+    //   'dl': '',
+    //   'drf': '',
+    //   'gbm': '',
+    //   'glm': '',
+    // }
+
     const getResidualsDataFromh2o3Options = {
       server,
       port,
       frameIDs
     };
 
-    console.log('getResidualsDataFromh2o3', getResidualsDataFromh2o3);
-    console.log('getResidualsDataFromh2o3(getResidualsDataFromh2o3Options)', getResidualsDataFromh2o3(getResidualsDataFromh2o3Options));
+
+    // make the API calls and log out the responses
+    getResidualsDataFromh2o3(getResidualsDataFromh2o3Options);
+
+    // console.log('getResidualsDataFromh2o3', getResidualsDataFromh2o3);
+    // console.log('getResidualsDataFromh2o3(getResidualsDataFromh2o3Options)', getResidualsDataFromh2o3(getResidualsDataFromh2o3Options));
+
+
 
     // const inputDatasets = []; 
     // const q0 = d3_queue.queue();

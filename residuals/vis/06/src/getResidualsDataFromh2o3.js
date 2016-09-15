@@ -11,7 +11,7 @@ export function getResidualsDataFromh2o3(options) {
   // get the number of rows in the aggregated residuals frame
 
   // ignore fields that are not the row count
-  const getRowsFrameOptions = '?_exclude_fields=frames/__meta,frames/chunk_summary,frames/default_percentiles,frames/columns,frames/distribution_summary,frames/frame_id,__meta';
+  const getRowsFrameOptions = '?_exclude_fields=frames/__meta,frames/chunk_summary,frames/default_percentiles,frames/columns,frames/distribution_summary,__meta';
 
   // get the row counts for each aggregated residuals frame frameID
   const q0 = d3_queue.queue();
@@ -24,29 +24,24 @@ export function getResidualsDataFromh2o3(options) {
 
   q0.awaitAll(getResidualsFrames)
 
-  const getRowsRequestURL = `${server}${port}/3/Frames/${frameID}/summary${getRowsFrameOptions}`;
-  console.log('getRowsRequestURL', getRowsRequestURL);
-
-  // console.log('typeof d3.request', typeof d3.request);
-
-  //
-  //
-  //
-
   // get the aggregated residuals data from h2o-3
   function getResidualsFrames(error, responses) {
     if (error) console.error(error);
 
     const parsedRowResponses = responses.map(d => JSON.parse(d.response));
+    const frames = parsedRowResponses.map(d => ({
+      rows: d.frames[0].rows,
+      frameID: d.frames[0].frame_id.name
+    }))
     console.log('parsedRowRespones', parsedRowResponses);
-    const rowCounts = parsedRowResponses.map(d => d.frames[0].rows);
-    console.log('rowCounts', rowCounts);
-
+    console.log('frames from getResidualsFrames', frames);
 
     // can we trust the order?
     // how do we know which row count goes with which frameID?
     const q1 = d3_queue.queue();
-    rowCounts.forEach(rowCount => {
+    frames.forEach(frame => {
+      const rowCount = frame.rows;
+      const frameID = frame.frameID;
       const frameOptions = `?column_offset=0&column_count=21&row_count=${rowCount}`;
       const getDataRequestURL = `${server}${port}/3/Frames/${frameID}${frameOptions}`;
       console.log('getDataRequestURL', getDataRequestURL);
@@ -54,14 +49,17 @@ export function getResidualsDataFromh2o3(options) {
     })
 
     q1
-      .await(logResponse);
+      .awaitAll(logResponse);
     
-    function logResponse(error, response) {
+    function logResponse(error, responses) {
       if (error) console.error(error);
-      console.log('response', response);
-      const parsedResponse = parseResponse(response);
-      console.log('parsedResponse', parsedResponse);
-      return parsedResponse;
+      console.log('logResponse was called');
+      responses.forEach(response => {
+        console.log('response', response);
+        const parsedResponse = parseResponse(response);
+        console.log('parsedResponse', parsedResponse);
+      })
+      return responses;
     }
   }
 }
