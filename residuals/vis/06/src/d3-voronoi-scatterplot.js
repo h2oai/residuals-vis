@@ -700,7 +700,21 @@
 
     var limitedVoronoi = d3DistanceLimitedVoronoi().x(xAccessor).y(yAccessor).limit(50).extent([[0, 0], [width, height]]);
 
-    console.log('data[0]', data[0]);
+    // console.log('data[0]', data[0]);
+    console.log('data from drawVoronoiOverlay', data);
+
+    var xValues = data.map(function (d) {
+      return d[xVariable];
+    });
+    console.log('current xVariable', xVariable);
+    console.log('xValues', xValues);
+
+    var yValues = data.map(function (d) {
+      return d[yVariable];
+    });
+    console.log('current yVariable', yVariable);
+    console.log('yValues', yValues);
+
     var limitedVoronoiCells = limitedVoronoi(data);
 
     // remove any existing Voronoi overlay
@@ -727,9 +741,9 @@
         return 'voronoi id' + xVariable + yVariable + d.datum[idVariable];
       }
       return 'voronoi';
-    })
-    // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-    .style('stroke', 'none').style('fill', 'none').style('pointer-events', 'all')
+    }).style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+    // .style('stroke', 'none')
+    .style('fill', 'none').style('pointer-events', 'all')
     // .on('mouseover', tip.show)
     // .on('mouseout', tip.hide);
     .on('mouseover', function (d, i, nodes) {
@@ -840,8 +854,8 @@
         }
       } // for i
     } // if
-    console.log('options passed in to scatterplot', options);
-    console.log('cfg from scatterplot', cfg);
+    // console.log('options passed in to scatterplot', options);
+    // console.log('cfg from scatterplot', cfg);
 
     // map variables to our dataset
     var xVariable = cfg.xVariable;
@@ -992,9 +1006,9 @@
       // console.log('data from update function', data);
 
       // handle NaN values
-      data = data.filter(function (d) {
-        return !Number.isNaN(d[xVariable]) && !Number.isNaN(d[yVariable]);
-      });
+      // data = data.filter(d => {
+      //   return !Number.isNaN(d[xVariable]) && !Number.isNaN(d[yVariable]);
+      // });
 
       // an extra delay to allow large 
       // amounts of points time to render

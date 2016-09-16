@@ -47,7 +47,7 @@ export function getResidualsDataFromh2o3(options) {
       const rowCount = frame.rows;
       const frameID = frame.frameID;
       // TODO: generalize the `column_count` parameter
-      const frameOptions = `?column_offset=0&column_count=21&row_count=${rowCount}`;
+      const frameOptions = `?column_offset=0&column_count=373&row_count=${rowCount}`;
       const getDataRequestURL = `${server}:${port}/3/Frames/${frameID}${frameOptions}`;
       console.log('getDataRequestURL', getDataRequestURL);
       q1.defer(d3.request, getDataRequestURL)

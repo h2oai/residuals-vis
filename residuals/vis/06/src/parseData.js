@@ -8,9 +8,9 @@ export function parseData(inputData, options) {
   const data = [];
   inputData.forEach((d, i) => {
     data.push(d);
-    numericColumns.forEach(e => {
-      data[i][e] = Number(d[e]);
-    })
+    // numericColumns.forEach(e => {
+    //   data[i][e] = Number(d[e]);
+    // })
     // if there is no idColumn, assign the index as an id
     if (typeof idColumn === 'undefined') {
       data[i].id = `${idPrefix}${i}`;

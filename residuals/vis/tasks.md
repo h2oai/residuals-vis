@@ -109,7 +109,9 @@ DONE + remove `algos` config in favor of `models`
 + set consistent ID for first chart 
   'chart'
   'predictBoxplot'
-
++ the 10th plot has an issue with the voronoi overlay
+  - one edge is undefined
+  - renders fine when only two scatterplots on are the page
 
 
 ### classfication

@@ -11,8 +11,8 @@ export function parseResponse(response) {
       });
     }
   });
-  console.log('columnsData', columnsData);
-  console.log('points', points);
+  // console.log('columnsData', columnsData);
+  // console.log('points', points);
 
   points.forEach((d, i) => {
     d.id = i;
@@ -20,6 +20,6 @@ export function parseResponse(response) {
 
   const parsedData = points;
 
-  console.log('parsedData', parsedData);
+  // console.log('parsedData', parsedData);
   return parsedData;
 }

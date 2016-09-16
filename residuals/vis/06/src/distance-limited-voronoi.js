@@ -103,9 +103,9 @@ export function d3DistanceLimitedVoronoi() {
           // compute intersections between segment and maxDistance circle
           intersections = segmentCircleIntersections (p0, p1, seed, r);
           // complete the path (with lines or arc) depending on:
-            // intersection count (0, 1, or 2)
-            // if the segment is the first to start the path
-            // if the first point of the segment is inside or outside of the maxDistance circle
+          	// intersection count (0, 1, or 2)
+          	// if the segment is the first to start the path
+          	// if the first point of the segment is inside or outside of the maxDistance circle
           if (intersections.length===2) {
             if (p0TooFar) {
               if (pathNotYetStarted) {
@@ -116,7 +116,7 @@ export function d3DistanceLimitedVoronoi() {
                 // init path at 1st intersection
                 context.moveTo(intersections[0][0], intersections[0][1]);
               } else {
-                //draw arc until first intersection
+              	//draw arc until first intersection
                 startAngle = angle(seed, openingArcPoint);
                 endAngle = angle(seed, intersections[0]);
                 context.arc(seed[0], seed[1], r, startAngle, endAngle, 1);
@@ -139,7 +139,7 @@ export function d3DistanceLimitedVoronoi() {
                 context.moveTo(intersections[0][0], intersections[0][1]);
               } else {
                 // draw an arc until intersection
-                startAngle = angle(seed, openingArcPoint);
+              	startAngle = angle(seed, openingArcPoint);
                 endAngle = angle(seed, intersections[0]);
                 context.arc(seed[0], seed[1], r, startAngle, endAngle, 1);
               }
@@ -179,7 +179,7 @@ export function d3DistanceLimitedVoronoi() {
           // path is the maxDistance circle
           pathNotYetStarted = false;
           context.moveTo(seed[0] + r, seed[1]);
-          context.arc(seed[0], seed[1], r, 0, 2 * Math.PI, false);
+  				context.arc(seed[0], seed[1], r, 0, 2 * Math.PI, false);
         } else {
           // if final segment ends with an opened arc, close it
           if (firstPointTooFar) {
@@ -217,7 +217,7 @@ export function d3DistanceLimitedVoronoi() {
     /*
     from http://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
     */
-    var Ax = A[0], Ay = A[1],
+		var Ax = A[0], Ay = A[1],
         Bx = B[0], By = B[1],
         Cx = C[0], Cy = C[1];
 
@@ -247,7 +247,7 @@ export function d3DistanceLimitedVoronoi() {
     {
       // compute distance from t to circle intersection point
       var dt = Math.sqrt(Math.pow(r, 2)-Math.pow(LEC, 2));
-      var tF = (t-dt); // t of first intersection point
+			var tF = (t-dt); // t of first intersection point
       var tG = (t+dt); // t of second intersection point
 
       var result = [];
@@ -265,9 +265,9 @@ export function d3DistanceLimitedVoronoi() {
       }
       return  result;
     } else {
-        // either (LEC === r), tangent point to circle is E
-        // or (LEC < r), line doesn't touch circle
-        // in both cases, returning nothing is OK
+      	// either (LEC === r), tangent point to circle is E
+      	// or (LEC < r), line doesn't touch circle
+      	// in both cases, returning nothing is OK
       return [];
     }
   }

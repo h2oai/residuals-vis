@@ -15,8 +15,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = rossmanAggregatedConfig;
   // const cfg = santanderAggregatedConfig;
+  const cfg = rossmanAggregatedConfig;
   // const cfg = rossmanConfig;
   // const cfg = walmartTripTypeConfig; 
   cfg.width = width;
