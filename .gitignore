@@ -41,3 +41,5 @@ h2o.out
 .DS_Store
 c1-alert-dashboard/capitalone-alerts-rest-service
 .npmrc
+*.sublime-project
+*.sublime-workspace

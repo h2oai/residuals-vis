@@ -70,12 +70,12 @@ export const rossmanAggregatedConfig = {
   },
   sortBoxplots: 'rootMeanSquaredValue',
   skeletonBox: true,
-  server: 'http://172.16.2.141',
+  server: 'http://172.16.2.141/',
   port: '55555',
   frameIDs: {
-    'dl': 'aggregated_Key_Frame__dl_residuals.hex_by_aggregator-fcc6084e-0fab-46b5-b55d-1ac4b8ff5390',
-    'drf': 'aggregated_Key_Frame__drf_residuals.hex_by_aggregator-d1eb4a7c-af23-4227-a4c7-47bb4ac251c3',
-    'gbm': 'aggregated_Key_Frame__gbm_residuals.hex_by_aggregator-a3b7770a-e5ff-4010-a73a-05137effafdd',
-    'glm': 'aggregated_Key_Frame__glm_residuals.hex_by_aggregator-06a69797-ccf8-4d71-bc48-5dab239be01e',
+    'dl': 'aggregated_Key_Frame__dl_residuals.hex_by_aggregator-5c06ef26-8836-43eb-98c3-7d91cd29ee66',
+    'drf': 'aggregated_Key_Frame__drf_residuals.hex_by_aggregator-ae9eeb80-ba4c-4950-b2ea-a72102330c52',
+    'gbm': 'aggregated_rossman_Key_Frame__gbm_residuals.hex_by_aggregator-92deae3c-68bf-4481-9318-9bf10a37d947',
+    'glm': 'aggregated_rossman_Key_Frame__glm_residuals.hex_by_aggregator-38fb1e92-226f-49a8-beaf-fca7b87b32fd',
   }
 }
