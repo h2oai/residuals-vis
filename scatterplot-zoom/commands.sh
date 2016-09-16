@@ -26,6 +26,9 @@ kill #<pid>
 # @micah
 java -Xmx10g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 
+# long-lived on the server, with a name
+nohup java -Xmx10g -jar h2o.jar -port 55555 -name H2ODemo 1> h2o.out 2> h2o.err &
+
 # local
 java -Xmx4g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 
