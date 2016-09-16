@@ -2,7 +2,7 @@ export const rossmanAggregatedConfig = {
   projectTitle: 'Rossman Store Sales',
   projectLink: 'https://www.kaggle.com/c/rossmann-store-sales',
   dataText: 'data',
-  models: [ 'dl', /* 'drf', 'gbm', 'glm'*/],
+  models: [ 'dl', 'drf', 'gbm', 'glm'],
   currentAlgo: 'dl',
   currentAlgoLabel: 'Deep Learning',
   project: 'rossman-store-sales',
@@ -70,7 +70,7 @@ export const rossmanAggregatedConfig = {
   },
   sortBoxplots: 'rootMeanSquaredValue',
   skeletonBox: true,
-  server: 'http://172.16.2.141/',
+  server: 'http://172.16.2.141',
   port: '55555',
   frameIDs: {
     'dl': 'aggregated_Key_Frame__dl_residuals.hex_by_aggregator-5c06ef26-8836-43eb-98c3-7d91cd29ee66',
