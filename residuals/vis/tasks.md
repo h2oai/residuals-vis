@@ -23,7 +23,12 @@ DONE from h2o-3, with design from @tonyhschu
 + add data for all algos for Grupo Bimbo
 + add data for all algos for Prudential
 
-
++ implement sorting for plots
++ implement pagination for plots
++ add density plots (rug plots)
++ add toggle to switch between linear and log scales
++ add outlines to independent variable plots, 
+  so that they look like cards
 
 
 
