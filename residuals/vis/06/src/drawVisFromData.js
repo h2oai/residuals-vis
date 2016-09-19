@@ -30,6 +30,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const problemType = chartOptions.problemType;
   const margin = { left: 120, top: 20, right: 80, bottom: 20 }; 
   const algos = chartOptions.algos;
+  const projectTitleNote = chartOptions.projectTitleNote;
 
   console.log('models', models);
 
@@ -67,7 +68,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     projectLink,
     currentAlgo,
     currentAlgoLabel,
-    dataText
+    dataText,
+    projectTitleNote
   }
   drawTitle('p#subTitle', options);
 

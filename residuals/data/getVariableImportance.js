@@ -8,7 +8,6 @@ const santanderOptions = {
     'deeplearning-22a36d2a-9737-46fa-ab3f-0ff9f5a49f28'
   ],
   project: 'santander-customer-satisfaction'
-
 };
 
 function getVariableImportance(options) {
