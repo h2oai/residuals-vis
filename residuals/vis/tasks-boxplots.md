@@ -60,3 +60,19 @@ DONE + show one series of points, sorted
 + ensure that boxplot outliers only animate 
   on points-to-box implode if that box 
   is already exploded
+
+
+
+
+
+
+  
+
+
+#### eventually
++ investigate extra `g class="explodingBoxplot box"`
+  that is rendered
++ support absolute px values for boxPadding
+  in addition to boxPaddingProportion
++ add optional extra delay to boxplot transition Y so that
+  boxplot transitions can happen after scatterplot transitions

@@ -31,3 +31,5 @@ DONE   independent variable scatterplots
 
 + improve tooltips for independent variables
 + orient tooltip to point with arrow
++ fix missing ticks bug on santander dataset
+  num_var20 and ind_var20 variables are affected

@@ -6,11 +6,9 @@ CLOSED show residuals vs actual response column value? **@arno**
 CLOSED prefer not to show residuals vs actual response column value 
 CLOSED  **@leland** [source](http://stats.stackexchange.com/questions/155587/residual-plots-why-plot-versus-fitted-values-not-observed-y-values)
 CLOSED + on exit animate points back to 0 baseline **@ivy**
+DONE + display independent variable scatterplots by variable importance
+DONE from h2o-3, with design from @tonyhschu
 
-+ display independent variable scatterplots by variable importance
-  from h2o-3, with design from @tonyhschu
-+ show deviances from h2o-3 as calculated by @arno's code
-  (instead of simple residuals)
 + support classification problems
 + show @branden et al and get feedback
 + support dynamic zoom with aggregator
