@@ -12,5 +12,8 @@
     "csv-write-stream": "^2.0.0",
     "d3": "^3.5.17",
     "lodash": "^4.14.0"
+  },
+  "dependencies": {
+    "node-fetch": "^1.6.1"
   }
 }

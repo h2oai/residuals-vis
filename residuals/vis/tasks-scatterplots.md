@@ -1,4 +1,4 @@
-## regression problems
+## scatterplots
 DONE + add data for Rossman for dl, drf, gbm, glm
 DONE + support multiple models for one dataset
 CLOSED + set scale domains to max of 4 models

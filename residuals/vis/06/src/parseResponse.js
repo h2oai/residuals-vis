@@ -1,5 +1,4 @@
 export function parseResponse(response) {
-
   const responseData = JSON.parse(response.response);
   const columnsData = responseData.frames[0].columns;
   const points = [];

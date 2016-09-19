@@ -48,3 +48,7 @@ java -Xmx10g -cp h2o.jar:/usr/share/java/mysql-connector-java.jar water.H2OApp -
 
 # open chrome canary with cross-origin protection disabled
 # open -a Google\ Chrome\ Canary --args --disable-web-security --user-data-dir
+
+# regex to find spaces in variable importance data pasted from flow
+# so that we can replaces these interior spaces with tabs
+# \s+(?=\d)
