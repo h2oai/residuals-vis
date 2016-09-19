@@ -7,6 +7,7 @@ const santanderOptions = {
   modelIDs: [
     'deeplearning-22a36d2a-9737-46fa-ab3f-0ff9f5a49f28'
   ],
+  project: 'santander-customer-satisfaction'
 
 };
 
@@ -14,6 +15,7 @@ function getVariableImportance(options) {
   const server = options.server;
   const port = options.port;
   const modelIDs = options.modelIDs;
+  const project = options.project;
 
   // arrays are objects too deep down, right? ;-)
   Object.keys(modelIDs).forEach(key => {
@@ -27,9 +29,20 @@ function getVariableImportance(options) {
           const variableImportancesObject = json.models[0].output.variable_importances;
           const variableImportances = parseResponseData(variableImportancesObject);
 
-          console.log('variable importances from the model', variableImportances);
-          const outputFile = `${modelID}-variable-importances.json`;
-          const outputData = variableImportances;
+          // write out the variable importance data
+          // console.log('variable importances from the model', variableImportances);
+          let outputFile = `${project}/output/${modelID}-variable-importances.json`;
+          let outputData = variableImportances;
+          // human readable json
+          jsonfile.spaces = 2;
+          jsonfile.writeFile(outputFile, outputData, function (err) {
+            console.error(err)
+          })
+
+          // write out the top 10 variables
+          const top10Variables = variableImportances.map(d => d.variable).slice(0, 10);
+          outputFile = `${project}/output/${modelID}-top10-important-variables.json`;
+          outputData = top10Variables;
           // human readable json
           jsonfile.spaces = 2;
           jsonfile.writeFile(outputFile, outputData, function (err) {
@@ -45,7 +58,6 @@ function parseResponseData(responseData) {
   const points = [];
 
   responseData.data.forEach((d, i) => {
-    console.log('d', d);
     if (Object.prototype.toString.call(d) === '[object Array]') {
       d.forEach((e, j) => {
         if (typeof points[j] === 'undefined') points[j] = {};
