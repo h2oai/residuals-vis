@@ -80,7 +80,8 @@ export default class App extends Component {
         <div className='scatterplot-container' style={{
           display: 'flex',
           flexDirection: 'column',
-          flexWrap:'nowrap'
+          flexWrap:'nowrap',
+          margin: '-5px'
         }}>
         </div>
         <div className='boxplot-container' style={{

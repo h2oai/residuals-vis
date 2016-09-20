@@ -5,6 +5,8 @@ import { drawVoronoiScatterplot } from './d3-voronoi-scatterplot';
 import { dropdown } from './dropdown';
 import { setModelTransitionAggregated } from './setModelTransitionAggregated';
 
+import * as d3 from 'd3';
+
 export function drawVisFromData(error, chartOptions, ...args) {
   console.log('args', args);
   console.log('arguments', arguments);
@@ -125,10 +127,12 @@ export function drawVisFromData(error, chartOptions, ...args) {
   if (problemType === 'classification') {
     drawExplodingBoxplot('.dependent-variable-plot-container', data, options);
   } else {
-    scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot('.dependent-variable-plot-container', data, options);
+    d3.select('.dependent-variable-plot-container')
+      .append('div')
+      .attr('id', `${predictColumn}`);
+    scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
   
-
   // residuals vs independent variables scatterplots
   xColumns.forEach(x => {
     options = {
@@ -143,8 +147,19 @@ export function drawVisFromData(error, chartOptions, ...args) {
       globalExtents: globalExtents[x],
       marks
     }
-    // comment out for now
-    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot('.scatterplot-container', data, options);
+    const card = d3.select('.scatterplot-container')
+      .append('div')
+      .classed('card', true);
+
+    
+
+    card.append('div')
+      .attr('id', `${x}`)
+      .style('border', '1px solid lightgray')
+      .style('padding', '5px')
+      .style('margin', '5px');
+
+    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}`, data, options);
   })
 
   // draw exploding boxplots for categorical independent variables

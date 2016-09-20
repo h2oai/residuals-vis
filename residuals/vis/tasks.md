@@ -8,14 +8,15 @@ CLOSED  **@leland** [source](http://stats.stackexchange.com/questions/155587/res
 CLOSED + on exit animate points back to 0 baseline **@ivy**
 DONE + display independent variable scatterplots by variable importance
 DONE from h2o-3, with design from @tonyhschu
+DONE + set consistent ID for first chart 
+DONE   'chart'
+DONE   'predictBoxplot'
 
 + support classification problems
 + show @branden et al and get feedback
 + support dynamic zoom with aggregator
 
-+ set consistent ID for first chart 
-  'chart'
-  'predictBoxplot'
+
 + the 10th plot has an issue with the voronoi overlay
   - one edge is undefined
   - renders fine when only two scatterplots on are the page
