@@ -28,11 +28,14 @@ DONE   variable `open`
 DONE + on switch between models, update residual value
 DONE   and transition points y-position for continuous
 DONE   independent variable scatterplots
+DONE + ensure that drawVoronoiScatterplot uses the width
+  that is passed in with the options
+
 
 + improve tooltips for independent variables
 + orient tooltip to point with arrow
 + fix missing ticks bug on santander dataset
   num_var20 and ind_var20 variables are affected
 
-+ ensure that drawVoronoiScatterplot uses the width
-  that is passed in with the options
++ add option to hide x-axis labels
++ check tooltop values - predict value repeated
