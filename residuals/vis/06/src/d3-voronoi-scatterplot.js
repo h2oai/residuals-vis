@@ -873,6 +873,7 @@
     var animateFromXAxis = cfg.animateFromXAxis;
     var opacityCircles = cfg.marks.fillOpacity;
     var marksRadius = cfg.marks.r;
+    var dynamicWidth = cfg.dynamicWidth;
 
     // labels
     var xLabel = cfg.xLabel || xVariable;
@@ -888,9 +889,17 @@
     // Scatterplot
     var margin = cfg.margin;
     var chartWidth = document.getElementById('chart').offsetWidth;
-    var width = chartWidth - margin.left - margin.right;
     var height = cfg.width * 0.25;
     // const maxDistanceFromPoint = 50;
+
+    var width = void 0;
+    if (typeof dynamicWidth !== 'undefined') {
+      // use a dynamic width derived from the window width
+      width = chartWidth - margin.left - margin.right;
+    } else {
+      // use width specified in the options passed in
+      width = cfg.width - margin.left - margin.right;
+    }
 
     var svg = div.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
 

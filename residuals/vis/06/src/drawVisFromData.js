@@ -108,6 +108,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
   // residuals vs prediction plot
   options = {
     width,
+    dynamicWidth: true,
     xVariable: predictColumn,
     yVariable: yColumn,
     idVariable: idColumn,
@@ -132,11 +133,56 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .attr('id', `${predictColumn}`);
     scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
+
+  // get the width of the independent variable plot at the top
+  const topPlotWidth = document.getElementById(`${predictColumn}`).clientWidth;
+  const leftPadding = 120;
+  const rightPadding = 80;
+  const basisWidth = topPlotWidth - leftPadding - rightPadding;
+  console.log('topPlotWidth', topPlotWidth);
   
   // residuals vs independent variables scatterplots
   xColumns.forEach(x => {
+    const card = d3.select('.scatterplot-container')
+      .append('div')
+      .classed('card', true)
+      .style('display', 'flex')
+      .style('flexDirection', 'row')
+      .style('alignItems', 'flex-start')
+      .style('justifyContent', 'space-between');
+    
+    // description
+    const textBox = card.append('div')
+      .attr('id', `${x}Text`)
+      .style('border', '1px solid lightgray')
+      .style('padding', '5px')
+      .style('margin-left', '5px')
+      .style('margin-top', '5px')
+      .style('margin-bottom', '5px')
+      .style('width', `${basisWidth * 0.2}px`);
+
+    textBox.append('p')
+      // .style('white-space', 'nowrap')
+      .style('font-weight', '600')
+      .style('padding', '5px')
+      .html(`${x}<br>(type)<br>(common values)`);
+
+    // plot
+    card.append('div')
+      .attr('id', `${x}`)
+      .style('border', '1px solid lightgray')
+      .style('padding', '5px')
+      .style('margin-right', '5px')
+      .style('margin-top', '5px')
+      .style('margin-bottom', '5px')
+      .style('width', `${basisWidth * 0.8}px`);
+
+    const plotWidth = document.getElementById(`${x}`).clientWidth;
+    console.log('width of top plot', width);
+    console.log('plotWidth', plotWidth);
+
     options = {
-      width,
+      plotWidth,
       xVariable: x,
       yVariable: yColumn,
       idVariable: idColumn,
@@ -147,17 +193,6 @@ export function drawVisFromData(error, chartOptions, ...args) {
       globalExtents: globalExtents[x],
       marks
     }
-    const card = d3.select('.scatterplot-container')
-      .append('div')
-      .classed('card', true);
-
-    
-
-    card.append('div')
-      .attr('id', `${x}`)
-      .style('border', '1px solid lightgray')
-      .style('padding', '5px')
-      .style('margin', '5px');
 
     scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}`, data, options);
   })

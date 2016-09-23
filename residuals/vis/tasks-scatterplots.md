@@ -33,3 +33,6 @@ DONE   independent variable scatterplots
 + orient tooltip to point with arrow
 + fix missing ticks bug on santander dataset
   num_var20 and ind_var20 variables are affected
+
++ ensure that drawVoronoiScatterplot uses the width
+  that is passed in with the options

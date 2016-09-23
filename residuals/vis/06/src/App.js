@@ -101,7 +101,8 @@ export default class App extends Component {
           display: 'flex',
           flexDirection: 'column',
           flexWrap:'nowrap',
-          margin: '-5px'
+          margin: '-5px',
+          paddingLeft: '120px'
         }}>
         </div>
         <div className='boxplot-container' style={{
