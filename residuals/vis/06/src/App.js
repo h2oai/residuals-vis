@@ -77,6 +77,26 @@ export default class App extends Component {
           flexWrap:'nowrap'
         }}>
         </div>
+        <div className='sectionNav' style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          paddingLeft: '120px',
+          paddingRight: '80px',
+          height: '80px',
+          zIndex: 2
+        }}>
+          <div className='sectionTitle' style={{
+              display: 'flex',
+              flexDirection: 'column',
+              fontSize: '2em',
+              fontWeight: 'bold',
+              paddingRight: '10px'
+            }}>
+          partial residuals
+          </div>
+        </div>
         <div className='scatterplot-container' style={{
           display: 'flex',
           flexDirection: 'column',
