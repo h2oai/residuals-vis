@@ -870,6 +870,8 @@
     var numericVariables = cfg.numericColumns;
     var xLabelDetail = cfg.xLabelDetail;
     var hideXLabel = cfg.hideXLabel;
+    var xLabelTransform = cfg.xLabelTransform;
+    var yLabelTransform = cfg.yLabelTransform;
     var dependent = cfg.dependent;
     var globalExtents = cfg.globalExtents;
     var animateFromXAxis = cfg.animateFromXAxis;
@@ -1133,13 +1135,39 @@
 
     if (typeof hideXLabel === 'undefined') {
       // Set up X axis label
-      wrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', (mobileScreen ? 8 : 12) + 'px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + xlabelText);
+      var xTextAnchor = 'start';
+      var xLabelTranslate = void 0;
+      if (xLabelTransform === 'top') {
+        // label on top
+        xLabelTranslate = 'translate(' + 30 + ',' + -10 + ')';
+      } else if (typeof xLabelTransform !== 'undefined') {
+        // use specified [x, y, rotate] transform
+        xLabelTranslate = 'rotate(' + yLabelTransform[2] + ') translate(' + xLabelTransform[0] + ',' + xLabelTransform[1] + ')';
+      } else {
+        // default to no translation
+        xLabelTranslate = 'translate(' + width + ',' + (height - 10) + ')';
+        xTextAnchor = 'end';
+      }
+
+      wrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', xTextAnchor).style('font-size', (mobileScreen ? 8 : 12) + 'px').style('font-weight', 600).attr('transform', xLabelTranslate).text('' + xlabelText);
     }
 
     // Set up y axis label
+    var yLabelTranslate = void 0;
+    if (yLabelTransform === 'left') {
+      // label on the left
+      yLabelTranslate = 'translate(' + -(margin.left / 4) + ',' + yScale(xAxisYTranslate) + ')';
+    } else if (typeof yLabelTransform !== 'undefined') {
+      // use specified [x, y, rotate] transform
+      yLabelTranslate = 'rotate(' + yLabelTransform[2] + ') translate(' + yLabelTransform[0] + ',' + yLabelTransform[1] + ')';
+    } else {
+      // default
+      yLabelTranslate = 'rotate(270) translate(' + 0 + ',' + 10 + ')';
+    }
+
     wrapper.append('g').append('text').attr('class', 'y title').attr('text-anchor', 'end').attr('dy', '0.35em').style('font-size', (mobileScreen ? 8 : 12) + 'px')
     // .attr('transform', 'translate(18, 0) rotate(-90)')
-    .attr('transform', 'translate(' + -(margin.left / 4) + ',' + yScale(xAxisYTranslate) + ')').text('' + yLabelText);
+    .attr('transform', yLabelTranslate).text('' + yLabelText);
 
     //
     // Hide axes on click

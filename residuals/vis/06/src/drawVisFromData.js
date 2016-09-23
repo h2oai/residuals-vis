@@ -115,6 +115,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     tooltipColumns,
     numericColumns,
     xLabelDetail: responseColumn,
+    xLabelTransform: 'top',
+    yLabelTransform: 'left',
     wrapperId: currentAlgo,
     wrapperLabel: currentAlgoLabel,
     dependent: true,
@@ -191,6 +193,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       wrapperId: currentAlgo,
       wrapperLabel: currentAlgoLabel,
       hideXLabel: true,
+      yLabelTransform: 'left',
       globalExtents: globalExtents[x],
       marks
     }
