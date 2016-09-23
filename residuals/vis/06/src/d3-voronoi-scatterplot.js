@@ -838,6 +838,7 @@
       margin: { left: 120, top: 20, right: 80, bottom: 20 },
       width: 1000,
       animateFromXAxis: undefined,
+      hideXLabel: undefined,
       yVariable: 'y',
       idVariable: 'id',
       marks: {
@@ -868,6 +869,7 @@
     var tooltipVariables = cfg.tooltipColumns;
     var numericVariables = cfg.numericColumns;
     var xLabelDetail = cfg.xLabelDetail;
+    var hideXLabel = cfg.hideXLabel;
     var dependent = cfg.dependent;
     var globalExtents = cfg.globalExtents;
     var animateFromXAxis = cfg.animateFromXAxis;
@@ -1129,8 +1131,10 @@
     var xlabelText = xLabel || xVariable;
     var yLabelText = yLabel || yVariable;
 
-    // Set up X axis label
-    wrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', (mobileScreen ? 8 : 12) + 'px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + xlabelText);
+    if (typeof hideXLabel === 'undefined') {
+      // Set up X axis label
+      wrapper.append('g').append('text').attr('class', 'x title').attr('text-anchor', 'start').style('font-size', (mobileScreen ? 8 : 12) + 'px').style('font-weight', 600).attr('transform', 'translate(' + 30 + ',' + -10 + ')').text('' + xlabelText);
+    }
 
     // Set up y axis label
     wrapper.append('g').append('text').attr('class', 'y title').attr('text-anchor', 'end').attr('dy', '0.35em').style('font-size', (mobileScreen ? 8 : 12) + 'px')

@@ -11,6 +11,9 @@ DONE from h2o-3, with design from @tonyhschu
 DONE + set consistent ID for first chart 
 DONE   'chart'
 DONE   'predictBoxplot'
+DONE + add outlines to independent variable plots, 
+DONE   so that they look like cards
+
 
 + support classification problems
 + show @branden et al and get feedback
@@ -28,8 +31,7 @@ DONE   'predictBoxplot'
 + implement pagination for plots
 + add density plots (rug plots)
 + add toggle to switch between linear and log scales
-+ add outlines to independent variable plots, 
-  so that they look like cards
+
 
 
 

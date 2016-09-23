@@ -190,6 +190,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       numericColumns,
       wrapperId: currentAlgo,
       wrapperLabel: currentAlgoLabel,
+      hideXLabel: true,
       globalExtents: globalExtents[x],
       marks
     }
