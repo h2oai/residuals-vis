@@ -15,8 +15,8 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  const cfg = santanderAggregatedConfig;
-  // const cfg = rossmanAggregatedConfig;
+  // const cfg = santanderAggregatedConfig;
+  const cfg = rossmanAggregatedConfig;
   // const cfg = rossmanConfig;
   // const cfg = walmartTripTypeConfig; 
   cfg.width = width;
@@ -26,7 +26,6 @@ export function drawResidualsVis(width) {
   const models = cfg.models;
   const project = cfg.project;
   const fileSuffix = cfg.fileSuffix;
-
 
   const path = `src/data/${project}`;
   const q = d3_queue.queue();
