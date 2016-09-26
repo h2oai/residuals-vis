@@ -19,7 +19,9 @@ the residuals vis is a single page React app layed out in `App.js`  with additio
 
 the residuals vis expects data and configuration from one or more machine learning models trained with `h2o-3`.
 
-#### data for each model, the residuals vis takes the ID of the models and issues a series of API calls to `h2o-3` to:
+#### data 
+
+for each model, the residuals vis takes the ID of the models and issues a series of API calls to `h2o-3` to:
 
 1 generate row-wise predictions and deviances. parameters for this call are:
   - model ID
