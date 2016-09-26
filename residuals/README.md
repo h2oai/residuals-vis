@@ -14,7 +14,7 @@ for example, for a retail dataset where we want to predict sales by store, a ran
 
 #### structure
 
-the residuals vis is a single page React app layed out in `App.js`  with additional elements that are drawn and modified with Javascript.  configuration is specified in a `.json` file.  a good example configuration to refer to is [santanderAggregated.js](vis/06/src/config/santanderAggregated.js)   the residuals vis in it's current form requires a running instance of `h2o-3` that has trained models in memory.
+the residuals vis is a single page React app layed out in `App.js`  with additional elements that are drawn and modified with Javascript.  configuration is specified in a `.json` file.  a good example configuration to refer to is [santanderAggregated.js](vis/06/src/config/santanderAggregated.js) the residuals vis in it's current form requires a running instance of `h2o-3` that has trained models in memory.
 
 
 the residuals vis expects data and configuration from one or more machine learning models trained with `h2o-3`.
@@ -45,4 +45,6 @@ for each model, the residuals vis takes the ID of the models and issues a series
 this process is repeated for all models that you would like to compare.
 
 #### API reference
+
+coming soon.  for now refer to the annotated [santanderAggregated.js](vis/06/src/config/santanderAggregated.js) config file.
 
