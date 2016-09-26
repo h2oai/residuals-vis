@@ -23,21 +23,21 @@ the residuals vis expects data and configuration from one or more machine learni
 
 for each model, the residuals vis takes the ID of the models and issues a series of API calls to `h2o-3` to:
 
-1 generate row-wise predictions and deviances. parameters for this call are:
+1. generate row-wise predictions and deviances. parameters for this call are:
   - model ID
   - validation frame ID
 
-2 combine the validation frame with the prediction frame. parameters:
+2. combine the validation frame with the prediction frame. parameters:
   - string to use as ID for new combined frame
   - validation frame ID
   - prediction frame ID
 
-3 combine the result of 2 with the deviances frame. parameters:
+3. combine the result of 2 with the deviances frame. parameters:
   - string to use as ID for this second new combined frame
   - ID of frame resulting from 2
   - deviances frame ID
 
-4 retrieve & serialize to a javascript array of objects the combined frame with 
+4. retrieve & serialize to a javascript array of objects the combined frame with 
   - validation set data
   - row-wise predictions for response variable
   - row-wise deviances
