@@ -19,11 +19,24 @@ const rossmanOptions = {
   project: 'rossman-store-sales'
 };
 
+const grupoBimboOptions = {
+  server: 'http://172.16.2.141',
+  port: '54321',
+  validationFrame: 'gb_validation_frame_0.250',
+  modelIDs: [
+    'glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3',
+    'drf-c6daf49d-dd1f-43b8-9eeb-99bb828d2a25',
+    'gbm-ef176351-e583-4484-9a08-0f47dc10d4e1',
+  ]
+}
+
 // predict
 // cbind valid and predict 
-// cbding combined and deviances
+// cbind combined and deviances
 // get combined-all
 
+// WIP, not working now
+/*
 function getDeviances(options) {
   const server = options.server;
   const port = options.port;
@@ -63,6 +76,7 @@ function getDeviances(options) {
       });
   })
 }
+*/
 
 function parseResponseData(responseData) {
   const columnNames = responseData.columns.map(d => d.name);
@@ -134,4 +148,11 @@ function combineFrames(a, b, options) {
 
 // predict('glm-07e61c42-9e3d-40bd-a288-60b76a53e91e', 'valid_rossman_frame_0.250', rossmanOptions);
 // combineFrames('valid_rossman_frame_0.250', 'predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
-combineFrames('combined-valid_rossman_frame_0.250-predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', 'deviances_8586_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
+// combineFrames('combined-valid_rossman_frame_0.250-predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', 'deviances_8586_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
+
+// more examples
+// this time with Grupo Bimbo data
+
+// predict(grupoBimboOptions.modelIDs[0], grupoBimboOptions.validationFrame, grupoBimboOptions);
+predict(grupoBimboOptions.modelIDs[1], grupoBimboOptions.validationFrame, grupoBimboOptions);
+predict(grupoBimboOptions.modelIDs[2], grupoBimboOptions.validationFrame, grupoBimboOptions);
