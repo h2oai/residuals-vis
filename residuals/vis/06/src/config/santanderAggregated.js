@@ -19,7 +19,7 @@ export const santanderAggregatedConfig = {
     'drf': 'aggregated_Key_Frame__drf_residuals1.hex_by_aggregator-80cb903b-cc2c-41af-bada-25a2a742f5f5',
     'gbm': 'aggregated_santander_Key_Frame__gbm_residuals1.hex_by_aggregator-ed6a9f50-c98b-48d6-a5e2-b21916161cce',
     'glm': 'aggregated_Key_Frame__glm_residuals.hex_by_aggregator-457a81f9-6ca5-4ebd-8f0e-5cbc67766c8e',
-  }
+  },
   // file access config for local mode
   project: 'santander-customer-satisfaction',
   fileSuffix: '-aggregated-0-002',
@@ -42,7 +42,7 @@ export const santanderAggregatedConfig = {
       '#cab2d6',
       '#ffff99'
     ]
-  }
+  },
   // map columns (features) in the data to visual encodings
   predictColumn: 'predict',
   responseColumn: 'TARGET',
@@ -67,7 +67,7 @@ export const santanderAggregatedConfig = {
       format: ',.0f'
     },
     {
-      name: 'TARGET'
+      name: 'TARGET',
       type: 'numeric',
       format: ',.0f'
     },
