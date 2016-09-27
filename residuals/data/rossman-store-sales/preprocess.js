@@ -36,6 +36,3 @@ outputData.forEach(d => {
     writer.write(d);
 })
 writer.end();
-
-
-
