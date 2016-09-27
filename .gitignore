@@ -43,3 +43,4 @@ c1-alert-dashboard/capitalone-alerts-rest-service
 .npmrc
 *.sublime-project
 *.sublime-workspace
+.Rproj.user

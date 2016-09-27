@@ -28,6 +28,7 @@ java -Xmx10g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 
 # long-lived on the server, with a name
 nohup java -Xmx10g -jar h2o.jar -port 55555 -name H2ODemo 1> h2o.out 2> h2o.err &
+nohup java -Xmx10g -jar h2o.jar -port 54321 -name H2ODemo2 1> h2o.out 2> h2o.err &
 
 # local
 java -Xmx4g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
@@ -38,7 +39,6 @@ java -Xmx4g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 # @markc on port 55555
 # this allows us to use the JDBC connector to memsql
 java -Xmx10g -cp h2o.jar:/usr/share/java/mysql-connector-java.jar water.H2OApp -port 55555 1> h2o.out 2> h2o.err &
-
 
 # then we can open h2o flow at this url:
 # http://mr-0xc8:55555/
