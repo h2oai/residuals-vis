@@ -30,7 +30,11 @@ const grupoBimboOptions = {
   ]
 }
 
-function combineFrames(a, b, options) {
+function combineFrames(options, ...args) {
+  console.log('args', args);
+  const frameIDs = args;
+  const a = frameIDs[0];
+  const b = frameIDs[1];
   const server = options.server;
   const port = options.port;
   const combinedFrameKey = `combined-${a}-${b}`;
@@ -47,8 +51,20 @@ function combineFrames(a, b, options) {
         return res.json();
     }).then(function(json) {
         console.log(json);
+        if (frameIDs.length > 2) {
+          let newFrameIDs = [];
+          const remainingFrameIDs = frameIDs.slice(2,frameIDs.length);
+          console.log('remainingFrameIDs', remainingFrameIDs);
+          newFrameIDs.push(combinedFrameKey);
+          newFrameIDs = newFrameIDs.concat(remainingFrameIDs);
+          console.log('newFrameIDs', newFrameIDs);
+
+          // recursion!
+          combineFrames(options, ...newFrameIDs);
+        }
     });
 }
 
 // combineFrames('valid_rossman_frame_0.250', 'predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
 // combineFrames('combined-valid_rossman_frame_0.250-predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', 'deviances_8586_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
+combineFrames(grupoBimboOptions, 'gb_validation_frame_0.250', 'predictions_bca0_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250', 'deviances_a106_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250');
