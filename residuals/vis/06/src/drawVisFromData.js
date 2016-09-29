@@ -105,7 +105,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
   })
   console.log('globalExtents', globalExtents);
 
+  //
   // residuals vs prediction plot
+  //
   options = {
     width,
     dynamicWidth: true,
@@ -143,7 +145,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const basisWidth = topPlotWidth - leftPadding - rightPadding;
   console.log('topPlotWidth', topPlotWidth);
   
+  //
   // residuals vs independent variables scatterplots
+  //
   xColumns.forEach(x => {
     const card = d3.select('.scatterplot-container')
       .append('div')
