@@ -684,12 +684,13 @@
 
     var xVariable = options.xVariable;
     var yVariable = options.yVariable;
-    var idVariable = options.idVariable || 'id';
     var xScale = options.xScale;
     var yScale = options.yScale;
     var width = options.width;
     var height = options.height;
     var tip = options.tip;
+    var idVariable = options.idVariable;
+    if (typeof idVariable === 'undefined') idVariable = 'id';
 
     var xAccessor = function xAccessor(d) {
       return xScale(d[xVariable]);

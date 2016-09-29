@@ -30,7 +30,7 @@ DONE   and transition points y-position for continuous
 DONE   independent variable scatterplots
 DONE + ensure that drawVoronoiScatterplot uses the width
   that is passed in with the options
-
+DONE + if idColumn is undefined, default to 'id'
 
 + improve tooltips for independent variables
 + orient tooltip to point with arrow
@@ -39,3 +39,4 @@ DONE + ensure that drawVoronoiScatterplot uses the width
 
 + add option to hide x-axis labels
 + check tooltop values - predict value repeated
+
