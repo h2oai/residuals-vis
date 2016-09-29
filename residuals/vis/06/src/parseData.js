@@ -16,6 +16,7 @@ export function parseData(inputData, options) {
       data[i].id = `${idPrefix}${i}`;
     }
   });
-  console.log('data after parsing strings to numbers', data)
+  // console.log('data after parsing strings to numbers', data)
+  console.log('data after assigning IDs', data)
   return data;
 }
