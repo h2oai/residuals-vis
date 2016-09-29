@@ -22,12 +22,22 @@ const rossmanOptions = {
 const grupoBimboOptions = {
   server: 'http://172.16.2.141',
   port: '54321',
-  validationFrame: 'gb_validation_frame_0.250',
   modelIDs: [
     'glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3',
     'drf-c6daf49d-dd1f-43b8-9eeb-99bb828d2a25',
     'gbm-ef176351-e583-4484-9a08-0f47dc10d4e1',
-  ]
+  ],
+  validationFrame: 'gb_validation_frame_0.250',
+  predictionFrames: {
+    'glm': 'predictions_bca0_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250',
+    'drf': 'predictions_a25c_drf-c6daf49d-dd1f-43b8-9eeb-99bb828d2a25_on_gb_validation_frame_0.250',
+    'gbm': 'predictions_9f6b_gbm-ef176351-e583-4484-9a08-0f47dc10d4e1_on_gb_validation_frame_0.250'
+  },
+  deviancesFrames: {
+    'glm': 'deviances_a106_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250',
+    'drf': 'deviances_b0f4_drf-c6daf49d-dd1f-43b8-9eeb-99bb828d2a25_on_gb_validation_frame_0.250',
+    'gbm': 'deviances_8134_gbm-ef176351-e583-4484-9a08-0f47dc10d4e1_on_gb_validation_frame_0.250'
+  }
 }
 
 function combineFrames(options, ...args) {
@@ -65,6 +75,12 @@ function combineFrames(options, ...args) {
     });
 }
 
+
 // combineFrames('valid_rossman_frame_0.250', 'predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
 // combineFrames('combined-valid_rossman_frame_0.250-predictions_8174_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', 'deviances_8586_glm-07e61c42-9e3d-40bd-a288-60b76a53e91e_on_valid_rossman_frame_0.250', rossmanOptions);
-combineFrames(grupoBimboOptions, 'gb_validation_frame_0.250', 'predictions_bca0_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250', 'deviances_a106_glm-f52fe8cb-3aad-4eb0-b0cb-36ec16ae58a3_on_gb_validation_frame_0.250');
+
+const validationFrame = grupoBimboOptions.validationFrame;
+const predictionFrame = grupoBimboOptions.predictionFrames.gbm;
+const deviancesFrame = grupoBimboOptions.deviancesFrames.gbm;
+
+combineFrames(grupoBimboOptions, validationFrame, predictionFrame, deviancesFrame);
