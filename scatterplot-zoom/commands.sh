@@ -30,6 +30,9 @@ java -Xmx10g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 nohup java -Xmx10g -jar h2o.jar -port 55555 -name H2ODemo 1> h2o.out 2> h2o.err &
 nohup java -Xmx10g -jar h2o.jar -port 54321 -name H2ODemo2 1> h2o.out 2> h2o.err &
 
+# more memory for large datasets
+nohup java -Xmx24g -jar h2o.jar -port 54321 -name H2ODemo2 1> h2o.out 2> h2o.err &
+
 # local
 java -Xmx4g -jar ./h2o.jar -port 55555 1> h2o.out 2> h2o.err &
 
