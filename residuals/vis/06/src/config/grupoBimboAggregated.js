@@ -43,7 +43,7 @@ export const grupoBimboAggregatedConfig = {
   predictColumn: 'predict',
   responseColumn: 'Demanda_uni_equil',
   yColumn: 'deviance',
-  idColumn: '',
+  idColumn: 'id',
   xColumns: [
     'Ruta_SAK',
     'Venta_uni_hoy',
