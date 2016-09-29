@@ -3,10 +3,11 @@ import { setModelTransition } from './setModelTransition';
 import { getResidualsDataFromh2o3 } from './getResidualsDataFromh2o3';
 import { drawVisFromData } from './drawVisFromData';
 
-import { rossmanAggregatedConfig } from './config/rossmanAggregated';
-import { santanderAggregatedConfig } from './config/santanderAggregated';
-import { rossmanConfig } from './config/rossman';
-import { walmartTripTypeConfig } from './config/walmartTripType';
+// import { rossmanConfig } from './config/rossman';
+// import { walmartTripTypeConfig } from './config/walmartTripType';
+// import { rossmanAggregatedConfig } from './config/rossmanAggregated';
+// import { santanderAggregatedConfig } from './config/santanderAggregated';
+import { grupoBimboAggregatedConfig } from './config/grupoBimboAggregated';
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
 
@@ -15,10 +16,11 @@ export function drawResidualsVis(width) {
   if (typeof width === 'undefined') width = 1000;
 
   let options;
-  // const cfg = santanderAggregatedConfig;
-  const cfg = rossmanAggregatedConfig;
   // const cfg = rossmanConfig;
-  // const cfg = walmartTripTypeConfig; 
+  // const cfg = walmartTripTypeConfig;
+  // const cfg = santanderAggregatedConfig;
+  // const cfg = rossmanAggregatedConfig;
+  const cfg = grupoBimboAggregatedConfig;
   cfg.width = width;
   const chartOptions = cfg;
 
