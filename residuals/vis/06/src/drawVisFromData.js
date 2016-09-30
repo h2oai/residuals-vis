@@ -135,7 +135,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     d3.select('.dependent-variable-plot-container')
       .append('div')
       .attr('id', `${predictColumn}`);
-    scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
+    // comment out for now to debug Voronoi overlay
+    // scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
 
   // get the width of the independent variable plot at the top
@@ -201,7 +202,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       globalExtents: globalExtents[x],
       marks
     }
-
+    console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
     scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}`, data, options);
   })
 
