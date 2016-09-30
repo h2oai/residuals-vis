@@ -689,6 +689,7 @@
     var width = options.width;
     var height = options.height;
     var tip = options.tip;
+    var voronoiStroke = options.voronoiStroke;
     var idVariable = options.idVariable;
     if (typeof idVariable === 'undefined') idVariable = 'id';
 
@@ -745,9 +746,9 @@
         return 'voronoi id' + xVariable + yVariable + d[idVariable];
       }
       return 'voronoi';
-    }).style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
-    // .style('stroke', 'none')
-    .style('fill', 'none').style('pointer-events', 'all')
+    })
+    // .style('stroke', 'lightblue') // I use this to look at how the cells are dispersed as a check
+    .style('stroke', voronoiStroke).style('fill', 'none').style('pointer-events', 'all')
     // .on('mouseover', tip.show)
     // .on('mouseout', tip.hide);
     .on('mouseover', function (d, i, nodes) {
@@ -862,6 +863,7 @@
       hideXLabel: undefined,
       yVariable: 'y',
       idVariable: undefined,
+      voronoiStroke: 'none',
       marks: {
         r: 2,
         fillOpacity: 0.3
@@ -899,6 +901,7 @@
     var opacityCircles = cfg.marks.fillOpacity;
     var marksRadius = cfg.marks.r;
     var dynamicWidth = cfg.dynamicWidth;
+    var voronoiStroke = cfg.voronoiStroke;
 
     // labels
     var xLabel = cfg.xLabel || xVariable;
@@ -1146,7 +1149,8 @@
         yScale: yScale,
         width: width,
         height: height,
-        tip: tip
+        tip: tip,
+        voronoiStroke: voronoiStroke
       };
       drawVoronoiOverlay(wrapper, mergedSelectionData, voronoiOptions);
     }

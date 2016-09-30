@@ -45,13 +45,13 @@ export const grupoBimboAggregatedConfig = {
   yColumn: 'deviance',
   idColumn: undefined,
   xColumns: [
-    // 'Ruta_SAK',
-    // 'Venta_uni_hoy',
-    // 'Venta_hoy',
-    'Dev_uni_proxima'// ,
-    // 'Dev_proxima',
-    // 'Demanda_uni_equil',
-    // 'Demanda_uni_equil0'
+    'Ruta_SAK',
+    'Venta_uni_hoy',
+    'Venta_hoy',
+    'Dev_uni_proxima',
+    'Dev_proxima',
+    'Demanda_uni_equil',
+    'Demanda_uni_equil0'
   ],
   tooltipColumns: [
     {

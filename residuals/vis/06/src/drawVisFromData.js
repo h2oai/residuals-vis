@@ -126,7 +126,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     marks,
     categoricalColumns,
     sortBoxplots,
-    chartOptions
+    chartOptions,
+    voronoiStroke: 'none'
   }
   const scatterplotUpdateFunctions = {};
   if (problemType === 'classification') {
@@ -135,8 +136,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     d3.select('.dependent-variable-plot-container')
       .append('div')
       .attr('id', `${predictColumn}`);
-    // comment out for now to debug Voronoi overlay
-    // scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
+    scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
 
   // get the width of the independent variable plot at the top
