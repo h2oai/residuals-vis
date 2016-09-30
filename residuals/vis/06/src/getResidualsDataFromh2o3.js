@@ -34,7 +34,8 @@ export function getResidualsDataFromh2o3(options) {
 
     const parsedRowResponses = responses.map(d => JSON.parse(d.response));
     const frames = parsedRowResponses.map(d => ({
-      rows: d.frames[0].rows,
+      rowCount: d.frames[0].rows,
+      columnCount: d.frames[0].column_count,
       frameID: d.frames[0].frame_id.name
     }))
     console.log('parsedRowRespones', parsedRowResponses);
@@ -44,10 +45,12 @@ export function getResidualsDataFromh2o3(options) {
     // how do we know which row count goes with which frameID?
     const q1 = d3_queue.queue();
     frames.forEach(frame => {
-      const rowCount = frame.rows;
+      const rowCount = frame.rowCount;
+      const columnCount = frame.columnCount;
       const frameID = frame.frameID;
-      // TODO: generalize the `column_count` parameter
-      const frameOptions = `?column_offset=0&column_count=373&row_count=${rowCount}`;
+      console.log('frame from getResidualsDataFromh2o3', frame);
+
+      const frameOptions = `?column_offset=0&column_count=${columnCount}&row_count=${rowCount}`;
       const getDataRequestURL = `${server}:${port}/3/Frames/${frameID}${frameOptions}`;
       console.log('getDataRequestURL', getDataRequestURL);
       q1.defer(d3.request, getDataRequestURL)
