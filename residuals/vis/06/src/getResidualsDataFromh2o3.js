@@ -57,12 +57,12 @@ export function getResidualsDataFromh2o3(options) {
     })
 
     q1
-      .awaitAll(logResponse);
+      .awaitAll(handleResponse);
     
-    function logResponse(error, responses) {
+    function handleResponse(error, responses) {
       if (error) console.error(error);
-      console.log('logResponse was called');
-      console.log('arguments from logResponse', arguments);
+      console.log('handleResponse was called');
+      console.log('arguments from handleResponse', arguments);
 
       const parsedResponses = [];
       responses.forEach(response => {
