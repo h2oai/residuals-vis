@@ -1,0 +1,46 @@
+{
+  "name": "residuals",
+  "version": "0.1.0",
+  "description": "a visualization tool for residuals",
+  "main": "build/bundle.js",
+  "scripts": {
+    "prepublish": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -g d3:d3 -n d3 -o build/bundle.js -- index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint index.js src --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h2oai/visualizations.git"
+  },
+  "keywords": [
+    "eslint",
+    "es2105",
+    "es6",
+    "residuals",
+    "javascript"
+  ],
+  "author": "@micahstubbs <micah.stubbs@gmail.com>",
+  "contributors": [
+    {
+      "name": "@micahstubbs",
+      "email": "micah.stubbs@gmail.com"
+    }
+  ],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/h2oai/visualizations/issues"
+  },
+  "homepage": "https://github.com/h2oai/visualizations/blob/master/README.md",
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.10.2",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2",
+    "package-preamble": "0.0",
+    "rollup": "0.33"
+  },
+  "dependencies": {
+    "d3": "^4.2.0"
+  }
+}

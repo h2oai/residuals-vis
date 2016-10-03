@@ -1,0 +1,50 @@
+{
+  "name": "surface-alerts",
+  "version": "0.1.0",
+  "description": "Surface Layer for the Alert Management System",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.kdc.capitalone.com/cybertech/surface"
+  },
+  "keywords": [
+    "express",
+    "node",
+    "webpack",
+    "reactjs"
+  ],
+  "author": "Product Team",
+  "license": "MIT",
+  "homepage": "https://github.kdc.capitalone.com/cybertech/surface/tree/develop/alerts",
+  "dependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "bufferutil": "^1.2.1",
+    "clusterfck": "^0.6.0",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-redux": "^4.4.0",
+    "react-router": "^2.0.0",
+    "redux": "^3.3.1",
+    "redux-thunk": "^2.0.1",
+    "rest": "^1.3.2",
+    "sockjs-client": "^1.0.3",
+    "stompjs": "^2.3.3",
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "scripts": {
+    "watch": "webpack --watch -d",
+    "start": "webpack-dev-server --port 9090",
+    "build": "webpack -p --config webpack.production.config.js --progress",
+    "start:production": "webpack-dev-server -p --config webpack.production.config.js --progress --port 9090"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.38",
+    "babel-loader": "^5.4.0",
+    "chai": "3.4.1",
+    "mocha": "2.3.4"
+  }
+}
