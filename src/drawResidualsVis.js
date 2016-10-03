@@ -21,7 +21,7 @@ export function drawResidualsVis(width, props) {
   // const cfg = walmartTripTypeConfig;
   // const cfg = santanderAggregatedConfig;
   // const cfg = rossmanAggregatedConfig;
-  const cfg = grupoBimboAggregatedConfig;
+  const cfg = props.config;
   cfg.width = width;
   const chartOptions = cfg;
 
