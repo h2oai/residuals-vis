@@ -6,14 +6,12 @@ import { drawVisFromData } from './drawVisFromData';
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
 
-export function drawResidualsVis(width, props) {
-  // set defaults
-  if (typeof width === 'undefined') width = 1000;
-
+export function drawResidualsVis(props) {
   console.log('props', props);
   let options;
   const cfg = props.config;
-  cfg.width = width;
+  // set default width
+  if (typeof cfg.width === 'undefined') cfg.width = 1000;
   const chartOptions = cfg;
 
   const aggregated = cfg.aggregated;

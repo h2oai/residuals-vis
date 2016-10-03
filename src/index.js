@@ -3,7 +3,7 @@ import { drawResidualsVis } from './drawResidualsVis';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
-    drawResidualsVis(1000, this.props);
+    drawResidualsVis(this.props);
   }
 
   render() {
