@@ -77,7 +77,8 @@ export function setModelTransitionAggregated(selector, data, options) {
       .style('opacity', 0.15);
 
     // set the tooltip for with new tooltipVariables
-    tooltipVariables[3].name = xVariable;
+    const lastIndex = tooltipVariables.length - 1;
+    tooltipVariables[lastIndex].name = xVariable;
     const tip = tooltip(tooltipVariables);
     d3.select('svg.dependent').call(tip);
 

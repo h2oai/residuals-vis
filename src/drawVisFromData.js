@@ -14,7 +14,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const numericColumns = chartOptions.numericColumns;
   const idColumn = chartOptions.idColumn;
   const aggregated = chartOptions.aggregated;
-  const models = chartOptions.models;
+  // const models = chartOptions.models;
+  const models = chartOptions.modelIDs;
   const projectTitle = chartOptions.projectTitle;
   const projectLink = chartOptions.projectLink;
   const currentAlgo = chartOptions.currentAlgo;
@@ -253,6 +254,13 @@ export function drawVisFromData(error, chartOptions, ...args) {
     idVariable: idColumn,
   }
 
+  const algoLabels = {
+    glm: 'Generalized Linear Model',
+    drf: 'Distributed Random Forest',
+    gbm: 'Gradient Boosting Method',
+    dl: 'Deep Learning'
+  };
+
   if (typeof aggregated === 'undefined') {
     // deep learning button
     options.xVariable = 'dlPredict';
@@ -288,25 +296,30 @@ export function drawVisFromData(error, chartOptions, ...args) {
     options.xVariable = predictColumn;
     options.yVariable = yColumn;
 
-    // deep learning button
-    options.currentAlgo = 'dl';
-    options.currentAlgoLabel = 'Deep Learning';
-    setModelTransitionAggregated('#dlButton', datasets['dl'], options);
+    models.forEach(model => {
+      const modelPrefix = model.split('-', 1)[0];
+      options.currentAlgo = model;
+      options.currentAlgoLabel = algoLabels[modelPrefix];
+      const buttonID = `#${model}Button`;
+      setModelTransitionAggregated(buttonID, datasets[model], options);
+    })
 
-    // distributed random forest button
-    options.currentAlgo = 'drf';
-    options.currentAlgoLabel = 'Distributed Random Forest';
-    setModelTransitionAggregated('#drfButton', datasets['drf'], options);
-
-    // gradient boosting method button
-    options.currentAlgo = 'gbm';
-    options.currentAlgoLabel = 'Gradient Boosting Method';
-    setModelTransitionAggregated('#gbmButton', datasets['gbm'], options);
-
-    // generalized linear model button
-    options.currentAlgo = 'glm';
-    options.currentAlgoLabel = 'Generalized Linear Model';
-    setModelTransitionAggregated('#glmButton', datasets['glm'], options);
+    // // deep learning button
+    // options.currentAlgo = 'dl';
+    // options.currentAlgoLabel = 'Deep Learning';
+    // setModelTransitionAggregated('#dlButton', datasets['dl'], options);
+    // // distributed random forest button
+    // options.currentAlgo = 'drf';
+    // options.currentAlgoLabel = 'Distributed Random Forest';
+    // setModelTransitionAggregated('#drfButton', datasets['drf'], options);
+    // // gradient boosting method button
+    // options.currentAlgo = 'gbm';
+    // options.currentAlgoLabel = 'Gradient Boosting Method';
+    // setModelTransitionAggregated('#gbmButton', datasets['gbm'], options);
+    // // generalized linear model button
+    // options.currentAlgo = 'glm';
+    // options.currentAlgoLabel = 'Generalized Linear Model';
+    // setModelTransitionAggregated('#glmButton', datasets['glm'], options);
   }
 
 }

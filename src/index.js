@@ -7,7 +7,7 @@ export class ResidualsVis extends React.Component<any, any> {
   }
 
   render() {
-    const modelButtonComponents = this.props.config.models.map((model, i) => {
+    const modelButtonComponents = this.props.config.modelIDs.map((model, i) => {
       return <div id={`${model}Button`} key={i}>{model}</div>
     });
     return (

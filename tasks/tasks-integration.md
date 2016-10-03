@@ -6,5 +6,5 @@ DONE + show deviances from h2o-3 as calculated by @arno's code
 
 + specify data with props
 + get variable importance directly from the h2o-3 REST API
-+ make model buttons dynamic
+DONE + make model buttons dynamic
 + make model buttons based on model ID
