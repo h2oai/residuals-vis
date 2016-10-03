@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<PMML version="4.1" xmlns="http://www.dmg.org/PMML-4_1">
+<Header copyright="Advise Analytics, Inc.">
+  <Application name="Adviser Scoring" version="2.5"></Application>
+</Header>
+<DataDictionary numberOfFields="9">
+  <DataField name="gender" opType="categorical" dataType="string"></DataField>
+  <DataField name="jobcat" opType="categorical" dataType="string"></DataField>
+  <DataField name="minority" opType="categorical" dataType="string"></DataField>
+  <DataField name="age" opType="continuous" dataType="double"></DataField>
+  <DataField name="educ" opType="continuous" dataType="double"></DataField>
+  <DataField name="salary" opType="continuous" dataType="double"></DataField>
+  <DataField name="salbegin" opType="continuous" dataType="double"></DataField>
+  <DataField name="jobtime" opType="continuous" dataType="double"></DataField>
+  <DataField name="prevexp" opType="continuous" dataType="double"></DataField>
+</DataDictionary>
+<TransformationDictionary>
+  <DerivedField name="gender: Male" optype="categorical" dataType="integer">
+    <NormDiscrete  field="gender" value="Male"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="gender: Female" optype="categorical" dataType="integer">
+    <NormDiscrete  field="gender" value="Female"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="jobcat: Manager" optype="categorical" dataType="integer">
+    <NormDiscrete  field="jobcat" value="Manager"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="jobcat: Clerical" optype="categorical" dataType="integer">
+    <NormDiscrete  field="jobcat" value="Clerical"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="jobcat: Custodial" optype="categorical" dataType="integer">
+    <NormDiscrete  field="jobcat" value="Custodial"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="minority: No" optype="categorical" dataType="integer">
+    <NormDiscrete  field="minority" value="No"></NormDiscrete>
+  </DerivedField>
+  <DerivedField name="minority: Yes" optype="categorical" dataType="integer">
+    <NormDiscrete  field="minority" value="Yes"></NormDiscrete>
+  </DerivedField>
+</TransformationDictionary>
+</PMML>
