@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
+
 export class ResidualsVis extends React.Component<any, any> {
+  componentDidMount() {
+    drawResidualsVis(1000, this.props);
+  }
+
   render() {
     return (
       <div className='flex-container' style={{
@@ -114,5 +119,3 @@ export class ResidualsVis extends React.Component<any, any> {
     );
   }
 }
-
-drawResidualsVis(1000);

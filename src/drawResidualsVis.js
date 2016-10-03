@@ -11,10 +11,11 @@ import { grupoBimboAggregatedConfig } from './config/grupoBimboAggregated';
 import * as d3 from 'd3';
 import * as d3_queue from 'd3-queue';
 
-export function drawResidualsVis(width) {
+export function drawResidualsVis(width, props) {
   // set defaults
   if (typeof width === 'undefined') width = 1000;
 
+  console.log('props', props);
   let options;
   // const cfg = rossmanConfig;
   // const cfg = walmartTripTypeConfig;

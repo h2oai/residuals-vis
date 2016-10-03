@@ -5,7 +5,7 @@
   "main": "./dist/bundle.js",
   "scripts": {
     "prepublish": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "webpack && cp dist/bundle.js ~/workspace/residuals-vis-example-project/node_modules/residualsVis/dist/bundle.js",
     "start": "webpack --watch"
   },
   "repository": {
