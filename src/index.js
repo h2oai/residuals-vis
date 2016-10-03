@@ -7,6 +7,9 @@ export class ResidualsVis extends React.Component<any, any> {
   }
 
   render() {
+    const modelButtonComponents = this.props.config.models.map((model, i) => {
+      return <div id={`${model}Button`} key={i}>{model}</div>
+    });
     return (
       <div className='flex-container' style={{
         display: 'flex',
@@ -55,11 +58,8 @@ export class ResidualsVis extends React.Component<any, any> {
               fontSize: '12px',
               fontWeight: 'bold'
             }}>
-              <div id='dlButton'>dl</div>
-              <div id='drfButton'>drf</div >
-              <div id='gbmButton'>gbm</div>
-              <div id='glmButton'>glm</div>
-            </div>
+            <div>{modelButtonComponents}</div>
+          </div>
           <div className='selectContainer' style={{
             display: 'flex',
             flexDirection: 'column'
