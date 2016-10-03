@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
 
 export default class App extends Component {

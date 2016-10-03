@@ -966,6 +966,21 @@
         data[i].id = '' + i;
       }
     });
+
+    // check to see if all points to be plotted are unique
+    var pointsData = data.map(function (d) {
+      return {
+        x: d[xVariable],
+        y: d[yVariable]
+      };
+    });
+    var uniquePoints = _.uniqWith(pointsData, _.isEqual);
+    var uniquePointsLength = uniquePoints.length;
+    var dataLength = data.length;
+    console.log('uniquePointsLength', uniquePointsLength);
+    console.log('dataLength', dataLength);
+    console.log('all points unique?', uniquePointsLength === dataLength);
+
     if (typeof idVariable === 'undefined') idVariable = 'id';
     // console.log('data from drawVoronoiScatterplot', data);
 
