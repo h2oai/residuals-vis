@@ -34,6 +34,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const margin = { left: 120, top: 20, right: 80, bottom: 20 }; 
   const algos = chartOptions.algos;
   const projectTitleNote = chartOptions.projectTitleNote;
+  const yScaleType = chartOptions.yScaleType;
+  const yScaleExponent = chartOptions.yScaleExponent;
 
   console.log('models', models);
 
@@ -128,7 +130,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
     categoricalColumns,
     sortBoxplots,
     chartOptions,
-    voronoiStroke: 'none'
+    voronoiStroke: 'none',
+    yScaleType,
+    yScaleExponent
   }
   const scatterplotUpdateFunctions = {};
   if (problemType === 'classification') {
@@ -196,7 +200,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
       hideXLabel: true,
       yLabelTransform: 'left',
       globalExtents: globalExtents[x],
-      marks
+      marks,
+      yScaleType,
+      yScaleExponent
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
     scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}`, data, options);

@@ -12,3 +12,5 @@ DONE + render independent variable scatterplot divs with React
 + set data driven independent plot title width
 + set data driven independent variable type
 + show data driven common values for independent variables
++ UI slider to adjust power scale exponent
++ nice ticks for power scales

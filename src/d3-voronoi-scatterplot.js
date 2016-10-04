@@ -862,6 +862,7 @@
       animateFromXAxis: undefined,
       hideXLabel: undefined,
       yVariable: 'y',
+      yExponent: 0.5,
       idVariable: undefined,
       voronoiStroke: 'none',
       marks: {
@@ -902,6 +903,8 @@
     var marksRadius = cfg.marks.r;
     var dynamicWidth = cfg.dynamicWidth;
     var voronoiStroke = cfg.voronoiStroke;
+    var yScaleType = cfg.yScaleType;
+    var yScaleExponent = cfg.yScaleExponent;
 
     // labels
     var xLabel = cfg.xLabel || xVariable;
@@ -992,7 +995,15 @@
     var xScale = d3.scaleLinear().range([0, width]);
 
     // Set the new y axis range
-    var yScale = d3.scaleLinear().range([height, 0]);
+    var yScale = void 0;
+
+    switch (yScaleType) {
+      case 'power':
+        yScale = d3.scalePow().range([height, 0]).exponent(yScaleExponent);
+        break;
+      default:
+        yScale = d3.scaleLinear().range([height, 0]);
+    }
 
     if (typeof globalExtents !== 'undefined') {
       // retrieve global extents
