@@ -8,3 +8,7 @@ DONE + specify data with props
 DONE + render independent variable scatterplot divs with React
 
 + get variable importance directly from the h2o-3 REST API
++ vertically center partial residuals header
++ set data driven independent plot title width
++ set data driven independent variable type
++ show data driven common values for independent variables

@@ -163,28 +163,29 @@ export function drawVisFromData(error, chartOptions, ...args) {
     // description
     const textBox = card.append('div')
       .attr('id', `${x}Text`)
-      .style('border', '1px solid lightgray')
+      // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-left', '5px')
       .style('margin-top', '5px')
       .style('margin-bottom', '5px')
-      .style('width', `${basisWidth * 0.2}px`);
+      .style('width', `${basisWidth * 0.20}px`);
 
     textBox.append('p')
       // .style('white-space', 'nowrap')
+      .style('text-align', 'right')
       .style('font-weight', '600')
       .style('padding', '5px')
-      .html(`${x}<br>(type)<br>(common values)`);
+      .html(`${x}<br>numeric<br>(common values)`);
 
     // plot
     card.append('div')
       .attr('id', `${x}`)
-      .style('border', '1px solid lightgray')
+      // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-right', '5px')
       .style('margin-top', '5px')
       .style('margin-bottom', '5px')
-      .style('width', `${basisWidth * 0.8}px`);
+      .style('width', `${basisWidth * 0.80}px`);
 
     const plotWidth = document.getElementById(`${x}`).clientWidth;
     console.log('width of top plot', width);

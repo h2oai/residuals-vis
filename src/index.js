@@ -17,7 +17,7 @@ export class ResidualsVis extends React.Component<any, any> {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-start',
-          justifyContent: 'center'
+          justifyContent: 'flex-start'
         }}>
         </div>
       );
