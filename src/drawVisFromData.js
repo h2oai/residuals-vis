@@ -305,23 +305,6 @@ export function drawVisFromData(error, chartOptions, ...args) {
       const buttonID = `#${model}Button`;
       setModelTransitionAggregated(buttonID, datasets[model], options);
     })
-
-    // // deep learning button
-    // options.currentAlgo = 'dl';
-    // options.currentAlgoLabel = 'Deep Learning';
-    // setModelTransitionAggregated('#dlButton', datasets['dl'], options);
-    // // distributed random forest button
-    // options.currentAlgo = 'drf';
-    // options.currentAlgoLabel = 'Distributed Random Forest';
-    // setModelTransitionAggregated('#drfButton', datasets['drf'], options);
-    // // gradient boosting method button
-    // options.currentAlgo = 'gbm';
-    // options.currentAlgoLabel = 'Gradient Boosting Method';
-    // setModelTransitionAggregated('#gbmButton', datasets['gbm'], options);
-    // // generalized linear model button
-    // options.currentAlgo = 'glm';
-    // options.currentAlgoLabel = 'Generalized Linear Model';
-    // setModelTransitionAggregated('#glmButton', datasets['glm'], options);
   }
 
 }
