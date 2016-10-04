@@ -172,7 +172,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('text-align', 'right')
       .style('font-weight', '600')
       .style('padding', '5px')
-      .html(`${x}<br>numeric<br>(common values)`);
+      .html(`${x}<br>numeric`);
 
     // plot
     card.append('div')
