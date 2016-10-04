@@ -10,6 +10,18 @@ export class ResidualsVis extends React.Component<any, any> {
     const modelButtonComponents = this.props.config.modelIDs.map((model, i) => {
       return <div id={`${model}Button`} key={i}>{model}</div>
     });
+
+    const independentVariableScatterplotComponents = this.props.config.xColumns.map((x, i) => {
+      return (
+        <div id={`${x}Card`} className='card' key={i} style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          justifyContent: 'center'
+        }}>
+        </div>
+      );
+    });
     return (
       <div className='flex-container' style={{
         display: 'flex',
@@ -108,6 +120,7 @@ export class ResidualsVis extends React.Component<any, any> {
           margin: '-5px',
           paddingLeft: '120px'
         }}>
+          {independentVariableScatterplotComponents}
         </div>
         <div className='boxplot-container' style={{
           display: 'flex',

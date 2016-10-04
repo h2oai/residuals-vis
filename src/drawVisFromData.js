@@ -151,13 +151,14 @@ export function drawVisFromData(error, chartOptions, ...args) {
   // residuals vs independent variables scatterplots
   //
   xColumns.forEach(x => {
-    const card = d3.select('.scatterplot-container')
-      .append('div')
-      .classed('card', true)
-      .style('display', 'flex')
-      .style('flexDirection', 'row')
-      .style('alignItems', 'flex-start')
-      .style('justifyContent', 'space-between');
+    // const card = d3.select('.scatterplot-container')
+    //   .append('div')
+    //   .classed('card', true)
+    //   .style('display', 'flex')
+    //   .style('flexDirection', 'row')
+    //   .style('alignItems', 'flex-start')
+    //   .style('justifyContent', 'space-between');
+    const card = d3.select(`#${x}Card`);
     
     // description
     const textBox = card.append('div')

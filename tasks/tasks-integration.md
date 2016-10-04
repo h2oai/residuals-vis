@@ -5,5 +5,6 @@ DONE   [API implementation](https://github.com/h2oai/h2o-3/blob/f610c394cef29427
 DONE + make model buttons dynamic
 DONE + make model buttons based on model ID
 DONE + specify data with props
+DONE + render independent variable scatterplot divs with React
 
 + get variable importance directly from the h2o-3 REST API
