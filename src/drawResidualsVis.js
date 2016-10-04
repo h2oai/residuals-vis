@@ -22,8 +22,16 @@ export function drawResidualsVis(props) {
   const path = `src/data/${project}`;
   const q = d3_queue.queue();
 
-  let dataFile;
-  if (typeof aggregated !== 'undefined') {
+  //
+  // data passed in on the props from the parent component 
+  // in the React app
+  //
+  if (typeof props.datasets !== 'undefined') {
+    drawVisFromData(null, chartOptions, ...props.datasets);
+  //  
+  // data retrieved directly from the h2o-3 REST API
+  //
+  } else if (typeof aggregated !== 'undefined') {
     const dataFiles = {};
     // if configured to use the h2o-3 API
     // TODO add configuration check to if statement 
@@ -38,12 +46,10 @@ export function drawResidualsVis(props) {
       // make the API calls and log out the responses
       // then call drawVisFromData from this function
       getResidualsDataFromh2o3(chartOptions);
-    // if configured to use multiple local csv files
+    //
+    // data read in from multiple local csv files
+    //
     } else if (dataSource === 'localCsv') {
-      //
-      // get data from csv files on disk
-      //
-
       // construct file names for each model
       models.forEach(model => {
         dataFiles[model] = `${path}/${model}-residuals${fileSuffix}.csv`;
@@ -61,8 +67,11 @@ export function drawResidualsVis(props) {
     } else {
       console.error(`${dataSource} is not a valid dataSource`);
     }
+  //
+  // data read in from a single local csv file
+  //
   } else {
-    dataFile = `${path}/residuals${fileSuffix}.csv`;
+    const dataFile = `${path}/residuals${fileSuffix}.csv`;
 
     // wait for data to load before attempting to draw
     d3_queue.queue()
