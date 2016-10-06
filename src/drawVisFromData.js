@@ -47,6 +47,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       numericColumns,
       idColumn
     }
+    const inputData = args[0];
     data = parseData(inputData, options); 
   } else {
     options = {
