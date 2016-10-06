@@ -39,9 +39,6 @@ export function drawResidualsVis(props) {
       //
       // make API calls to h2o-3 backend
       //
-      const server = cfg.server;
-      const port = cfg.port;
-      const frameIDs = cfg.frameIDs
 
       // make the API calls and log out the responses
       // then call drawVisFromData from this function
