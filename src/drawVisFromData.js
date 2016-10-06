@@ -58,6 +58,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     models.forEach((model, i) => {
       options.idPrefix = model;
       const currentData = args[i];
+      console.log('currentData', currentData);
       const parsedData = parseData(currentData, options)
       datasets[model] = parsedData;
     })
