@@ -8,9 +8,10 @@ export function SectionNav(props) {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'space-between',
+      paddingTop: '10px',
       paddingLeft: '120px',
       paddingRight: '80px',
-      height: '80px',
+      height: '60px',
       zIndex: 2
     }}>
       <SectionTitle text={props.title}/>
