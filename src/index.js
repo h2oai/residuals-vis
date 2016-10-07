@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
+import { IndependentVariableScatterplot } from './IndependentVariableScatterplot';
 import { PointDensityLegend } from './PointDensityLegend';
 
 export class ResidualsVis extends React.Component<any, any> {
@@ -15,13 +16,7 @@ export class ResidualsVis extends React.Component<any, any> {
 
     const independentVariableScatterplotComponents = this.props.config.xColumns.map((x, i) => {
       return (
-        <div id={`${x}Card`} className='card' key={i} style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start'
-        }}>
-        </div>
+        <IndependentVariableScatterplot x={x} i={i} key={i}/>
       );
     });
     return (
