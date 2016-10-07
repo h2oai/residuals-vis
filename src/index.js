@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
-import { IndependentVariableScatterplot } from './IndependentVariableScatterplot';
-import { PointDensityLegend } from './PointDensityLegend';
-import { CategoricalVariableLegend } from './CategoricalVariableLegend';
+import { IndependentVariableScatterplot } from './components/IndependentVariableScatterplot';
+import { PointDensityLegend } from './components/PointDensityLegend';
+import { CategoricalVariableLegend } from './components/CategoricalVariableLegend';
+import { Dropdown } from './components/Dropdown';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -75,10 +76,7 @@ export class ResidualsVis extends React.Component<any, any> {
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <select id='dropdown' style={{
-              marginBottom: '12px'
-            }}>
-            </select>
+            <Dropdown/>
             <CategoricalVariableLegend/>
           </div>
         </div>
