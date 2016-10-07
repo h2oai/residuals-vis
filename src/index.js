@@ -6,6 +6,7 @@ import { CategoricalVariableLegend } from './components/CategoricalVariableLegen
 import { Dropdown } from './components/Dropdown';
 import { SectionNav } from './components/SectionNav';
 import { ModelControls } from './components/ModelControls';
+import { Title } from './components/Title'; 
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -36,28 +37,7 @@ export class ResidualsVis extends React.Component<any, any> {
           height: '80px',
           zIndex: 2
         }}>
-          <div className='title' style={{
-            display: 'flex',
-            flexDirection: 'column',
-            fontSize: '2em',
-            fontWeight: 'bold',
-            paddingRight: '10px'
-          }}>
-            residuals
-            <div className='subTitle' style={{
-              paddingTop: '0px',
-              paddingBottom: '0px',
-            }}>
-              <p id='subTitle' style={{
-                fontWeight: 'normal',
-                marginTop: '0px',
-                marginBottom: '0px',
-                font: 'Open Sans, sans-serif',
-                fontSize: '12px'
-              }}>
-              </p>
-            </div>
-          </div>
+          <Title title='residuals'/>
           <ModelControls config={this.props.config}/>
           <PointDensityLegend config={this.props.config}/>
           <div className='selectContainer' style={{
