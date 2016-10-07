@@ -2,6 +2,7 @@ import * as React from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
 import { IndependentVariableScatterplot } from './IndependentVariableScatterplot';
 import { PointDensityLegend } from './PointDensityLegend';
+import { CategoricalVariableLegend } from './CategoricalVariableLegend';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -78,11 +79,7 @@ export class ResidualsVis extends React.Component<any, any> {
               marginBottom: '12px'
             }}>
             </select>
-            <svg height='120px' 
-              width='120px' 
-              overflow='visible'
-              id='categoricalVariableLegend'>
-            </svg>
+            <CategoricalVariableLegend/>
           </div>
         </div>
         <div className='dependent-variable-plot-container' style={{
