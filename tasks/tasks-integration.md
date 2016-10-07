@@ -16,3 +16,4 @@ DONE + render independent variable scatterplot divs with React
 + nice ticks for power scales
 
 + ensure that default model matches config
++ fix x axis range bug on transition to GLM
