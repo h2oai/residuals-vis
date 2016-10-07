@@ -4,6 +4,8 @@ import { IndependentVariableScatterplot } from './components/IndependentVariable
 import { PointDensityLegend } from './components/PointDensityLegend';
 import { CategoricalVariableLegend } from './components/CategoricalVariableLegend';
 import { Dropdown } from './components/Dropdown';
+import { SectionNav } from './components/SectionNav';
+import { ModelControls } from './components/ModelControls';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -12,9 +14,7 @@ export class ResidualsVis extends React.Component<any, any> {
 
   render() {
     console.log('this.props from ResidualsVis', this.props);
-    const modelButtonComponents = this.props.config.modelIDs.map((model, i) => {
-      return <div id={`${model}Button`} key={i}>{model}</div>
-    });
+
 
     const independentVariableScatterplotComponents = this.props.config.xColumns.map((x, i) => {
       return (
@@ -58,19 +58,7 @@ export class ResidualsVis extends React.Component<any, any> {
               </p>
             </div>
           </div>
-          <div className='modelControls'style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              justifyContent: 'space-around',
-              marginRight: '10px',
-              zIndex: 2,
-              font: 'Open Sans, sans-serif',
-              fontSize: '12px',
-              fontWeight: 'bold'
-            }}>
-            <div>{modelButtonComponents}</div>
-          </div>
+          <ModelControls config={this.props.config}/>
           <PointDensityLegend config={this.props.config}/>
           <div className='selectContainer' style={{
             display: 'flex',
@@ -86,26 +74,7 @@ export class ResidualsVis extends React.Component<any, any> {
           flexWrap:'nowrap'
         }}>
         </div>
-        <div className='sectionNav' style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          paddingLeft: '120px',
-          paddingRight: '80px',
-          height: '80px',
-          zIndex: 2
-        }}>
-          <div className='sectionTitle' style={{
-              display: 'flex',
-              flexDirection: 'column',
-              fontSize: '2em',
-              fontWeight: 'bold',
-              paddingRight: '10px'
-            }}>
-          partial residuals
-          </div>
-        </div>
+        <SectionNav title='partial residuals'/>
         <div className='scatterplot-container' style={{
           display: 'flex',
           flexDirection: 'column',
