@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { drawResidualsVis } from './drawResidualsVis';
+import { PointDensityLegend } from './PointDensityLegend';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -73,6 +74,7 @@ export class ResidualsVis extends React.Component<any, any> {
             }}>
             <div>{modelButtonComponents}</div>
           </div>
+          <PointDensityLegend config={this.props.config}/>
           <div className='selectContainer' style={{
             display: 'flex',
             flexDirection: 'column'
