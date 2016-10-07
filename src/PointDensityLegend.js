@@ -3,7 +3,7 @@ import * as React from 'react';
 export function PointDensityLegend(props) {
   return (
     <div className='pointDensityLegend'>
-      <svg width='100' height='150'>
+      <svg width='100' height='50'>
         <g className='legendPoints' transform='translate(0,0)'>
           <circle style={{
             cx: 10,
