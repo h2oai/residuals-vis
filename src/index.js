@@ -3,6 +3,7 @@ import { drawResidualsVis } from './drawResidualsVis';
 import { Nav } from './components/Nav';
 import { IndependentVariableScatterplot } from './components/IndependentVariableScatterplot';
 import { SectionNav } from './components/SectionNav';
+import { Title } from './components/Title';
 
 export class ResidualsVis extends React.Component<any, any> {
   componentDidMount() {
@@ -24,6 +25,7 @@ export class ResidualsVis extends React.Component<any, any> {
         flexDirection: 'column'
       }}>
         <Nav config={this.props.config}/>
+        <Title title='residuals' config={this.props.config}/>
         <div className='dependent-variable-plot-container' style={{
           display: 'flex',
           flexDirection: 'column',

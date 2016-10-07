@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Title } from './Title';
 import { ModelControls } from './ModelControls';
 import { PointDensityLegend } from './PointDensityLegend';
 import { Dropdown } from './Dropdown';
 import { CategoricalVariableLegend } from './CategoricalVariableLegend';
+import { ModelMetrics } from './ModelMetrics';
 
 export function Nav(props) {
   return (
@@ -12,12 +12,13 @@ export function Nav(props) {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'space-between',
-      paddingLeft: '120px',
+      paddingTop: '20px',
+      paddingLeft: '100px',
       paddingRight: '80px',
       height: '80px',
       zIndex: 2
     }}>
-      <Title title='residuals' config={props.config}/>
+      <ModelMetrics config={props.config}/>
       <ModelControls config={props.config}/>
       <PointDensityLegend config={props.config}/>
       <div className='selectContainer' style={{
