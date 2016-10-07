@@ -11,7 +11,7 @@ export function Title(props) {
       paddingRight: '10px'
     }}>
       {props.title}
-      <SubTitle/>
+      <SubTitle config={props.config}/>
     </div>
   )
 }

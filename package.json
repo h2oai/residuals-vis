@@ -46,11 +46,11 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "d3": "^4.2.3",
     "d3-queue": "^3.0.2",
     "lodash": "^4.14.2",
     "node-fetch": "^1.6.1",
-    "classnames": "^2.2.5",
     "react": "^15.2.0",
     "react-dom": "^15.2.0"
   }

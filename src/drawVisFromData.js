@@ -1,5 +1,4 @@
 import { parseData } from './parseData';
-import { drawTitle } from './drawTitle';
 import { getGlobalExtents } from './getGlobalExtents';
 import { drawVoronoiScatterplot } from './d3-voronoi-scatterplot';
 import { dropdown } from './dropdown';
@@ -68,17 +67,6 @@ export function drawVisFromData(error, chartOptions, ...args) {
     // set a default value for `data`
     data = datasets[models[0]];
   }
-
-  // draw the title text
-  options = {
-    projectTitle,
-    projectLink,
-    currentAlgo,
-    currentAlgoLabel,
-    dataText,
-    projectTitleNote
-  }
-  drawTitle('p#subTitle', options);
 
   // calcuate global extents, if not specified
   let globalExtents = {};

@@ -37,7 +37,7 @@ export class ResidualsVis extends React.Component<any, any> {
           height: '80px',
           zIndex: 2
         }}>
-          <Title title='residuals'/>
+          <Title title='residuals' config={this.props.config}/>
           <ModelControls config={this.props.config}/>
           <PointDensityLegend config={this.props.config}/>
           <div className='selectContainer' style={{
