@@ -146,11 +146,13 @@ export function drawVisFromData(error, chartOptions, ...args) {
   // residuals vs independent variables scatterplots
   //
   xColumns.forEach(x => {
-    const card = d3.select(`#${x}Card`);
-    
+    // remove spaces
+    const xNoSpaces = x.split(' ').join('');
+    const card = d3.select(`#${xNoSpaces}Card`);
+
     // description
     const textBox = card.append('div')
-      .attr('id', `${x}Text`)
+      .attr('id', `${xNoSpaces}Text`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-left', '5px')
@@ -167,7 +169,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
 
     // plot
     card.append('div')
-      .attr('id', `${x}Plot`)
+      .attr('id', `${xNoSpaces}Plot`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-right', '5px')
@@ -175,7 +177,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('margin-bottom', '5px')
       .style('width', `${basisWidth * 0.80}px`);
 
-    const plotWidth = document.getElementById(`${x}Card`).clientWidth;
+    const plotWidth = document.getElementById(`${xNoSpaces}Card`).clientWidth;
     console.log('width of top plot', width);
     console.log('plotWidth', plotWidth);
 
@@ -197,7 +199,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       yScaleExponent
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
-    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}Plot`, data, options);
+    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${xNoSpaces}Plot`, data, options);
   })
 
   // draw exploding boxplots for categorical independent variables
