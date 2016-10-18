@@ -1,5 +1,7 @@
 # residualsVis
 
+a React component that draws the `residuals-vis` visualization
+
 ### related repos
 - the [residuals-vis-example-project](https://github.com/h2oai/residuals-vis-example-project) React app that consumes the React component and uses it with data from h2o-3
 - the [residuals-vis-data](https://github.com/h2oai/residuals-vis-data) collection of scripts to process and retrieve data for `residuals-vis` demos

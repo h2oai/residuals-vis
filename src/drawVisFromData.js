@@ -167,7 +167,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
 
     // plot
     card.append('div')
-      .attr('id', `${x}`)
+      .attr('id', `${x}Plot`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-right', '5px')
@@ -175,7 +175,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('margin-bottom', '5px')
       .style('width', `${basisWidth * 0.80}px`);
 
-    const plotWidth = document.getElementById(`${x}`).clientWidth;
+    const plotWidth = document.getElementById(`${x}Card`).clientWidth;
     console.log('width of top plot', width);
     console.log('plotWidth', plotWidth);
 
@@ -197,7 +197,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       yScaleExponent
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
-    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}`, data, options);
+    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${x}Plot`, data, options);
   })
 
   // draw exploding boxplots for categorical independent variables
