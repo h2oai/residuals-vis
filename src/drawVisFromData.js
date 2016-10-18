@@ -3,6 +3,7 @@ import { getGlobalExtents } from './getGlobalExtents';
 import { drawVoronoiScatterplot } from './d3-voronoi-scatterplot';
 import { dropdown } from './dropdown';
 import { setModelTransitionAggregated } from './setModelTransitionAggregated';
+import { setModelTransition } from './setModelTransition';
 
 import * as d3 from 'd3';
 
@@ -78,21 +79,24 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const scatterplotXVariables = xColumns.concat([predictColumn]);
   console.log('scatterplotXVariables', scatterplotXVariables);
 
-  scatterplotXVariables.forEach(d => {
-    if (typeof globalExtents[d] === 'undefined') {
+  scatterplotXVariables.forEach(x => {
+    if (typeof globalExtents[x] === 'undefined') {
       if (typeof aggregated !== 'undefined') {
         options = {
-          xVariable: d,
+          xVariable: x,
           yVariable: yColumn,
-          combined: undefined
+          combined: undefined,
+          models
         }
-        globalExtents[d] = getGlobalExtents(datasets, options);
+        globalExtents[x] = getGlobalExtents(datasets, options);
       } else {
         options = {
-          algos,
+          xVariable: x,
+          yVariable: yColumn,
+          models,
           combined: true
         }
-        globalExtents[d] = getGlobalExtents(data, options);
+        globalExtents[x] = getGlobalExtents(data, options);
       }
     }
   })

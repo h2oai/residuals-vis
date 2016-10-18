@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 
 export function getGlobalExtents(data, options) {
+  const xVariable = options.xVariable;
+  const yVariable = options.yVariable;
   const combined = options.combined;
   const globalExtents = [
       [0, 0], // global xVariable Predict extent
@@ -11,11 +13,11 @@ export function getGlobalExtents(data, options) {
     // one array-of-objects dataset 
     // with columnns (properties) from many datasets
 
-    const algos = options.algos;
-    // find max extent across all algos
-    ['Predict', 'Residual'].forEach((variable, i) => {
-      algos.forEach(algo => {
-        const currentExtent = d3.extent(data, d => Number(d[`${algo}${variable}`]));
+    const models = options.models;
+    // find max extent across all models
+    [xVariable, yVariable].forEach((variable, i) => {
+      models.forEach(model => {
+        const currentExtent = d3.extent(data, d => Number(d[`${model}${variable}`]));
         // update global min
         if (currentExtent[0] < globalExtents[i][0]) {
           globalExtents[i][0] = currentExtent[0];
@@ -30,9 +32,6 @@ export function getGlobalExtents(data, options) {
   } else {
     // one object that contains many datasets
     // find max extent across all datasets
-
-    const xVariable = options.xVariable;
-    const yVariable = options.yVariable;
     Object.keys(data).forEach((key) => {
       const currentDataset = data[key];
       [xVariable, yVariable].forEach((variable, i) => {
