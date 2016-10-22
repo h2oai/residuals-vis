@@ -48,15 +48,16 @@ export class ResidualsVis extends React.Component<any, any> {
           display: 'flex',
           flexDirection: 'row',
           flexWrap:'nowrap',
-          justifyContent: 'space-between'
+          justifyContent: 'flex-start'
         }}>
           <div className='card-container' style={{
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
             flexWrap:'nowrap',
             flexBasis: 'auto',
-            flexGrow: 1,
-            flexShrink: 1,
+            flexGrow: 0,
+            flexShrink: 0,
             margin: '-5px',
             paddingLeft: '120px'
           }}>
@@ -65,10 +66,11 @@ export class ResidualsVis extends React.Component<any, any> {
           <div className='scatterplot-container' style={{
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'flex-start',
             flexWrap:'nowrap',
             flexBasis: 'auto',
-            flexGrow: 1,
-            flexShrink: 1,
+            flexGrow: 0,
+            flexShrink: 0,
             margin: '-5px',
           }}>
             {independentVariableScatterplotComponents}
