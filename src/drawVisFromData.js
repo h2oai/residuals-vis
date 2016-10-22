@@ -118,7 +118,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     xLabelDetail: responseColumn,
     // xLabelTransform: 'top',
     // yLabelTransform: 'left',
-    yLabelTransform: [-10, -7, 0],
+    yLabelTransform: [-10, -10, 0],
     wrapperId: currentAlgo,
     wrapperLabel: currentAlgoLabel,
     dependent: true,
@@ -130,7 +130,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     voronoiStroke: 'none',
     yScaleType,
     yScaleExponent,
-    margin: { left: 60, top: 20, right: 80, bottom: 40 }
+    margin: { left: 70, top: 20, right: 80, bottom: 40 }
   }
   const scatterplotUpdateFunctions = {};
   if (problemType === 'classification') {
@@ -206,12 +206,12 @@ export function drawVisFromData(error, chartOptions, ...args) {
       wrapperLabel: currentAlgoLabel,
       // hideXLabel: true,
       // yLabelTransform: 'left',
-      yLabelTransform: [-10, -7, 0],
+      yLabelTransform: [-10, -10, 0],
       globalExtents: globalExtents[x],
       marks,
       yScaleType,
       yScaleExponent,
-      margin: { left: 60, top: 20, right: 80, bottom: 40 }
+      margin: { left: 70, top: 20, right: 80, bottom: 40 }
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
     scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${x}Plot`, data, options);

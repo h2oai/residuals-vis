@@ -22,7 +22,7 @@ export function ModelMetrics(props) {
         alignContent: 'center',
         flexWrap: 'wrap',
         paddingLeft: '0px',
-        paddingRight: '20px',
+        paddingRight: '10px',
         // height: '80px',
         zIndex: 2
       }}>
@@ -45,8 +45,8 @@ export function ModelMetrics(props) {
         alignItems: 'flex-start',
         alignContent: 'center',
         flexWrap: 'wrap',
-        paddingLeft: '20px',
-        paddingRight: '20px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
         // height: '80px',
         zIndex: 2
       }}>
@@ -69,8 +69,8 @@ export function ModelMetrics(props) {
         alignItems: 'flex-start',
         alignContent: 'center',
         flexWrap: 'wrap',
-        paddingLeft: '20px',
-        paddingRight: '20px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
         // height: '80px',
         zIndex: 2
       }}>
