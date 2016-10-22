@@ -18044,22 +18044,17 @@ var 	y0$3;
 	});
 	});
 
-
-
-	var bsn = Object.freeze({
-	  default: bootstrapNative,
-	  __moduleExports: bootstrapNative
-	});
-
 	// Show the tooltip on the hovered over circle
 	function showTooltip(d, i, options, popoverTooltip) {
 	  // test the bootstrap.native import
-	  console.log('bsn', bsn);
+	  // console.log('bsn', bsn);
 	  var Popover = bootstrapNative.Popover;
 
 	  var idVariable = options.idVariable;
 	  var xVariable = options.xVariable;
 	  var yVariable = options.yVariable;
+	  var xSelector = options.xSelector;
+	  var ySelector = options.ySelector;
 	  var tip = options.tip;
 	  var wrapper = options.wrapper;
 	  var height = options.height;
@@ -18071,10 +18066,11 @@ var 	y0$3;
 	  // in a variable by using the unique class of the voronoi (idVariable)
 	  var elementSelector = void 0;
 	  if (typeof d.datum !== 'undefined' && typeof d.datum[idVariable] !== 'undefined') {
-	    elementSelector = '.marks.id' + xVariable + yVariable + d.datum[idVariable];
+	    elementSelector = '.marks.id' + xSelector + ySelector + d.datum[idVariable];
 	  } else {
-	    elementSelector = '.marks.id' + xVariable + yVariable + d[idVariable];
+	    elementSelector = '.marks.id' + xSelector + ySelector + d[idVariable];
 	  }
+	  console.log('elementSelector from showTooltip', elementSelector);
 
 	  var element = selectAll(elementSelector);
 
@@ -18155,8 +18151,8 @@ var 	y0$3;
 	//Hide the tooltip when the mouse moves away
 	function removeTooltip(d, i, options, popoverTooltip) {
 	  var idVariable = options.idVariable;
-	  var xVariable = options.xVariable;
-	  var yVariable = options.yVariable;
+	  var xSelector = options.xSelector;
+	  var ySelector = options.ySelector;
 	  var tip = options.tip;
 	  var wrapper = options.wrapper;
 	  var height = options.height;
@@ -18165,16 +18161,16 @@ var 	y0$3;
 	  // in a variable by using the unique class of the voronoi (idVariable)
 	  var elementSelector = void 0;
 	  if (typeof d.datum !== 'undefined' && typeof d.datum[idVariable] !== 'undefined') {
-	    elementSelector = '.marks.id' + xVariable + yVariable + d.datum[idVariable];
+	    elementSelector = '.marks.id' + xSelector + ySelector + d.datum[idVariable];
 	  } else {
-	    elementSelector = '.marks.id' + xVariable + yVariable + d[idVariable];
+	    elementSelector = '.marks.id' + xSelector + ySelector + d[idVariable];
 	  }
 
 	  var element = void 0;
 	  if (typeof d.datum !== 'undefined' && typeof d.datum[idVariable] !== 'undefined') {
-	    element = selectAll('.marks.id' + xVariable + yVariable + d.datum[idVariable]);
+	    element = selectAll('.marks.id' + xSelector + ySelector + d.datum[idVariable]);
 	  } else {
-	    element = selectAll('.marks.id' + xVariable + yVariable + d[idVariable]);
+	    element = selectAll('.marks.id' + xSelector + ySelector + d[idVariable]);
 	  }
 
 	  // Fade out the bright circle again
@@ -18263,6 +18259,10 @@ var 	y0$3;
 	  var yDroplineTextFormat = cfg.yDroplineTextFormat;
 	  var maxDistanceFromPoint = cfg.maxDistanceFromPoint;
 
+	  // strip out the white space
+	  var xSelector = xVariable.replace(/\s/g, '');
+	  var ySelector = yVariable.replace(/\s/g, '');
+
 	  // labels
 	  var xLabel = cfg.xLabel || xVariable;
 	  if (typeof xLabelDetail !== 'undefined') {
@@ -18291,7 +18291,7 @@ var 	y0$3;
 
 	  var svg = div.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom);
 
-	  var wrapper = svg.append('g').classed('chartWrapper', true).classed('' + xVariable, true).attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	  var wrapper = svg.append('g').classed('chartWrapper', true).classed('' + xSelector, true).attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
 	  if (typeof dependent !== 'undefined') {
 	    svg.classed('dependent', true);
@@ -18467,7 +18467,7 @@ var 	y0$3;
 	    // .style('fill', 'black');
 
 	    enterSelection.attr('class', function (d) {
-	      return 'marks id' + xVariable + yVariable + d[idVariable];
+	      return 'marks id' + xSelector + ySelector + d[idVariable];
 	    }).style('fill-opacity', 0).style('fill', function (d) {
 	      // console.log('d from style', d);
 	      if (typeof groupByVariable !== 'undefined') {
@@ -18549,6 +18549,8 @@ var 	y0$3;
 	            idVariable: idVariable,
 	            xVariable: xVariable,
 	            yVariable: yVariable,
+	            xSelector: xSelector,
+	            ySelector: ySelector,
 	            wrapper: wrapper,
 	            height: height,
 	            width: width
@@ -18561,6 +18563,8 @@ var 	y0$3;
 	            idVariable: idVariable,
 	            xVariable: xVariable,
 	            yVariable: yVariable,
+	            xSelector: xSelector,
+	            ySelector: ySelector,
 	            wrapper: wrapper,
 	            height: height,
 	            width: width,
@@ -18574,23 +18578,6 @@ var 	y0$3;
 	        svg._tooltipped = site;
 	      }
 	    });
-
-	    //
-	    // distance-limited Voronoi overlay
-	    //
-
-	    // const voronoiOptions = {
-	    //   xVariable,
-	    //   yVariable,
-	    //   idVariable,
-	    //   xScale,
-	    //   yScale,
-	    //   width,
-	    //   height,
-	    //   tip,
-	    //   voronoiStroke
-	    // }
-	    // drawVoronoiOverlay(wrapper, mergedSelectionData, voronoiOptions);
 	  }
 
 	  // call the update function once to kick things off

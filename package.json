@@ -5,7 +5,7 @@
   "main": "./dist/bundle.js",
   "scripts": {
     "prepublish": "webpack",
-    "test": "webpack && cp dist/bundle.js ~/workspace/residuals-vis-example-project/node_modules/residualsVis/dist/bundle.js",
+    "test": "webpack && cp dist/bundle.js ~/workspace/residuals-vis-example-project/node_modules/residuals-vis/dist/bundle.js",
     "start": "webpack --watch"
   },
   "repository": {

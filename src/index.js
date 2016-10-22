@@ -14,6 +14,8 @@ export class ResidualsVis extends React.Component<any, any> {
     console.log('this.props from ResidualsVis', this.props);
 
     const independentVariableScatterplotComponents = this.props.config.xColumns.map((x, i) => {
+      // strip the spaces out of x
+      x = x.replace(/\s/g, '');
       return (
         <IndependentVariableScatterplot x={x} i={i} key={i}/>
       );

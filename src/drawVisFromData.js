@@ -152,13 +152,18 @@ export function drawVisFromData(error, chartOptions, ...args) {
   // residuals vs independent variables scatterplots
   //
   xColumns.forEach(x => {
-    // remove spaces
-    const xNoSpaces = x.split(' ').join('');
-    const card = d3.select(`#${xNoSpaces}Card`);
+    // store the original value of x as a label 
+    let xLabel = x;
+
+    // strip the spaces out of x
+    x = x.replace(/\s/g, '');
+    console.log('x from drawVisFromData', x);
+
+    const card = d3.select(`#${x}Card`);
 
     // description
     const textBox = card.append('div')
-      .attr('id', `${xNoSpaces}Text`)
+      .attr('id', `${x}Text`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-left', '5px')
@@ -171,11 +176,11 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('text-align', 'right')
       .style('font-weight', '600')
       .style('padding', '5px')
-      .html(`${x}<br>numeric`);
+      .html(`${xLabel}<br>numeric`);
 
     // plot
     card.append('div')
-      .attr('id', `${xNoSpaces}Plot`)
+      .attr('id', `${x}Plot`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-right', '5px')
@@ -183,13 +188,14 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('margin-bottom', '5px')
       .style('width', `${basisWidth * 0.80}px`);
 
-    const plotWidth = document.getElementById(`${xNoSpaces}Card`).clientWidth;
+    const plotWidth = document.getElementById(`${x}Card`).clientWidth;
     console.log('width of top plot', width);
     console.log('plotWidth', plotWidth);
 
     options = {
       plotWidth,
-      xVariable: x,
+      // TODO: refactor white space in variable names edge case handling
+      xVariable: xLabel, 
       yVariable: yColumn,
       idVariable: idColumn,
       tooltipColumns,
@@ -205,7 +211,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       yScaleExponent
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
-    scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${xNoSpaces}Plot`, data, options);
+    scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${x}Plot`, data, options);
   })
 
   // draw exploding boxplots for categorical independent variables
