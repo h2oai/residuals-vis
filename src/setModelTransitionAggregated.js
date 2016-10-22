@@ -1,4 +1,3 @@
-import { tooltip } from './tooltip';
 import { drawTitle } from './drawTitle';
 import * as d3 from 'd3';
 export function setModelTransitionAggregated(selector, data, options) {
@@ -77,10 +76,10 @@ export function setModelTransitionAggregated(selector, data, options) {
       .style('opacity', 0.15);
 
     // set the tooltip for with new tooltipVariables
-    const lastIndex = tooltipVariables.length - 1;
-    tooltipVariables[lastIndex].name = xVariable;
-    const tip = tooltip(tooltipVariables);
-    d3.select('svg.dependent').call(tip);
+    // const lastIndex = tooltipVariables.length - 1;
+    // tooltipVariables[lastIndex].name = xVariable;
+    // const tip = tooltip(tooltipVariables);
+    // d3.select('svg.dependent').call(tip);
 
     // update the subtitle
     const subtitleOptions = {

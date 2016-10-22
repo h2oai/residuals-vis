@@ -1,4 +1,3 @@
-import { tooltip } from './tooltip';
 import { drawTitle } from './drawTitle';
 import { drawVoronoiOverlay } from './drawVoronoiOverlay';
 import { transitionExplodingBoxplot } from './transitionExplodingBoxplot';
@@ -119,9 +118,9 @@ export function setModelTransition(selector, data, options) {
       .style('opacity', 0.15);
 
     // set the tooltip for with new tooltipVariables
-    tooltipVariables[3].name = xVariable;
-    const tip = tooltip(tooltipVariables);
-    d3.select('svg.dependent').call(tip);
+    // tooltipVariables[3].name = xVariable;
+    // const tip = tooltip(tooltipVariables);
+    // d3.select('svg.dependent').call(tip);
 
     // update Voronoi overlay for tooltips
     const wrapper = d3.select('g.dependent');

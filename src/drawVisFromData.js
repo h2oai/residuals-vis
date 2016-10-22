@@ -1,11 +1,11 @@
 import { parseData } from './parseData';
 import { getGlobalExtents } from './getGlobalExtents';
-import * as d3VoronoiScatterplot from './d3-voronoi-scatterplot';
-import * as bsn from 'bootstrap.native';
 import { dropdown } from './dropdown';
 import { setModelTransitionAggregated } from './setModelTransitionAggregated';
 import { setModelTransition } from './setModelTransition';
 
+import * as d3VoronoiScatterplot from 'd3-voronoi-scatterplot';
+import * as bsn from 'bootstrap.native';
 import * as d3 from 'd3';
 
 export function drawVisFromData(error, chartOptions, ...args) {
