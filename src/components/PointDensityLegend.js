@@ -2,7 +2,12 @@ import * as React from 'react';
 
 export function PointDensityLegend(props) {
   return (
-    <div className='pointDensityLegend'>
+    <div className='pointDensityLegend' style={{
+      display: 'flex',
+      flexBasis: 'auto',
+      flexGrow: 1,
+      flexShrink: 1
+    }}>
       <svg width='100' height='50'>
         <g className='legendPoints' transform='translate(0,0)'>
           <circle style={{

@@ -33,14 +33,18 @@ export class ResidualsVis extends React.Component<any, any> {
     return (
       <div className='flex-container' style={{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        flexBasis: 'auto',
+        flexGrow: 0,
+        flexShrink: 1
       }}>
         <Nav config={this.props.config}/>
         <Title title='residuals' config={this.props.config}/>
         <div className='dependent-variable-plot-container' style={{
           display: 'flex',
           flexDirection: 'column',
-          flexWrap:'nowrap'
+          flexWrap:'nowrap',
+          paddingLeft: '60px'
         }}>
         </div>
         <SectionNav title='partial residuals'/>
@@ -59,18 +63,19 @@ export class ResidualsVis extends React.Component<any, any> {
             flexGrow: 0,
             flexShrink: 0,
             margin: '-5px',
-            paddingLeft: '120px'
+            paddingLeft: '60px'
           }}>
             {independentVariableCardComponents}
           </div>
-          <div className='scatterplot-container' style={{
+          <div className='scatterplot-container' id='scatterplot-container' style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
+            alignItems: 'flex-start',
             flexWrap:'nowrap',
             flexBasis: 'auto',
-            flexGrow: 0,
-            flexShrink: 0,
+            flexGrow: 1,
+            flexShrink: 1,
             margin: '-5px',
           }}>
             {independentVariableScatterplotComponents}

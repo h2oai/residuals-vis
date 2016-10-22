@@ -14,7 +14,10 @@ export function ModelControls(props) {
         zIndex: 2,
         font: 'Open Sans, sans-serif',
         fontSize: '12px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        flexBasis: 'auto',
+        flexGrow: 1,
+        flexShrink: 1
       }}>
       <div>{modelButtonComponents}</div>
     </div>

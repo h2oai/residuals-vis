@@ -11,11 +11,16 @@ export function Nav(props) {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
+      flexBasis: 'auto',
+      flexGrow: 1,
+      flexShrink: 1,
       paddingTop: '20px',
-      paddingLeft: '100px',
+      paddingLeft: '60px',
+      paddingBottom: '20px',
       paddingRight: '80px',
-      height: '80px',
+      marginLeft: '0px',
+      height: '100px',
       zIndex: 2
     }}>
       <ModelMetrics config={props.config}/>
@@ -23,7 +28,8 @@ export function Nav(props) {
       <PointDensityLegend config={props.config}/>
       <div className='selectContainer' style={{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        flexGrow: 0
       }}>
         <Dropdown/>
         <CategoricalVariableLegend/>

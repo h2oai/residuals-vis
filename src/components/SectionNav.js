@@ -9,7 +9,7 @@ export function SectionNav(props) {
       alignItems: 'flex-start',
       justifyContent: 'space-between',
       paddingTop: '10px',
-      paddingLeft: '120px',
+      paddingLeft: '60px',
       paddingRight: '80px',
       height: '60px',
       zIndex: 2

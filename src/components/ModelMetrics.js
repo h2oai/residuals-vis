@@ -11,8 +11,9 @@ export function ModelMetrics(props) {
         justifyContent: 'space-between',
         paddingLeft: '0px',
         paddingRight: '0px',
-        height: '80px',
-        zIndex: 2
+        // height: '80px',
+        zIndex: 2,
+        flexGrow: 1
     }}>
       <div className='modelMetrics' style={{
         display: 'flex',
@@ -20,9 +21,9 @@ export function ModelMetrics(props) {
         alignItems: 'flex-start',
         alignContent: 'center',
         flexWrap: 'wrap',
-        paddingLeft: '20px',
+        paddingLeft: '0px',
         paddingRight: '20px',
-        height: '80px',
+        // height: '80px',
         zIndex: 2
       }}>
         <Metric 
@@ -46,7 +47,7 @@ export function ModelMetrics(props) {
         flexWrap: 'wrap',
         paddingLeft: '20px',
         paddingRight: '20px',
-        height: '80px',
+        // height: '80px',
         zIndex: 2
       }}>
         <Metric 
@@ -70,7 +71,7 @@ export function ModelMetrics(props) {
         flexWrap: 'wrap',
         paddingLeft: '20px',
         paddingRight: '20px',
-        height: '80px',
+        // height: '80px',
         zIndex: 2
       }}>
         <Metric 

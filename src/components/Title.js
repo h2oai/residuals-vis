@@ -8,7 +8,7 @@ export function Title(props) {
       flexDirection: 'row',
       alignItems: 'flex-start',
       justifyContent: 'space-between',
-      paddingLeft: '120px',
+      paddingLeft: '60px',
       paddingRight: '80px',
       height: '80px',
       zIndex: 2

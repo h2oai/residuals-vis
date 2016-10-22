@@ -129,7 +129,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     chartOptions,
     voronoiStroke: 'none',
     yScaleType,
-    yScaleExponent
+    yScaleExponent,
+    margin: { left: 60, top: 20, right: 80, bottom: 40 }
   }
   const scatterplotUpdateFunctions = {};
   if (problemType === 'classification') {
@@ -141,7 +142,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     scatterplotUpdateFunctions[predictColumn] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
 
-  // get the width of the independent variable plot at the top
+  // get the width of the dependent variable plot at the top
   const topPlotWidth = document.getElementById(`${predictColumn}`).clientWidth;
   const leftPadding = 120;
   const rightPadding = 80;
@@ -189,12 +190,12 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('margin-bottom', '5px')
       // .style('width', `${basisWidth * 0.80}px`);
 
-    const plotWidth = document.getElementById(`${x}Card`).clientWidth;
+    const plotWidth = document.getElementById(`scatterplot-container`).clientWidth - leftPadding;
     console.log('width of top plot', width);
     console.log('plotWidth', plotWidth);
 
     options = {
-      plotWidth,
+      width: plotWidth,
       // TODO: refactor white space in variable names edge case handling
       xVariable: xLabel, 
       yVariable: yColumn,
@@ -209,7 +210,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
       globalExtents: globalExtents[x],
       marks,
       yScaleType,
-      yScaleExponent
+      yScaleExponent,
+      margin: { left: 60, top: 20, right: 80, bottom: 40 }
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
     scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${x}Plot`, data, options);
