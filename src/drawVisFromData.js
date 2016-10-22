@@ -160,6 +160,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     console.log('x from drawVisFromData', x);
 
     const card = d3.select(`#${x}Card`);
+    const plot = d3.select(`#${x}Plot`);
 
     // description
     const textBox = card.append('div')
@@ -169,7 +170,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .style('margin-left', '5px')
       .style('margin-top', '5px')
       .style('margin-bottom', '5px')
-      .style('width', `${basisWidth * 0.20}px`);
+      // .style('width', `${basisWidth * 0.20}px`);
 
     textBox.append('p')
       // .style('white-space', 'nowrap')
@@ -179,14 +180,14 @@ export function drawVisFromData(error, chartOptions, ...args) {
       .html(`${xLabel}<br>numeric`);
 
     // plot
-    card.append('div')
+    plot.append('div')
       .attr('id', `${x}Plot`)
       // .style('border', '1px solid lightgray')
       .style('padding', '5px')
       .style('margin-right', '5px')
       .style('margin-top', '5px')
       .style('margin-bottom', '5px')
-      .style('width', `${basisWidth * 0.80}px`);
+      // .style('width', `${basisWidth * 0.80}px`);
 
     const plotWidth = document.getElementById(`${x}Card`).clientWidth;
     console.log('width of top plot', width);
