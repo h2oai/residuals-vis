@@ -1,6 +1,7 @@
 import { parseData } from './parseData';
 import { getGlobalExtents } from './getGlobalExtents';
-import { drawVoronoiScatterplot } from './d3-voronoi-scatterplot';
+import * as d3VoronoiScatterplot from './d3-voronoi-scatterplot';
+import * as bsn from 'bootstrap.native';
 import { dropdown } from './dropdown';
 import { setModelTransitionAggregated } from './setModelTransitionAggregated';
 import { setModelTransition } from './setModelTransition';
@@ -10,6 +11,7 @@ import * as d3 from 'd3';
 export function drawVisFromData(error, chartOptions, ...args) {
   console.log('args', args);
   console.log('arguments', arguments);
+  console.log('d3VoronoiScatterplot', d3VoronoiScatterplot);
 
   const numericColumns = chartOptions.numericColumns;
   const idColumn = chartOptions.idColumn;
@@ -136,7 +138,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     d3.select('.dependent-variable-plot-container')
       .append('div')
       .attr('id', `${predictColumn}`);
-    scatterplotUpdateFunctions[predictColumn] = drawVoronoiScatterplot(`#${predictColumn}`, data, options);
+    scatterplotUpdateFunctions[predictColumn] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${predictColumn}`, data, options);
   }
 
   // get the width of the independent variable plot at the top
@@ -203,7 +205,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       yScaleExponent
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
-    scatterplotUpdateFunctions[x] = drawVoronoiScatterplot(`#${xNoSpaces}Plot`, data, options);
+    scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${xNoSpaces}Plot`, data, options);
   })
 
   // draw exploding boxplots for categorical independent variables

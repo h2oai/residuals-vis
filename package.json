@@ -52,6 +52,7 @@
     "lodash": "^4.14.2",
     "node-fetch": "^1.6.1",
     "react": "^15.2.0",
-    "react-dom": "^15.2.0"
+    "react-dom": "^15.2.0",
+    "bootstrap.native": "git+https://github.com/micahstubbs/bootstrap.native.git#prefer-window"
   }
 }
