@@ -130,7 +130,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
     voronoiStroke: 'none',
     yScaleType,
     yScaleExponent,
-    margin: { left: 70, top: 20, right: 80, bottom: 40 }
+    margin: { left: 70, top: 20, right: 80, bottom: 40 },
+    xDroplineTextFormat: ',.0f',
+    yDroplineTextFormat: ',.0f'
   }
   const scatterplotUpdateFunctions = {};
   if (problemType === 'classification') {
@@ -211,7 +213,9 @@ export function drawVisFromData(error, chartOptions, ...args) {
       marks,
       yScaleType,
       yScaleExponent,
-      margin: { left: 70, top: 20, right: 80, bottom: 40 }
+      margin: { left: 70, top: 20, right: 80, bottom: 40 },
+      xDroplineTextFormat: ',.0f',
+      yDroplineTextFormat: ',.0f'
     }
     console.log('data passed to drawVoronoiScatterplot for independent variable plot', data);
     scatterplotUpdateFunctions[x] = d3VoronoiScatterplot.drawVoronoiScatterplot(`#${x}Plot`, data, options);
