@@ -17,11 +17,11 @@ export function Nav(props) {
       flexShrink: 1,
       paddingTop: '20px',
       paddingLeft: '60px',
-      paddingBottom: '20px',
       paddingRight: '80px',
       marginLeft: '0px',
       height: '100px',
-      zIndex: 2
+      zIndex: 2,
+      overflowY: 'visible'
     }}>
       <ModelMetrics config={props.config}/>
       <ModelControls config={props.config}/>

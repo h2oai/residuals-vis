@@ -11,7 +11,8 @@ export function Title(props) {
       paddingLeft: '60px',
       paddingRight: '80px',
       height: '80px',
-      zIndex: 2
+      zIndex: 2,
+      pointerEvents: 'none'      
     }}>
       <div className='title' style={{
         display: 'flex',
