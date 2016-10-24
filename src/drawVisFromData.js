@@ -39,6 +39,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const yScaleType = chartOptions.yScaleType;
   const yScaleExponent = chartOptions.yScaleExponent;
   const modelMetrics = chartOptions.modelMetrics;
+  const columnAliasLookup = chartOptions.columnAliasLookup;
 
   console.log('models', models);
 
@@ -108,6 +109,12 @@ export function drawVisFromData(error, chartOptions, ...args) {
   //
   // residuals vs prediction plot
   //
+  // if columns aliases are specified, use them as labels
+  let xLabelDetail = responseColumn;
+  if (typeof columnAliasLookup[xLabelDetail] !== 'undefined') {
+    xLabelDetail = columnAliasLookup[xLabelDetail];
+  }
+
   options = {
     width,
     dynamicWidth: true,
@@ -116,7 +123,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     idVariable: idColumn,
     tooltipColumns,
     numericColumns,
-    xLabelDetail: responseColumn,
+    xLabelDetail,
     // xLabelTransform: 'top',
     // yLabelTransform: 'left',
     yLabelTransform: [-10, -10, 0],
@@ -156,9 +163,14 @@ export function drawVisFromData(error, chartOptions, ...args) {
   // residuals vs independent variables scatterplots
   //
   xColumns.forEach(x => {
-    // store the original value of x as a label 
+    // if columns aliases are specified, use them as labels
     let xLabel = x;
-
+    if (typeof columnAliasLookup[xLabel] !== 'undefined') {
+      xLabel = columnAliasLookup[xLabel];
+    }
+    
+    // store the original value of x 
+    const xOriginal = x;
     // strip the spaces out of x
     x = x.replace(/\s/g, '');
     console.log('x from drawVisFromData', x);
@@ -200,9 +212,10 @@ export function drawVisFromData(error, chartOptions, ...args) {
     options = {
       width: plotWidth,
       // TODO: refactor white space in variable names edge case handling
-      xVariable: xLabel, 
+      xVariable: xOriginal, 
       yVariable: yColumn,
       idVariable: idColumn,
+      xLabel,
       tooltipColumns,
       numericColumns,
       wrapperId: currentAlgo,

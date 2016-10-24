@@ -2,8 +2,17 @@ import { updateMarksStyles } from './updateMarksStyles';
 import * as d3 from 'd3';
 
 export function dropdown(selector, inputData, options) {
+  const columnAliasLookup = options.chartOptions.columnAliasLookup;
   const categoricalVariables = options.chartOptions.categoricalColumns;
-  const data = categoricalVariables;
+  const categoricalVariableLabels = categoricalVariables.map(d => {
+    let label = d;
+    if (typeof columnAliasLookup[d] !== 'undefined') {
+      label = columnAliasLookup[d];
+    }
+    return label;
+  })
+
+  let data = categoricalVariableLabels;
   const marksColors = options.chartOptions.marks.colors;
   const chartOptions = options.chartOptions;
   console.log('categoricalVariables from dropdown', categoricalVariables);
