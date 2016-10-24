@@ -39,7 +39,7 @@ export class ResidualsVis extends React.Component<any, any> {
         flexShrink: 1
       }}>
         <Nav config={this.props.config}/>
-        <Title title='residuals' config={this.props.config}/>
+        <Title title='deviances' config={this.props.config}/>
         <div className='dependent-variable-plot-container' style={{
           display: 'flex',
           flexDirection: 'column',
@@ -47,7 +47,7 @@ export class ResidualsVis extends React.Component<any, any> {
           paddingLeft: '60px'
         }}>
         </div>
-        <SectionNav title='partial residuals'/>
+        <SectionNav title='predictor deviances'/>
         <div className='independent-variable-plot-container' style={{
           display: 'flex',
           flexDirection: 'row',
