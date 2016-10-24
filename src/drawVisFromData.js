@@ -38,6 +38,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const projectTitleNote = chartOptions.projectTitleNote;
   const yScaleType = chartOptions.yScaleType;
   const yScaleExponent = chartOptions.yScaleExponent;
+  const modelMetrics = chartOptions.modelMetrics;
 
   console.log('models', models);
 
@@ -309,6 +310,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     options.xVariables = xColumns;
     options.xVariable = predictColumn;
     options.yVariable = yColumn;
+    options.modelMetrics = modelMetrics;
 
     models.forEach(model => {
       const modelPrefix = model.split('-', 1)[0];

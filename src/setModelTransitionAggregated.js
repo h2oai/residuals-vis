@@ -13,6 +13,7 @@ export function setModelTransitionAggregated(selector, data, options) {
   const dataText = options.dataText;
   const scatterplotUpdateFunctions = options.scatterplotUpdateFunctions;
   const categoricalColumns = options.categoricalColumns;
+  const modelMetrics = options.modelMetrics;
 
   d3.select(selector)
     .on('click', click);
@@ -89,6 +90,41 @@ export function setModelTransitionAggregated(selector, data, options) {
       dataText
     }
     drawTitle('p#subTitle', subtitleOptions);
+
+    // update model metrics
+    // TODO: do this with React
+    const metricsNames = [
+      {
+        name: 'MSE',
+        propertyName: 'mse'
+      },
+      {
+        name: 'RMSE',
+        propertyName: 'rmse'
+      },
+      {
+        name: 'RMSLE',
+        propertyName: 'rmsle'
+      },
+      {
+        name: 'r',
+        propertyName: 'r2'
+      },
+      {
+        name: 'MAE',
+        propertyName: 'mae'
+      },
+      {
+        name: 'N',
+        propertyName: 'nobs'
+      }
+    ]
+
+    metricsNames.forEach(d => {
+      d3.select(`.${d.name} .value`)
+        .html(modelMetrics[currentAlgo][d.propertyName]);   
+    })
+
 
     // transition exploding boxplots for categorical independent variables
     // TODO
