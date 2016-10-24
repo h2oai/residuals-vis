@@ -35,7 +35,7 @@ export function ModelMetrics(props) {
           value={props.config.modelMetrics[currentModel].rmse}
         />
         <Metric 
-          name='nobs'
+          name='N'
           value={props.config.modelMetrics[currentModel].nobs}
         />
       </div>
@@ -51,7 +51,8 @@ export function ModelMetrics(props) {
         zIndex: 2
       }}>
         <Metric 
-          name='r2'
+          name='r'
+          superscript='2'
           value={props.config.modelMetrics[currentModel].r2}
         />
         <Metric 

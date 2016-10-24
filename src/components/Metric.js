@@ -6,7 +6,7 @@ export function Metric(props) {
       <span style={{
         whiteSpace: 'pre',
         fontWeight: 600
-      }}>{props.name} </span>
+      }}>{props.name}<sup>{props.superscript}</sup> </span>
       <span>{props.value}</span>
     </div>
   )
