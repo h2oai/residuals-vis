@@ -35,8 +35,8 @@ export function ModelMetrics(props) {
           value={props.config.modelMetrics[currentModel].rmse}
         />
         <Metric 
-          name='N'
-          value={props.config.modelMetrics[currentModel].nobs}
+          name='RMSLE'
+          value={props.config.modelMetrics[currentModel].rmsle}
         />
       </div>
       <div className='modelMetrics' style={{
@@ -50,34 +50,23 @@ export function ModelMetrics(props) {
         // height: '80px',
         zIndex: 2
       }}>
+
         <Metric 
           name='r'
           superscript='2'
           value={props.config.modelMetrics[currentModel].r2}
         />
-        <Metric 
+       {/*} <Metric 
           name='Mean Residual Deviance'
           value={props.config.modelMetrics[currentModel].mean_residual_deviance}
-        />
+        />*/}
         <Metric 
           name='MAE'
           value={props.config.modelMetrics[currentModel].mae}
         />
-      </div>
-      <div className='modelMetrics' style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        alignContent: 'center',
-        flexWrap: 'wrap',
-        paddingLeft: '10px',
-        paddingRight: '10px',
-        // height: '80px',
-        zIndex: 2
-      }}>
         <Metric 
-          name='RMSLE'
-          value={props.config.modelMetrics[currentModel].rmsle}
+          name='N'
+          value={props.config.modelMetrics[currentModel].nobs}
         />
       </div>
     </div>
