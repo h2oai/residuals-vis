@@ -46,7 +46,8 @@ export function setModelTransitionAggregated(selector, data, options) {
 
     // transition marks for independent variable scatterplots
     xVariables.forEach(x => {
-      // console.log('x from setModelTransitionAggregated', x);
+      x = x.replace(/\s/g, '');
+      console.log('x from setModelTransitionAggregated', x);
       scatterplotUpdateFunctions[x](data, scatterplotUpdateOptions);
     })
 
