@@ -9,9 +9,32 @@ export function updateMarksStyles(inputData, options) {
 
   // update the paragraph text to match the selection made by the user
   const currentCategoricalVariable = categoricalVariables[index];
-  const currentValues = d3.set(inputData, d => d[currentCategoricalVariable]).values();
+  let currentValues = d3.set(inputData, d => d[currentCategoricalVariable]).values();
   console.log('currentValues', currentValues);
 
+  // parse to numbers, if a number
+  currentValues = currentValues.map(d => {
+    if (!isNaN(Number(d))) {
+      return Number(d);
+    } else {
+      return d;
+    }
+  });
+  console.log('currentValues after parsing strings with numbers to numbers', currentValues);
+
+  // sort the values
+  currentValues = currentValues.sort((a, b) => {
+    return a - b;
+  });
+  console.log('currentValues after sorting', currentValues);
+
+  // show only the first 7 values for now
+  // TODO: add more robust solution to draw legends
+  // for high cardinality categories
+  if (currentValues.length > 7) {
+    currentValues = currentValues.splice(0, 7);
+  }
+  
   // update the domain of the color scale
   const color = d3.scaleOrdinal()
     .domain(currentValues)
