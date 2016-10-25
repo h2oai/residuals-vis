@@ -6,7 +6,7 @@ export function IndependentVariableCard(props) {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'flex-start',
-      justifyContent: 'flex-start',
+      justifyContent: 'flex-end',
       flexBasis: 'auto',
       flexGrow: 1,
       flexShrink: 1
