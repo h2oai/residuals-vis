@@ -70,7 +70,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     console.log('datasets object', datasets);
 
     // set a default value for `data`
-    data = datasets[models[0]];
+    data = datasets[currentAlgo];
   }
 
   // calcuate global extents, if not specified

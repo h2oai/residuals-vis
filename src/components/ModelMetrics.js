@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Metric } from './Metric';
 
 export function ModelMetrics(props) {
-  const currentModel = 'drf';
+  const currentModel = props.config.currentAlgo;
+  console.log('currentModel from ModelMetrics', currentModel);
   return (
     <div className='modelMetricsContainer' style={{
         display: 'flex',
