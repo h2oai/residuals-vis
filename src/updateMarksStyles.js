@@ -21,7 +21,6 @@ export function updateMarksStyles(inputData, options) {
     }
   });
   console.log('currentValues after parsing strings with numbers to numbers', currentValues);
-
   // sort the values
   currentValues = currentValues.sort((a, b) => {
     return a - b;
@@ -112,7 +111,9 @@ export function updateMarksStyles(inputData, options) {
       if(typeof marksFiltered === 'undefined') {
         d3.selectAll('.marks')
           .filter(e => {
-            return e[currentLabel] !== d;
+            // not equal but do not compare type
+            // so a string '8' will be equal to number 8
+            return e[currentLabel] != d;
           })
           .style('fill-opacity', 0);
         marksFiltered = true;
