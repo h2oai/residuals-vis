@@ -4,7 +4,7 @@ export function drawTitle(selector, options) {
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
   const algo = options.currentAlgo;
-  const algoLabel = options.currentAlgoLabel.toLowerCase();
+  const algoLabel = options.currentModelLabel.toLowerCase();
   
   let dataText;
   if (typeof options.dataText !== 'undefined') {

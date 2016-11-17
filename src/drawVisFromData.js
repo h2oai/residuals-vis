@@ -21,7 +21,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
   const projectTitle = chartOptions.projectTitle;
   const projectLink = chartOptions.projectLink;
   const currentAlgo = chartOptions.currentAlgo;
-  const currentAlgoLabel = chartOptions.currentAlgoLabel;
+  const currentModelLabel = chartOptions.currentModelLabel;
   const dataText = chartOptions.dataText;
   const predictColumn = chartOptions.predictColumn;
   const xColumns = chartOptions.xColumns;
@@ -128,7 +128,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     // yLabelTransform: 'left',
     yLabelTransform: [-10, -10, 0],
     wrapperId: currentAlgo,
-    wrapperLabel: currentAlgoLabel,
+    wrapperLabel: currentModelLabel,
     dependent: true,
     globalExtents: globalExtents[predictColumn],
     marks,
@@ -219,7 +219,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
       tooltipColumns,
       numericColumns,
       wrapperId: currentAlgo,
-      wrapperLabel: currentAlgoLabel,
+      wrapperLabel: currentModelLabel,
       // hideXLabel: true,
       // yLabelTransform: 'left',
       yLabelTransform: [-10, -10, 0],
@@ -294,28 +294,28 @@ export function drawVisFromData(error, chartOptions, ...args) {
     options.xVariable = 'dlPredict';
     options.yVariable = 'dlResidual';
     options.currentAlgo = 'dl';
-    options.currentAlgoLabel = 'Deep Learning';
+    options.currentModelLabel = 'Deep Learning';
     setModelTransition('#dlButton', data, options);
 
     // distributed random forest button
     options.xVariable = 'drfPredict';
     options.yVariable = 'drfResidual';
     options.currentAlgo = 'drf';
-    options.currentAlgoLabel = 'Distributed Random Forest';
+    options.currentModelLabel = 'Distributed Random Forest';
     setModelTransition('#drfButton', data, options);
 
     // gradient boosting method button
     options.xVariable = 'gbmPredict';
     options.yVariable = 'gbmResidual';
     options.currentAlgo = 'gbm';
-    options.currentAlgoLabel = 'Gradient Boosting Method';
+    options.currentModelLabel = 'Gradient Boosting Method';
     setModelTransition('#gbmButton', data, options);
 
     // generalized linear model button
     options.xVariable = 'glmPredict';
     options.yVariable = 'glmResidual';
     options.currentAlgo = 'glm';
-    options.currentAlgoLabel = 'Generalized Linear Model';
+    options.currentModelLabel = 'Generalized Linear Model';
     setModelTransition('#glmButton', data, options);
   } else {
     options.scatterplotUpdateFunctions = scatterplotUpdateFunctions;
@@ -328,7 +328,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     models.forEach(model => {
       const modelPrefix = model.split('-', 1)[0];
       options.currentAlgo = model;
-      options.currentAlgoLabel = algoLabels[modelPrefix];
+      options.currentModelLabel = algoLabels[modelPrefix];
       const buttonID = `#${model}Button`;
       setModelTransitionAggregated(buttonID, datasets[model], options);
     })

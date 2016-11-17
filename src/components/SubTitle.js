@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export function SubTitle(props) {
-  const algoLabel = props.config.currentAlgoLabel.toLowerCase();
+  const algoLabel = props.config.currentModelLabel.toLowerCase();
   const projectLink = props.config.projectLink;
   const projectTitle = props.config.projectTitle;
 

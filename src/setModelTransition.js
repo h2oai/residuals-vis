@@ -13,7 +13,7 @@ export function setModelTransition(selector, data, options) {
   const categoricalColumns = options.categoricalColumns;
   const algos = options.algos;
   const currentAlgo = options.currentAlgo;
-  const currentAlgoLabel = options.currentAlgoLabel;
+  const currentModelLabel = options.currentModelLabel;
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
   const dataText = options.dataText;
@@ -112,7 +112,7 @@ export function setModelTransition(selector, data, options) {
       .transition()
       .duration(0)
       .delay(1000 + marksDelay)
-      .text(`${currentAlgoLabel}`)
+      .text(`${currentModelLabel}`)
       .transition()
       .duration(1000)
       .style('opacity', 0.15);
@@ -146,7 +146,7 @@ export function setModelTransition(selector, data, options) {
     const subtitleOptions = {
       projectTitle,
       projectLink,
-      currentAlgoLabel,
+      currentModelLabel,
       dataText
     }
     drawTitle('p#subTitle', subtitleOptions);

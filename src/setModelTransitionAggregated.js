@@ -7,7 +7,7 @@ export function setModelTransitionAggregated(selector, data, options) {
   const responseVariable = options.responseColumn;
   const xVariables = options.xVariables;
   const tooltipVariables = options.tooltipColumns;
-  const currentAlgoLabel = options.currentAlgoLabel;
+  const currentModelLabel = options.currentModelLabel;
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
   const dataText = options.dataText;
@@ -72,7 +72,7 @@ export function setModelTransitionAggregated(selector, data, options) {
       .transition()
       .duration(0)
       .delay(0 + marksDelay)
-      .text(`${currentAlgoLabel}`)
+      .text(`${currentModelLabel}`)
       .transition()
       .duration(1000)
       .style('opacity', 0.15);
@@ -87,7 +87,7 @@ export function setModelTransitionAggregated(selector, data, options) {
     const subtitleOptions = {
       projectTitle,
       projectLink,
-      currentAlgoLabel,
+      currentModelLabel,
       dataText
     }
     drawTitle('p#subTitle', subtitleOptions);
