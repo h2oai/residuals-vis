@@ -4,7 +4,7 @@ export function drawTitle(selector, options) {
   const projectTitle = options.projectTitle;
   const projectLink = options.projectLink;
   const algo = options.currentAlgo;
-  const algoLabel = options.currentModelLabel.toLowerCase();
+  const modelLabel = options.currentModelLabel.toLowerCase();
   
   let dataText;
   if (typeof options.dataText !== 'undefined') {
@@ -24,7 +24,7 @@ export function drawTitle(selector, options) {
   d3.select(selector)
     .html('');
 
-  const titleHTML = `calcuated from a ${algoLabel} model trained with <a href='https://github.com/h2oai/h2o-3'>h2o-3</a> on ${dataText} 
+  const titleHTML = `calcuated from a ${modelLabel} model trained with <a href='https://github.com/h2oai/h2o-3'>h2o-3</a> on ${dataText} 
     from the <a href='${projectLink}'>${projectTitle}</a> project. ${projectTitleNote}`;
 
   // set the new title

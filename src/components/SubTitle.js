@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export function SubTitle(props) {
-  const algoLabel = props.config.currentModelLabel.toLowerCase();
+  const modelLabel = props.config.currentModelLabel.toLowerCase();
   const projectLink = props.config.projectLink;
   const projectTitle = props.config.projectTitle;
 
@@ -19,7 +19,7 @@ export function SubTitle(props) {
     projectTitleNote = '';
   };
 
-  const subtitleHTML = {__html: `calcuated from a ${algoLabel} model 
+  const subtitleHTML = {__html: `calcuated from a ${modelLabel} model 
     trained with <a href='https://github.com/h2oai/h2o-3'>h2o-3</a> 
     on ${dataText} from the <a href='${projectLink}'>${projectTitle}</a> 
     project. ${projectTitleNote}`};

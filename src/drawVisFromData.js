@@ -282,7 +282,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     idVariable: idColumn,
   }
 
-  const algoLabels = {
+  const modelLabels = {
     glm: 'Generalized Linear Model',
     drf: 'Distributed Random Forest',
     gbm: 'Gradient Boosting Method',
@@ -328,7 +328,7 @@ export function drawVisFromData(error, chartOptions, ...args) {
     models.forEach(model => {
       const modelPrefix = model.split('-', 1)[0];
       options.currentAlgo = model;
-      options.currentModelLabel = algoLabels[modelPrefix];
+      options.currentModelLabel = modelLabels[modelPrefix];
       const buttonID = `#${model}Button`;
       setModelTransitionAggregated(buttonID, datasets[model], options);
     })
