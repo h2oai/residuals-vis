@@ -286,7 +286,8 @@ export function drawVisFromData(error, chartOptions, ...args) {
     glm: 'Generalized Linear Model',
     drf: 'Distributed Random Forest',
     gbm: 'Gradient Boosting Method',
-    dl: 'Deep Learning'
+    dl: 'Deep Learning',
+    deeplearning: 'Deep Learning'
   };
 
   if (typeof aggregated === 'undefined') {
