@@ -1,5 +1,5 @@
 {
-  "name": "residualsVis",
+  "name": "residuals-vis",
   "version": "0.1.0",
   "description": "a visualization tool for residuals",
   "main": "./dist/bundle.js",
