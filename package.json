@@ -43,14 +43,14 @@
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.6.2",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "d3": "^4.2.3",
     "d3-queue": "^3.0.2",
     "lodash": "^4.14.2",
-    "node-fetch": "^1.6.1",
+    "node-fetch": "^3.3.2",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "bootstrap.native": "git+https://github.com/micahstubbs/bootstrap.native.git#prefer-window",
